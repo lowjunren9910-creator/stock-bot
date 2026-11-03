@@ -70,7 +70,7 @@ def cached_analysis(text: str) -> dict:
 
 async def _panel(snapshot: dict):
     M._client = None  # 每次新的事件循环都要新的连接
-    opinions = await asyncio.gather(*(M.ask_manager(m, snapshot) for m in M.MANAGERS))
+    opinions = await M.ask_all(snapshot)
     summary = await M.chairman_summary(snapshot, list(opinions))
     return list(opinions), summary
 

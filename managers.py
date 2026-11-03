@@ -40,7 +40,7 @@ PROVIDERS = {
                "key_env": "ANTHROPIC_API_KEY", "model": "claude-haiku-5-5"},
 }
 
-PROVIDER = os.getenv("AI_PROVIDER", "groq").lower()
+PROVIDER = (os.getenv("AI_PROVIDER") or "groq").strip().lower()
 if PROVIDER not in PROVIDERS:
     raise SystemExit(f"AI_PROVIDER 只能是：{', '.join(PROVIDERS)}")
 CFG = PROVIDERS[PROVIDER]
@@ -69,24 +69,72 @@ def client():
     return _client
 
 
-async def chat(system: str, user: str, max_tokens: int = 700) -> str:
-    """统一的 AI 调用：不管用哪家，都是丢 system + user，拿回文字。"""
+# 额度用完（429）时轮流换模型。Groq 每个模型的额度是分开算的，
+# 三个模型轮流用 = 每分钟、每天的额度都变成大约 3 倍。
+# 想自己指定：.env 或 Secrets 里加 AI_FALLBACK_MODELS=模型1,模型2
+FALLBACKS = {
+    "groq": ["openai/gpt-oss-120b", "openai/gpt-oss-20b", "qwen/qwen3.8-27b"],
+}
+_fb = os.getenv("AI_FALLBACK_MODELS")
+MODELS = [MODEL] + [m.strip() for m in (_fb.split(",") if _fb else FALLBACKS.get(PROVIDER, []))
+                    if m.strip() and m.strip() != MODEL]
+
+
+def _is_rate_limit(e: Exception) -> bool:
+    return getattr(e, "status_code", None) == 429 or "429" in str(e) or "rate limit" in str(e).lower()
+
+
+def _retry_after(e: Exception) -> float:
+    try:
+        return float(e.response.headers.get("retry-after", 10))
+    except Exception:
+        return 10.0
+
+
+async def _chat_once(model: str, system: str, user: str, max_tokens: int) -> str:
     if PROVIDER == "claude":
         resp = await client().messages.create(
-            model=MODEL, max_tokens=max_tokens, system=system,
+            model=model, max_tokens=max_tokens, system=system,
             messages=[{"role": "user", "content": user}])
-        text = "".join(b.text for b in resp.content if b.type == "text")
-    else:
-        resp = await client().chat.completions.create(
-            model=MODEL,
-            # 有些免费模型会先"思考"，思考也算 token，所以给多一点空间
-            max_tokens=max_tokens * 3,
-            messages=[{"role": "system", "content": system},
-                      {"role": "user", "content": user}])
-        text = resp.choices[0].message.content or ""
-    # 有些模型会输出 <think>...</think> 思考过程，去掉
-    text = re.sub(r"<think>.*?</think>", "", text, flags=re.S)
-    return text.replace("**", "").strip()
+        return "".join(b.text for b in resp.content if b.type == "text")
+    extra = {}
+    if "gpt-oss" in model:
+        extra["reasoning_effort"] = "low"  # 少"想"一点：省 token，速度也更快
+    resp = await client().chat.completions.create(
+        model=model,
+        # 有些免费模型会先"思考"，思考也算 token，所以给多一点空间
+        max_tokens=max_tokens * 2,
+        messages=[{"role": "system", "content": system},
+                  {"role": "user", "content": user}],
+        extra_body=extra or None)
+    return resp.choices[0].message.content or ""
+
+
+async def chat(system: str, user: str, max_tokens: int = 700) -> str:
+    """统一的 AI 调用：不管用哪家，都是丢 system + user，拿回文字。
+    遇到额度限制（429）会自动换模型；全部都满了就等一下再试（最多 3 轮）。"""
+    last = None
+    for attempt in range(3):
+        wait = 0.0
+        for model in MODELS:
+            try:
+                text = await _chat_once(model, system, user, max_tokens)
+                # 有些模型会输出 <think>...</think> 思考过程，去掉
+                text = re.sub(r"<think>.*?</think>", "", text, flags=re.S)
+                return text.replace("**", "").strip()
+            except Exception as e:
+                msg = str(e).lower()
+                gone = getattr(e, "status_code", None) in (400, 404) and "model" in msg
+                if gone and model != MODELS[-1]:
+                    last = e
+                    continue  # 这个模型被下架了，换下一个
+                if not _is_rate_limit(e):
+                    raise
+                last = e
+                wait = max(wait, _retry_after(e))
+        if attempt < 2:
+            await asyncio.sleep(min(max(wait, 5.0), 60.0))
+    raise last
 
 
 # ---------------------------------------------------------------------------
@@ -197,9 +245,21 @@ def parse_rating(text: str) -> str | None:
     return None
 
 
+async def ask_all(snapshot: dict) -> list[dict]:
+    """所有经理（错开 1 秒出发），按原本顺序返回。网站和信箱模式用。"""
+    async def staggered(i, m):
+        await asyncio.sleep(i * 1.0)
+        return await ask_manager(m, snapshot)
+    return list(await asyncio.gather(*(staggered(i, m) for i, m in enumerate(MANAGERS))))
+
+
 async def run_panel(snapshot: dict):
     """并行询问所有基金经理，谁先答完谁先输出（async generator）。"""
-    tasks = [asyncio.create_task(ask_manager(m, snapshot)) for m in MANAGERS]
+    async def staggered(i, m):
+        await asyncio.sleep(i * 1.0)  # 错开出发，避免同一秒撞上每分钟限额
+        return await ask_manager(m, snapshot)
+
+    tasks = [asyncio.create_task(staggered(i, m)) for i, m in enumerate(MANAGERS)]
     for fut in asyncio.as_completed(tasks):
         yield await fut
 
