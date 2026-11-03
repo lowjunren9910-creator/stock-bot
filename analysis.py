@@ -11,6 +11,7 @@ Ticker formats:
 from __future__ import annotations
 
 import io
+from functools import lru_cache
 from datetime import datetime, timedelta, timezone
 
 import matplotlib
@@ -27,14 +28,35 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 # Friendly names -> Yahoo tickers. Add your own favourites here.
 ALIASES = {
-    # Bursa Malaysia
-    "MAYBANK": "1155.KL", "CIMB": "1023.KL", "PBBANK": "1295.KL",
-    "PUBLICBANK": "1295.KL", "TENAGA": "5347.KL", "TNB": "5347.KL",
-    "IHH": "5225.KL", "PCHEM": "5183.KL", "GAMUDA": "5398.KL",
-    "YTL": "4677.KL", "YTLPOWR": "6742.KL", "SUNWAY": "5211.KL",
-    "TOPGLOV": "7113.KL", "CDB": "6947.KL", "MAXIS": "6012.KL",
-    "AXIATA": "6888.KL", "NESTLE": "4707.KL", "GENTING": "3182.KL",
-    "PETDAG": "5681.KL", "HLBANK": "5819.KL", "RHBBANK": "1066.KL",
+    # Bursa Malaysia：Bursa 官方简称 → 代码（想加就在这里加）
+    "MAYBANK": "1155.KL", "PBBANK": "1295.KL", "PUBLICBANK": "1295.KL", "CIMB": "1023.KL",
+    "TENAGA": "5347.KL", "TNB": "5347.KL", "IHH": "5225.KL", "PCHEM": "5183.KL",
+    "PETDAG": "5681.KL", "PETGAS": "6033.KL", "MISC": "3816.KL", "MAXIS": "6012.KL",
+    "CDB": "6947.KL", "CELCOMDIGI": "6947.KL", "AXIATA": "6888.KL", "TM": "4863.KL",
+    "HLBANK": "5819.KL", "HLFG": "1082.KL", "RHBBANK": "1066.KL", "RHB": "1066.KL",
+    "AMBANK": "1015.KL", "AMMB": "1015.KL", "IOICORP": "1961.KL", "KLK": "2445.KL",
+    "SDG": "5285.KL", "SIME": "4197.KL", "PPB": "4065.KL", "NESTLE": "4707.KL",
+    "PMETAL": "8869.KL", "PRESSMETAL": "8869.KL", "GENTING": "3182.KL", "GENM": "4715.KL",
+    "YTL": "4677.KL", "YTLPOWR": "6742.KL", "SUNWAY": "5211.KL", "SUNMED": "5555.KL",
+    "IOIPROP": "5249.KL", "GAMUDA": "5398.KL", "IJM": "3336.KL", "99SMART": "5326.KL",
+    "MRDIY": "5296.KL", "QL": "7084.KL", "INARI": "0166.KL", "VITROX": "0097.KL",
+    "TIMECOM": "5031.KL", "UTDPLT": "2089.KL", "WPRTS": "5246.KL", "WESTPORTS": "5246.KL",
+    "KPJ": "5878.KL", "ABMB": "2488.KL", "SIMEPROP": "5288.KL", "SUNREIT": "5176.KL",
+    "IGBREIT": "5227.KL", "PAVREIT": "5212.KL", "MCEMENT": "3794.KL", "SUNCON": "5263.KL",
+    "ECOSHOP": "5337.KL", "HAPSENG": "3034.KL", "DIALOG": "7277.KL", "BIMB": "5258.KL",
+    "MBSB": "1171.KL", "AFFIN": "5185.KL", "BURSA": "1818.KL", "AEONCR": "5139.KL",
+    "KLCC": "5235SS.KL", "AXREIT": "5106.KL", "CAPITALA": "5099.KL", "AAX": "5238.KL",
+    "MYEG": "0138.KL", "ZETRIX": "0138.KL", "UMW": "4588.KL", "BAUTO": "5248.KL",
+    "GASMSIA": "5209.KL", "MALAKOF": "5264.KL", "MFCB": "3069.KL", "RANHILL": "5272.KL",
+    "SLVEST": "0215.KL", "YINSON": "7293.KL", "VELESTO": "5243.KL", "HIBISCS": "5199.KL",
+    "PETRONM": "3042.KL", "BIPORT": "5032.KL", "GENP": "2291.KL", "FGV": "5222.KL",
+    "SOP": "5126.KL", "TOPGLOV": "7113.KL", "HARTA": "5168.KL", "KOSSAN": "7153.KL",
+    "FRONTKN": "0128.KL", "GREATEC": "0208.KL", "UNISEM": "5005.KL", "PENTA": "7160.KL",
+    "KGB": "0151.KL", "UWC": "5292.KL", "ITMAX": "5309.KL", "SPSETIA": "8664.KL",
+    "UEMS": "5148.KL", "MAHSING": "8583.KL", "MATRIX": "5236.KL", "SCIENTX": "4731.KL",
+    "LCTITAN": "5284.KL", "HLIND": "3301.KL", "HEIM": "3255.KL", "CARLSBG": "2836.KL",
+    "AEON": "6599.KL", "ASTRO": "6399.KL", "CTOS": "5301.KL", "TANCO": "2429.KL",
+    "VS": "6963.KL", "UCHITEC": "7100.KL", "DPHARMA": "7148.KL",
     # Indonesia (IDX)
     "BBCA": "BBCA.JK", "BBRI": "BBRI.JK", "BMRI": "BMRI.JK",
     "BBNI": "BBNI.JK", "TLKM": "TLKM.JK", "ASII": "ASII.JK",
@@ -43,14 +65,63 @@ ALIASES = {
 }
 
 
-def normalize_ticker(text: str) -> str:
-    """Turn what the user typed into a Yahoo Finance ticker."""
-    t = text.strip().upper().replace(" ", "")
+def _key(s: str) -> str:
+    return "".join(ch for ch in s.upper() if ch.isalnum())
+
+
+@lru_cache(maxsize=1)
+def _name_index() -> dict:
+    """公司全名 → 代码，例如 PPBGROUP → 4065.KL、PUBLICBANK → 1295.KL。"""
+    idx = {}
+    try:
+        import klci
+        import scanner
+        for uni in (klci.UNIVERSE, scanner.IDX, scanner.US):
+            for code, name in uni.items():
+                idx.setdefault(_key(name), code)
+    except Exception:
+        pass
+    return idx
+
+
+def _quick(t: str) -> str | None:
+    """不用上网就能认出来的：简称、4 位数代码、带后缀的代码、公司名称。"""
     if t in ALIASES:
         return ALIASES[t]
-    if t.isdigit() and len(t) == 4:  # Bursa stock codes are 4 digits
+    if t.isdigit() and len(t) == 4:  # Bursa 股票代码是 4 位数
         return f"{t}.KL"
-    return t  # US tickers, or anything already with a suffix (.KL / .JK)
+    if "." in t:
+        return t
+    k = _key(t)
+    for name, code in _name_index().items():
+        if k and (k == name or (len(k) >= 4 and name.startswith(k))):
+            return code
+    return None
+
+
+@lru_cache(maxsize=512)
+def normalize_ticker(text: str) -> str:
+    """把用户输入的东西变成 Yahoo 代码：MAYBANK / 1155 / PPB / public bank / AAPL / BBCA …"""
+    t = text.strip().upper().replace(" ", "")
+    hit = _quick(t)
+    if hit:
+        return hit
+    # 认不出来：先当美股代码试试
+    try:
+        if not yf.Ticker(t).history(period="5d").empty:
+            return t
+    except Exception:
+        pass
+    # 再用 Yahoo 搜索（公司名称、其他简称），马股和印尼股优先
+    try:
+        quotes = yf.Search(text.strip(), max_results=10).quotes
+        quotes = [q for q in quotes if q.get("quoteType") in ("EQUITY", "ETF") and q.get("symbol")]
+        local = [q for q in quotes if q["symbol"].endswith((".KL", ".JK"))]
+        if local or quotes:
+            return (local or quotes)[0]["symbol"]
+    except Exception:
+        pass
+    return t
 
 
 def market_of(ticker: str) -> str:
