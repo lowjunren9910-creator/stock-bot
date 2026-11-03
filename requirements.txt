@@ -1,0 +1,12 @@
+python-telegram-bot>=21.0
+yfinance>=0.2.50
+pandas>=2.0
+matplotlib>=3.7
+vaderSentiment>=3.3.2
+python-dotenv>=1.0
+openai>=1.40
+# 只有用 Claude 才需要下面这行（去掉 # 号）
+# anthropic>=0.40
+# 网页版需要
+streamlit>=1.50
+plotly>=5.20

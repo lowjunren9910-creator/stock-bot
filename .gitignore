@@ -1,0 +1,12 @@
+# 机密：API key 和 token，绝对不要上传
+.env
+
+# 你的个人持股记录
+portfolio.db
+
+# Python 暂存文件
+__pycache__/
+*.pyc
+.venv/
+venv/
+.streamlit/secrets.toml
