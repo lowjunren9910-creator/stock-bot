@@ -22,6 +22,27 @@ GitHub Secrets 需要：`TELEGRAM_BOT_TOKEN`、`TELEGRAM_CHAT_ID`、`GROQ_API_KE
 
 ---
 
+## 🆕 板块、自选股、成绩单、周报（每天自动）
+
+| 功能 | 在哪里看 | 什么时候更新 |
+|---|---|---|
+| 🧩 **板块**：约 200 只大型股按板块分类，每个板块一个市值加权指数（一年前 = 1000 点），加上 1 日 / 1 周 / 1 月 / 3 月轮动热力图；点公司就能认识它 | 手机 app「板块」、网站「🧩 板块」、Telegram `/sector` | 每个市场收市后 |
+| ⭐ **自选股 + 提醒**：在 `watchlist.yml` 写股票和条件（跌破、升破、单日波动、RSI），触发就推送 Telegram | 手机 app「我的」、网站「⭐ 自选股」、Telegram `/watch` | 交易日每 15 分钟检查 |
+| 💼 **投资组合**：只存在你的手机（私人），可以备份 / 还原 | 手机 app「我的」 | 用每天收市价 |
+| 📈 **成绩单**：每日焦点、错杀股、成长股、双杀股推荐后 1 周 / 1 月 / 3 月的表现，跟大盘比 | 手机 app「更多 → 成绩单」、网站「📈 成绩单」 | 每个市场收市后 |
+| 🏆 **基金经理排行榜**：每天自动开几场圆桌（自选股优先），21 个交易日后看谁猜对方向 | 同上 | 累积 21 个交易日后开始有分数 |
+| 📰 **每周周报** | 手机 app「更多 → 周报」、网站「📰 周报」、Telegram 推送 / `/week` | 星期六早上（美股星期五收市后） |
+| 🩺 **代码健康检查**：找出抓不到数据或停牌的代码 | 手机 app「更多 → 系统状态」、网站「🩺 系统状态」 | 星期六早上 |
+| 🤖 **AI 备用**：Groq 三个模型都满了，就自动改用 Gemini | 自动 | — |
+
+**改自选股：** GitHub 网页打开 `watchlist.yml` → 右上角 ✏️ → 改完按 **Commit changes**。文件里有说明和例子。
+
+**可选设定（GitHub → Settings → Secrets and variables → Actions）：**
+- Secret `GEMINI_API_KEY`：Groq 用完时的备用 AI（https://aistudio.google.com 免费申请）。网站也要用的话，在 Streamlit Secrets 加同一行。
+- Variable `PANEL_DAILY`：每天自动开几场圆桌，默认 `bursa:3,idx:1,us:1`。每场用 6 次 AI，想省额度可以改成 `bursa:2`。
+
+---
+
 ## 📱 手机 app（Android，PWA，免费）
 
 `docs/` 文件夹是一个可以安装到手机的 app，放在 GitHub Pages：
@@ -53,7 +74,7 @@ GitHub Secrets 需要：`TELEGRAM_BOT_TOKEN`、`TELEGRAM_CHAT_ID`、`GROQ_API_KE
 
 1. 在桌面建一个文件夹，例如 `stock-bot`。
 2. 把这些文件全部放进去：
-   `bot.py`、`app.py`、`scanner.py`、`screener.py`、`klci.py`、`fundamentals.py`、`company.py`、`analysis.py`、`managers.py`、`portfolio.py`、`requirements.txt`、`README.md`、`.env.example`、`.gitignore`
+   `bot.py`、`app.py`、`scanner.py`、`screener.py`、`klci.py`、`sectors.py`、`alerts.py`、`tracker.py`、`panels.py`、`weekly.py`、`health.py`、`fundamentals.py`、`company.py`、`analysis.py`、`watchlist.yml`、`managers.py`、`portfolio.py`、`requirements.txt`、`README.md`、`.env.example`、`.gitignore`
    （网页版另外需要 `.streamlit/secrets.toml.example`；每日自动报告需要 `.github/workflows/market-reports.yml`，见下面说明）
 3. 在这个文件夹里打开命令提示字元：
    - **Windows：** 打开文件夹，点一下上面的地址栏，把路径删掉，打 `cmd`，按 Enter。

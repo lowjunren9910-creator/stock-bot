@@ -5,6 +5,7 @@ matplotlib>=3.7
 vaderSentiment>=3.3.2
 python-dotenv>=1.0
 openai>=1.40
+pyyaml>=6.0
 # 只有用 Claude 才需要下面这行（去掉 # 号）
 # anthropic>=0.40
 # 网页版需要

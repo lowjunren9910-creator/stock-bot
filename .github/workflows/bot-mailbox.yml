@@ -41,7 +41,7 @@ jobs:
 
       - if: steps.check.outputs.count != '0'
         name: 安装工具包
-        run: pip install yfinance pandas requests python-dotenv openai matplotlib vaderSentiment
+        run: pip install yfinance pandas requests python-dotenv openai matplotlib vaderSentiment pyyaml
 
       - if: steps.check.outputs.count != '0'
         name: 回复消息

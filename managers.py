@@ -47,6 +47,14 @@ CFG = PROVIDERS[PROVIDER]
 MODEL = os.getenv("AI_MODEL") or CFG["model"]
 
 _client = None
+_clients: dict = {}   # 备用供应商（例如 Groq 满了换 Gemini）的连接
+
+
+def reset_clients():
+    """每个新的 asyncio 事件循环都要重新建连接（网站、信箱模式会用到）。"""
+    global _client
+    _client = None
+    _clients.clear()
 
 
 def check_setup() -> str | None:
@@ -56,8 +64,26 @@ def check_setup() -> str | None:
     return None
 
 
-def client():
-    global _client
+_loop_id = None
+
+
+def client(provider: str | None = None):
+    global _client, _loop_id
+    # 换了新的事件循环（每次 asyncio.run 都是新的）→ 旧连接不能再用，自动重建
+    try:
+        lid = id(asyncio.get_running_loop())
+    except RuntimeError:
+        lid = None
+    if lid != _loop_id:
+        _loop_id = lid
+        _client = None
+        _clients.clear()
+    if provider and provider != PROVIDER:  # 备用供应商
+        if provider not in _clients:
+            from openai import AsyncOpenAI
+            cfg = PROVIDERS[provider]
+            _clients[provider] = AsyncOpenAI(api_key=os.getenv(cfg["key_env"]), base_url=cfg["base_url"])
+        return _clients[provider]
     if _client is None:
         if PROVIDER == "claude":
             from anthropic import AsyncAnthropic
@@ -76,8 +102,11 @@ FALLBACKS = {
     "groq": ["openai/gpt-oss-120b", "openai/gpt-oss-20b", "qwen/qwen3.8-27b"],
 }
 _fb = os.getenv("AI_FALLBACK_MODELS")
-MODELS = [MODEL] + [m.strip() for m in (_fb.split(",") if _fb else FALLBACKS.get(PROVIDER, []))
-                    if m.strip() and m.strip() != MODEL]
+MODELS = [(PROVIDER, MODEL)] + [(PROVIDER, m.strip()) for m in (_fb.split(",") if _fb else FALLBACKS.get(PROVIDER, []))
+                                if m.strip() and m.strip() != MODEL]
+# 最后一道防线：Groq 全部模型都满了，而你也设置了 GEMINI_API_KEY，就改用 Gemini
+if PROVIDER != "gemini" and os.getenv("GEMINI_API_KEY"):
+    MODELS.append(("gemini", os.getenv("GEMINI_FALLBACK_MODEL") or PROVIDERS["gemini"]["model"]))
 
 
 def _is_rate_limit(e: Exception) -> bool:
@@ -91,8 +120,8 @@ def _retry_after(e: Exception) -> float:
         return 10.0
 
 
-async def _chat_once(model: str, system: str, user: str, max_tokens: int) -> str:
-    if PROVIDER == "claude":
+async def _chat_once(provider: str, model: str, system: str, user: str, max_tokens: int) -> str:
+    if provider == "claude":
         resp = await client().messages.create(
             model=model, max_tokens=max_tokens, system=system,
             messages=[{"role": "user", "content": user}])
@@ -100,7 +129,7 @@ async def _chat_once(model: str, system: str, user: str, max_tokens: int) -> str
     extra = {}
     if "gpt-oss" in model:
         extra["reasoning_effort"] = "low"  # 少"想"一点：省 token，速度也更快
-    resp = await client().chat.completions.create(
+    resp = await client(provider).chat.completions.create(
         model=model,
         # 有些免费模型会先"思考"，思考也算 token，所以给多一点空间
         max_tokens=max_tokens * 2,
@@ -116,18 +145,21 @@ async def chat(system: str, user: str, max_tokens: int = 700) -> str:
     last = None
     for attempt in range(3):
         wait = 0.0
-        for model in MODELS:
+        for provider, model in MODELS:
             try:
-                text = await _chat_once(model, system, user, max_tokens)
+                text = await _chat_once(provider, model, system, user, max_tokens)
                 # 有些模型会输出 <think>...</think> 思考过程，去掉
                 text = re.sub(r"<think>.*?</think>", "", text, flags=re.S)
                 return text.replace("**", "").strip()
             except Exception as e:
                 msg = str(e).lower()
                 gone = getattr(e, "status_code", None) in (400, 404) and "model" in msg
-                if gone and model != MODELS[-1]:
+                if gone and (provider, model) != MODELS[-1]:
                     last = e
                     continue  # 这个模型被下架了，换下一个
+                if provider != PROVIDER and (provider, model) == MODELS[-1] and not _is_rate_limit(e):
+                    last = e   # 备用供应商出错（例如 key 错了）：不要盖过原本的错误
+                    continue
                 if not _is_rate_limit(e):
                     raise
                 last = e

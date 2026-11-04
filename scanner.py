@@ -250,9 +250,13 @@ def scan(market: str, session: str, now: datetime | None = None,
     today = now.date()
 
     # 今天有没有开市？（大部分股票最新一根K线不是今天 = 假期或还没开）
+    from collections import Counter
+    last_days = Counter(str(d.index[-1].date()) for d in data.values())
+    print(f"  [{market}] 当地日期 {today}，抓到 {len(data)}/{len(m.universe)} 只，"
+          f"最新K线日期分布：{dict(last_days.most_common(3))}")
     fresh = {t: d for t, d in data.items() if d.index[-1].date() == today}
     if len(fresh) < max(5, len(data) // 2):
-        print(f"[{market}] {today} 看起来没有开市（假期或数据未更新），跳过。")
+        print(f"  [{market}] {today} 看起来没有开市（假期或数据未更新），跳过。")
         return None
 
     frac = 1.0 if session == "close" else session_fraction(m, now)
@@ -265,6 +269,10 @@ def scan(market: str, session: str, now: datetime | None = None,
         x.update(ticker=t, name=m.universe[t], tags=tags_for(x), score=watch_score(x))
         rows.append(x)
 
+    print(f"  [{market}] 今天有数据 {len(fresh)} 只，通过门槛 {len(rows)} 只，剔除 {len(skipped)} 只")
+    if not rows:
+        print(f"  [{market}] 全部被门槛剔除，跳过。")
+        return None
     tbl = pd.DataFrame(rows)
     pick = lambda df: df.round(2).to_dict("records")
     up, down = int((tbl.change_pct > 0).sum()), int((tbl.change_pct < 0).sum())
@@ -330,6 +338,9 @@ def update_index():
                          reverse=True)[:90]
     idx["screen"] = {mk: sorted(stems(REPORT_DIR / "screen" / mk), reverse=True)[:60] for mk in MARKETS}
     idx["klci"] = sorted(stems(REPORT_DIR / "klci"), reverse=True)[:60]
+    idx["sectors"] = {mk: sorted(stems(REPORT_DIR / "sectors" / mk), reverse=True)[:30] for mk in MARKETS}
+    idx["weekly"] = sorted(stems(REPORT_DIR / "weekly"), reverse=True)[:30]
+    idx["track"] = [mk for mk in MARKETS if (REPORT_DIR / "track" / f"{mk}.json").exists()]
     idx["updated"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     REPORT_DIR.mkdir(parents=True, exist_ok=True)
     (REPORT_DIR / "index.json").write_text(json.dumps(idx, ensure_ascii=False, indent=1), encoding="utf-8")
@@ -426,21 +437,34 @@ def main():
     p.add_argument("--no-ai", action="store_true")
     p.add_argument("--no-push", action="store_true")
     p.add_argument("--skip-extra", action="store_true", help="收市后不跑选股雷达 / KLCI 观察")
+    p.add_argument("--no-alerts", action="store_true", help="不检查自选股提醒")
     a = p.parse_args()
 
     jobs = due_reports() if a.due else [(a.market or "bursa", a.session)]
     if not jobs:
         print("现在没有需要生成的报告。")
+    failed = []
     for mk, sess in jobs:
         print(f"→ 生成 {mk} {sess} …")
-        r = scan(mk, sess, with_ai=not a.no_ai)
-        if r is None:
-            continue
-        print("  已保存：", save(r))
-        if not a.no_push:
-            push_telegram(r)
-        if sess == "close" and not a.skip_extra:
-            run_daily_extras(mk, with_ai=not a.no_ai, push=not a.no_push)
+        try:  # 一个市场出错，不影响其他市场
+            r = scan(mk, sess, with_ai=not a.no_ai)
+            if r is None:
+                continue
+            print("  已保存：", save(r))
+            if not a.no_push:
+                push_telegram(r)
+            if sess == "close" and not a.skip_extra:
+                run_daily_extras(mk, with_ai=not a.no_ai, push=not a.no_push)
+        except Exception:
+            import traceback
+            print(f"  ❌ {mk} {sess} 出错：")
+            traceback.print_exc()
+            failed.append(f"{mk} {sess}")
+    if not a.no_alerts:
+        print("→ 自选股提醒 …")
+        run_alerts(push=not a.no_push)
+    if failed:
+        raise SystemExit(f"这些报告出错了：{', '.join(failed)}（其他的已正常保存）")
 
 
 def run_daily_extras(market: str, with_ai: bool = True, push: bool = True):
@@ -454,8 +478,68 @@ def run_daily_extras(market: str, with_ai: bool = True, push: bool = True):
             push_text(screener.to_telegram_html(r))
     except Exception as e:
         print("选股雷达失败：", e)
-    if market != "bursa":
-        return
+    if market == "bursa":
+        _run_klci(with_ai, push)
+    for name, fn in (("板块指数", lambda: _run_sectors(market)), ("成绩单", lambda: _run_track(market)),
+                     ("每日圆桌", lambda: _run_panels(market))):
+        try:
+            print(f"→ {name} {market} …")
+            fn()
+        except Exception as e:
+            print(f"{name}失败：", e)
+    # 美股星期五收市 = 一周结束（大马时间星期六早上）→ 周报 + 健康检查
+    if market == "us" and datetime.now(MARKETS["us"].zone()).weekday() == 4:
+        for name, fn in (("每周周报", lambda: _run_weekly(push)), ("健康检查", lambda: _run_health(push))):
+            try:
+                print(f"→ {name} …")
+                fn()
+            except Exception as e:
+                print(f"{name}失败：", e)
+
+
+def _run_sectors(market):
+    import sectors
+    print("  已保存：", sectors.save(sectors.build(market)))
+
+
+def _run_track(market):
+    import tracker
+    print("  已保存：", tracker.save(tracker.build(market)))
+
+
+def _run_panels(market):
+    import panels
+    p = panels.run(market)
+    if p:
+        print("  已保存：", p)
+        update_index()
+
+
+def _run_weekly(push):
+    import weekly
+    r = weekly.build()
+    print("  已保存：", weekly.save(r))
+    if push:
+        push_text(weekly.to_telegram_html(r))
+
+
+def _run_health(push):
+    import health
+    h = health.run()
+    msg = health.to_telegram_html(h)
+    if push and msg:
+        push_text(msg)
+
+
+def run_alerts(push: bool = True):
+    try:
+        import alerts
+        alerts.run(push=push)
+    except Exception as e:
+        print("自选股提醒失败：", e)
+
+
+def _run_klci(with_ai, push):
     try:
         import klci
         print("→ KLCI 50 观察 …")

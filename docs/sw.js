@@ -1,5 +1,5 @@
 // Service worker：把 app 本身存在手机里，没网络也能打开（数据的离线备份在 app.js 处理）
-const SHELL = "shell-v1";
+const SHELL = "shell-v2";
 const FILES = ["./", "index.html", "style.css", "app.js", "config.js", "manifest.webmanifest",
                "icon-192.png", "icon-512.png"];
 

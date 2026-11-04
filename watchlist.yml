@@ -1,0 +1,35 @@
+# ⭐ 我的自选股和提醒
+#
+# 怎么改：在 GitHub 网页打开这个文件 → 右上角 ✏️（Edit）→ 改完按 Commit changes。
+# 手机 app、网站、Telegram 提醒都会读这个文件，大约 15 分钟内生效。
+#
+# 每只股票：
+#   ticker      股票代码或简称（MAYBANK、1155、PPB、AAPL、BBCA 都可以）
+#   note        自己的备注（可以不写）
+#   alerts      提醒条件（可以不写，就只是关注）：
+#     below       股价跌破这个价格
+#     above       股价升破这个价格
+#     change_pct  单日涨跌超过 ±这个百分比
+#     rsi_below   RSI 低于这个数字（超卖）
+#     rsi_above   RSI 高于这个数字（超买）
+#
+# 同一个条件每个交易日最多提醒一次。
+# ⚠️ 这个 repo 是公开的，别人看得到这份名单，不要写私人资料。
+
+stocks:
+  - ticker: MAYBANK
+    note: 收息股
+    alerts:
+      below: 9.50
+      above: 11.00
+      rsi_below: 30
+
+  - ticker: TENAGA
+    alerts:
+      change_pct: 4
+
+  - ticker: PPB
+
+  - ticker: NVDA
+    alerts:
+      change_pct: 6

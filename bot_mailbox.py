@@ -25,6 +25,7 @@ import company as C
 import klci as K
 import managers as M
 import screener as SC
+import sectors as SE
 
 TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
 API = f"https://api.telegram.org/bot{TOKEN}"
@@ -42,6 +43,9 @@ HELP = f"""<b>📊 股票分析机器人（信箱模式）</b>
 /company 代码 - 认识公司：业务、成绩、管理层 + 弱到强评级
 /radar [bursa|idx|us] - 今日错杀股 / 成长股 / 双杀股
 /klci - KLCI 50 最有机会入选的公司
+/sector [bursa|idx|us] - 板块轮动
+/watch - 自选股现况
+/week - 最新周报
 /quick 代码 - 只看数据报告（不开圆桌）
 /panel 代码 - 只开基金经理圆桌
 /tech、/fund、/news、/chart + 代码 - 单独看某一部分
@@ -79,7 +83,7 @@ def typing(chat):
 
 def do_panel(chat, snapshot: dict):
     async def run():
-        M._client = None
+        M.reset_clients()
         ops = await M.ask_all(snapshot)
         return list(ops), await M.chairman_summary(snapshot, list(ops))
 
@@ -167,6 +171,23 @@ def handle(chat, text: str):
         return do_radar(chat, arg)
     if cmd == "/klci":
         return do_klci(chat)
+    if cmd == "/sector":
+        mk = (arg or "bursa").lower()
+        r = SE.latest(mk) if mk in SC.S.MARKETS else None
+        return send(chat, SE.to_telegram_html(r) if r else "还没有板块报告（收市后会生成）。用法：/sector [bursa|idx|us]")
+    if cmd == "/watch":
+        import json
+        p = SC.S.REPORT_DIR / "watchlist.json"
+        wl = json.loads(p.read_text(encoding="utf-8")) if p.exists() else {"stocks": []}
+        lines = ["<b>⭐ 自选股</b>"] + [
+            f"• <b>{esc(x['name'])}</b> {x['ticker']}：" + (f"{x['price']:,.2f}（{x['change_pct']:+.2f}%，RSI {x['rsi']:.0f}）"
+                                                         + ("　🔔" if x.get("triggered") else "") if x.get("price") else esc(x.get("error", "")))
+            for x in wl["stocks"]]
+        return send(chat, "\n".join(lines) if wl["stocks"] else "还没有自选股，在 GitHub 编辑 watchlist.yml。")
+    if cmd == "/week":
+        import weekly
+        r = weekly.latest()
+        return send(chat, weekly.to_telegram_html(r) if r else "还没有周报，星期六早上会出现。")
     if cmd == "/quick":
         return do_analyze(chat, arg, panel=False)
     if cmd == "/panel":

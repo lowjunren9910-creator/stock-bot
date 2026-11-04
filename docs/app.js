@@ -23,6 +23,8 @@ const dataBase = () => CFG.dataBase ||
   (CFG.owner && CFG.repo ? `https://raw.githubusercontent.com/${CFG.owner}/${CFG.repo}/${CFG.branch}/reports/` : "");
 
 const MARKETS = { bursa: "🇲🇾 Bursa", idx: "🇮🇩 IDX", us: "🇺🇸 美股" };
+const PKEYS = ["1d", "1w", "1m", "3m"];
+const PZH = { "1d": "1日", "1w": "1周", "1m": "1月", "3m": "3月", "1y": "1年" };
 const SESS = { open: "开市", midday: "午间", close: "收市" };
 const CATS = {
   oversold: ["错杀股", "股价大跌，但盈利和质量没变差，估值比自己历史便宜。"],
@@ -36,6 +38,8 @@ const state = {
   stem: null,          // 每日焦点选中的报告，例如 2026-11-04_close
   board: "gainers",    // 排行榜：涨幅 / 跌幅 / 放量 / 成交额
   index: null,
+  sector: null,        // 板块详情：选中的板块名字
+  sub: null,           // 「更多」里面打开的页面
   offline: false,
   loadedAt: 0,
 };
@@ -122,14 +126,14 @@ function stockRow(x, opts = {}) {
   const chg = opts.chg ?? x.change_pct ?? x.ret_1m;
   const tags = (x.tags || x.reasons || []).slice(0, 4);
   const stats = opts.stats ? opts.stats(x) : [];
+  const chips = opts.chips ?? tags.map(t => `<span class="tag">${esc(t)}</span>`).join("");
   return `<details>
-    <summary class="row-main">
+    <summary><div class="row-main">
       <span class="rank">${opts.rank ?? ""}</span>
       <span class="name">${esc(x.name)}<small>${esc(x.ticker)}</small></span>
       <span class="px"><span class="p">${curSym[cur] || ""} ${num(x.price, cur)}</span><br>
         <span class="pill ${sign(chg)}">${pct(chg)}</span></span>
-    </summary>
-    ${tags.length ? `<div class="tags">${tags.map(t => `<span class="tag">${esc(t)}</span>`).join("")}</div>` : ""}
+    </div>${chips ? `<div class="tags">${chips}</div>` : ""}</summary>
     <div class="more">
       ${stats.length ? `<div class="stats">${stats.map(([k, v]) => `<div>${esc(k)}<b>${v}</b></div>`).join("")}</div>` : ""}
       ${actionButtons(x.ticker)}
@@ -276,10 +280,13 @@ function renderSearch() {
     </form>
     ${recent.length ? `<section><h2>最近查过</h2><div class="chips">${chips(recent)}</div></section>` : ""}
     <section><h2>常用</h2><div class="chips">${chips(popular)}</div></section>
-    <div id="sresult"></div>
+    <div id="sresult"></div>`;
+}
+
+function renderSettings() {
+  setBand("设定", `<div class="stamp">只存在这部手机里</div>`, false);
+  return `
     <section>
-      <h2>设定</h2>
-      <p class="lede">只存在这部手机里。</p>
       <form id="cfg">
         <label class="field">网站网址（Streamlit）<input name="web" value="${esc(CFG.web)}" placeholder="https://你的名字.streamlit.app" inputmode="url"></label>
         <label class="field">Telegram 机器人用户名<input name="bot" value="${esc(CFG.bot)}" placeholder="例如 junren_stock_bot"></label>
@@ -300,10 +307,241 @@ function showResult(text) {
   $("#sresult").innerHTML = `<div class="result"><h3>${esc(t)}</h3>${actionButtons(t)}${tg ? `<div class="actions" style="margin-top:8px">${tg}</div>` : ""}</div>`;
 }
 
+
+// ---------------------------------------------------------------------------
+// 板块：轮动热力图 → 点板块 → 板块指数 + 成分股
+// ---------------------------------------------------------------------------
+function heatCell(v, lim) {
+  if (v == null) return `<span class="hc">—</span>`;
+  const a = Math.min(1, Math.abs(v) / lim);
+  const bg = v >= 0 ? `rgba(19,153,106,${0.12 + a * 0.78})` : `rgba(217,72,59,${0.12 + a * 0.78})`;
+  const fg = a > 0.55 ? "#fff" : "var(--ink)";
+  return `<span class="hc num" style="background:${bg};color:${fg}">${v > 0 ? "+" : ""}${v.toFixed(1)}</span>`;
+}
+
+function spark(series, bench) {
+  const W = 340, H = 120, pad = 6;
+  const all = series.levels.concat(bench ? bench.levels : []);
+  const lo = Math.min(...all), hi = Math.max(...all);
+  const path = (lv) => lv.map((v, i) => `${(pad + i / (lv.length - 1) * (W - 2 * pad)).toFixed(1)},${(H - pad - (v - lo) / (hi - lo || 1) * (H - 2 * pad)).toFixed(1)}`).join(" ");
+  return `<svg class="spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="板块指数一年走势">
+    ${bench ? `<polyline points="${path(bench.levels)}" class="sp-bench"/>` : ""}
+    <polyline points="${path(series.levels)}" class="sp-main"/></svg>`;
+}
+
+async function renderSectors() {
+  const idx = await loadIndex();
+  const dates = (idx && idx.sectors && idx.sectors[state.market]) || [];
+  if (!dates.length) {
+    setBand("板块", "", true);
+    return emptyView("还没有板块报告", "每个交易日收市后会自动生成。");
+  }
+  const r = await getJSON(`sectors/${state.market}/${dates[0]}.json`);
+  const mi = r.market_index;
+  const sec = state.sector && r.sectors.find(s => s.name === state.sector);
+
+  if (sec) {   // ---- 板块详情 ----
+    setBand(sec.name, `
+      <div class="stamp">${sec.count} 家公司　指数 <b class="num">${sec.level.toLocaleString("en-US")}</b> 点（一年前 = 1000）</div>
+      <div class="dates">${["1d", "1m", "1y"].map(k => `<div>${PZH[k]}<b class="${sign(sec.returns[k])}">${pct(sec.returns[k], 1)}</b></div>`).join("")}</div>`, true);
+    const stats = x => [["权重", `${x.weight}%`], ["1 个月", pct(x.chg_1m, 1)], ["1 年", pct(x.chg_1y, 1)],
+                        ["市值", big(x.mcap)], ["P/E", x.pe == null ? "—" : Number(x.pe).toFixed(1)], ["行业", esc(x.industry || "—")]];
+    return `
+      <button class="back" data-sector="">‹ 全部板块</button>
+      <section>
+        <h2>板块指数 vs 大型股综合</h2>
+        ${spark(sec.series, mi.series)}
+        <p class="legend"><span class="l-main"></span>${esc(sec.name)}　<span class="l-bench"></span>大型股综合</p>
+        ${sec.top_weight >= 40 ? `<p class="lede">最大的公司占 ${sec.top_weight}%，指数主要跟着它走。</p>` : ""}
+      </section>
+      <section>
+        <h2>成分股</h2>
+        <p class="lede">按市值排序。点开可以认识公司。</p>
+        <div class="list">${sec.members.map(x => stockRow({ ...x, currency: r.currency }, { chg: x.chg_1d, stats })).join("")}</div>
+      </section>`;
+  }
+
+  // ---- 板块总览：热力图 ----
+  setBand("板块", `<div class="stamp">${day(r.date)} 收市　大型股综合 1 日 ${pct(mi.returns["1d"])}　1 月 ${pct(mi.returns["1m"], 1)}</div>`, true);
+  const rows = [...r.sectors].sort((a, b) => (b.returns["1w"] ?? -99) - (a.returns["1w"] ?? -99));
+  const lim = Math.max(1, ...rows.flatMap(s => PKEYS.map(k => Math.abs(s.returns[k] || 0))));
+  return `
+    <section>
+      <h2>板块轮动</h2>
+      <p class="lede">数字是涨跌 %，按 1 周表现排序。点一个板块看指数和成分股。</p>
+      <div class="heat">
+        <div class="hrow hhead"><span></span>${PKEYS.map(k => `<span>${PZH[k]}</span>`).join("")}</div>
+        ${rows.map(s => `<button class="hrow" data-sector="${esc(s.name)}">
+          <span class="hname">${esc(s.name)}<small>${s.count} 家</small></span>
+          ${PKEYS.map(k => heatCell(s.returns[k], lim)).join("")}</button>`).join("")}
+      </div>
+    </section>
+    <p class="foot">${esc(r.note)}</p>`;
+}
+
+// ---------------------------------------------------------------------------
+// 我的：自选股（GitHub 名单）+ 投资组合（只存在这部手机）
+// ---------------------------------------------------------------------------
+const ALERT_ZH = { below: "跌破", above: "升破", change_pct: "单日 ±", rsi_below: "RSI <", rsi_above: "RSI >" };
+
+function resolveTicker(text, prices) {
+  const t = text.trim().toUpperCase();
+  if (!t) return null;
+  if (prices[t]) return t;
+  if (/^\d{4}$/.test(t) && prices[`${t}.KL`]) return `${t}.KL`;
+  if (prices[`${t}.JK`]) return `${t}.JK`;
+  const m = t.match(/\(([^)]+)\)\s*$/);           // 从建议清单选的「Maybank (1155.KL)」
+  if (m && prices[m[1]]) return m[1];
+  const hit = Object.entries(prices).find(([k, v]) => (v.name || "").toUpperCase().replace(/\s/g, "") === t.replace(/\s/g, ""));
+  return hit ? hit[0] : t;
+}
+
+async function renderMine() {
+  setBand("我的", `<div class="stamp">自选股在 GitHub 的 watchlist.yml 设定；投资组合只存在这部手机</div>`, false);
+  const [wl, prices] = await Promise.all([getJSON("watchlist.json").catch(() => null), getJSON("prices.json").catch(() => null)]);
+  const px = Object.assign({}, prices || {});
+  (wl && wl.stocks || []).forEach(s => { if (s.price != null) px[s.ticker] = { ...(px[s.ticker] || {}), name: s.name, price: s.price, chg_1d: s.change_pct, currency: s.market === "bursa" ? "MYR" : s.market === "idx" ? "IDR" : "USD" }; });
+
+  // 自选股
+  const watch = (wl && wl.stocks || []).map(x => {
+    const al = Object.entries(x.alerts || {}).map(([k, v]) => `<span class="tag${(x.triggered || []).includes(k) ? " hot" : ""}">${(x.triggered || []).includes(k) ? "🔔 " : ""}${ALERT_ZH[k] || k} ${esc(v)}</span>`);
+    const cur = x.market === "bursa" ? "MYR" : x.market === "idx" ? "IDR" : "USD";
+    if (x.error) return `<div class="row"><div class="row-main"><span></span><span class="name">${esc(x.input)}<small>${esc(x.error)}</small></span><span></span></div></div>`;
+    const note = x.note ? `<span class="tag">${esc(x.note)}</span>` : "";
+    return stockRow({ ...x, currency: cur },
+      { chg: x.change_pct, chips: note + al.join(""),
+        stats: () => [["RSI", Number(x.rsi).toFixed(0)], ["1 个月", pct(x.chg_1m, 1)], ["6 月区间", `${num(x.low_6m, cur)}–${num(x.high_6m, cur)}`]] });
+  }).join("");
+  const editUrl = CFG.owner && CFG.repo ? `https://github.com/${CFG.owner}/${CFG.repo}/edit/${CFG.branch}/watchlist.yml` : null;
+
+  // 投资组合
+  const pf = store.get("portfolio", []);
+  const totals = {};
+  const rows = pf.map((h, i) => {
+    const p = px[h.ticker];
+    const cur = (p && p.currency) || h.currency || "";
+    const val = p ? p.price * h.qty : null, cost = h.cost * h.qty;
+    const pl = val != null ? val - cost : null;
+    if (val != null) { totals[cur] = totals[cur] || [0, 0]; totals[cur][0] += cost; totals[cur][1] += val; }
+    return `<div class="row pf-row">
+      <span class="name">${esc((p && p.name) || h.ticker)}<small>${esc(h.ticker)}　${h.qty.toLocaleString("en-US")} 股 @ ${num(h.cost, cur)}</small></span>
+      <span class="px">${p ? `<span class="p">${curSym[cur] || ""} ${num(val, cur)}</span><br><span class="pill ${sign(pl)}">${pl >= 0 ? "+" : ""}${num(pl, cur)}（${pct(pl / cost * 100, 1)}）</span>` : `<span class="muted">暂无价格</span>`}</span>
+      <button class="x" data-del="${i}" aria-label="删除 ${esc(h.ticker)}">×</button></div>`;
+  }).join("");
+  const tot = Object.entries(totals).map(([c, [cost, val]]) => `<div><small>${c} 市值</small><b class="num">${num(val, c)}</b><span class="${sign(val - cost)}">${val - cost >= 0 ? "+" : ""}${num(val - cost, c)}（${pct((val / cost - 1) * 100, 1)}）</span></div>`).join("");
+  const options = Object.entries(px).map(([k, v]) => `<option value="${esc(v.name)} (${esc(k)})">`).join("");
+
+  return `
+    <section>
+      <h2>自选股</h2>
+      ${watch ? `<div class="list">${watch}</div>` : `<p class="muted">还没有自选股。</p>`}
+      ${editUrl ? `<div class="actions" style="margin-top:10px"><a class="btn ghost" href="${editUrl}" target="_blank" rel="noopener">在 GitHub 编辑名单和提醒</a></div>` : ""}
+      ${wl ? `<p class="foot">更新：${esc(wl.updated)}。触发提醒会推送到 Telegram。</p>` : ""}
+    </section>
+    <section>
+      <h2>投资组合</h2>
+      ${tot ? `<div class="totals">${tot}</div>` : ""}
+      ${rows ? `<div class="list">${rows}</div>` : `<p class="muted">还没有持股。在下面加第一笔。</p>`}
+      <form id="pform" class="pform" autocomplete="off">
+        <input name="t" list="pf-list" placeholder="股票（例如 Maybank 或 1155）" aria-label="股票" required>
+        <datalist id="pf-list">${options}</datalist>
+        <input name="q" type="number" inputmode="decimal" step="any" min="0" placeholder="数量" aria-label="数量" required>
+        <input name="c" type="number" inputmode="decimal" step="any" min="0" placeholder="平均成本" aria-label="平均成本" required>
+        <button class="btn">加入</button>
+      </form>
+      <p class="foot">价格用每天收市后的最新价，只有系统追踪的约 200 只大型股和你的自选股有价格。
+        <button class="linkbtn" data-act="export">备份</button>　<button class="linkbtn" data-act="import">还原</button></p>
+    </section>`;
+}
+
+// ---------------------------------------------------------------------------
+// 更多：KLCI 50、成绩单、周报、查股、系统状态、设定
+// ---------------------------------------------------------------------------
+const SUBS = {
+  klci: ["KLCI 50 观察", "哪些马股最有机会进入 KLCI 50"],
+  track: ["成绩单", "推荐过的股票后来表现 + AI 基金经理排行榜"],
+  weekly: ["每周周报", "每个星期六早上自动生成"],
+  search: ["查股", "输入代码，打开网站做深入分析"],
+  health: ["系统状态", "股票代码健康检查、数据更新时间"],
+  settings: ["设定", "网站网址、GitHub 资料"],
+};
+
+function renderMore() {
+  setBand("更多", "", false);
+  return `<div class="list menu">${Object.entries(SUBS).map(([k, [t, d]]) =>
+    `<button class="row menu-row" data-sub="${k}"><span class="name">${t}<small>${d}</small></span><span class="chev">›</span></button>`).join("")}</div>`;
+}
+
+async function renderTrack() {
+  const r = await getJSON(`track/${state.market}.json`).catch(() => null);
+  setBand("成绩单", r ? `<div class="stamp">对照 ${esc(r.benchmark)}　超额 = 股票涨跌 − 大盘涨跌</div>` : "", true);
+  if (!r) return emptyView("还没有成绩单", "收市后会自动生成；推荐累积几天到几周后才看得出成绩。");
+  const H = ["1w", "1m", "3m"];
+  const strat = Object.entries(r.summary).map(([k, v]) => `
+    <div class="row track-row">
+      <span class="name">${v.name}<small>共 ${v.picks} 次推荐</small></span>
+      ${H.map(h => { const d = v[h]; return `<span class="tcell"><small>${r.horizons[h]}</small>${d.n ? `<b class="num ${sign(k === "double_kill" ? -d.avg_excess : d.avg_excess)}">${pct(d.avg_excess, 1)}</b><small>${k === "double_kill" ? "避开" : "胜"} ${d.hit_rate}%</small>` : `<b class="muted">—</b><small>累积中</small>`}</span>`; }).join("")}
+    </div>`).join("");
+  const lb = r.leaderboard;
+  const scored = lb.some(x => x.n);
+  const board = scored ? lb.map((x, i) => `<div class="row track-row"><span class="rank">${x.hit_rate != null ? i + 1 : ""}</span>
+      <span class="name">${x.emoji} ${esc(x.name)}<small>${esc(x.title)}　已评分 ${x.n}</small></span>
+      <span class="tcell"><small>准确率</small><b class="num">${x.hit_rate == null ? "—" : x.hit_rate + "%"}</b></span>
+      <span class="tcell"><small>看多超额</small><b class="num ${sign(x.bull_avg_excess)}">${pct(x.bull_avg_excess, 1)}</b></span></div>`).join("")
+    : `<p class="muted">还在累积：已经记录 ${lb.reduce((a, x) => a + x.pending, 0)} 个评级，过 21 个交易日就会开始评分。</p>`;
+  return `
+    <button class="back" data-sub="">‹ 更多</button>
+    <section><h2>推荐成绩（平均超额回报）</h2>
+      <p class="lede">双杀股是要避开的名单，跌得比大盘多才算准。</p>
+      <div class="list">${strat}</div></section>
+    <section><h2>AI 基金经理排行榜</h2><p class="lede">看 21 个交易日后有没有猜对方向。</p>
+      ${scored ? `<div class="list">${board}</div>` : board}</section>`;
+}
+
+async function renderWeekly() {
+  const idx = await loadIndex();
+  const dates = (idx && idx.weekly) || [];
+  setBand("每周周报", dates.length ? `<div class="stamp">${day(dates[0])}</div>` : "", false);
+  if (!dates.length) return `<button class="back" data-sub="">‹ 更多</button>` + emptyView("还没有周报", "第一个星期五美股收市后（星期六早上）会出现。");
+  const r = await getJSON(`weekly/${dates[0]}.json`);
+  const mk = Object.values(r.markets).map(v => `
+    <section><h2>${esc(v.name)}<span class="count ${sign(v.week)}">${pct(v.week)}</span></h2>
+      <div class="heat">${v.sectors.map(s => `<div class="hrow wk"><span class="hname">${esc(s.name)}</span>${heatCell(s.week, 4)}</div>`).join("")}</div>
+      <p class="lede" style="margin-top:8px">涨最多：${v.gainers.slice(0, 3).map(g => `${esc(g.name)} <span class="up">${pct(g.chg_1w, 1)}</span>`).join("、")}</p>
+      <p class="lede">跌最多：${v.losers.slice(0, 3).map(g => `${esc(g.name)} <span class="down">${pct(g.chg_1w, 1)}</span>`).join("、")}</p>
+    </section>`).join("");
+  return `<button class="back" data-sub="">‹ 更多</button>
+    ${r.ai_comment ? `<p class="note"><small>本周总结</small>${esc(r.ai_comment)}</p>` : ""}${mk}`;
+}
+
+async function renderHealth() {
+  const [h, idx] = await Promise.all([getJSON("health.json").catch(() => null), loadIndex()]);
+  setBand("系统状态", `<div class="stamp">报告目录更新：${esc((idx && idx.updated) || "—")}</div>`, false);
+  const body = !h ? emptyView("还没有检查结果", "每个星期六早上自动检查一次。")
+    : `<section><h2>股票代码 ${h.ok} / ${h.total} 正常</h2><p class="lede">检查时间 ${esc(h.checked)}</p>
+       ${h.problems.length ? `<div class="list">${h.problems.map(p => `<div class="row"><div class="row-main"><span></span><span class="name">${esc(p.name)}<small>${esc(p.ticker)}　${esc(p.status)}</small></span><span></span></div></div>`).join("")}</div>`
+                           : `<p class="muted">全部正常。</p>`}</section>`;
+  return `<button class="back" data-sub="">‹ 更多</button>${body}`;
+}
+
+async function renderMoreRouter() {
+  const back = `<button class="back" data-sub="">‹ 更多</button>`;
+  switch (state.sub) {
+    case "klci": return back + await renderKlci();
+    case "track": return await renderTrack();
+    case "weekly": return await renderWeekly();
+    case "search": return back + renderSearch();
+    case "health": return await renderHealth();
+    case "settings": return back + renderSettings();
+    default: return renderMore();
+  }
+}
+
 // ---------------------------------------------------------------------------
 // 切换和事件
 // ---------------------------------------------------------------------------
-const VIEWS = { focus: renderFocus, radar: renderRadar, klci: renderKlci, search: renderSearch };
+const VIEWS = { focus: renderFocus, sectors: renderSectors, radar: renderRadar, mine: renderMine, more: renderMoreRouter };
+if (!VIEWS[state.tab]) { state.sub = state.tab === "klci" || state.tab === "search" ? state.tab : null; state.tab = "more"; }
 
 async function render(force) {
   document.querySelectorAll(".tabs button").forEach(b => b.setAttribute("aria-selected", String(b.dataset.tab === state.tab)));
@@ -327,8 +565,28 @@ async function render(force) {
 document.addEventListener("click", e => {
   const t = e.target.closest("button, a");
   if (!t) return;
-  if (t.dataset.tab) { state.tab = t.dataset.tab; store.set("tab", state.tab); window.scrollTo(0, 0); render(); }
-  else if (t.dataset.m) { state.market = t.dataset.m; store.set("market", state.market); state.stem = null; render(); }
+  if (t.dataset.tab) {
+    if (t.dataset.tab === state.tab) { state.sector = null; state.sub = null; }   // 再按一次 = 回到这一页的首页
+    state.tab = t.dataset.tab; store.set("tab", state.tab); window.scrollTo(0, 0); render();
+  }
+  else if (t.dataset.sector !== undefined) { state.sector = t.dataset.sector || null; window.scrollTo(0, 0); render(); }
+  else if (t.dataset.sub !== undefined) { state.sub = t.dataset.sub || null; window.scrollTo(0, 0); render(); }
+  else if (t.dataset.del !== undefined) {
+    const pf = store.get("portfolio", []); pf.splice(Number(t.dataset.del), 1); store.set("portfolio", pf); render();
+  }
+  else if (t.dataset.act === "export") {
+    const blob = new Blob([JSON.stringify(store.get("portfolio", []), null, 1)], { type: "application/json" });
+    const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "my-portfolio.json"; a.click();
+  }
+  else if (t.dataset.act === "import") {
+    const inp = document.createElement("input"); inp.type = "file"; inp.accept = "application/json,.json";
+    inp.onchange = async () => {
+      try { const data = JSON.parse(await inp.files[0].text()); if (Array.isArray(data)) { store.set("portfolio", data); render(); } }
+      catch { alert("文件格式不对，请选之前「备份」下载的文件。"); }
+    };
+    inp.click();
+  }
+  else if (t.dataset.m) { state.market = t.dataset.m; store.set("market", state.market); state.stem = null; state.sector = null; render(); }
   else if (t.dataset.stem) { state.stem = t.dataset.stem; render(); }
   else if (t.dataset.board) { state.board = t.dataset.board; render(); }
   else if (t.dataset.pick) { $("#q").value = t.dataset.pick; showResult(t.dataset.pick); }
@@ -338,6 +596,19 @@ document.addEventListener("click", e => {
 document.addEventListener("submit", e => {
   e.preventDefault();
   if (e.target.id === "sform") showResult(e.target.q.value);
+  if (e.target.id === "pform") {
+    const f = new FormData(e.target);
+    getJSON("prices.json").catch(() => ({})).then(prices => {
+      const pf = store.get("portfolio", []);
+      const t = resolveTicker(String(f.get("t")), prices || {});
+      const qty = Number(f.get("q")), cost = Number(f.get("c"));
+      if (!t || !(qty > 0) || !(cost >= 0)) return;
+      const old = pf.find(h => h.ticker === t);
+      if (old) { old.cost = (old.cost * old.qty + cost * qty) / (old.qty + qty); old.qty += qty; }   // 平均成本
+      else pf.push({ ticker: t, qty, cost, currency: (prices && prices[t] && prices[t].currency) || "" });
+      store.set("portfolio", pf); render();
+    });
+  }
   if (e.target.id === "cfg") {
     const f = new FormData(e.target);
     const s = { web: f.get("web").trim(), bot: f.get("bot").trim(), owner: f.get("owner").trim(), repo: f.get("repo").trim() };

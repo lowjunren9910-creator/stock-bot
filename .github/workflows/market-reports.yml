@@ -39,7 +39,7 @@ jobs:
           cache: pip
 
       - name: 安装工具包
-        run: pip install yfinance pandas requests python-dotenv openai
+        run: pip install yfinance pandas requests python-dotenv openai pyyaml
 
       - name: 生成报告
         env:
@@ -49,6 +49,7 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           SCAN_MARKETS: ${{ vars.SCAN_MARKETS || 'bursa,idx,us' }}
+          PANEL_DAILY: ${{ vars.PANEL_DAILY || 'bursa:3,idx:1,us:1' }}
         run: |
           if [ -n "${{ github.event.inputs.market }}" ]; then
             python scanner.py --market "${{ github.event.inputs.market }}" --session "${{ github.event.inputs.session }}"
@@ -57,6 +58,7 @@ jobs:
           fi
 
       - name: 保存报告到 repo
+        if: always()   # 就算上一步有市场出错，已经做好的报告也要保存
         run: |
           git config user.name "market-bot"
           git config user.email "market-bot@users.noreply.github.com"

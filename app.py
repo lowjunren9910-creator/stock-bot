@@ -69,7 +69,7 @@ def cached_analysis(text: str) -> dict:
 
 
 async def _panel(snapshot: dict):
-    M._client = None  # 每次新的事件循环都要新的连接
+    M.reset_clients()  # 每次新的事件循环都要新的连接
     opinions = await M.ask_all(snapshot)
     summary = await M.chairman_summary(snapshot, list(opinions))
     return list(opinions), summary
@@ -428,7 +428,7 @@ def cached_company(text: str) -> dict:
 
 
 async def _company_ai(p: dict):
-    M._client = None
+    M.reset_clients()
     return await C.ai_profile(p)
 
 
@@ -869,9 +869,216 @@ def page_klci():
 
 
 # ---------------------------------------------------------------------------
+# 页面：板块（分类 + 板块指数 + 轮动热力图）
+# ---------------------------------------------------------------------------
 
-PAGES = {"📅 每日焦点": page_focus, "🔍 选股雷达": page_radar, "🏆 KLCI 50 观察": page_klci,
-         "📊 个股分析": page_analysis, "🏢 认识公司": page_company, "💼 投资组合": page_portfolio}
+PERIOD_KEYS = ["1d", "1w", "1m", "3m", "1y"]
+PERIOD_ZH = {"1d": "1 日", "1w": "1 周", "1m": "1 个月", "3m": "3 个月", "1y": "1 年"}
+
+
+def read_json(path):
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+
+
+def heatmap(sec: dict):
+    rows = sorted(sec["sectors"], key=lambda s: s["returns"]["1w"] or 0, reverse=True)
+    z = [[s["returns"][k] for k in PERIOD_KEYS] for s in rows]
+    text = [[("—" if v is None else f"{v:+.1f}%") for v in r] for r in z]
+    lim = max([abs(v) for r in z for v in r if v is not None] + [1])
+    fig = go.Figure(go.Heatmap(
+        z=z, x=[PERIOD_ZH[k] for k in PERIOD_KEYS], y=[f"{s['name']}（{s['count']}）" for s in rows],
+        text=text, texttemplate="%{text}", colorscale=[[0, "#D9483B"], [0.5, "#F2F2F2"], [1, "#13996A"]],
+        zmin=-lim, zmax=lim, showscale=False, hovertemplate="%{y} · %{x}：%{text}<extra></extra>"))
+    fig.update_layout(height=60 + 34 * len(rows), margin=dict(l=10, r=10, t=10, b=10),
+                      yaxis=dict(autorange="reversed"), xaxis=dict(side="top"))
+    return fig
+
+
+def page_sectors():
+    st.title("🧩 板块")
+    st.caption("约 200 只大型股按板块分类。每个板块有自己的市值加权指数（一年前 = 1000 点）。点公司就能认识它。")
+    tabs = st.tabs([m.name for m in S.MARKETS.values()])
+    for tab, key in zip(tabs, S.MARKETS):
+        with tab:
+            files = dated_files(S.REPORT_DIR / "sectors" / key)
+            if not files:
+                st.info("还没有板块报告，每个交易日收市后会自动生成。")
+                continue
+            sec = read_json(S.REPORT_DIR / "sectors" / key / f"{files[0]}.json")
+            mi = sec["market_index"]
+            st.caption(f"{sec['date']} 收市　大型股综合：1 日 {fnum(mi['returns']['1d'], 2)}　1 个月 {fnum(mi['returns']['1m'], 2)}　1 年 {fnum(mi['returns']['1y'], 1)}")
+            st.markdown("##### 板块轮动（按 1 周表现排序）")
+            st.plotly_chart(heatmap(sec), width="stretch", key=f"hm_{key}")
+
+            names = [s["name"] for s in sec["sectors"]]
+            pick = st.selectbox("选一个板块看详情", names, key=f"sec_{key}")
+            s = next(x for x in sec["sectors"] if x["name"] == pick)
+            c = st.columns(5)
+            for col, k in zip(c, PERIOD_KEYS):
+                col.metric(PERIOD_ZH[k], fnum(s["returns"][k], 2))
+            fig = go.Figure()
+            fig.add_trace(go.Scatter(x=s["series"]["dates"], y=s["series"]["levels"], name=f"{pick}指数",
+                                     line=dict(color="#22305A", width=2)))
+            fig.add_trace(go.Scatter(x=mi["series"]["dates"], y=mi["series"]["levels"], name="大型股综合",
+                                     line=dict(color="#C8A23A", width=1.5, dash="dot")))
+            fig.update_layout(height=320, margin=dict(l=10, r=10, t=10, b=10), legend=dict(orientation="h", y=1.1),
+                              yaxis_title="点（起点 1000）")
+            st.plotly_chart(fig, width="stretch", key=f"line_{key}")
+            st.caption(f"指数 {s['level']:,.1f} 点　今天 {s['up']} 涨 {s['down']} 跌"
+                       + (f"　⚠️ 最大的公司占 {s['top_weight']}%，指数主要跟着它走" if (s["top_weight"] or 0) >= 40 else ""))
+
+            df = pd.DataFrame(s["members"])
+            df["市值"] = df["mcap"].map(C.big)
+            show = df[["name", "ticker", "price", "weight", "chg_1d", "chg_1m", "chg_1y", "市值", "pe"]]
+            show.columns = ["公司", "代码", "股价", "权重%", "1 日%", "1 个月%", "1 年%", "市值", "P/E"]
+            tkey = f"members_{key}_{pick}"
+
+            def on_pick(rows=s["members"], tkey=tkey):
+                sel = st.session_state[tkey].selection.rows
+                if sel:
+                    goto_company(rows[sel[0]]["ticker"])
+
+            st.dataframe(show.style.format({"股价": "{:,.2f}", "权重%": "{:.1f}", "1 日%": "{:+.2f}", "1 个月%": "{:+.1f}",
+                                            "1 年%": "{:+.1f}", "P/E": "{:.1f}"}, na_rep="—").map(
+                lambda v: f"color:{'#16a34a' if v > 0 else '#dc2626'}" if isinstance(v, (int, float)) and v == v else "",
+                subset=["1 日%", "1 个月%", "1 年%"]),
+                hide_index=True, width="stretch", key=tkey, on_select=on_pick, selection_mode="single-row")
+            st.caption("👆 点任何一行就能认识那家公司。" + sec["note"])
+
+
+# ---------------------------------------------------------------------------
+# 页面：自选股
+# ---------------------------------------------------------------------------
+
+def page_watchlist():
+    st.title("⭐ 自选股")
+    owner_repo = os.getenv("GITHUB_REPO", "lowjunren9910-creator/stock-bot")
+    st.caption(f"名单和提醒条件在 GitHub 的 watchlist.yml 里改：[打开编辑](https://github.com/{owner_repo}/edit/main/watchlist.yml)。"
+               "交易日每 15 分钟检查一次，触发时推送 Telegram。")
+    wl = read_json(S.REPORT_DIR / "watchlist.json")
+    if not wl or not wl.get("stocks"):
+        st.info("还没有自选股资料。编辑 watchlist.yml 后，下一次自动任务就会出现。")
+        return
+    st.caption(f"更新：{wl['updated']}")
+    for x in wl["stocks"]:
+        with st.container(border=True):
+            c1, c2, c3 = st.columns([3, 2, 2])
+            c1.markdown(f"**{x['name']}**　`{x['ticker']}`" + (f"　{x['note']}" if x.get("note") else ""))
+            if x.get("error"):
+                c1.error(x["error"])
+                continue
+            c2.metric("股价", f"{x['price']:,.2f}", f"{x['change_pct']:+.2f}%")
+            c3.metric("RSI / 1 个月", f"{x['rsi']:.0f}", fnum(x.get("chg_1m"), 1), delta_color="off")
+            al = x.get("alerts") or {}
+            if al:
+                labels = {"below": "跌破", "above": "升破", "change_pct": "单日 ±", "rsi_below": "RSI <", "rsi_above": "RSI >"}
+                chips = "　".join(("🔔 " if k in x["triggered"] else "") + f"{labels.get(k, k)} {v}" for k, v in al.items())
+                c1.caption("提醒：" + chips)
+            b1, b2 = c1.columns(2)
+            b1.button("🏢 认识公司", key=f"wl_co_{x['ticker']}", on_click=goto_company, args=(x["ticker"],))
+            b2.button("📊 深入分析", key=f"wl_an_{x['ticker']}", on_click=goto_analysis, args=(x["ticker"],))
+
+
+# ---------------------------------------------------------------------------
+# 页面：成绩单 + 基金经理排行榜
+# ---------------------------------------------------------------------------
+
+def page_track():
+    st.title("📈 成绩单")
+    st.caption("系统推荐过的股票后来表现怎样？跟大盘比是赢还是输？AI 基金经理谁最准？")
+    tabs = st.tabs([m.name for m in S.MARKETS.values()])
+    for tab, key in zip(tabs, S.MARKETS):
+        with tab:
+            tr = read_json(S.REPORT_DIR / "track" / f"{key}.json")
+            if not tr:
+                st.info("还没有成绩单，收市后会自动生成。推荐累积几天到几周后才看得出成绩。")
+                continue
+            st.caption(f"更新：{tr['updated']}　对照大盘：{tr['benchmark']}")
+            rows = []
+            for cat, v in tr["summary"].items():
+                for h in ("1w", "1m", "3m", "now"):
+                    d = v[h]
+                    rows.append({"策略": v["name"], "持有": tr["horizons"][h], "已评估": d["n"],
+                                 "平均涨跌%": d["avg_ret"], "平均超额%": d["avg_excess"],
+                                 ("避开成功率%" if cat == "double_kill" else "跑赢大盘%"): d["hit_rate"]})
+            df = pd.DataFrame(rows)
+            st.markdown("##### 推荐成绩")
+            st.dataframe(df, hide_index=True, width="stretch")
+            st.caption("超额 = 股票涨跌 − 同期大盘涨跌。双杀股是要避开的名单，所以看「跑输大盘」的比例。持有期还没到的不计算。")
+
+            st.markdown("##### 🏆 AI 基金经理排行榜（看 21 个交易日后）")
+            lb = pd.DataFrame(tr["leaderboard"])
+            if lb.empty or not lb["n"].sum():
+                pend = int(lb["pending"].sum()) if not lb.empty else 0
+                st.info(f"还在累积中：已经记录 {pend} 个评级，过 21 个交易日后就会开始评分。")
+            else:
+                lb["经理"] = lb["emoji"] + " " + lb["name"] + "｜" + lb["title"]
+                st.dataframe(lb[["经理", "n", "hit_rate", "bull_avg_excess", "pending"]].rename(columns={
+                    "n": "已评分", "hit_rate": "准确率%", "bull_avg_excess": "看多时平均超额%", "pending": "等待中"}),
+                    hide_index=True, width="stretch")
+            with st.expander("最近的推荐（至今表现）"):
+                p = pd.DataFrame(tr["picks"])
+                if not p.empty:
+                    p["策略"] = p["strategy"].map({k: v["name"] for k, v in tr["summary"].items()})
+                    st.dataframe(p[["date", "策略", "name", "ticker", "ret_now", "ex_now", "days"]].rename(columns={
+                        "date": "推荐日", "name": "公司", "ticker": "代码", "ret_now": "至今%", "ex_now": "超额%",
+                        "days": "交易日"}), hide_index=True, width="stretch")
+
+
+# ---------------------------------------------------------------------------
+# 页面：周报 + 系统状态
+# ---------------------------------------------------------------------------
+
+def page_weekly():
+    st.title("📰 每周周报")
+    st.caption("每个星期六早上（美股星期五收市后）自动生成。")
+    files = dated_files(S.REPORT_DIR / "weekly")
+    if not files:
+        st.info("还没有周报，第一个星期五美股收市后会出现。")
+        return
+    d = st.selectbox("选择周报", files)
+    r = read_json(S.REPORT_DIR / "weekly" / f"{d}.json")
+    if r.get("ai_comment"):
+        with st.container(border=True):
+            st.markdown("**🧠 本周总结**")
+            st.write(r["ai_comment"])
+    for mk, v in r["markets"].items():
+        st.markdown(f"#### {v['name']}　本周 {fnum(v['week'], 2)}")
+        c1, c2, c3 = st.columns(3)
+        c1.markdown("**板块（本周）**\n\n" + "\n\n".join(f"{x['name']} {fnum(x['week'], 2)}" for x in v["sectors"]))
+        c2.markdown("**涨最多**\n\n" + "\n\n".join(f"{x['name']} {fnum(x['chg_1w'], 1)}" for x in v["gainers"]))
+        c3.markdown("**跌最多**\n\n" + "\n\n".join(f"{x['name']} {fnum(x['chg_1w'], 1)}" for x in v["losers"]))
+    if r.get("klci"):
+        st.markdown("#### 🏆 KLCI 50 几率（本周变化）")
+        st.dataframe(pd.DataFrame(r["klci"]["top"]).rename(columns={"name": "公司", "ticker": "代码", "prob": "几率%",
+                                                                   "change": "本周变化"}), hide_index=True, width="stretch")
+
+
+def page_health():
+    st.title("🩺 系统状态")
+    h = read_json(S.REPORT_DIR / "health.json")
+    idx = read_json(S.REPORT_DIR / "index.json") or {}
+    st.caption(f"报告目录更新：{idx.get('updated', '—')}")
+    if not h:
+        st.info("还没有健康检查结果，每个星期六早上会自动检查一次。")
+        return
+    st.metric("股票代码正常", f"{h['ok']} / {h['total']}", f"检查时间 {h['checked']}", delta_color="off")
+    if h["problems"]:
+        st.dataframe(pd.DataFrame(h["problems"]).rename(columns={"ticker": "代码", "name": "名称", "where": "在哪个名单",
+                                                                "status": "问题"}), hide_index=True, width="stretch")
+    else:
+        st.success("全部代码都正常 👍")
+
+
+# ---------------------------------------------------------------------------
+
+PAGES = {"📅 每日焦点": page_focus, "🧩 板块": page_sectors, "🔍 选股雷达": page_radar,
+         "⭐ 自选股": page_watchlist, "🏆 KLCI 50 观察": page_klci, "📈 成绩单": page_track,
+         "📰 周报": page_weekly, "📊 个股分析": page_analysis, "🏢 认识公司": page_company,
+         "💼 投资组合": page_portfolio, "🩺 系统状态": page_health}
 
 if check_password():
     # 手机 app 的按钮会带网址参数打开：?company=4065.KL 或 ?analyze=4065.KL
@@ -883,9 +1090,10 @@ if check_password():
         elif qp.get("analyze"):
             st.session_state.query = qp["analyze"]
             st.session_state.nav = "📊 个股分析"
-        elif qp.get("page") in ("focus", "radar", "klci"):
-            st.session_state.nav = {"focus": "📅 每日焦点", "radar": "🔍 选股雷达",
-                                    "klci": "🏆 KLCI 50 观察"}[qp["page"]]
+        elif qp.get("page") in ("focus", "radar", "klci", "sectors", "track", "weekly", "watch"):
+            st.session_state.nav = {"focus": "📅 每日焦点", "radar": "🔍 选股雷达", "klci": "🏆 KLCI 50 观察",
+                                    "sectors": "🧩 板块", "track": "📈 成绩单", "weekly": "📰 周报",
+                                    "watch": "⭐ 自选股"}[qp["page"]]
         st.session_state._qp_done = True
     page = st.sidebar.radio("功能", list(PAGES), key="nav")
     st.sidebar.markdown("---")
