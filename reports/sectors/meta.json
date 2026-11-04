@@ -1,0 +1,322 @@
+{
+ "AAPL": {
+  "sector": "科技",
+  "industry": "Consumer Electronics",
+  "shares": 14532182000,
+  "pe": 38.920937,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "MSFT": {
+  "sector": "科技",
+  "industry": "Software - Infrastructure",
+  "shares": 7426194552,
+  "pe": 28.241869,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "NVDA": {
+  "sector": "科技",
+  "industry": "Semiconductors",
+  "shares": 24147000000,
+  "pe": 25.300886,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "AMZN": {
+  "sector": "非必需消费",
+  "industry": "Internet Retail",
+  "shares": 10813138306,
+  "pe": 21.506063,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "GOOGL": {
+  "sector": "电讯媒体",
+  "industry": "Internet Content & Information",
+  "shares": 5888000000,
+  "pe": 15.0877285,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "META": {
+  "sector": "电讯媒体",
+  "industry": "Internet Content & Information",
+  "shares": 2214455318,
+  "pe": 21.494371,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "TSLA": {
+  "sector": "非必需消费",
+  "industry": "Auto Manufacturers",
+  "shares": 3952730153,
+  "pe": 423.2857,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "AVGO": {
+  "sector": "科技",
+  "industry": "Semiconductors",
+  "shares": 4773629865,
+  "pe": 41.56833,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "BRK-B": {
+  "sector": "金融",
+  "industry": "Insurance - Diversified",
+  "shares": 1408035161,
+  "pe": 14.564639,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "JPM": {
+  "sector": "金融",
+  "industry": "Banks - Diversified",
+  "shares": 2655600000,
+  "pe": 14.769714,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "V": {
+  "sector": "金融",
+  "industry": "Credit Services",
+  "shares": 1728000000,
+  "pe": 35.43588,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "MA": {
+  "sector": "金融",
+  "industry": "Credit Services",
+  "shares": 864657109,
+  "pe": 35.799892,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "UNH": {
+  "sector": "医疗保健",
+  "industry": "Healthcare Plans",
+  "shares": 897594847,
+  "pe": 23.366438,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "XOM": {
+  "sector": "能源",
+  "industry": "Oil & Gas Integrated",
+  "shares": 4079222444,
+  "pe": 17.41461,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "LLY": {
+  "sector": "医疗保健",
+  "industry": "Drug Manufacturers - General",
+  "shares": 890745031,
+  "pe": 46.023693,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "JNJ": {
+  "sector": "医疗保健",
+  "industry": "Drug Manufacturers - General",
+  "shares": 2407310266,
+  "pe": 41.9302,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "WMT": {
+  "sector": "必需消费",
+  "industry": "Discount Stores",
+  "shares": 7933746241,
+  "pe": 47.84074,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "PG": {
+  "sector": "必需消费",
+  "industry": "Household & Personal Products",
+  "shares": 2317783143,
+  "pe": 25.198797,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "HD": {
+  "sector": "非必需消费",
+  "industry": "Home Improvement Retail",
+  "shares": 997689626,
+  "pe": 25.424894,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "COST": {
+  "sector": "必需消费",
+  "industry": "Discount Stores",
+  "shares": 443129349,
+  "pe": 50.407993,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "ORCL": {
+  "sector": "科技",
+  "industry": "Software - Infrastructure",
+  "shares": 3031501149,
+  "pe": 19.393417,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "NFLX": {
+  "sector": "电讯媒体",
+  "industry": "Entertainment",
+  "shares": 4163939676,
+  "pe": 19.18786,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "AMD": {
+  "sector": "科技",
+  "industry": "Semiconductors",
+  "shares": 1632475042,
+  "pe": 124.688774,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "CRM": {
+  "sector": "科技",
+  "industry": "Software - Application",
+  "shares": 823000000,
+  "pe": 21.146183,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "ADBE": {
+  "sector": "科技",
+  "industry": "Software - Application",
+  "shares": 389200000,
+  "pe": 13.873814,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "KO": {
+  "sector": "必需消费",
+  "industry": "Beverages - Non-Alcoholic",
+  "shares": 4301902335,
+  "pe": 28.597017,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "PEP": {
+  "sector": "必需消费",
+  "industry": "Beverages - Non-Alcoholic",
+  "shares": 1362741092,
+  "pe": 17.914465,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "BAC": {
+  "sector": "金融",
+  "industry": "Banks - Diversified",
+  "shares": 6900209006,
+  "pe": 12.322196,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "CVX": {
+  "sector": "能源",
+  "industry": "Oil & Gas Integrated",
+  "shares": 1951000000,
+  "pe": 16.106905,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "MRK": {
+  "sector": "医疗保健",
+  "industry": "Drug Manufacturers - General",
+  "shares": 2467171638,
+  "pe": 155.0103,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "ABBV": {
+  "sector": "医疗保健",
+  "industry": "Drug Manufacturers - General",
+  "shares": 1767117285,
+  "pe": 51.18576,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "INTC": {
+  "sector": "科技",
+  "industry": "Semiconductors",
+  "shares": 5315000000,
+  "pe": null,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "QCOM": {
+  "sector": "科技",
+  "industry": "Semiconductors",
+  "shares": 1067839507,
+  "pe": 20.04514,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "CSCO": {
+  "sector": "科技",
+  "industry": "Communication Equipment",
+  "shares": 3942586873,
+  "pe": 31.114115,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "DIS": {
+  "sector": "电讯媒体",
+  "industry": "Entertainment",
+  "shares": 1726686902,
+  "pe": 24.525774,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "NKE": {
+  "sector": "非必需消费",
+  "industry": "Footwear & Accessories",
+  "shares": 1203921077,
+  "pe": 19.466347,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "BA": {
+  "sector": "工业",
+  "industry": "Aerospace & Defense",
+  "shares": 792449940,
+  "pe": 18.266254,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "PLTR": {
+  "sector": "科技",
+  "industry": "Software - Infrastructure",
+  "shares": 2306705341,
+  "pe": 122.64286,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "TSM": {
+  "sector": "科技",
+  "industry": "Semiconductors",
+  "shares": 5186474013,
+  "pe": 25.648088,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "MU": {
+  "sector": "科技",
+  "industry": "Semiconductors",
+  "shares": 1131423212,
+  "pe": 10.698641,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ }
+}

@@ -1,0 +1,362 @@
+{
+ "AAPL": {
+  "name": "Apple",
+  "price": 349.51,
+  "chg_1d": 5.31,
+  "currency": "USD",
+  "market": "us",
+  "sector": "科技",
+  "date": "2026-11-04"
+ },
+ "NVDA": {
+  "name": "NVIDIA",
+  "price": 200.13,
+  "chg_1d": -3.17,
+  "currency": "USD",
+  "market": "us",
+  "sector": "科技",
+  "date": "2026-11-04"
+ },
+ "MSFT": {
+  "name": "Microsoft",
+  "price": 555.8,
+  "chg_1d": 6.68,
+  "currency": "USD",
+  "market": "us",
+  "sector": "科技",
+  "date": "2026-11-04"
+ },
+ "TSM": {
+  "name": "TSMC",
+  "price": 395.75,
+  "chg_1d": -2.24,
+  "currency": "USD",
+  "market": "us",
+  "sector": "科技",
+  "date": "2026-11-04"
+ },
+ "AVGO": {
+  "name": "Broadcom",
+  "price": 325.48,
+  "chg_1d": -2.0,
+  "currency": "USD",
+  "market": "us",
+  "sector": "科技",
+  "date": "2026-11-04"
+ },
+ "MU": {
+  "name": "Micron",
+  "price": 795.23,
+  "chg_1d": -7.0,
+  "currency": "USD",
+  "market": "us",
+  "sector": "科技",
+  "date": "2026-11-04"
+ },
+ "AMD": {
+  "name": "AMD",
+  "price": 488.78,
+  "chg_1d": 1.01,
+  "currency": "USD",
+  "market": "us",
+  "sector": "科技",
+  "date": "2026-11-04"
+ },
+ "CSCO": {
+  "name": "Cisco",
+  "price": 103.61,
+  "chg_1d": 0.62,
+  "currency": "USD",
+  "market": "us",
+  "sector": "科技",
+  "date": "2026-11-04"
+ },
+ "PLTR": {
+  "name": "Palantir",
+  "price": 171.7,
+  "chg_1d": -2.11,
+  "currency": "USD",
+  "market": "us",
+  "sector": "科技",
+  "date": "2026-11-04"
+ },
+ "ORCL": {
+  "name": "Oracle",
+  "price": 123.73,
+  "chg_1d": -1.95,
+  "currency": "USD",
+  "market": "us",
+  "sector": "科技",
+  "date": "2026-11-04"
+ },
+ "INTC": {
+  "name": "Intel",
+  "price": 58.27,
+  "chg_1d": -3.77,
+  "currency": "USD",
+  "market": "us",
+  "sector": "科技",
+  "date": "2026-11-04"
+ },
+ "CRM": {
+  "name": "Salesforce",
+  "price": 227.11,
+  "chg_1d": 2.21,
+  "currency": "USD",
+  "market": "us",
+  "sector": "科技",
+  "date": "2026-11-04"
+ },
+ "QCOM": {
+  "name": "Qualcomm",
+  "price": 173.19,
+  "chg_1d": 5.33,
+  "currency": "USD",
+  "market": "us",
+  "sector": "科技",
+  "date": "2026-11-04"
+ },
+ "ADBE": {
+  "name": "Adobe",
+  "price": 248.48,
+  "chg_1d": 0.95,
+  "currency": "USD",
+  "market": "us",
+  "sector": "科技",
+  "date": "2026-11-04"
+ },
+ "AMZN": {
+  "name": "Amazon",
+  "price": 266.03,
+  "chg_1d": 6.12,
+  "currency": "USD",
+  "market": "us",
+  "sector": "非必需消费",
+  "date": "2026-11-04"
+ },
+ "TSLA": {
+  "name": "Tesla",
+  "price": 385.19,
+  "chg_1d": -3.34,
+  "currency": "USD",
+  "market": "us",
+  "sector": "非必需消费",
+  "date": "2026-11-04"
+ },
+ "HD": {
+  "name": "Home Depot",
+  "price": 355.44,
+  "chg_1d": 6.53,
+  "currency": "USD",
+  "market": "us",
+  "sector": "非必需消费",
+  "date": "2026-11-04"
+ },
+ "NKE": {
+  "name": "Nike",
+  "price": 40.49,
+  "chg_1d": 5.22,
+  "currency": "USD",
+  "market": "us",
+  "sector": "非必需消费",
+  "date": "2026-11-04"
+ },
+ "GOOGL": {
+  "name": "Alphabet",
+  "price": 288.93,
+  "chg_1d": 3.18,
+  "currency": "USD",
+  "market": "us",
+  "sector": "电讯媒体",
+  "date": "2026-11-04"
+ },
+ "META": {
+  "name": "Meta",
+  "price": 630.0,
+  "chg_1d": 1.44,
+  "currency": "USD",
+  "market": "us",
+  "sector": "电讯媒体",
+  "date": "2026-11-04"
+ },
+ "NFLX": {
+  "name": "Netflix",
+  "price": 66.39,
+  "chg_1d": 4.68,
+  "currency": "USD",
+  "market": "us",
+  "sector": "电讯媒体",
+  "date": "2026-11-04"
+ },
+ "DIS": {
+  "name": "Disney",
+  "price": 118.95,
+  "chg_1d": 4.18,
+  "currency": "USD",
+  "market": "us",
+  "sector": "电讯媒体",
+  "date": "2026-11-04"
+ },
+ "JPM": {
+  "name": "JPMorgan",
+  "price": 352.11,
+  "chg_1d": 4.18,
+  "currency": "USD",
+  "market": "us",
+  "sector": "金融",
+  "date": "2026-11-04"
+ },
+ "BRK-B": {
+  "name": "Berkshire",
+  "price": 579.09,
+  "chg_1d": 3.95,
+  "currency": "USD",
+  "market": "us",
+  "sector": "金融",
+  "date": "2026-11-04"
+ },
+ "V": {
+  "name": "Visa",
+  "price": 436.57,
+  "chg_1d": 3.84,
+  "currency": "USD",
+  "market": "us",
+  "sector": "金融",
+  "date": "2026-11-04"
+ },
+ "MA": {
+  "name": "Mastercard",
+  "price": 672.68,
+  "chg_1d": 3.94,
+  "currency": "USD",
+  "market": "us",
+  "sector": "金融",
+  "date": "2026-11-04"
+ },
+ "BAC": {
+  "name": "Bank of America",
+  "price": 51.63,
+  "chg_1d": 3.97,
+  "currency": "USD",
+  "market": "us",
+  "sector": "金融",
+  "date": "2026-11-04"
+ },
+ "LLY": {
+  "name": "Eli Lilly",
+  "price": 1417.99,
+  "chg_1d": 0.61,
+  "currency": "USD",
+  "market": "us",
+  "sector": "医疗保健",
+  "date": "2026-11-04"
+ },
+ "JNJ": {
+  "name": "J&J",
+  "price": 276.32,
+  "chg_1d": 3.81,
+  "currency": "USD",
+  "market": "us",
+  "sector": "医疗保健",
+  "date": "2026-11-04"
+ },
+ "ABBV": {
+  "name": "AbbVie",
+  "price": 294.83,
+  "chg_1d": 3.09,
+  "currency": "USD",
+  "market": "us",
+  "sector": "医疗保健",
+  "date": "2026-11-04"
+ },
+ "MRK": {
+  "name": "Merck",
+  "price": 150.36,
+  "chg_1d": 3.93,
+  "currency": "USD",
+  "market": "us",
+  "sector": "医疗保健",
+  "date": "2026-11-04"
+ },
+ "UNH": {
+  "name": "UnitedHealth",
+  "price": 409.38,
+  "chg_1d": 1.22,
+  "currency": "USD",
+  "market": "us",
+  "sector": "医疗保健",
+  "date": "2026-11-04"
+ },
+ "WMT": {
+  "name": "Walmart",
+  "price": 129.17,
+  "chg_1d": 3.45,
+  "currency": "USD",
+  "market": "us",
+  "sector": "必需消费",
+  "date": "2026-11-04"
+ },
+ "COST": {
+  "name": "Costco",
+  "price": 1046.47,
+  "chg_1d": 2.67,
+  "currency": "USD",
+  "market": "us",
+  "sector": "必需消费",
+  "date": "2026-11-04"
+ },
+ "KO": {
+  "name": "Coca-Cola",
+  "price": 95.8,
+  "chg_1d": 1.05,
+  "currency": "USD",
+  "market": "us",
+  "sector": "必需消费",
+  "date": "2026-11-04"
+ },
+ "PG": {
+  "name": "P&G",
+  "price": 167.32,
+  "chg_1d": 3.25,
+  "currency": "USD",
+  "market": "us",
+  "sector": "必需消费",
+  "date": "2026-11-04"
+ },
+ "PEP": {
+  "name": "PepsiCo",
+  "price": 142.42,
+  "chg_1d": 3.75,
+  "currency": "USD",
+  "market": "us",
+  "sector": "必需消费",
+  "date": "2026-11-04"
+ },
+ "XOM": {
+  "name": "Exxon",
+  "price": 169.27,
+  "chg_1d": -4.62,
+  "currency": "USD",
+  "market": "us",
+  "sector": "能源",
+  "date": "2026-11-04"
+ },
+ "CVX": {
+  "name": "Chevron",
+  "price": 216.96,
+  "chg_1d": -3.69,
+  "currency": "USD",
+  "market": "us",
+  "sector": "能源",
+  "date": "2026-11-04"
+ },
+ "BA": {
+  "name": "Boeing",
+  "price": 177.0,
+  "chg_1d": 2.13,
+  "currency": "USD",
+  "market": "us",
+  "sector": "工业",
+  "date": "2026-11-04"
+ }
+}

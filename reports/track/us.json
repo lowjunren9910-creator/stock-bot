@@ -1,0 +1,436 @@
+{
+ "market": "us",
+ "market_name": "🇺🇸 美股",
+ "benchmark": "标普 500",
+ "updated": "2026-11-04 21:31 UTC",
+ "horizons": {
+  "1w": "1 周",
+  "1m": "1 个月",
+  "3m": "3 个月",
+  "now": "至今"
+ },
+ "summary": {
+  "focus": {
+   "name": "每日焦点",
+   "picks": 5,
+   "1w": {
+    "n": 0,
+    "avg_ret": null,
+    "avg_excess": null,
+    "hit_rate": null
+   },
+   "1m": {
+    "n": 0,
+    "avg_ret": null,
+    "avg_excess": null,
+    "hit_rate": null
+   },
+   "3m": {
+    "n": 0,
+    "avg_ret": null,
+    "avg_excess": null,
+    "hit_rate": null
+   },
+   "now": {
+    "n": 0,
+    "avg_ret": null,
+    "avg_excess": null,
+    "hit_rate": null
+   }
+  },
+  "oversold": {
+   "name": "错杀股",
+   "picks": 5,
+   "1w": {
+    "n": 0,
+    "avg_ret": null,
+    "avg_excess": null,
+    "hit_rate": null
+   },
+   "1m": {
+    "n": 0,
+    "avg_ret": null,
+    "avg_excess": null,
+    "hit_rate": null
+   },
+   "3m": {
+    "n": 0,
+    "avg_ret": null,
+    "avg_excess": null,
+    "hit_rate": null
+   },
+   "now": {
+    "n": 0,
+    "avg_ret": null,
+    "avg_excess": null,
+    "hit_rate": null
+   }
+  },
+  "growth": {
+   "name": "成长股",
+   "picks": 5,
+   "1w": {
+    "n": 0,
+    "avg_ret": null,
+    "avg_excess": null,
+    "hit_rate": null
+   },
+   "1m": {
+    "n": 0,
+    "avg_ret": null,
+    "avg_excess": null,
+    "hit_rate": null
+   },
+   "3m": {
+    "n": 0,
+    "avg_ret": null,
+    "avg_excess": null,
+    "hit_rate": null
+   },
+   "now": {
+    "n": 0,
+    "avg_ret": null,
+    "avg_excess": null,
+    "hit_rate": null
+   }
+  },
+  "double_kill": {
+   "name": "双杀股",
+   "picks": 2,
+   "1w": {
+    "n": 0,
+    "avg_ret": null,
+    "avg_excess": null,
+    "hit_rate": null
+   },
+   "1m": {
+    "n": 0,
+    "avg_ret": null,
+    "avg_excess": null,
+    "hit_rate": null
+   },
+   "3m": {
+    "n": 0,
+    "avg_ret": null,
+    "avg_excess": null,
+    "hit_rate": null
+   },
+   "now": {
+    "n": 0,
+    "avg_ret": null,
+    "avg_excess": null,
+    "hit_rate": null
+   }
+  }
+ },
+ "picks": [
+  {
+   "date": "2026-11-04",
+   "strategy": "focus",
+   "ticker": "MSFT",
+   "name": "Microsoft",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-04",
+   "strategy": "focus",
+   "ticker": "AAPL",
+   "name": "Apple",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-04",
+   "strategy": "focus",
+   "ticker": "AMZN",
+   "name": "Amazon",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-04",
+   "strategy": "focus",
+   "ticker": "MU",
+   "name": "Micron",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-04",
+   "strategy": "focus",
+   "ticker": "HD",
+   "name": "Home Depot",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-04",
+   "strategy": "oversold",
+   "ticker": "MU",
+   "name": "Micron",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-04",
+   "strategy": "oversold",
+   "ticker": "AVGO",
+   "name": "Broadcom",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-04",
+   "strategy": "oversold",
+   "ticker": "ORCL",
+   "name": "Oracle",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-04",
+   "strategy": "oversold",
+   "ticker": "NFLX",
+   "name": "Netflix",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-04",
+   "strategy": "oversold",
+   "ticker": "ADBE",
+   "name": "Adobe",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-04",
+   "strategy": "growth",
+   "ticker": "PLTR",
+   "name": "Palantir",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-04",
+   "strategy": "growth",
+   "ticker": "MU",
+   "name": "Micron",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-04",
+   "strategy": "growth",
+   "ticker": "NVDA",
+   "name": "NVIDIA",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-04",
+   "strategy": "growth",
+   "ticker": "AVGO",
+   "name": "Broadcom",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-04",
+   "strategy": "growth",
+   "ticker": "TSM",
+   "name": "TSMC",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-04",
+   "strategy": "double_kill",
+   "ticker": "INTC",
+   "name": "Intel",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-04",
+   "strategy": "double_kill",
+   "ticker": "GOOGL",
+   "name": "Alphabet",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  }
+ ],
+ "leaderboard": [
+  {
+   "id": "value",
+   "name": "老陈",
+   "title": "价值投资派",
+   "emoji": "🧓",
+   "n": 0,
+   "pending": 0,
+   "hit_rate": null,
+   "bull_avg_excess": null
+  },
+  {
+   "id": "growth",
+   "name": "Kelly",
+   "title": "成长股猎手",
+   "emoji": "🚀",
+   "n": 0,
+   "pending": 0,
+   "hit_rate": null,
+   "bull_avg_excess": null
+  },
+  {
+   "id": "technical",
+   "name": "阿杰",
+   "title": "技术派交易员",
+   "emoji": "📊",
+   "n": 0,
+   "pending": 0,
+   "hit_rate": null,
+   "bull_avg_excess": null
+  },
+  {
+   "id": "dividend",
+   "name": "Auntie Lim",
+   "title": "收息派老手",
+   "emoji": "💰",
+   "n": 0,
+   "pending": 0,
+   "hit_rate": null,
+   "bull_avg_excess": null
+  },
+  {
+   "id": "bear",
+   "name": "冷面周",
+   "title": "风控官·唱反调",
+   "emoji": "🐻",
+   "n": 0,
+   "pending": 0,
+   "hit_rate": null,
+   "bull_avg_excess": null
+  }
+ ],
+ "panels": []
+}
