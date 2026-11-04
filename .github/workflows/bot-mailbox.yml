@@ -5,7 +5,7 @@ name: Telegram 信箱
 
 on:
   schedule:
-    - cron: "*/15 * * * *"
+    - cron: "4,19,34,49 * * * *"   # 避开整点
   workflow_dispatch:        # 也可以在 GitHub 网页手动按"Run workflow"立刻处理
 
 permissions:

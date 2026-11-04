@@ -7,7 +7,8 @@ name: 市场报告
 on:
   schedule:
     # UTC 时间，星期一到五。涵盖大马/印尼（UTC 1-10 点）和美股（UTC 13-22 点）
-    - cron: "*/15 1-10,13-22 * * 1-5"
+    # 避开整点（GitHub 在整点最忙，最容易延迟或丢掉任务）
+    - cron: "7,22,37,52 1-10,13-22 * * 1-5"
   workflow_dispatch:        # 也可以在 GitHub 网页上手动按"Run workflow"
     inputs:
       market:
