@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#22305A">
+  <meta name="description" content="每日焦点、选股雷达、KLCI 50 观察">
+  <title>AI 股票分析室</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon-192.png">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="config.js"></script>
+</head>
+<body>
+  <header class="band">
+    <div class="band-top">
+      <h1 id="title">每日焦点</h1>
+      <button id="refresh" class="icon-btn" aria-label="重新载入">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.34-5.66M20 4v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div id="markets" class="seg" role="tablist" aria-label="市场">
+      <button data-m="bursa" role="tab">🇲🇾 Bursa</button>
+      <button data-m="idx" role="tab">🇮🇩 IDX</button>
+      <button data-m="us" role="tab">🇺🇸 美股</button>
+    </div>
+    <div id="band-extra"></div>
+  </header>
+
+  <div id="offline" class="notice" hidden>没有网络，显示的是上次的数据。</div>
+  <main id="view" aria-live="polite"></main>
+
+  <nav class="tabs" aria-label="页面">
+    <button data-tab="focus">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2" /></svg>
+      <span>焦点</span>
+    </button>
+    <button data-tab="radar">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 12l6-6"/></svg>
+      <span>雷达</span>
+    </button>
+    <button data-tab="klci">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg>
+      <span>KLCI 50</span>
+    </button>
+    <button data-tab="search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      <span>查股</span>
+    </button>
+  </nav>
+
+  <script src="app.js"></script>
+</body>
+</html>

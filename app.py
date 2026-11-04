@@ -874,6 +874,19 @@ PAGES = {"📅 每日焦点": page_focus, "🔍 选股雷达": page_radar, "🏆
          "📊 个股分析": page_analysis, "🏢 认识公司": page_company, "💼 投资组合": page_portfolio}
 
 if check_password():
+    # 手机 app 的按钮会带网址参数打开：?company=4065.KL 或 ?analyze=4065.KL
+    qp = st.query_params
+    if not st.session_state.get("_qp_done"):
+        if qp.get("company"):
+            st.session_state.company_query = qp["company"]
+            st.session_state.nav = "🏢 认识公司"
+        elif qp.get("analyze"):
+            st.session_state.query = qp["analyze"]
+            st.session_state.nav = "📊 个股分析"
+        elif qp.get("page") in ("focus", "radar", "klci"):
+            st.session_state.nav = {"focus": "📅 每日焦点", "radar": "🔍 选股雷达",
+                                    "klci": "🏆 KLCI 50 观察"}[qp["page"]]
+        st.session_state._qp_done = True
     page = st.sidebar.radio("功能", list(PAGES), key="nav")
     st.sidebar.markdown("---")
     st.sidebar.caption("圆桌嘉宾\n\n" + "\n\n".join(

@@ -203,6 +203,8 @@ def save(r: dict) -> Path:
     folder.mkdir(parents=True, exist_ok=True)
     path = folder / f"{r['date']}.json"
     path.write_text(json.dumps(r, ensure_ascii=False, indent=1, default=float), encoding="utf-8")
+    import scanner
+    scanner.update_index()  # 更新报告目录（手机 app 用）
     return path
 
 

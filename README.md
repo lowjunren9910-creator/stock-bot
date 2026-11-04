@@ -9,6 +9,34 @@
 
 ---
 
+## ☁️ 推荐：全云端运行（电脑不用开）
+
+完整步骤见「股票机器人：全云端部署指南」文档。简单来说：
+- 代码放 GitHub（Public repo）
+- 网站放 Streamlit Community Cloud
+- 定时报告：`.github/workflows/market-reports.yml`
+- Telegram 问答「信箱模式」：`.github/workflows/bot-mailbox.yml` + `bot_mailbox.py`，每 15 分钟处理一次你发的消息，只回答 `TELEGRAM_CHAT_ID` 本人
+- 用了信箱模式就不要同时在电脑跑 `bot.py`（两边会抢消息）
+
+GitHub Secrets 需要：`TELEGRAM_BOT_TOKEN`、`TELEGRAM_CHAT_ID`、`GROQ_API_KEY`、`AI_PROVIDER`（填 groq）。
+
+---
+
+## 📱 手机 app（Android，PWA，免费）
+
+`docs/` 文件夹是一个可以安装到手机的 app，放在 GitHub Pages：
+- 秒开、不会睡眠、没网络也能看上一份数据
+- 页面：每日焦点、选股雷达、KLCI 50、查股
+- 数据直接读 repo 里每天自动生成的 `reports/`；「认识公司」「走势和圆桌」按钮会打开 Streamlit 网站
+
+**开启方法：**
+1. repo 网页 → Settings → Pages → Source 选 **Deploy from a branch** → Branch 选 `main`、文件夹选 **/docs** → Save
+2. 等 1-2 分钟，打开 `https://你的GitHub用户名.github.io/stock-bot/`
+3. Android Chrome → 右上角 ⋮ → **安装应用**（或「添加到主屏幕」）
+4. 打开 app → 查股 → 设定：填上 Streamlit 网站网址（和 Telegram 机器人用户名），按保存
+
+---
+
 ## 一步一步安装教程（约 20-30 分钟）
 
 ### 第 1 步：安装 Python

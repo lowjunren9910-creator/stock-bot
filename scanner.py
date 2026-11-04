@@ -320,13 +320,19 @@ def save(report: dict) -> Path:
 
 
 def update_index():
-    """reports/index.json：所有报告清单，网站用来找最新报告。"""
+    """reports/index.json：所有报告的目录（网站和手机 app 用来找最新报告）。"""
+    from datetime import timezone
+    order = {"open": 0, "midday": 1, "close": 2}
+    stems = lambda d: [f.stem for f in d.glob("*.json")] if d.exists() else []
     idx = {}
     for mk in MARKETS:
-        order = {"open": 0, "midday": 1, "close": 2}
-        stems = [f.stem for f in (REPORT_DIR / mk).glob("*.json")] if (REPORT_DIR / mk).exists() else []
-        idx[mk] = sorted(stems, key=lambda s: (s[:10], order.get(s[11:], 0)), reverse=True)[:90]
-    (REPORT_DIR / "index.json").write_text(json.dumps(idx, indent=1), encoding="utf-8")
+        idx[mk] = sorted(stems(REPORT_DIR / mk), key=lambda s: (s[:10], order.get(s[11:], 0)),
+                         reverse=True)[:90]
+    idx["screen"] = {mk: sorted(stems(REPORT_DIR / "screen" / mk), reverse=True)[:60] for mk in MARKETS}
+    idx["klci"] = sorted(stems(REPORT_DIR / "klci"), reverse=True)[:60]
+    idx["updated"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    REPORT_DIR.mkdir(parents=True, exist_ok=True)
+    (REPORT_DIR / "index.json").write_text(json.dumps(idx, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
 # ---------------------------------------------------------------------------
@@ -372,7 +378,19 @@ def push_telegram(r: dict):
 # 6. 自动排程：现在该生成哪些报告？
 # ---------------------------------------------------------------------------
 
-def due_reports(now_utc: datetime | None = None, window_hours: float = 1.5) -> list[tuple[str, str]]:
+def _generated_local(path: Path) -> datetime | None:
+    """报告里记录的生成时间（当地时间，不带时区）。"""
+    try:
+        g = json.loads(path.read_text(encoding="utf-8"))["generated_at"][:16]
+        return datetime.strptime(g, "%Y-%m-%d %H:%M")
+    except Exception:
+        return None
+
+
+def due_reports(now_utc: datetime | None = None) -> list[tuple[str, str]]:
+    """现在该生成哪些报告？
+    每个市场只看「已经过了的最新时段」：GitHub 定时任务就算迟了几小时，也会补上；
+    报告文件存在、而且是在该时段之后才生成的，才算做过（手动提早跑的不算）。"""
     now_utc = now_utc or datetime.now(ZoneInfo("UTC"))
     enabled = os.getenv("SCAN_MARKETS", "bursa,idx,us").split(",")
     due = []
@@ -384,14 +402,19 @@ def due_reports(now_utc: datetime | None = None, window_hours: float = 1.5) -> l
         now = now_utc.astimezone(m.zone())
         if now.weekday() >= 5:
             continue
+        latest = None
         for sess, at in m.sessions.items():
             if mk == "idx" and sess == "midday" and now.weekday() == 4:
                 at = IDX_FRIDAY_MIDDAY
             target = now.replace(hour=at.hour, minute=at.minute, second=0, microsecond=0)
-            done = (REPORT_DIR / mk / f"{now.date()}_{sess}.json").exists()
-            if target <= now < target + timedelta(hours=window_hours) and not done:
-                due = [d for d in due if d[0] != mk]  # 同一市场只做最新的那个时段
-                due.append((mk, sess))
+            if now >= target and (latest is None or target > latest[1]):
+                latest = (sess, target)
+        if latest is None:
+            continue
+        sess, target = latest
+        gen = _generated_local(REPORT_DIR / mk / f"{now.date()}_{sess}.json")
+        if gen is None or gen < target.replace(tzinfo=None) - timedelta(minutes=2):
+            due.append((mk, sess))
     return due
 
 

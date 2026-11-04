@@ -1,0 +1,54 @@
+# Telegram 信箱模式：每 15 分钟检查一次你发给机器人的消息并回复
+# 不需要开电脑。没有新消息时几秒就结束，几乎不花时间。
+
+name: Telegram 信箱
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:        # 也可以在 GitHub 网页手动按"Run workflow"立刻处理
+
+permissions:
+  contents: read
+
+concurrency:
+  group: bot-mailbox
+  cancel-in-progress: false
+
+jobs:
+  reply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: 有没有新消息？
+        id: check
+        env:
+          TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: |
+          n=$(curl -s "https://api.telegram.org/bot${TOKEN}/getUpdates?timeout=0" \
+              | python3 -c "import sys, json; print(len(json.load(sys.stdin).get('result', [])))" || echo 0)
+          echo "收到 $n 条新消息"
+          echo "count=$n" >> "$GITHUB_OUTPUT"
+
+      - if: steps.check.outputs.count != '0'
+        uses: actions/checkout@v4
+
+      - if: steps.check.outputs.count != '0'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - if: steps.check.outputs.count != '0'
+        name: 安装工具包
+        run: pip install yfinance pandas requests python-dotenv openai matplotlib vaderSentiment
+
+      - if: steps.check.outputs.count != '0'
+        name: 回复消息
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          AI_PROVIDER: ${{ secrets.AI_PROVIDER }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python bot_mailbox.py
