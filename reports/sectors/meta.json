@@ -1222,5 +1222,293 @@
   "pe": 187.0,
   "currency": "MYR",
   "updated": "2026-11-05"
+ },
+ "BBCA.JK": {
+  "sector": "金融",
+  "industry": "Banks - Regional",
+  "shares": 122841751300,
+  "pe": 10.610766,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "BBRI.JK": {
+  "sector": "金融",
+  "industry": "Banks - Regional",
+  "shares": 149878079535,
+  "pe": 6.658477,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "BMRI.JK": {
+  "sector": "金融",
+  "industry": "Banks - Regional",
+  "shares": 92847999999,
+  "pe": 5.2538896,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "BBNI.JK": {
+  "sector": "金融",
+  "industry": "Banks - Regional",
+  "shares": 354899856,
+  "pe": 5.8865247,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "BRIS.JK": {
+  "sector": "金融",
+  "industry": "Banks - Regional",
+  "shares": 46129260138,
+  "pe": 6.5302825,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "TLKM.JK": {
+  "sector": "电讯媒体",
+  "industry": "Telecom Services",
+  "shares": 97951817264,
+  "pe": 12.196616,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "ASII.JK": {
+  "sector": "工业",
+  "industry": "Conglomerates",
+  "shares": 39687597040,
+  "pe": 6.608579,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "UNVR.JK": {
+  "sector": "必需消费",
+  "industry": "Household & Personal Products",
+  "shares": 37981233300,
+  "pe": 15.692407,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "ICBP.JK": {
+  "sector": "必需消费",
+  "industry": "Packaged Foods",
+  "shares": 11661908000,
+  "pe": 8.6267605,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "INDF.JK": {
+  "sector": "必需消费",
+  "industry": "Packaged Foods",
+  "shares": 8780426500,
+  "pe": 5.5349793,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "ADRO.JK": {
+  "sector": "能源",
+  "industry": "Thermal Coal",
+  "shares": 28800494200,
+  "pe": 5.8781977,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "ANTM.JK": {
+  "sector": "原材料",
+  "industry": "Gold",
+  "shares": 24030764724,
+  "pe": 7.343413,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "PTBA.JK": {
+  "sector": "能源",
+  "industry": "Thermal Coal",
+  "shares": 11514357250,
+  "pe": 5.7170544,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "ITMG.JK": {
+  "sector": "能源",
+  "industry": "Thermal Coal",
+  "shares": 1114899100,
+  "pe": 7.5813594,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "UNTR.JK": {
+  "sector": "原材料",
+  "industry": "Other Industrial Metals & Mining",
+  "shares": 3433487436,
+  "pe": 10.706199,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "KLBF.JK": {
+  "sector": "医疗保健",
+  "industry": "Drug Manufacturers - General",
+  "shares": 45193316810,
+  "pe": 9.144507,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "CPIN.JK": {
+  "sector": "种植",
+  "industry": "Farm Products",
+  "shares": 16398000000,
+  "pe": 5.2087913,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "GOTO.JK": {
+  "sector": "科技",
+  "industry": "Software - Infrastructure",
+  "shares": 1066561937092,
+  "pe": 35.820896,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "AMRT.JK": {
+  "sector": "必需消费",
+  "industry": "Grocery Stores",
+  "shares": 41091832700,
+  "pe": 11.092754,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "MDKA.JK": {
+  "sector": "原材料",
+  "industry": "Other Industrial Metals & Mining",
+  "shares": 24419642671,
+  "pe": 55.890842,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "INCO.JK": {
+  "sector": "原材料",
+  "industry": "Other Industrial Metals & Mining",
+  "shares": 10539784534,
+  "pe": 11.738182,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "PGAS.JK": {
+  "sector": "公用事业",
+  "industry": "Utilities - Regulated Gas",
+  "shares": 24241508195,
+  "pe": 7.3243957,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "SMGR.JK": {
+  "sector": "原材料",
+  "industry": "Building Materials",
+  "shares": 6700973859,
+  "pe": 15.222222,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "INKP.JK": {
+  "sector": "原材料",
+  "industry": "Paper & Paper Products",
+  "shares": 5470982941,
+  "pe": 3.4975421,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "TPIA.JK": {
+  "sector": "原材料",
+  "industry": "Specialty Chemicals",
+  "shares": 86464496192,
+  "pe": 372.46378,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "BRPT.JK": {
+  "sector": "原材料",
+  "industry": "Chemicals",
+  "shares": 93709240929,
+  "pe": 36.24054,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "MEDC.JK": {
+  "sector": "能源",
+  "industry": "Oil & Gas E&P",
+  "shares": 24726935674,
+  "pe": 5.2405906,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "AKRA.JK": {
+  "sector": "能源",
+  "industry": "Oil & Gas Refining & Marketing",
+  "shares": 19799769600,
+  "pe": 8.542549,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "EXCL.JK": {
+  "sector": "电讯媒体",
+  "industry": "Telecom Services",
+  "shares": 18199862451,
+  "pe": null,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "ISAT.JK": {
+  "sector": "电讯媒体",
+  "industry": "Telecom Services",
+  "shares": 32250810956,
+  "pe": 6.620488,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "JSMR.JK": {
+  "sector": "工业",
+  "industry": "Infrastructure Operations",
+  "shares": 7257871199,
+  "pe": 5.5662384,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "TOWR.JK": {
+  "sector": "房地产",
+  "industry": "Real Estate Services",
+  "shares": 58412989177,
+  "pe": 5.0882354,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "ARTO.JK": {
+  "sector": "金融",
+  "industry": "Banks - Regional",
+  "shares": 13861330900,
+  "pe": 19.078201,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "HRUM.JK": {
+  "sector": "原材料",
+  "industry": "Other Industrial Metals & Mining",
+  "shares": 13148556400,
+  "pe": 7.2081766,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "MAPI.JK": {
+  "sector": "非必需消费",
+  "industry": "Department Stores",
+  "shares": 16600000000,
+  "pe": 8.201485,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "SIDO.JK": {
+  "sector": "必需消费",
+  "industry": "Packaged Foods",
+  "shares": 29435200000,
+  "pe": 9.213936,
+  "currency": "IDR",
+  "updated": "2026-11-05"
  }
 }
