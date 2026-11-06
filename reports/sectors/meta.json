@@ -1,0 +1,1514 @@
+{
+ "AAPL": {
+  "sector": "科技",
+  "industry": "Consumer Electronics",
+  "shares": 14532182000,
+  "pe": 38.920937,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "MSFT": {
+  "sector": "科技",
+  "industry": "Software - Infrastructure",
+  "shares": 7426194552,
+  "pe": 28.241869,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "NVDA": {
+  "sector": "科技",
+  "industry": "Semiconductors",
+  "shares": 24147000000,
+  "pe": 25.300886,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "AMZN": {
+  "sector": "非必需消费",
+  "industry": "Internet Retail",
+  "shares": 10813138306,
+  "pe": 21.506063,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "GOOGL": {
+  "sector": "电讯媒体",
+  "industry": "Internet Content & Information",
+  "shares": 5888000000,
+  "pe": 15.0877285,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "META": {
+  "sector": "电讯媒体",
+  "industry": "Internet Content & Information",
+  "shares": 2214455318,
+  "pe": 21.494371,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "TSLA": {
+  "sector": "非必需消费",
+  "industry": "Auto Manufacturers",
+  "shares": 3952730153,
+  "pe": 423.2857,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "AVGO": {
+  "sector": "科技",
+  "industry": "Semiconductors",
+  "shares": 4773629865,
+  "pe": 41.56833,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "BRK-B": {
+  "sector": "金融",
+  "industry": "Insurance - Diversified",
+  "shares": 1408035161,
+  "pe": 14.564639,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "JPM": {
+  "sector": "金融",
+  "industry": "Banks - Diversified",
+  "shares": 2655600000,
+  "pe": 14.769714,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "V": {
+  "sector": "金融",
+  "industry": "Credit Services",
+  "shares": 1728000000,
+  "pe": 35.43588,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "MA": {
+  "sector": "金融",
+  "industry": "Credit Services",
+  "shares": 864657109,
+  "pe": 35.799892,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "UNH": {
+  "sector": "医疗保健",
+  "industry": "Healthcare Plans",
+  "shares": 897594847,
+  "pe": 23.366438,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "XOM": {
+  "sector": "能源",
+  "industry": "Oil & Gas Integrated",
+  "shares": 4079222444,
+  "pe": 17.41461,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "LLY": {
+  "sector": "医疗保健",
+  "industry": "Drug Manufacturers - General",
+  "shares": 890745031,
+  "pe": 46.023693,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "JNJ": {
+  "sector": "医疗保健",
+  "industry": "Drug Manufacturers - General",
+  "shares": 2407310266,
+  "pe": 41.9302,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "WMT": {
+  "sector": "必需消费",
+  "industry": "Discount Stores",
+  "shares": 7933746241,
+  "pe": 47.84074,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "PG": {
+  "sector": "必需消费",
+  "industry": "Household & Personal Products",
+  "shares": 2317783143,
+  "pe": 25.198797,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "HD": {
+  "sector": "非必需消费",
+  "industry": "Home Improvement Retail",
+  "shares": 997689626,
+  "pe": 25.424894,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "COST": {
+  "sector": "必需消费",
+  "industry": "Discount Stores",
+  "shares": 443129349,
+  "pe": 50.407993,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "ORCL": {
+  "sector": "科技",
+  "industry": "Software - Infrastructure",
+  "shares": 3031501149,
+  "pe": 19.393417,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "NFLX": {
+  "sector": "电讯媒体",
+  "industry": "Entertainment",
+  "shares": 4163939676,
+  "pe": 19.18786,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "AMD": {
+  "sector": "科技",
+  "industry": "Semiconductors",
+  "shares": 1632475042,
+  "pe": 124.688774,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "CRM": {
+  "sector": "科技",
+  "industry": "Software - Application",
+  "shares": 823000000,
+  "pe": 21.146183,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "ADBE": {
+  "sector": "科技",
+  "industry": "Software - Application",
+  "shares": 389200000,
+  "pe": 13.873814,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "KO": {
+  "sector": "必需消费",
+  "industry": "Beverages - Non-Alcoholic",
+  "shares": 4301902335,
+  "pe": 28.597017,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "PEP": {
+  "sector": "必需消费",
+  "industry": "Beverages - Non-Alcoholic",
+  "shares": 1362741092,
+  "pe": 17.914465,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "BAC": {
+  "sector": "金融",
+  "industry": "Banks - Diversified",
+  "shares": 6900209006,
+  "pe": 12.322196,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "CVX": {
+  "sector": "能源",
+  "industry": "Oil & Gas Integrated",
+  "shares": 1951000000,
+  "pe": 16.106905,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "MRK": {
+  "sector": "医疗保健",
+  "industry": "Drug Manufacturers - General",
+  "shares": 2467171638,
+  "pe": 155.0103,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "ABBV": {
+  "sector": "医疗保健",
+  "industry": "Drug Manufacturers - General",
+  "shares": 1767117285,
+  "pe": 51.18576,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "INTC": {
+  "sector": "科技",
+  "industry": "Semiconductors",
+  "shares": 5315000000,
+  "pe": null,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "QCOM": {
+  "sector": "科技",
+  "industry": "Semiconductors",
+  "shares": 1067839507,
+  "pe": 20.04514,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "CSCO": {
+  "sector": "科技",
+  "industry": "Communication Equipment",
+  "shares": 3942586873,
+  "pe": 31.114115,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "DIS": {
+  "sector": "电讯媒体",
+  "industry": "Entertainment",
+  "shares": 1726686902,
+  "pe": 24.525774,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "NKE": {
+  "sector": "非必需消费",
+  "industry": "Footwear & Accessories",
+  "shares": 1203921077,
+  "pe": 19.466347,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "BA": {
+  "sector": "工业",
+  "industry": "Aerospace & Defense",
+  "shares": 792449940,
+  "pe": 18.266254,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "PLTR": {
+  "sector": "科技",
+  "industry": "Software - Infrastructure",
+  "shares": 2306705341,
+  "pe": 122.64286,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "TSM": {
+  "sector": "科技",
+  "industry": "Semiconductors",
+  "shares": 5186474013,
+  "pe": 25.648088,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "MU": {
+  "sector": "科技",
+  "industry": "Semiconductors",
+  "shares": 1131423212,
+  "pe": 10.698641,
+  "currency": "USD",
+  "updated": "2026-11-04"
+ },
+ "5326.KL": {
+  "sector": "非必需消费",
+  "industry": "Department Stores",
+  "shares": 8400000000,
+  "pe": 38.5,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "6888.KL": {
+  "sector": "电讯媒体",
+  "industry": "Telecom Services",
+  "shares": 9193272148,
+  "pe": 167.0,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "6947.KL": {
+  "sector": "电讯媒体",
+  "industry": "Telecom Services",
+  "shares": 11731507988,
+  "pe": 19.769232,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "1023.KL": {
+  "sector": "金融",
+  "industry": "Banks - Regional",
+  "shares": 10758710915,
+  "pe": 9.79452,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5398.KL": {
+  "sector": "工业",
+  "industry": "Engineering & Construction",
+  "shares": 6063549761,
+  "pe": 27.388887,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5819.KL": {
+  "sector": "金融",
+  "industry": "Banks - Regional",
+  "shares": 2050444002,
+  "pe": 10.090909,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "1082.KL": {
+  "sector": "金融",
+  "industry": "Banks - Regional",
+  "shares": 1134258200,
+  "pe": 5.887789,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5225.KL": {
+  "sector": "医疗保健",
+  "industry": "Medical Care Facilities",
+  "shares": 8836153463,
+  "pe": 30.88,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "1961.KL": {
+  "sector": "必需消费",
+  "industry": "Packaged Foods",
+  "shares": 6285198995,
+  "pe": 16.37037,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "2445.KL": {
+  "sector": "工业",
+  "industry": "Conglomerates",
+  "shares": 1113659396,
+  "pe": null,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "1155.KL": {
+  "sector": "金融",
+  "industry": "Banks - Regional",
+  "shares": 12095579217,
+  "pe": 11.678161,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "6012.KL": {
+  "sector": "电讯媒体",
+  "industry": "Telecom Services",
+  "shares": 7841901010,
+  "pe": 17.142857,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "3816.KL": {
+  "sector": "工业",
+  "industry": "Marine Shipping",
+  "shares": 4463745703,
+  "pe": 15.0185175,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5296.KL": {
+  "sector": "非必需消费",
+  "industry": "Home Improvement Retail",
+  "shares": 9477475992,
+  "pe": 17.142859,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "4707.KL": {
+  "sector": "必需消费",
+  "industry": "Packaged Foods",
+  "shares": 234500000,
+  "pe": 32.98969,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5183.KL": {
+  "sector": "原材料",
+  "industry": "Chemicals",
+  "shares": 8000000000,
+  "pe": null,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5681.KL": {
+  "sector": "能源",
+  "industry": "Oil & Gas Refining & Marketing",
+  "shares": 993454000,
+  "pe": 15.934426,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "6033.KL": {
+  "sector": "能源",
+  "industry": "Oil & Gas Integrated",
+  "shares": 1978731915,
+  "pe": 20.116278,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "4065.KL": {
+  "sector": "必需消费",
+  "industry": "Packaged Foods",
+  "shares": 1420814739,
+  "pe": null,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "8869.KL": {
+  "sector": "原材料",
+  "industry": "Aluminum",
+  "shares": 8239617778,
+  "pe": 22.580645,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "1295.KL": {
+  "sector": "金融",
+  "industry": "Banks - Regional",
+  "shares": 19410691735,
+  "pe": 13.052631,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "1066.KL": {
+  "sector": "金融",
+  "industry": "Banks - Regional",
+  "shares": 4364896950,
+  "pe": 9.797468,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5285.KL": {
+  "sector": "必需消费",
+  "industry": "Packaged Foods",
+  "shares": 6915714601,
+  "pe": 13.953488,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5211.KL": {
+  "sector": "工业",
+  "industry": "Conglomerates",
+  "shares": 6760420695,
+  "pe": 2.8653846,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "4863.KL": {
+  "sector": "电讯媒体",
+  "industry": "Telecom Services",
+  "shares": 3837738480,
+  "pe": 19.047619,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5347.KL": {
+  "sector": "公用事业",
+  "industry": "Utilities - Regulated Electric",
+  "shares": 5829142171,
+  "pe": 16.794872,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "4677.KL": {
+  "sector": "公用事业",
+  "industry": "Utilities - Diversified",
+  "shares": 11736720556,
+  "pe": 17.750002,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "6742.KL": {
+  "sector": "公用事业",
+  "industry": "Utilities - Diversified",
+  "shares": 8731429589,
+  "pe": 27.736843,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5555.KL": {
+  "sector": "医疗保健",
+  "industry": "Medical Care Facilities",
+  "shares": 11506412558,
+  "pe": 104.5,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5249.KL": {
+  "sector": "房地产",
+  "industry": "Real Estate - Development",
+  "shares": 5506145375,
+  "pe": 8.205129,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5031.KL": {
+  "sector": "电讯媒体",
+  "industry": "Telecom Services",
+  "shares": 1848818643,
+  "pe": 22.04,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "2089.KL": {
+  "sector": "种植",
+  "industry": "Farm Products",
+  "shares": 622177476,
+  "pe": 22.631578,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "3336.KL": {
+  "sector": "工业",
+  "industry": "Conglomerates",
+  "shares": 3647566120,
+  "pe": 256.0,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "7277.KL": {
+  "sector": "能源",
+  "industry": "Oil & Gas Equipment & Services",
+  "shares": 5642684650,
+  "pe": 18.818182,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5878.KL": {
+  "sector": "医疗保健",
+  "industry": "Medical Care Facilities",
+  "shares": 4426668891,
+  "pe": 30.444443,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "3182.KL": {
+  "sector": "非必需消费",
+  "industry": "Resorts & Casinos",
+  "shares": 3850576099,
+  "pe": null,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5246.KL": {
+  "sector": "工业",
+  "industry": "Marine Shipping",
+  "shares": 3451964458,
+  "pe": 18.973684,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "0166.KL": {
+  "sector": "科技",
+  "industry": "Semiconductor Equipment & Materials",
+  "shares": 3875591499,
+  "pe": 76.0,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5227.KL": {
+  "sector": "房地产",
+  "industry": "REIT - Retail",
+  "shares": 4331811331,
+  "pe": 13.9,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "2488.KL": {
+  "sector": "金融",
+  "industry": "Banks - Regional",
+  "shares": 1730223001,
+  "pe": 0.36697966,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5288.KL": {
+  "sector": "房地产",
+  "industry": "Real Estate - Development",
+  "shares": 6800839377,
+  "pe": 12.000001,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5176.KL": {
+  "sector": "房地产",
+  "industry": "REIT - Retail",
+  "shares": 3424807700,
+  "pe": 13.733333,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "4715.KL": {
+  "sector": "非必需消费",
+  "industry": "Resorts & Casinos",
+  "shares": 5666991733,
+  "pe": 25.199999,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "3794.KL": {
+  "sector": "原材料",
+  "industry": "Building Materials",
+  "shares": 1666437097,
+  "pe": 11.604167,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5212.KL": {
+  "sector": "房地产",
+  "industry": "REIT - Retail",
+  "shares": 3931443719,
+  "pe": 12.076924,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5263.KL": {
+  "sector": "工业",
+  "industry": "Engineering & Construction",
+  "shares": 1328893610,
+  "pe": 24.21875,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "0097.KL": {
+  "sector": "科技",
+  "industry": "Semiconductor Equipment & Materials",
+  "shares": 1894902800,
+  "pe": 96.36364,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5337.KL": {
+  "sector": "非必需消费",
+  "industry": "Department Stores",
+  "shares": 5759876133,
+  "pe": 24.4,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "3034.KL": {
+  "sector": "工业",
+  "industry": "Conglomerates",
+  "shares": 2489669583,
+  "pe": 13.315789,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "4197.KL": {
+  "sector": "非必需消费",
+  "industry": "Auto Manufacturers",
+  "shares": 6815597577,
+  "pe": 9.615385,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "7084.KL": {
+  "sector": "种植",
+  "industry": "Farm Products",
+  "shares": 3642493369,
+  "pe": 32.166668,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "1015.KL": {
+  "sector": "金融",
+  "industry": "Banks - Regional",
+  "shares": 3311750244,
+  "pe": 10.546875,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5258.KL": {
+  "sector": "金融",
+  "industry": "Banks - Regional",
+  "shares": 2266473214,
+  "pe": 8.0,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "1171.KL": {
+  "sector": "金融",
+  "industry": "Banks - Regional",
+  "shares": 8222312432,
+  "pe": 26.25,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5185.KL": {
+  "sector": "金融",
+  "industry": "Banks - Regional",
+  "shares": 2632205318,
+  "pe": 9.761905,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "1818.KL": {
+  "sector": "金融",
+  "industry": "Financial Data & Stock Exchanges",
+  "shares": 809299121,
+  "pe": 23.970587,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "1163.KL": {
+  "sector": "金融",
+  "industry": "Insurance - Diversified",
+  "shares": 184259539,
+  "pe": 7.4887214,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5139.KL": {
+  "sector": "金融",
+  "industry": "Credit Services",
+  "shares": 510615380,
+  "pe": 6.0657897,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5235SS.KL": {
+  "sector": "房地产",
+  "industry": "REIT - Diversified",
+  "shares": 1805333083,
+  "pe": 11.718309,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5180.KL": {
+  "sector": "房地产",
+  "industry": "REIT - Retail",
+  "shares": 3432154614,
+  "pe": 9.083334,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5106.KL": {
+  "sector": "房地产",
+  "industry": "REIT - Diversified",
+  "shares": 2024894950,
+  "pe": 12.928571,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5099.KL": {
+  "sector": "工业",
+  "industry": "Airlines",
+  "shares": 4482948615,
+  "pe": 0.118604645,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5238.KL": {
+  "sector": "工业",
+  "industry": "Airlines",
+  "shares": 3360838901,
+  "pe": 26.750002,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "0138.KL": {
+  "sector": "科技",
+  "industry": "Information Technology Services",
+  "shares": 7897746994,
+  "pe": 0.46153846,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5248.KL": {
+  "sector": "非必需消费",
+  "industry": "Auto & Truck Dealerships",
+  "shares": 1124895078,
+  "pe": 7.25,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5209.KL": {
+  "sector": "公用事业",
+  "industry": "Utilities - Regulated Gas",
+  "shares": 1284000000,
+  "pe": 20.0,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5264.KL": {
+  "sector": "公用事业",
+  "industry": "Utilities - Diversified",
+  "shares": 4886961300,
+  "pe": null,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "3069.KL": {
+  "sector": "公用事业",
+  "industry": "Utilities - Regulated Electric",
+  "shares": 941050102,
+  "pe": 7.368421,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5272.KL": {
+  "sector": "公用事业",
+  "industry": "Utilities - Regulated Water",
+  "shares": 1295949135,
+  "pe": 20.9375,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "0215.KL": {
+  "sector": "科技",
+  "industry": "Solar",
+  "shares": 979596010,
+  "pe": 45.333332,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "7293.KL": {
+  "sector": "能源",
+  "industry": "Oil & Gas Equipment & Services",
+  "shares": 2922504286,
+  "pe": 113.5,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5243.KL": {
+  "sector": "能源",
+  "industry": "Oil & Gas Drilling",
+  "shares": 8264805672,
+  "pe": 9.000001,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5199.KL": {
+  "sector": "能源",
+  "industry": "Oil & Gas E&P",
+  "shares": 737395328,
+  "pe": 3.897959,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "3042.KL": {
+  "sector": "能源",
+  "industry": "Oil & Gas Refining & Marketing",
+  "shares": 270000000,
+  "pe": 15.8,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5032.KL": {
+  "sector": "工业",
+  "industry": "Marine Shipping",
+  "shares": 460000000,
+  "pe": 19.615385,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "2291.KL": {
+  "sector": "种植",
+  "industry": "Farm Products",
+  "shares": 896804730,
+  "pe": 14.342857,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5126.KL": {
+  "sector": "种植",
+  "industry": "Farm Products",
+  "shares": 911292064,
+  "pe": 10.588236,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "7113.KL": {
+  "sector": "医疗保健",
+  "industry": "Medical Instruments & Supplies",
+  "shares": 8018172693,
+  "pe": 23.625,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5168.KL": {
+  "sector": "原材料",
+  "industry": "Specialty Chemicals",
+  "shares": 3407461863,
+  "pe": 23.800001,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "7153.KL": {
+  "sector": "医疗保健",
+  "industry": "Medical Instruments & Supplies",
+  "shares": 2520203316,
+  "pe": 18.142857,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "0128.KL": {
+  "sector": "工业",
+  "industry": "Specialty Business Services",
+  "shares": 1812936532,
+  "pe": 44.18182,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "0208.KL": {
+  "sector": "工业",
+  "industry": "Specialty Industrial Machinery",
+  "shares": 2514543900,
+  "pe": 86.666664,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5005.KL": {
+  "sector": "科技",
+  "industry": "Semiconductors",
+  "shares": 1714717710,
+  "pe": 98.00001,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "7204.KL": {
+  "sector": "科技",
+  "industry": "Semiconductor Equipment & Materials",
+  "shares": 1239483654,
+  "pe": null,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "7160.KL": {
+  "sector": "工业",
+  "industry": "Specialty Industrial Machinery",
+  "shares": 711317121,
+  "pe": 51.5,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5286.KL": {
+  "sector": "科技",
+  "industry": "Semiconductor Equipment & Materials",
+  "shares": 898000000,
+  "pe": 30.5,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "0151.KL": {
+  "sector": "工业",
+  "industry": "Engineering & Construction",
+  "shares": 880392635,
+  "pe": 39.7,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5292.KL": {
+  "sector": "工业",
+  "industry": "Metal Fabrication",
+  "shares": 1103819106,
+  "pe": 73.22222,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "9822.KL": {
+  "sector": "工业",
+  "industry": "Aerospace & Defense",
+  "shares": 676986785,
+  "pe": 66.833336,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5309.KL": {
+  "sector": "工业",
+  "industry": "Security & Protection Services",
+  "shares": 1037683461,
+  "pe": 43.899998,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "8664.KL": {
+  "sector": "房地产",
+  "industry": "Real Estate - Development",
+  "shares": 5051726336,
+  "pe": 8.1875,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5148.KL": {
+  "sector": "房地产",
+  "industry": "Real Estate - Development",
+  "shares": 5058476221,
+  "pe": 24.75,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "8583.KL": {
+  "sector": "房地产",
+  "industry": "Real Estate - Development",
+  "shares": 2560138185,
+  "pe": 9.5,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5236.KL": {
+  "sector": "房地产",
+  "industry": "Real Estate - Development",
+  "shares": 1877020526,
+  "pe": 8.25,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "3417.KL": {
+  "sector": "房地产",
+  "industry": "Real Estate - Development",
+  "shares": 2495595346,
+  "pe": 8.222222,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5038.KL": {
+  "sector": "房地产",
+  "industry": "Real Estate - Development",
+  "shares": 1109062806,
+  "pe": 4.882353,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "4731.KL": {
+  "sector": "非必需消费",
+  "industry": "Packaging & Containers",
+  "shares": 1556276914,
+  "pe": 8.849999,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5401.KL": {
+  "sector": "房地产",
+  "industry": "Real Estate - Development",
+  "shares": 2385770535,
+  "pe": null,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5284.KL": {
+  "sector": "原材料",
+  "industry": "Chemicals",
+  "shares": 2277556540,
+  "pe": null,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "3301.KL": {
+  "sector": "非必需消费",
+  "industry": "Auto Manufacturers",
+  "shares": 319472810,
+  "pe": 9.222222,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "3255.KL": {
+  "sector": "必需消费",
+  "industry": "Beverages - Brewers",
+  "shares": 302098000,
+  "pe": 9.674074,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "2836.KL": {
+  "sector": "必需消费",
+  "industry": "Beverages - Brewers",
+  "shares": 305748000,
+  "pe": 10.032,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "6599.KL": {
+  "sector": "非必需消费",
+  "industry": "Department Stores",
+  "shares": 1404000000,
+  "pe": 8.181818,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "3689.KL": {
+  "sector": "必需消费",
+  "industry": "Beverages - Non-Alcoholic",
+  "shares": 366283501,
+  "pe": 18.77876,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "7148.KL": {
+  "sector": "医疗保健",
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "shares": 961942451,
+  "pe": 10.454545,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "6399.KL": {
+  "sector": "电讯媒体",
+  "industry": "Entertainment",
+  "shares": 5225841193,
+  "pe": null,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5301.KL": {
+  "sector": "金融",
+  "industry": "Financial Data & Stock Exchanges",
+  "shares": 2198775000,
+  "pe": 9.75,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "2429.KL": {
+  "sector": "房地产",
+  "industry": "Real Estate - Diversified",
+  "shares": 6025471399,
+  "pe": null,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "5273.KL": {
+  "sector": "原材料",
+  "industry": "Building Materials",
+  "shares": 3537888984,
+  "pe": 68.666664,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "9296.KL": {
+  "sector": "金融",
+  "industry": "Credit Services",
+  "shares": 1468035142,
+  "pe": 9.999999,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "6963.KL": {
+  "sector": "科技",
+  "industry": "Electronic Components",
+  "shares": 3854531056,
+  "pe": null,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "7100.KL": {
+  "sector": "科技",
+  "industry": "Electronic Components",
+  "shares": 463439859,
+  "pe": 12.0,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "0270.KL": {
+  "sector": "科技",
+  "industry": "Electronic Components",
+  "shares": 2264667510,
+  "pe": 187.0,
+  "currency": "MYR",
+  "updated": "2026-11-05"
+ },
+ "BBCA.JK": {
+  "sector": "金融",
+  "industry": "Banks - Regional",
+  "shares": 122841751300,
+  "pe": 10.610766,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "BBRI.JK": {
+  "sector": "金融",
+  "industry": "Banks - Regional",
+  "shares": 149878079535,
+  "pe": 6.658477,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "BMRI.JK": {
+  "sector": "金融",
+  "industry": "Banks - Regional",
+  "shares": 92847999999,
+  "pe": 5.2538896,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "BBNI.JK": {
+  "sector": "金融",
+  "industry": "Banks - Regional",
+  "shares": 354899856,
+  "pe": 5.8865247,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "BRIS.JK": {
+  "sector": "金融",
+  "industry": "Banks - Regional",
+  "shares": 46129260138,
+  "pe": 6.5302825,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "TLKM.JK": {
+  "sector": "电讯媒体",
+  "industry": "Telecom Services",
+  "shares": 97951817264,
+  "pe": 12.196616,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "ASII.JK": {
+  "sector": "工业",
+  "industry": "Conglomerates",
+  "shares": 39687597040,
+  "pe": 6.608579,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "UNVR.JK": {
+  "sector": "必需消费",
+  "industry": "Household & Personal Products",
+  "shares": 37981233300,
+  "pe": 15.692407,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "ICBP.JK": {
+  "sector": "必需消费",
+  "industry": "Packaged Foods",
+  "shares": 11661908000,
+  "pe": 8.6267605,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "INDF.JK": {
+  "sector": "必需消费",
+  "industry": "Packaged Foods",
+  "shares": 8780426500,
+  "pe": 5.5349793,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "ADRO.JK": {
+  "sector": "能源",
+  "industry": "Thermal Coal",
+  "shares": 28800494200,
+  "pe": 5.8781977,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "ANTM.JK": {
+  "sector": "原材料",
+  "industry": "Gold",
+  "shares": 24030764724,
+  "pe": 7.343413,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "PTBA.JK": {
+  "sector": "能源",
+  "industry": "Thermal Coal",
+  "shares": 11514357250,
+  "pe": 5.7170544,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "ITMG.JK": {
+  "sector": "能源",
+  "industry": "Thermal Coal",
+  "shares": 1114899100,
+  "pe": 7.5813594,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "UNTR.JK": {
+  "sector": "原材料",
+  "industry": "Other Industrial Metals & Mining",
+  "shares": 3433487436,
+  "pe": 10.706199,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "KLBF.JK": {
+  "sector": "医疗保健",
+  "industry": "Drug Manufacturers - General",
+  "shares": 45193316810,
+  "pe": 9.144507,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "CPIN.JK": {
+  "sector": "种植",
+  "industry": "Farm Products",
+  "shares": 16398000000,
+  "pe": 5.2087913,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "GOTO.JK": {
+  "sector": "科技",
+  "industry": "Software - Infrastructure",
+  "shares": 1066561937092,
+  "pe": 35.820896,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "AMRT.JK": {
+  "sector": "必需消费",
+  "industry": "Grocery Stores",
+  "shares": 41091832700,
+  "pe": 11.092754,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "MDKA.JK": {
+  "sector": "原材料",
+  "industry": "Other Industrial Metals & Mining",
+  "shares": 24419642671,
+  "pe": 55.890842,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "INCO.JK": {
+  "sector": "原材料",
+  "industry": "Other Industrial Metals & Mining",
+  "shares": 10539784534,
+  "pe": 11.738182,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "PGAS.JK": {
+  "sector": "公用事业",
+  "industry": "Utilities - Regulated Gas",
+  "shares": 24241508195,
+  "pe": 7.3243957,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "SMGR.JK": {
+  "sector": "原材料",
+  "industry": "Building Materials",
+  "shares": 6700973859,
+  "pe": 15.222222,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "INKP.JK": {
+  "sector": "原材料",
+  "industry": "Paper & Paper Products",
+  "shares": 5470982941,
+  "pe": 3.4975421,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "TPIA.JK": {
+  "sector": "原材料",
+  "industry": "Specialty Chemicals",
+  "shares": 86464496192,
+  "pe": 372.46378,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "BRPT.JK": {
+  "sector": "原材料",
+  "industry": "Chemicals",
+  "shares": 93709240929,
+  "pe": 36.24054,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "MEDC.JK": {
+  "sector": "能源",
+  "industry": "Oil & Gas E&P",
+  "shares": 24726935674,
+  "pe": 5.2405906,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "AKRA.JK": {
+  "sector": "能源",
+  "industry": "Oil & Gas Refining & Marketing",
+  "shares": 19799769600,
+  "pe": 8.542549,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "EXCL.JK": {
+  "sector": "电讯媒体",
+  "industry": "Telecom Services",
+  "shares": 18199862451,
+  "pe": null,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "ISAT.JK": {
+  "sector": "电讯媒体",
+  "industry": "Telecom Services",
+  "shares": 32250810956,
+  "pe": 6.620488,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "JSMR.JK": {
+  "sector": "工业",
+  "industry": "Infrastructure Operations",
+  "shares": 7257871199,
+  "pe": 5.5662384,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "TOWR.JK": {
+  "sector": "房地产",
+  "industry": "Real Estate Services",
+  "shares": 58412989177,
+  "pe": 5.0882354,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "ARTO.JK": {
+  "sector": "金融",
+  "industry": "Banks - Regional",
+  "shares": 13861330900,
+  "pe": 19.078201,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "HRUM.JK": {
+  "sector": "原材料",
+  "industry": "Other Industrial Metals & Mining",
+  "shares": 13148556400,
+  "pe": 7.2081766,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "MAPI.JK": {
+  "sector": "非必需消费",
+  "industry": "Department Stores",
+  "shares": 16600000000,
+  "pe": 8.201485,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ },
+ "SIDO.JK": {
+  "sector": "必需消费",
+  "industry": "Packaged Foods",
+  "shares": 29435200000,
+  "pe": 9.213936,
+  "currency": "IDR",
+  "updated": "2026-11-05"
+ }
+}
