@@ -1,0 +1,42 @@
+{
+ "updated": "2026-11-06 09:33 UTC",
+ "companies": [
+  {
+   "ticker": "1155.KL",
+   "name": "Maybank",
+   "market": "bursa",
+   "keywords": [
+    "MAYBANK",
+    "Maybank"
+   ]
+  },
+  {
+   "ticker": "5347.KL",
+   "name": "Tenaga",
+   "market": "bursa",
+   "keywords": [
+    "TENAGA",
+    "Tenaga"
+   ]
+  },
+  {
+   "ticker": "4065.KL",
+   "name": "PPB",
+   "market": "bursa",
+   "keywords": [
+    "PPB"
+   ]
+  },
+  {
+   "ticker": "NVDA",
+   "name": "NVIDIA",
+   "market": "us",
+   "keywords": [
+    "NVDA",
+    "NVIDIA"
+   ]
+  }
+ ],
+ "events": [],
+ "note": "AI 只看了新闻标题和摘要，重要新闻请点链接看原文。影响判断仅供参考，不构成投资建议。"
+}
