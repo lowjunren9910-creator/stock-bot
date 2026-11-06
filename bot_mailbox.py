@@ -46,11 +46,12 @@ HELP = f"""<b>📊 股票分析机器人（信箱模式）</b>
 /sector [bursa|idx|us] - 板块轮动；/sector 手套、/sector REIT、/sector us AI - 看某个板块或主题
 /compare 代码 代码 [代码] - 对比 2 到 3 只股票，例如 <code>/compare MAYBANK PBBANK CIMB</code>
 /quarter 代码 - 最新季报快速分析
+/news 代码 - 最新新闻 + AI 分析（短期 / 长期影响）。自选股的重要新闻会自动推送
 /watch - 自选股现况
 /week - 最新周报
 /quick 代码 - 只看数据报告（不开圆桌）
 /panel 代码 - 只开基金经理圆桌
-/tech、/fund、/news、/chart + 代码 - 单独看某一部分
+/tech、/fund、/chart + 代码 - 单独看某一部分
 /myid - 查看你的 Chat ID
 
 投资组合请用网站版（信箱模式不会保存资料）。"""
@@ -229,7 +230,18 @@ def handle(chat, text: str):
     if cmd == "/fund":
         return do_fund(chat, arg)
     if cmd == "/news":
-        return send(chat, A.format_news(A.news_sentiment(A.normalize_ticker(arg))))
+        import news
+        typing(chat)
+        try:
+            evs = [e for e in news.quick(arg) if e["relevant"]]
+            if not evs:
+                return send(chat, f"🗞️ {esc(arg.upper())}：最近 48 小时没有找到相关新闻。")
+            send(chat, f"<b>🗞️ {esc(arg.upper())} 最新新闻分析</b>（{len(evs)} 件事）")
+            for e in evs[:5]:                    # 一条消息一件事，不会超过 Telegram 字数上限
+                send(chat, news.event_html(e))
+            return
+        except Exception as e:
+            return send(chat, f"⚠️ {esc(str(e))}")
     if cmd == "/chart":
         t = A.normalize_ticker(arg)
         return send_photo(chat, A.make_chart(t, A.get_history(t)), t)

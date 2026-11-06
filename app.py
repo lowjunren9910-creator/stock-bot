@@ -1208,6 +1208,99 @@ def page_quarterly():
 
 
 # ---------------------------------------------------------------------------
+# 页面：新闻追踪
+# ---------------------------------------------------------------------------
+
+VIEW_STYLE = {"利好": ("📈", "#2BC48A"), "利空": ("📉", "#F06A5D"), "中性": ("➖", "#A3ADC2")}
+
+
+def news_card(e: dict, key: str):
+    import news as N
+    with st.container(border=True):
+        top = st.columns([5, 2])
+        top[0].markdown(f"**{e['name']}**　`{e['ticker']}`")
+        top[1].markdown(f"<div style='text-align:right;color:#C8A23A;letter-spacing:2px'>{N.stars(e['importance'])}</div>",
+                        unsafe_allow_html=True)
+        st.markdown(f"#### {e['headline_zh']}")
+        if e.get("analysis"):
+            st.write(e["analysis"])
+        c1, c2 = st.columns(2)
+        for col, label, k in ((c1, "短期（几天到几周）", "short_term"), (c2, "长期（一年以上）", "long_term")):
+            v = e[k]["view"]
+            icon, color = VIEW_STYLE.get(v, VIEW_STYLE["中性"])
+            col.markdown(f"<div style='border-left:4px solid {color};padding:6px 12px;border-radius:8px;"
+                         f"background:rgba(127,127,127,.08)'><div style='font-size:.82rem;opacity:.7'>{label}</div>"
+                         f"<div style='font-weight:700;color:{color}'>{icon} {v}</div>"
+                         f"<div style='font-size:.9rem'>{e[k]['why']}</div></div>", unsafe_allow_html=True)
+        px = e.get("price") or {}
+        meta = [f"把握度：{e.get('confidence', '中')}"]
+        if px.get("price") is not None:
+            meta.insert(0, f"股价 {px['price']:,.2f}（今天 {px.get('chg_1d') or 0:+.2f}%，1 个月 {px.get('chg_1m') or 0:+.1f}%）")
+        st.caption("　·　".join(meta))
+        for a in e["articles"][:3]:
+            st.markdown(f"🔗 [{a['title']}]({a['link']}) — {a.get('source') or ''}，{N._ago(a['published'])}")
+        b1, b2 = st.columns(2)
+        if b1.button("认识这家公司", key=f"nco_{key}"):
+            goto_company(e["ticker"])
+            st.rerun()
+        if b2.button("看走势和圆桌", key=f"nan_{key}"):
+            goto_analysis(e["ticker"])
+            st.rerun()
+
+
+@st.cache_data(ttl=1800, show_spinner=False)
+def cached_news(text: str):
+    import news as N
+    return N.quick(text)
+
+
+def page_news():
+    st.title("🗞️ 新闻追踪")
+    st.caption("只追踪你感兴趣的公司（watchlist.yml 的自选股和 news_only）。每小时检查一次，"
+               "AI 会判断新闻是不是真的跟公司有关，再分析对股价的短期和长期影响。重要的会推送到 Telegram。")
+    with st.form("news_search"):
+        c1, c2 = st.columns([4, 1])
+        text = c1.text_input("现在就看某只股票的最新新闻", placeholder="例如 GAMUDA、TOPGLOV、NVDA",
+                             value=st.session_state.get("news_query", ""))
+        btn = c2.form_submit_button("分析", type="primary", width="stretch")
+    if btn and text.strip():
+        st.session_state.news_query = text.strip()
+    q = st.session_state.get("news_query")
+    if q:
+        with st.spinner(f"正在找 {q.upper()} 的新闻并请 AI 分析（约 20-40 秒）…"):
+            try:
+                evs = cached_news(q)
+            except Exception as e:
+                evs = None
+                st.error(f"❌ {e}")
+        if evs == []:
+            st.info("最近 48 小时没有找到这家公司的新闻。")
+        for i, e in enumerate(evs or []):
+            if e["relevant"]:
+                news_card(e, f"q{i}")
+        st.markdown("---")
+
+    r = read_json(S.REPORT_DIR / "news" / "feed.json")
+    if not r:
+        st.info("还没有新闻记录。新闻追踪每小时自动跑一次（GitHub Actions 的「新闻追踪」），第一次运行后这里就会有内容。")
+        return
+    names = {c["ticker"]: c["name"] for c in r["companies"]}
+    st.caption(f"更新：{r['updated']}　·　追踪 {len(names)} 家：" + "、".join(names.values()))
+    c1, c2, c3 = st.columns([3, 2, 2])
+    pick = c1.multiselect("公司", list(names), format_func=lambda t: names.get(t, t), key="news_pick", placeholder="全部公司")
+    min_imp = c2.select_slider("重要性至少", options=[1, 2, 3, 4, 5], value=2, key="news_imp")
+    view = c3.selectbox("影响", ["全部", "短期利好", "短期利空", "长期利好", "长期利空"], key="news_view")
+    evs = [e for e in r["events"] if e["importance"] >= min_imp and (not pick or e["ticker"] in pick)]
+    if view != "全部":
+        k = "short_term" if view.startswith("短期") else "long_term"
+        evs = [e for e in evs if e[k]["view"] == view[2:]]
+    if not evs:
+        st.info("没有符合条件的新闻。")
+    for i, e in enumerate(evs[:40]):
+        news_card(e, f"f{i}")
+    st.caption(r["note"])
+
+# ---------------------------------------------------------------------------
 # 页面：自选股
 # ---------------------------------------------------------------------------
 
@@ -1336,7 +1429,7 @@ def page_health():
 PAGES = {  # 顺序要跟 ui.NAV_GROUPS 的分组对应
     "📅 每日焦点": page_focus, "🧩 板块": page_sectors, "🔍 选股雷达": page_radar, "🏆 KLCI 50 观察": page_klci,
     "📊 个股分析": page_analysis, "🏢 认识公司": page_company, "⚖️ 股票对比": page_compare, "📑 季度报告": page_quarterly,
-    "⭐ 自选股": page_watchlist, "💼 投资组合": page_portfolio, "📈 成绩单": page_track, "📰 周报": page_weekly,
+    "⭐ 自选股": page_watchlist, "🗞️ 新闻追踪": page_news, "💼 投资组合": page_portfolio, "📈 成绩单": page_track, "📰 周报": page_weekly,
     "🩺 系统状态": page_health}
 
 if check_password():
@@ -1352,14 +1445,17 @@ if check_password():
         elif qp.get("quarter"):
             st.session_state.quarter_query = qp["quarter"]
             st.session_state.nav = "📑 季度报告"
+        elif qp.get("news"):
+            st.session_state.news_query = qp["news"]
+            st.session_state.nav = "🗞️ 新闻追踪"
         elif qp.get("analyze"):
             st.session_state.query = qp["analyze"]
             st.session_state.nav = "📊 个股分析"
-        elif qp.get("page") in ("focus", "radar", "klci", "sectors", "track", "weekly", "watch", "quarterly", "compare"):
+        elif qp.get("page") in ("focus", "radar", "klci", "sectors", "track", "weekly", "watch", "quarterly", "compare", "news"):
             st.session_state.nav = {"focus": "📅 每日焦点", "radar": "🔍 选股雷达", "klci": "🏆 KLCI 50 观察",
                                     "sectors": "🧩 板块", "track": "📈 成绩单", "weekly": "📰 周报",
                                     "watch": "⭐ 自选股", "quarterly": "📑 季度报告",
-                                    "compare": "⚖️ 股票对比"}[qp["page"]]
+                                    "compare": "⚖️ 股票对比", "news": "🗞️ 新闻追踪"}[qp["page"]]
         st.session_state._qp_done = True
     ui.sidebar_brand()
     page = st.sidebar.radio("功能", list(PAGES), key="nav")

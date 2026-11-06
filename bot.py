@@ -45,9 +45,10 @@ HELP = f"""<b>📊 股票分析机器人</b>
 /sector [bursa|idx|us] [板块] - 板块轮动；例如 /sector 手套、/sector us AI
 /compare 代码 代码 [代码] - 对比 2 到 3 只股票
 /quarter 代码 - 最新季报快速分析
+/news 代码 - 最新新闻 + AI 分析（短期 / 长期影响）
 /quick 代码 - 只看数据报告（不开圆桌，更快）
 /panel 代码 - 只开基金经理圆桌
-/tech、/fund、/news、/chart + 代码 - 单独看某一部分
+/tech、/fund、/chart + 代码 - 单独看某一部分
 /buy 1155.KL 1000 9.80 - 记录买入
 /sell 1155.KL [数量] - 卖出（不写数量就全部清空）
 /portfolio - 查看持股和实时盈亏
@@ -263,8 +264,16 @@ async def news(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
     t = need_ticker(ctx)
     if not t:
         return await send(update, "用法：/news NVDA")
-    n = await run_blocking(A.news_sentiment, A.normalize_ticker(t))
-    await send(update, A.format_news(n))
+    import news as N
+    await update.message.reply_text("🗞️ 正在找新闻并分析，约 20-40 秒…")
+    try:
+        evs = [e for e in await run_blocking(N.quick, t) if e["relevant"]]
+        if not evs:
+            return await send(update, f"🗞️ {A._esc(t.upper())}：最近 48 小时没有找到相关新闻。")
+        for e in evs[:5]:
+            await send(update, N.event_html(e))
+    except Exception as e:
+        await send(update, f"❌ {A._esc(str(e))}")
 
 
 async def chart(update: Update, ctx: ContextTypes.DEFAULT_TYPE):

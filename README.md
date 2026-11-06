@@ -56,6 +56,16 @@ GitHub Secrets 需要：`TELEGRAM_BOT_TOKEN`、`TELEGRAM_CHAT_ID`、`GROQ_API_KE
 - 公司资料会存在 `reports/cache/fundamentals.json`，每天只重抓约三分之一，避免被 Yahoo 限速。
 - 新季报 AI 快评每次最多 3 份（用 Variables 的 `QUARTERLY_AI` 改）。
 
+## 🗞️ 新闻追踪（只追你感兴趣的公司）
+
+- 每小时自动检查（周末也跑，GitHub Actions 的「新闻追踪」），新闻来源：Google 新闻（英文、马来文、印尼文；有写中文关键字就连中文报纸一起找）+ Yahoo Finance。
+- 只看 `watchlist.yml` 里的公司：`stocks`（除非写 `news: false`）+ `news_only`（只要新闻、不要价格提醒）。
+- 标题一定要提到这家公司才会进 AI；AI 再判断是不是真的相关、重要性 1–5 星，同一件事的几篇报道合并成一条，写分析 + **短期（几天到几周）/ 长期（一年以上）** 是利好、利空还是中性。
+- 3 星以上才推送 Telegram（Variables 的 `NEWS_MIN_IMPORTANCE` 可以改）；每次最多用 8 次 AI（`NEWS_AI_MAX`）。
+- 随时看：Telegram `/news GAMUDA`、网站「🗞️ 新闻追踪」、手机 app「我的」最上面 + 「更多 → 新闻追踪」。
+- 找不到新闻或找错公司：在 `watchlist.yml` 给那家公司加 `keywords`，例如 `keywords: [TNB, 国能]`。
+- 注意：AI 只看到标题和摘要，重要新闻请点链接看原文。
+
 ## 📱 手机 app（Android，PWA，免费）
 
 `docs/` 文件夹是一个可以安装到手机的 app，放在 GitHub Pages：

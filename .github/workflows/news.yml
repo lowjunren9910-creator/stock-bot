@@ -1,0 +1,59 @@
+# 新闻追踪：每小时检查一次你感兴趣的公司有没有新新闻（周末也跑）
+# 只有跟公司真的有关、重要性够高的新闻才会推送到 Telegram，附 AI 分析 + 短期 / 长期影响。
+# 想追踪哪些公司：改 watchlist.yml（stocks 和 news_only）
+
+name: 新闻追踪
+
+on:
+  schedule:
+    - cron: "41 * * * *"     # 每小时第 41 分钟（避开整点）
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: news
+  cancel-in-progress: false
+
+jobs:
+  news:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: 安装工具包
+        run: pip install yfinance pandas requests python-dotenv openai pyyaml
+
+      - name: 抓新闻 + AI 分析
+        env:
+          AI_PROVIDER: ${{ secrets.AI_PROVIDER }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          NEWS_MIN_IMPORTANCE: ${{ vars.NEWS_MIN_IMPORTANCE || '3' }}
+          NEWS_AI_MAX: ${{ vars.NEWS_AI_MAX || '8' }}
+        run: python news.py
+
+      - name: 保存
+        if: always()
+        run: |
+          git config user.name "news-bot"
+          git config user.email "news-bot@users.noreply.github.com"
+          git add reports/news/
+          if git diff --cached --quiet; then
+            echo "没有新新闻"
+          else
+            git commit -m "新闻 $(date -u +'%Y-%m-%d %H:%M') UTC"
+            for i in 1 2 3; do
+              git pull --rebase -X theirs && git push && break
+              sleep 5
+            done
+          fi

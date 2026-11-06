@@ -574,9 +574,56 @@ function resolveTicker(text, prices) {
   return hit ? hit[0] : t;
 }
 
+// ---------------------------------------------------------------------------
+// 新闻：只追踪感兴趣的公司 + AI 分析（短期 / 长期影响）
+// ---------------------------------------------------------------------------
+const VIEW_ICON = { "利好": "📈", "利空": "📉", "中性": "➖" };
+const ago = iso => {
+  const m = Math.max(1, Math.round((Date.now() - new Date(iso)) / 60000));
+  return m < 60 ? `${m} 分钟前` : m < 2880 ? `${Math.round(m / 60)} 小时前` : `${Math.round(m / 1440)} 天前`;
+};
+
+function newsCard(e) {
+  const imp = (k, label) => `<div class="impact v-${esc(e[k].view)}"><small>${label}</small>
+    <b>${VIEW_ICON[e[k].view] || ""} ${esc(e[k].view)}</b><span>${esc(e[k].why)}</span></div>`;
+  return `<details class="ncard">
+    <summary>
+      <span class="nhead"><b>${esc(e.name)}</b><small>${esc(e.ticker)}　${ago(e.published)}</small>
+        <span class="stars" aria-label="重要性 ${e.importance}">${"★".repeat(e.importance)}${"☆".repeat(5 - e.importance)}</span></span>
+      <span class="ntitle">${esc(e.headline_zh)}</span>
+      <span class="nviews"><span class="tag v-${esc(e.short_term.view)}">短期 ${esc(e.short_term.view)}</span>
+        <span class="tag v-${esc(e.long_term.view)}">长期 ${esc(e.long_term.view)}</span></span>
+    </summary>
+    <div class="nbody">
+      ${e.analysis ? `<p>${esc(e.analysis)}</p>` : ""}
+      <div class="impacts">${imp("short_term", "短期（几天到几周）")}${imp("long_term", "长期（一年以上）")}</div>
+      <p class="muted" style="font-size:12.5px">把握度：${esc(e.confidence || "中")}${e.price && e.price.price != null ? `　股价 ${num(e.price.price)}（今天 ${pct(e.price.chg_1d)}）` : ""}</p>
+      ${(e.articles || []).slice(0, 3).map(a => `<a class="nlink" href="${esc(a.link)}" target="_blank" rel="noopener">${esc(a.title)}<small>${esc(a.source || "")}　${ago(a.published)}</small></a>`).join("")}
+      ${actionButtons(e.ticker)}
+    </div></details>`;
+}
+
+async function renderNews() {
+  const r = await getJSON("news/feed.json").catch(() => null);
+  setBand("新闻追踪", r ? `<div class="stamp">追踪 ${r.companies.length} 家公司　更新 ${esc(r.updated)}</div>` : "", false);
+  const back = `<button class="back" data-sub="">‹ 更多</button>`;
+  if (!r) return back + emptyView("还没有新闻", "新闻追踪每小时自动跑一次，第一次运行后这里就会有内容。");
+  const pick = state.newsPick || "";
+  const evs = r.events.filter(e => (!pick || e.ticker === pick) && e.importance >= (state.newsAll ? 1 : 3));
+  return `${back}
+    <div class="switch" style="margin-top:12px"><button data-npick="" aria-selected="${!pick}">全部</button>
+      ${r.companies.map(c => `<button data-npick="${esc(c.ticker)}" aria-selected="${pick === c.ticker}">${esc(c.name)}</button>`).join("")}</div>
+    <p class="lede">${state.newsAll ? "显示全部新闻。" : "只显示重要性 3 星以上。"}
+      <button class="linkbtn" data-act="newsall">${state.newsAll ? "只看重要的" : "显示全部"}</button></p>
+    ${evs.length ? `<div class="nlist">${evs.slice(0, 50).map(newsCard).join("")}</div>` : `<p class="muted">没有符合的新闻。</p>`}
+    <p class="foot">${esc(r.note)}<br>想追踪别的公司：在 GitHub 编辑 watchlist.yml。</p>`;
+}
+
 async function renderMine() {
   setBand("我的", `<div class="stamp">自选股在 GitHub 的 watchlist.yml 设定；投资组合只存在这部手机</div>`, false);
-  const [wl, prices] = await Promise.all([getJSON("watchlist.json").catch(() => null), getJSON("prices.json").catch(() => null)]);
+  const [wl, prices, nf] = await Promise.all([getJSON("watchlist.json").catch(() => null), getJSON("prices.json").catch(() => null),
+                                              getJSON("news/feed.json").catch(() => null)]);
+  const hotNews = ((nf && nf.events) || []).filter(e => e.importance >= 3).slice(0, 4);
   const px = Object.assign({}, prices || {});
   (wl && wl.stocks || []).forEach(s => { if (s.price != null) px[s.ticker] = { ...(px[s.ticker] || {}), name: s.name, price: s.price, chg_1d: s.change_pct, currency: s.market === "bursa" ? "MYR" : s.market === "idx" ? "IDR" : "USD" }; });
 
@@ -610,6 +657,8 @@ async function renderMine() {
   const options = Object.entries(px).map(([k, v]) => `<option value="${esc(v.name)} (${esc(k)})">`).join("");
 
   return `
+    ${hotNews.length ? `<section><h2>最新重要新闻</h2><div class="nlist">${hotNews.map(newsCard).join("")}</div>
+      <div class="actions" style="margin-top:10px"><button class="btn ghost" data-gosub="news">看全部新闻 ›</button></div></section>` : ""}
     <section>
       <h2>自选股</h2>
       ${watch ? `<div class="list">${watch}</div>` : `<p class="muted">还没有自选股。</p>`}
@@ -636,6 +685,7 @@ async function renderMine() {
 // 更多：KLCI 50、成绩单、周报、查股、系统状态、设定
 // ---------------------------------------------------------------------------
 const SUBS = {
+  news: ["新闻追踪", "感兴趣公司的新闻 + AI 分析短期 / 长期影响"],
   compare: ["股票对比", "2–3 只股票放在一起比"],
   quarterly: ["季度报告", "最近公布的季报 + 快速结论"],
   klci: ["KLCI 50 观察", "哪些马股最有机会进入 KLCI 50"],
@@ -707,6 +757,7 @@ async function renderHealth() {
 async function renderMoreRouter() {
   const back = `<button class="back" data-sub="">‹ 更多</button>`;
   switch (state.sub) {
+    case "news": return await renderNews();
     case "compare": return await renderCompare();
     case "quarterly": return await renderQuarterly();
     case "klci": return back + await renderKlci();
@@ -770,6 +821,9 @@ document.addEventListener("click", e => {
   else if (t.dataset.cmpdel) { setCmp(state.cmp.filter(x => x !== t.dataset.cmpdel)); render(); }
   else if (t.dataset.act === "cmpclear") { setCmp([]); render(); }
   else if (t.dataset.gocmp) { state.tab = "more"; state.sub = "compare"; store.set("tab", "more"); window.scrollTo(0, 0); render(); }
+  else if (t.dataset.npick !== undefined) { state.newsPick = t.dataset.npick; render(); }
+  else if (t.dataset.act === "newsall") { state.newsAll = !state.newsAll; render(); }
+  else if (t.dataset.gosub) { state.tab = "more"; state.sub = t.dataset.gosub; store.set("tab", "more"); window.scrollTo(0, 0); render(); }
   else if (t.dataset.qf) { state.qf = t.dataset.qf; render(); }
   else if (t.dataset.sector !== undefined) { state.sector = t.dataset.sector || null; window.scrollTo(0, 0); render(); }
   else if (t.dataset.sub !== undefined) { state.sub = t.dataset.sub || null; window.scrollTo(0, 0); render(); }
