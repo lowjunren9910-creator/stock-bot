@@ -33,6 +33,9 @@ import klci as K  # noqa: E402
 import screener as SC  # noqa: E402
 import scanner as S  # noqa: E402
 import managers as M  # noqa: E402
+import ui  # noqa: E402
+
+ui.inject()
 
 RATING_COLOR = {"强烈买入": "#16a34a", "买入": "#4ade80", "持有": "#eab308",
                 "减持": "#f97316", "卖出": "#dc2626"}
@@ -394,7 +397,7 @@ def show_report(r: dict, prefix: str = "saved"):
 
 def page_focus():
     st.title("📅 每日焦点")
-    st.caption("每个交易日的开市、午间、收市都会自动生成报告，只看大型蓝筹股，剔除低价和成交冷清的投机股。")
+    st.caption("每个交易日的开市、午间、收市都会自动生成报告，只看约 500 只大中型股，剔除低价和成交冷清的投机股。")
     tabs = st.tabs([m.name for m in S.MARKETS.values()])
     for tab, (key, m) in zip(tabs, S.MARKETS.items()):
         with tab:
@@ -890,7 +893,7 @@ def heatmap(sec: dict):
     lim = max([abs(v) for r in z for v in r if v is not None] + [1])
     fig = go.Figure(go.Heatmap(
         z=z, x=[PERIOD_ZH[k] for k in PERIOD_KEYS], y=[f"{s['name']}（{s['count']}）" for s in rows],
-        text=text, texttemplate="%{text}", colorscale=[[0, "#D9483B"], [0.5, "#F2F2F2"], [1, "#13996A"]],
+        text=text, texttemplate="%{text}", colorscale=[[0, "#D9483B"], [0.5, "#26314F"], [1, "#13996A"]], textfont=dict(color="#F4F6FB"),
         zmin=-lim, zmax=lim, showscale=False, hovertemplate="%{y} · %{x}：%{text}<extra></extra>"))
     fig.update_layout(height=60 + 34 * len(rows), margin=dict(l=10, r=10, t=10, b=10),
                       yaxis=dict(autorange="reversed"), xaxis=dict(side="top"))
@@ -972,7 +975,7 @@ def page_sectors():
                 col.metric(PERIOD_ZH[k], fnum(g["returns"][k], 2))
             fig = go.Figure()
             fig.add_trace(go.Scatter(x=g["series"]["dates"], y=g["series"]["levels"], name=f"{g['name']}指数",
-                                     line=dict(color="#22305A", width=2)))
+                                     line=dict(color="#8EA2F0", width=2.2)))
             fig.add_trace(go.Scatter(x=mi["series"]["dates"], y=mi["series"]["levels"], name="全市场综合",
                                      line=dict(color="#C8A23A", width=1.5, dash="dot")))
             fig.update_layout(height=320, margin=dict(l=10, r=10, t=10, b=10), legend=dict(orientation="h", y=1.1),
@@ -1129,8 +1132,8 @@ def show_quarter(x: dict, key: str):
     tr = x.get("trend") or {}
     if tr.get("periods"):
         fig = go.Figure()
-        fig.add_trace(go.Bar(x=tr["periods"], y=tr["revenue"], name="营收", marker_color="#93a5cf"))
-        fig.add_trace(go.Bar(x=tr["periods"], y=tr["net"], name="净利", marker_color="#22305A"))
+        fig.add_trace(go.Bar(x=tr["periods"], y=tr["revenue"], name="营收", marker_color="#8EA2F0"))
+        fig.add_trace(go.Bar(x=tr["periods"], y=tr["net"], name="净利", marker_color="#C8A23A"))
         fig.update_layout(height=260, barmode="group", margin=dict(l=10, r=10, t=10, b=10),
                           legend=dict(orientation="h", y=1.15))
         st.plotly_chart(fig, width="stretch", key=f"qtrend_{key}")
@@ -1330,10 +1333,11 @@ def page_health():
 
 # ---------------------------------------------------------------------------
 
-PAGES = {"📅 每日焦点": page_focus, "🧩 板块": page_sectors, "🔍 选股雷达": page_radar,
-         "⚖️ 股票对比": page_compare, "📑 季度报告": page_quarterly, "⭐ 自选股": page_watchlist, "🏆 KLCI 50 观察": page_klci, "📈 成绩单": page_track,
-         "📰 周报": page_weekly, "📊 个股分析": page_analysis, "🏢 认识公司": page_company,
-         "💼 投资组合": page_portfolio, "🩺 系统状态": page_health}
+PAGES = {  # 顺序要跟 ui.NAV_GROUPS 的分组对应
+    "📅 每日焦点": page_focus, "🧩 板块": page_sectors, "🔍 选股雷达": page_radar, "🏆 KLCI 50 观察": page_klci,
+    "📊 个股分析": page_analysis, "🏢 认识公司": page_company, "⚖️ 股票对比": page_compare, "📑 季度报告": page_quarterly,
+    "⭐ 自选股": page_watchlist, "💼 投资组合": page_portfolio, "📈 成绩单": page_track, "📰 周报": page_weekly,
+    "🩺 系统状态": page_health}
 
 if check_password():
     # 手机 app 的按钮会带网址参数打开：?company=4065.KL 或 ?analyze=4065.KL
@@ -1357,9 +1361,7 @@ if check_password():
                                     "watch": "⭐ 自选股", "quarterly": "📑 季度报告",
                                     "compare": "⚖️ 股票对比"}[qp["page"]]
         st.session_state._qp_done = True
+    ui.sidebar_brand()
     page = st.sidebar.radio("功能", list(PAGES), key="nav")
-    st.sidebar.markdown("---")
-    st.sidebar.caption("圆桌嘉宾\n\n" + "\n\n".join(
-        f"{m['emoji']} {m['name']}｜{m['title']}" for m in M.MANAGERS))
-    st.sidebar.caption("仅供学习参考，不构成投资建议。")
+    ui.sidebar_footer(M.MANAGERS)
     PAGES[page]()
