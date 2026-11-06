@@ -29,7 +29,7 @@ jobs:
           cache: pip
 
       - name: 安装工具包
-        run: pip install yfinance pandas requests python-dotenv openai pyyaml
+        run: pip install yfinance pandas requests python-dotenv openai matplotlib vaderSentiment pyyaml
 
       - name: 抓新闻 + AI 分析
         env:
@@ -47,6 +47,7 @@ jobs:
         run: |
           git config user.name "news-bot"
           git config user.email "news-bot@users.noreply.github.com"
+          if [ ! -d reports/news ]; then echo "没有新闻文件（上一步可能出错了）"; exit 0; fi
           git add reports/news/
           if git diff --cached --quiet; then
             echo "没有新新闻"
