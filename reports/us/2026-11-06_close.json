@@ -1,0 +1,588 @@
+{
+ "market": "us",
+ "market_name": "🇺🇸 美股",
+ "currency": "USD",
+ "session": "close",
+ "session_name": "收市报告",
+ "date": "2026-11-06",
+ "generated_at": "2026-11-06 16:30 EST",
+ "partial_day": 1.0,
+ "breadth": {
+  "scanned": 164,
+  "up": 71,
+  "down": 93,
+  "flat": 0,
+  "avg_change": 0.6,
+  "filtered_out": [
+   "JPM-PC",
+   "JPM-PD",
+   "TM",
+   "BML-PG",
+   "BML-PH",
+   "MUFG",
+   "BML-PL",
+   "BML-PJ",
+   "BAC-PB",
+   "BAC-PK",
+   "BAC-PE",
+   "WFC-PY",
+   "UBS",
+   "SMFG",
+   "BBVA"
+  ]
+ },
+ "watchlist": [
+  {
+   "price": 391.22,
+   "change_pct": 9.86,
+   "gap_pct": -0.04,
+   "range_pct": 13.77,
+   "volume": 11466742.0,
+   "vol_ratio": 2.23,
+   "turnover": 4486018819.24,
+   "avg_turnover": 1443982124.88,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 76.31,
+   "ticker": "APP",
+   "name": "Applovin",
+   "tags": [
+    "放量大涨",
+    "RSI 超买"
+   ],
+   "score": 15.84
+  },
+  {
+   "price": 268.75,
+   "change_pct": 9.91,
+   "gap_pct": 17.37,
+   "range_pct": 8.51,
+   "volume": 9389059.0,
+   "vol_ratio": 2.61,
+   "turnover": 2523309606.25,
+   "avg_turnover": 1075054897.53,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 39.35,
+   "ticker": "NET",
+   "name": "Cloudflare",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 14.88
+  },
+  {
+   "price": 88.29,
+   "change_pct": 9.61,
+   "gap_pct": 4.36,
+   "range_pct": 9.6,
+   "volume": 8670857.0,
+   "vol_ratio": 2.41,
+   "turnover": 765549972.47,
+   "avg_turnover": 338209857.33,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 40.15,
+   "ticker": "NRG",
+   "name": "NRG Energy",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 14.6
+  },
+  {
+   "price": 449.04,
+   "change_pct": 11.04,
+   "gap_pct": 9.9,
+   "range_pct": 6.55,
+   "volume": 45191930.0,
+   "vol_ratio": 1.74,
+   "turnover": 20292984633.36,
+   "avg_turnover": 13350176314.39,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 38.41,
+   "ticker": "AMD",
+   "name": "AMD",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 14.11
+  },
+  {
+   "price": 124.8,
+   "change_pct": 10.55,
+   "gap_pct": 5.92,
+   "range_pct": 6.11,
+   "volume": 12298099.0,
+   "vol_ratio": 1.74,
+   "turnover": 1534802792.73,
+   "avg_turnover": 990348606.53,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 39.72,
+   "ticker": "VST",
+   "name": "Vistra",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 13.49
+  }
+ ],
+ "gainers": [
+  {
+   "price": 449.04,
+   "change_pct": 11.04,
+   "gap_pct": 9.9,
+   "range_pct": 6.55,
+   "volume": 45191930.0,
+   "vol_ratio": 1.74,
+   "turnover": 20292984633.36,
+   "avg_turnover": 13350176314.39,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 38.41,
+   "ticker": "AMD",
+   "name": "AMD",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 14.11
+  },
+  {
+   "price": 124.8,
+   "change_pct": 10.55,
+   "gap_pct": 5.92,
+   "range_pct": 6.11,
+   "volume": 12298099.0,
+   "vol_ratio": 1.74,
+   "turnover": 1534802792.73,
+   "avg_turnover": 990348606.53,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 39.72,
+   "ticker": "VST",
+   "name": "Vistra",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 13.49
+  },
+  {
+   "price": 268.75,
+   "change_pct": 9.91,
+   "gap_pct": 17.37,
+   "range_pct": 8.51,
+   "volume": 9389059.0,
+   "vol_ratio": 2.61,
+   "turnover": 2523309606.25,
+   "avg_turnover": 1075054897.53,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 39.35,
+   "ticker": "NET",
+   "name": "Cloudflare",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 14.88
+  },
+  {
+   "price": 391.22,
+   "change_pct": 9.86,
+   "gap_pct": -0.04,
+   "range_pct": 13.77,
+   "volume": 11466742.0,
+   "vol_ratio": 2.23,
+   "turnover": 4486018819.24,
+   "avg_turnover": 1443982124.88,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 76.31,
+   "ticker": "APP",
+   "name": "Applovin",
+   "tags": [
+    "放量大涨",
+    "RSI 超买"
+   ],
+   "score": 15.84
+  },
+  {
+   "price": 88.29,
+   "change_pct": 9.61,
+   "gap_pct": 4.36,
+   "range_pct": 9.6,
+   "volume": 8670857.0,
+   "vol_ratio": 2.41,
+   "turnover": 765549972.47,
+   "avg_turnover": 338209857.33,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 40.15,
+   "ticker": "NRG",
+   "name": "NRG Energy",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 14.6
+  }
+ ],
+ "losers": [
+  {
+   "price": 160.66,
+   "change_pct": -4.77,
+   "gap_pct": -2.48,
+   "range_pct": 4.2,
+   "volume": 7877411.0,
+   "vol_ratio": 1.01,
+   "turnover": 1265624185.43,
+   "avg_turnover": 1234315933.93,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": true,
+   "rsi": 49.9,
+   "ticker": "BKNG",
+   "name": "Booking Holdings Inc. Common St",
+   "tags": [
+    "跳空低开",
+    "跌破 50 日均线"
+   ],
+   "score": 7.06
+  },
+  {
+   "price": 233.45,
+   "change_pct": -4.14,
+   "gap_pct": -4.13,
+   "range_pct": 1.47,
+   "volume": 2278892.0,
+   "vol_ratio": 0.85,
+   "turnover": 532007330.45,
+   "avg_turnover": 620020592.95,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 55.59,
+   "ticker": "SAP",
+   "name": "Sap  Se",
+   "tags": [
+    "跳空低开"
+   ],
+   "score": 4.58
+  },
+  {
+   "price": 213.65,
+   "change_pct": -3.94,
+   "gap_pct": -2.56,
+   "range_pct": 3.49,
+   "volume": 6634315.0,
+   "vol_ratio": 0.91,
+   "turnover": 1417421359.26,
+   "avg_turnover": 1725232570.73,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 33.77,
+   "ticker": "CRM",
+   "name": "Salesforce",
+   "tags": [
+    "跳空低开"
+   ],
+   "score": 4.99
+  },
+  {
+   "price": 60.89,
+   "change_pct": -3.47,
+   "gap_pct": -4.45,
+   "range_pct": 2.18,
+   "volume": 4934123.0,
+   "vol_ratio": 0.9,
+   "turnover": 300438746.46,
+   "avg_turnover": 327781821.67,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 57.32,
+   "ticker": "BTI",
+   "name": "British American Tobacco  Indus",
+   "tags": [
+    "跳空低开"
+   ],
+   "score": 4.13
+  },
+  {
+   "price": 452.8,
+   "change_pct": -3.36,
+   "gap_pct": -2.46,
+   "range_pct": 2.72,
+   "volume": 2137489.0,
+   "vol_ratio": 0.77,
+   "turnover": 967854993.11,
+   "avg_turnover": 1224445288.17,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 57.21,
+   "ticker": "ISRG",
+   "name": "Intuitive Surgical,",
+   "tags": [
+    "跳空低开"
+   ],
+   "score": 4.17
+  }
+ ],
+ "volume_surge": [
+  {
+   "price": 268.75,
+   "change_pct": 9.91,
+   "gap_pct": 17.37,
+   "range_pct": 8.51,
+   "volume": 9389059.0,
+   "vol_ratio": 2.61,
+   "turnover": 2523309606.25,
+   "avg_turnover": 1075054897.53,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 39.35,
+   "ticker": "NET",
+   "name": "Cloudflare",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 14.88
+  },
+  {
+   "price": 88.29,
+   "change_pct": 9.61,
+   "gap_pct": 4.36,
+   "range_pct": 9.6,
+   "volume": 8670857.0,
+   "vol_ratio": 2.41,
+   "turnover": 765549972.47,
+   "avg_turnover": 338209857.33,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 40.15,
+   "ticker": "NRG",
+   "name": "NRG Energy",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 14.6
+  },
+  {
+   "price": 83.96,
+   "change_pct": -1.46,
+   "gap_pct": -2.28,
+   "range_pct": 2.21,
+   "volume": 5407873.0,
+   "vol_ratio": 2.34,
+   "turnover": 454045012.13,
+   "avg_turnover": 189031661.53,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 57.37,
+   "ticker": "BUD",
+   "name": "Anheuser-Busch Inbev SA Sponsor",
+   "tags": [
+    "成交量 2.3 倍",
+    "跳空低开"
+   ],
+   "score": 4.13
+  },
+  {
+   "price": 391.22,
+   "change_pct": 9.86,
+   "gap_pct": -0.04,
+   "range_pct": 13.77,
+   "volume": 11466742.0,
+   "vol_ratio": 2.23,
+   "turnover": 4486018819.24,
+   "avg_turnover": 1443982124.88,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 76.31,
+   "ticker": "APP",
+   "name": "Applovin",
+   "tags": [
+    "放量大涨",
+    "RSI 超买"
+   ],
+   "score": 15.84
+  },
+  {
+   "price": 774.11,
+   "change_pct": 0.47,
+   "gap_pct": 3.47,
+   "range_pct": 9.12,
+   "volume": 7168974.0,
+   "vol_ratio": 1.98,
+   "turnover": 5549574358.13,
+   "avg_turnover": 3163332109.5,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 35.18,
+   "ticker": "GEV",
+   "name": "GE Vernova",
+   "tags": [
+    "跳空高开"
+   ],
+   "score": 4.67
+  }
+ ],
+ "turnover_top": [
+  {
+   "price": 186.64,
+   "change_pct": 2.78,
+   "gap_pct": 5.23,
+   "range_pct": 5.33,
+   "volume": 178082701.0,
+   "vol_ratio": 1.58,
+   "turnover": 33237355205.95,
+   "avg_turnover": 23683229232.97,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 30.76,
+   "ticker": "NVDA",
+   "name": "NVIDIA",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 5.24
+  },
+  {
+   "price": 690.0,
+   "change_pct": 5.12,
+   "gap_pct": 7.92,
+   "range_pct": 7.43,
+   "volume": 44510698.0,
+   "vol_ratio": 1.52,
+   "turnover": 30712381620.0,
+   "avg_turnover": 25554122053.56,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 31.27,
+   "ticker": "MU",
+   "name": "Micron",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 8.13
+  },
+  {
+   "price": 449.04,
+   "change_pct": 11.04,
+   "gap_pct": 9.9,
+   "range_pct": 6.55,
+   "volume": 45191930.0,
+   "vol_ratio": 1.74,
+   "turnover": 20292984633.36,
+   "avg_turnover": 13350176314.39,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 38.41,
+   "ticker": "AMD",
+   "name": "AMD",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 14.11
+  },
+  {
+   "price": 134.27,
+   "change_pct": 8.62,
+   "gap_pct": 5.92,
+   "range_pct": 5.46,
+   "volume": 114079172.0,
+   "vol_ratio": 1.05,
+   "turnover": 15317410911.84,
+   "avg_turnover": 15805892101.03,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 42.68,
+   "ticker": "SPCX",
+   "name": "Space Exploration Technologies",
+   "tags": [
+    "跳空高开"
+   ],
+   "score": 10.33
+  },
+  {
+   "price": 342.37,
+   "change_pct": -0.52,
+   "gap_pct": -1.58,
+   "range_pct": 2.18,
+   "volume": 42788083.0,
+   "vol_ratio": 0.88,
+   "turnover": 14649355767.78,
+   "avg_turnover": 16597426841.25,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 51.46,
+   "ticker": "AAPL",
+   "name": "Apple",
+   "tags": [
+    "跳空低开"
+   ],
+   "score": 1.18
+  }
+ ],
+ "ai_comment": null
+}

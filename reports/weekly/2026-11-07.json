@@ -1,0 +1,637 @@
+{
+ "date": "2026-11-07",
+ "generated_at": "2026-11-07 05:31 +08",
+ "markets": {
+  "bursa": {
+   "name": "🇲🇾 大马股市 Bursa",
+   "currency": "MYR",
+   "as_of": "2026-11-06",
+   "week": -1.03,
+   "month": -1.2,
+   "sectors": [
+    {
+     "name": "金融",
+     "week": 2.24
+    },
+    {
+     "name": "必需消费",
+     "week": 0.66
+    },
+    {
+     "name": "种植",
+     "week": 0.54
+    },
+    {
+     "name": "电讯媒体",
+     "week": -0.44
+    },
+    {
+     "name": "非必需消费",
+     "week": -0.49
+    },
+    {
+     "name": "房地产",
+     "week": -0.66
+    },
+    {
+     "name": "医疗保健",
+     "week": -1.09
+    },
+    {
+     "name": "工业",
+     "week": -2.54
+    },
+    {
+     "name": "能源",
+     "week": -2.82
+    },
+    {
+     "name": "公用事业",
+     "week": -2.94
+    },
+    {
+     "name": "原材料",
+     "week": -3.74
+    },
+    {
+     "name": "科技",
+     "week": -8.93
+    }
+   ],
+   "gainers": [
+    {
+     "ticker": "5099.KL",
+     "name": "Capital A",
+     "price": 0.24,
+     "chg_1w": 11.63
+    },
+    {
+     "ticker": "5238.KL",
+     "name": "AirAsia X",
+     "price": 0.485,
+     "chg_1w": 11.49
+    },
+    {
+     "ticker": "3689.KL",
+     "name": "Fraser & Neave",
+     "price": 22.22,
+     "chg_1w": 11.32
+    },
+    {
+     "ticker": "5102.KL",
+     "name": "Gcb",
+     "price": 1.36,
+     "chg_1w": 9.68
+    },
+    {
+     "ticker": "5335.KL",
+     "name": "Hi",
+     "price": 1.7,
+     "chg_1w": 7.59
+    }
+   ],
+   "losers": [
+    {
+     "ticker": "5327.KL",
+     "name": "Megafb",
+     "price": 1.4,
+     "chg_1w": -36.94
+    },
+    {
+     "ticker": "4324.KL",
+     "name": "Hengyuan",
+     "price": 2.92,
+     "chg_1w": -26.26
+    },
+    {
+     "ticker": "5317.KL",
+     "name": "Cpetech",
+     "price": 1.16,
+     "chg_1w": -18.88
+    },
+    {
+     "ticker": "5199.KL",
+     "name": "Hibiscus Petroleum",
+     "price": 1.89,
+     "chg_1w": -18.18
+    },
+    {
+     "ticker": "0166.KL",
+     "name": "Inari",
+     "price": 2.12,
+     "chg_1w": -16.86
+    }
+   ],
+   "track": {
+    "focus": {
+     "n": 0,
+     "avg_ret": null,
+     "avg_excess": null,
+     "hit_rate": null
+    },
+    "oversold": {
+     "n": 0,
+     "avg_ret": null,
+     "avg_excess": null,
+     "hit_rate": null
+    },
+    "growth": {
+     "n": 0,
+     "avg_ret": null,
+     "avg_excess": null,
+     "hit_rate": null
+    },
+    "double_kill": {
+     "n": 0,
+     "avg_ret": null,
+     "avg_excess": null,
+     "hit_rate": null
+    }
+   }
+  },
+  "idx": {
+   "name": "🇮🇩 印尼股市 IDX",
+   "currency": "IDR",
+   "as_of": "2026-11-06",
+   "week": -1.29,
+   "month": -18.27,
+   "sectors": [
+    {
+     "name": "公用事业",
+     "week": 12.22
+    },
+    {
+     "name": "工业",
+     "week": 4.0
+    },
+    {
+     "name": "必需消费",
+     "week": 3.34
+    },
+    {
+     "name": "金融",
+     "week": 2.26
+    },
+    {
+     "name": "种植",
+     "week": -0.62
+    },
+    {
+     "name": "原材料",
+     "week": -2.54
+    },
+    {
+     "name": "医疗保健",
+     "week": -2.96
+    },
+    {
+     "name": "非必需消费",
+     "week": -3.69
+    },
+    {
+     "name": "能源",
+     "week": -6.85
+    },
+    {
+     "name": "房地产",
+     "week": -7.24
+    },
+    {
+     "name": "电讯媒体",
+     "week": -7.37
+    },
+    {
+     "name": "科技",
+     "week": -7.74
+    }
+   ],
+   "gainers": [
+    {
+     "ticker": "BREN.JK",
+     "name": "Barito Renewables",
+     "price": 2110.0,
+     "chg_1w": 17.55
+    },
+    {
+     "ticker": "ICBP.JK",
+     "name": "Indofood CBP",
+     "price": 6325.0,
+     "chg_1w": 15.53
+    },
+    {
+     "ticker": "BRIS.JK",
+     "name": "Bank Syariah",
+     "price": 1150.0,
+     "chg_1w": 14.43
+    },
+    {
+     "ticker": "SMAR.JK",
+     "name": "Sinar Mas Agro Resources and Te",
+     "price": 7025.0,
+     "chg_1w": 9.34
+    },
+    {
+     "ticker": "UNVR.JK",
+     "name": "Unilever ID",
+     "price": 1515.0,
+     "chg_1w": 8.99
+    }
+   ],
+   "losers": [
+    {
+     "ticker": "MORA.JK",
+     "name": "Ekamas Mora Republik",
+     "price": 1595.0,
+     "chg_1w": -29.74
+    },
+    {
+     "ticker": "BRPT.JK",
+     "name": "Barito Pacific",
+     "price": 850.0,
+     "chg_1w": -20.56
+    },
+    {
+     "ticker": "MLPT.JK",
+     "name": "Multipolar Technology",
+     "price": 384.0,
+     "chg_1w": -16.88
+    },
+    {
+     "ticker": "MEDC.JK",
+     "name": "Medco",
+     "price": 1200.0,
+     "chg_1w": -13.67
+    },
+    {
+     "ticker": "MTEL.JK",
+     "name": "Dayamitra Telekomunikasi",
+     "price": 334.0,
+     "chg_1w": -13.47
+    }
+   ],
+   "track": {
+    "focus": {
+     "n": 0,
+     "avg_ret": null,
+     "avg_excess": null,
+     "hit_rate": null
+    },
+    "oversold": {
+     "n": 0,
+     "avg_ret": null,
+     "avg_excess": null,
+     "hit_rate": null
+    },
+    "growth": {
+     "n": 0,
+     "avg_ret": null,
+     "avg_excess": null,
+     "hit_rate": null
+    },
+    "double_kill": {
+     "n": 0,
+     "avg_ret": null,
+     "avg_excess": null,
+     "hit_rate": null
+    }
+   }
+  },
+  "us": {
+   "name": "🇺🇸 美股",
+   "currency": "USD",
+   "as_of": "2026-11-06",
+   "week": -2.83,
+   "month": -6.69,
+   "sectors": [
+    {
+     "name": "非必需消费",
+     "week": 2.45
+    },
+    {
+     "name": "电讯媒体",
+     "week": 2.25
+    },
+    {
+     "name": "房地产",
+     "week": 1.68
+    },
+    {
+     "name": "原材料",
+     "week": 1.63
+    },
+    {
+     "name": "必需消费",
+     "week": 1.28
+    },
+    {
+     "name": "金融",
+     "week": 1.16
+    },
+    {
+     "name": "医疗保健",
+     "week": -0.83
+    },
+    {
+     "name": "公用事业",
+     "week": -0.95
+    },
+    {
+     "name": "工业",
+     "week": -3.08
+    },
+    {
+     "name": "科技",
+     "week": -6.84
+    },
+    {
+     "name": "能源",
+     "week": -10.48
+    }
+   ],
+   "gainers": [
+    {
+     "ticker": "APP",
+     "name": "Applovin",
+     "price": 391.22,
+     "chg_1w": 71.21
+    },
+    {
+     "ticker": "FSLR",
+     "name": "First Solar",
+     "price": 201.14,
+     "chg_1w": 15.33
+    },
+    {
+     "ticker": "IBN",
+     "name": "ICICI Bank Limited",
+     "price": 33.89,
+     "chg_1w": 15.08
+    },
+    {
+     "ticker": "NEM",
+     "name": "Newmont",
+     "price": 120.91,
+     "chg_1w": 13.41
+    },
+    {
+     "ticker": "HDB",
+     "name": "HDFC Bank Limited",
+     "price": 25.14,
+     "chg_1w": 13.35
+    }
+   ],
+   "losers": [
+    {
+     "ticker": "MRVL",
+     "name": "Marvell",
+     "price": 141.2,
+     "chg_1w": -28.11
+    },
+    {
+     "ticker": "SNDK",
+     "name": "Sandisk",
+     "price": 835.06,
+     "chg_1w": -27.44
+    },
+    {
+     "ticker": "DELL",
+     "name": "Dell",
+     "price": 328.53,
+     "chg_1w": -22.57
+    },
+    {
+     "ticker": "MU",
+     "name": "Micron",
+     "price": 690.0,
+     "chg_1w": -22.01
+    },
+    {
+     "ticker": "VRT",
+     "name": "Vertiv",
+     "price": 182.86,
+     "chg_1w": -21.35
+    }
+   ],
+   "track": {
+    "focus": {
+     "n": 0,
+     "avg_ret": null,
+     "avg_excess": null,
+     "hit_rate": null
+    },
+    "oversold": {
+     "n": 0,
+     "avg_ret": null,
+     "avg_excess": null,
+     "hit_rate": null
+    },
+    "growth": {
+     "n": 0,
+     "avg_ret": null,
+     "avg_excess": null,
+     "hit_rate": null
+    },
+    "double_kill": {
+     "n": 0,
+     "avg_ret": null,
+     "avg_excess": null,
+     "hit_rate": null
+    }
+   }
+  }
+ },
+ "watchlist": [
+  {
+   "ticker": "1155.KL",
+   "name": "Maybank",
+   "price": 10.16,
+   "change_pct": 2.63,
+   "chg_1m": 2.94
+  },
+  {
+   "ticker": "5347.KL",
+   "name": "Tenaga Nasional",
+   "price": 13.1,
+   "change_pct": -0.3,
+   "chg_1m": 1.87
+  },
+  {
+   "ticker": "4065.KL",
+   "name": "PPB Group",
+   "price": 8.87,
+   "change_pct": 0.11,
+   "chg_1m": -3.17
+  },
+  {
+   "ticker": "NVDA",
+   "name": "NVIDIA",
+   "price": 186.64,
+   "change_pct": 2.78,
+   "chg_1m": -19.02
+  }
+ ],
+ "klci": {
+  "review": {
+   "review": "2026 年 12 月检讨",
+   "cutoff": "2026-11-23",
+   "announce": "2026-12-03",
+   "effective": "2026-12-21",
+   "days_to_cutoff": 17,
+   "days_to_announce": 27
+  },
+  "slots": 20,
+  "top": [
+   {
+    "name": "Westports",
+    "ticker": "5246.KL",
+    "prob": 99,
+    "change": 0
+   },
+   {
+    "name": "AMMB",
+    "ticker": "1015.KL",
+    "prob": 99,
+    "change": 0
+   },
+   {
+    "name": "ViTrox",
+    "ticker": "0097.KL",
+    "prob": 99,
+    "change": 0
+   },
+   {
+    "name": "United Plantations",
+    "ticker": "2089.KL",
+    "prob": 99,
+    "change": 0
+   },
+   {
+    "name": "Sime Darby",
+    "ticker": "4197.KL",
+    "prob": 99,
+    "change": 0
+   },
+   {
+    "name": "QL Resources",
+    "ticker": "7084.KL",
+    "prob": 99,
+    "change": 0
+   },
+   {
+    "name": "KPJ Healthcare",
+    "ticker": "5878.KL",
+    "prob": 99,
+    "change": 0
+   },
+   {
+    "name": "IGB REIT",
+    "ticker": "5227.KL",
+    "prob": 99,
+    "change": 0
+   },
+   {
+    "name": "Dialog Group",
+    "ticker": "7277.KL",
+    "prob": 99,
+    "change": 0
+   },
+   {
+    "name": "Sunway Construction",
+    "ticker": "5263.KL",
+    "prob": 99,
+    "change": 0
+   },
+   {
+    "name": "TIME dotCom",
+    "ticker": "5031.KL",
+    "prob": 99,
+    "change": 0
+   },
+   {
+    "name": "IJM Corp",
+    "ticker": "3336.KL",
+    "prob": 99,
+    "change": 0
+   },
+   {
+    "name": "Malayan Cement",
+    "ticker": "3794.KL",
+    "prob": 99,
+    "change": 1
+   },
+   {
+    "name": "Sime Darby Property",
+    "ticker": "5288.KL",
+    "prob": 98,
+    "change": 1
+   },
+   {
+    "name": "Frontken",
+    "ticker": "0128.KL",
+    "prob": 98,
+    "change": 0
+   },
+   {
+    "name": "Inari Amertron",
+    "ticker": "0166.KL",
+    "prob": 95,
+    "change": -4
+   },
+   {
+    "name": "Alliance Bank",
+    "ticker": "2488.KL",
+    "prob": 93,
+    "change": 9
+   },
+   {
+    "name": "Top Glove",
+    "ticker": "7113.KL",
+    "prob": 86,
+    "change": 16
+   },
+   {
+    "name": "Eco-Shop",
+    "ticker": "5337.KL",
+    "prob": 50,
+    "change": 5
+   },
+   {
+    "name": "Sunway REIT",
+    "ticker": "5176.KL",
+    "prob": 50,
+    "change": 14
+   },
+   {
+    "name": "UWC",
+    "ticker": "5292.KL",
+    "prob": 45,
+    "change": -27
+   },
+   {
+    "name": "Gas Malaysia",
+    "ticker": "5209.KL",
+    "prob": 44,
+    "change": 21
+   },
+   {
+    "name": "Genting Malaysia",
+    "ticker": "4715.KL",
+    "prob": 43,
+    "change": 1
+   },
+   {
+    "name": "Kelington",
+    "ticker": "0151.KL",
+    "prob": 31,
+    "change": -19
+   },
+   {
+    "name": "KLCC Property",
+    "ticker": "5235SS.KL",
+    "prob": 30,
+    "change": 0
+   }
+  ]
+ },
+ "ai_comment": null
+}

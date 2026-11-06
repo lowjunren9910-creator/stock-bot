@@ -2,7 +2,7 @@
  "market": "us",
  "market_name": "🇺🇸 美股",
  "benchmark": "标普 500",
- "updated": "2026-11-05 21:31 UTC",
+ "updated": "2026-11-06 21:31 UTC",
  "horizons": {
   "1w": "1 周",
   "1m": "1 个月",
@@ -12,7 +12,7 @@
  "summary": {
   "focus": {
    "name": "每日焦点",
-   "picks": 10,
+   "picks": 15,
    "1w": {
     "n": 0,
     "avg_ret": null,
@@ -32,15 +32,15 @@
     "hit_rate": null
    },
    "now": {
-    "n": 5,
-    "avg_ret": -5.26,
-    "avg_excess": -0.9,
+    "n": 10,
+    "avg_ret": 0.65,
+    "avg_excess": 2.52,
     "hit_rate": 80
    }
   },
   "oversold": {
    "name": "错杀股",
-   "picks": 10,
+   "picks": 15,
    "1w": {
     "n": 0,
     "avg_ret": null,
@@ -60,14 +60,42 @@
     "hit_rate": null
    },
    "now": {
-    "n": 5,
-    "avg_ret": -7.38,
-    "avg_excess": -3.02,
-    "hit_rate": 40
+    "n": 10,
+    "avg_ret": -2.44,
+    "avg_excess": -0.57,
+    "hit_rate": 60
    }
   },
   "growth": {
    "name": "成长股",
+   "picks": 15,
+   "1w": {
+    "n": 0,
+    "avg_ret": null,
+    "avg_excess": null,
+    "hit_rate": null
+   },
+   "1m": {
+    "n": 0,
+    "avg_ret": null,
+    "avg_excess": null,
+    "hit_rate": null
+   },
+   "3m": {
+    "n": 0,
+    "avg_ret": null,
+    "avg_excess": null,
+    "hit_rate": null
+   },
+   "now": {
+    "n": 10,
+    "avg_ret": -2.3,
+    "avg_excess": -0.43,
+    "hit_rate": 50
+   }
+  },
+  "double_kill": {
+   "name": "双杀股",
    "picks": 10,
    "1w": {
     "n": 0,
@@ -89,46 +117,18 @@
    },
    "now": {
     "n": 5,
-    "avg_ret": -11.53,
-    "avg_excess": -7.18,
+    "avg_ret": 1.83,
+    "avg_excess": 3.27,
     "hit_rate": 0
-   }
-  },
-  "double_kill": {
-   "name": "双杀股",
-   "picks": 5,
-   "1w": {
-    "n": 0,
-    "avg_ret": null,
-    "avg_excess": null,
-    "hit_rate": null
-   },
-   "1m": {
-    "n": 0,
-    "avg_ret": null,
-    "avg_excess": null,
-    "hit_rate": null
-   },
-   "3m": {
-    "n": 0,
-    "avg_ret": null,
-    "avg_excess": null,
-    "hit_rate": null
-   },
-   "now": {
-    "n": 2,
-    "avg_ret": -6.26,
-    "avg_excess": -1.92,
-    "hit_rate": 50
    }
   }
  },
  "picks": [
   {
-   "date": "2026-11-05",
+   "date": "2026-11-06",
    "strategy": "focus",
-   "ticker": "MU",
-   "name": "Micron",
+   "ticker": "APP",
+   "name": "Applovin",
    "ret_1w": null,
    "ex_1w": null,
    "ret_1m": null,
@@ -140,7 +140,37 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-05",
+   "date": "2026-11-06",
+   "strategy": "focus",
+   "ticker": "NET",
+   "name": "Cloudflare",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-06",
+   "strategy": "focus",
+   "ticker": "NRG",
+   "name": "NRG Energy",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-06",
    "strategy": "focus",
    "ticker": "AMD",
    "name": "AMD",
@@ -155,6 +185,276 @@
    "days": 0.0
   },
   {
+   "date": "2026-11-06",
+   "strategy": "focus",
+   "ticker": "VST",
+   "name": "Vistra",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-06",
+   "strategy": "oversold",
+   "ticker": "SNDK",
+   "name": "Sandisk",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-06",
+   "strategy": "oversold",
+   "ticker": "MU",
+   "name": "Micron",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-06",
+   "strategy": "oversold",
+   "ticker": "SMCI",
+   "name": "Super Micro",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-06",
+   "strategy": "oversold",
+   "ticker": "AVGO",
+   "name": "Broadcom",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-06",
+   "strategy": "oversold",
+   "ticker": "GEV",
+   "name": "GE Vernova",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-06",
+   "strategy": "growth",
+   "ticker": "PLTR",
+   "name": "Palantir",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-06",
+   "strategy": "growth",
+   "ticker": "NVDA",
+   "name": "NVIDIA",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-06",
+   "strategy": "growth",
+   "ticker": "AVGO",
+   "name": "Broadcom",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-06",
+   "strategy": "growth",
+   "ticker": "MU",
+   "name": "Micron",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-06",
+   "strategy": "growth",
+   "ticker": "SKHY",
+   "name": "SK hynix",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-06",
+   "strategy": "double_kill",
+   "ticker": "INTC",
+   "name": "Intel",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-06",
+   "strategy": "double_kill",
+   "ticker": "ENPH",
+   "name": "Enphase",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-06",
+   "strategy": "double_kill",
+   "ticker": "NRG",
+   "name": "NRG Energy",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-06",
+   "strategy": "double_kill",
+   "ticker": "CEG",
+   "name": "Constellation Energy",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-06",
+   "strategy": "double_kill",
+   "ticker": "GOOGL",
+   "name": "Alphabet",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-05",
+   "strategy": "focus",
+   "ticker": "MU",
+   "name": "Micron",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": 5.12,
+   "ex_now": 4.81,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-05",
+   "strategy": "focus",
+   "ticker": "AMD",
+   "name": "AMD",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": 11.04,
+   "ex_now": 10.72,
+   "days": 1.0
+  },
+  {
    "date": "2026-11-05",
    "strategy": "focus",
    "ticker": "TSM",
@@ -165,9 +465,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": null,
-   "ex_now": null,
-   "days": 0.0
+   "ret_now": 6.33,
+   "ex_now": 6.01,
+   "days": 1.0
   },
   {
    "date": "2026-11-05",
@@ -180,9 +480,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": null,
-   "ex_now": null,
-   "days": 0.0
+   "ret_now": 4.23,
+   "ex_now": 3.91,
+   "days": 1.0
   },
   {
    "date": "2026-11-05",
@@ -195,9 +495,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": null,
-   "ex_now": null,
-   "days": 0.0
+   "ret_now": 5.52,
+   "ex_now": 5.21,
+   "days": 1.0
   },
   {
    "date": "2026-11-05",
@@ -210,9 +510,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": null,
-   "ex_now": null,
-   "days": 0.0
+   "ret_now": 5.12,
+   "ex_now": 4.81,
+   "days": 1.0
   },
   {
    "date": "2026-11-05",
@@ -225,9 +525,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": null,
-   "ex_now": null,
-   "days": 0.0
+   "ret_now": 0.74,
+   "ex_now": 0.43,
+   "days": 1.0
   },
   {
    "date": "2026-11-05",
@@ -240,9 +540,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": null,
-   "ex_now": null,
-   "days": 0.0
+   "ret_now": 2.78,
+   "ex_now": 2.46,
+   "days": 1.0
   },
   {
    "date": "2026-11-05",
@@ -255,9 +555,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": null,
-   "ex_now": null,
-   "days": 0.0
+   "ret_now": 0.82,
+   "ex_now": 0.5,
+   "days": 1.0
   },
   {
    "date": "2026-11-05",
@@ -270,9 +570,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": null,
-   "ex_now": null,
-   "days": 0.0
+   "ret_now": 3.48,
+   "ex_now": 3.16,
+   "days": 1.0
   },
   {
    "date": "2026-11-05",
@@ -285,9 +585,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": null,
-   "ex_now": null,
-   "days": 0.0
+   "ret_now": 3.48,
+   "ex_now": 3.16,
+   "days": 1.0
   },
   {
    "date": "2026-11-05",
@@ -300,9 +600,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": null,
-   "ex_now": null,
-   "days": 0.0
+   "ret_now": 2.78,
+   "ex_now": 2.46,
+   "days": 1.0
   },
   {
    "date": "2026-11-05",
@@ -315,9 +615,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": null,
-   "ex_now": null,
-   "days": 0.0
+   "ret_now": 0.74,
+   "ex_now": 0.43,
+   "days": 1.0
   },
   {
    "date": "2026-11-05",
@@ -330,9 +630,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": null,
-   "ex_now": null,
-   "days": 0.0
+   "ret_now": 5.12,
+   "ex_now": 4.81,
+   "days": 1.0
   },
   {
    "date": "2026-11-05",
@@ -345,9 +645,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": null,
-   "ex_now": null,
-   "days": 0.0
+   "ret_now": 6.33,
+   "ex_now": 6.01,
+   "days": 1.0
   },
   {
    "date": "2026-11-05",
@@ -360,9 +660,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": null,
-   "ex_now": null,
-   "days": 0.0
+   "ret_now": 7.71,
+   "ex_now": 7.4,
+   "days": 1.0
   },
   {
    "date": "2026-11-05",
@@ -375,9 +675,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": null,
-   "ex_now": null,
-   "days": 0.0
+   "ret_now": 0.78,
+   "ex_now": 0.47,
+   "days": 1.0
   },
   {
    "date": "2026-11-05",
@@ -390,9 +690,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": null,
-   "ex_now": null,
-   "days": 0.0
+   "ret_now": 5.52,
+   "ex_now": 5.21,
+   "days": 1.0
   },
   {
    "date": "2026-11-04",
@@ -405,9 +705,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -3.58,
-   "ex_now": 0.78,
-   "days": 1.0
+   "ret_now": -4.53,
+   "ex_now": -0.48,
+   "days": 2.0
   },
   {
    "date": "2026-11-04",
@@ -420,9 +720,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -1.53,
-   "ex_now": 2.83,
-   "days": 1.0
+   "ret_now": -2.04,
+   "ex_now": 2.01,
+   "days": 2.0
   },
   {
    "date": "2026-11-04",
@@ -435,9 +735,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -2.19,
-   "ex_now": 2.17,
-   "days": 1.0
+   "ret_now": -2.53,
+   "ex_now": 1.53,
+   "days": 2.0
   },
   {
    "date": "2026-11-04",
@@ -450,9 +750,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -17.46,
-   "ex_now": -13.1,
-   "days": 1.0
+   "ret_now": -13.23,
+   "ex_now": -9.18,
+   "days": 2.0
   },
   {
    "date": "2026-11-04",
@@ -465,9 +765,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -1.55,
-   "ex_now": 2.81,
-   "days": 1.0
+   "ret_now": -3.37,
+   "ex_now": 0.69,
+   "days": 2.0
   },
   {
    "date": "2026-11-04",
@@ -480,9 +780,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -17.46,
-   "ex_now": -13.1,
-   "days": 1.0
+   "ret_now": -13.23,
+   "ex_now": -9.18,
+   "days": 2.0
   },
   {
    "date": "2026-11-04",
@@ -495,9 +795,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -10.43,
-   "ex_now": -6.08,
-   "days": 1.0
+   "ret_now": -9.77,
+   "ex_now": -5.71,
+   "days": 2.0
   },
   {
    "date": "2026-11-04",
@@ -510,9 +810,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -6.93,
-   "ex_now": -2.57,
-   "days": 1.0
+   "ret_now": -6.17,
+   "ex_now": -2.11,
+   "days": 2.0
   },
   {
    "date": "2026-11-04",
@@ -525,9 +825,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -1.25,
-   "ex_now": 3.11,
-   "days": 1.0
+   "ret_now": -4.49,
+   "ex_now": -0.43,
+   "days": 2.0
   },
   {
    "date": "2026-11-04",
@@ -540,9 +840,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -0.82,
-   "ex_now": 3.53,
-   "days": 1.0
+   "ret_now": -3.69,
+   "ex_now": 0.36,
+   "days": 2.0
   },
   {
    "date": "2026-11-04",
@@ -555,9 +855,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -9.73,
-   "ex_now": -5.38,
-   "days": 1.0
+   "ret_now": -6.59,
+   "ex_now": -2.54,
+   "days": 2.0
   },
   {
    "date": "2026-11-04",
@@ -570,9 +870,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -17.46,
-   "ex_now": -13.1,
-   "days": 1.0
+   "ret_now": -13.23,
+   "ex_now": -9.18,
+   "days": 2.0
   },
   {
    "date": "2026-11-04",
@@ -585,9 +885,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -9.26,
-   "ex_now": -4.9,
-   "days": 1.0
+   "ret_now": -6.74,
+   "ex_now": -2.69,
+   "days": 2.0
   },
   {
    "date": "2026-11-04",
@@ -600,9 +900,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -10.43,
-   "ex_now": -6.08,
-   "days": 1.0
+   "ret_now": -9.77,
+   "ex_now": -5.71,
+   "days": 2.0
   },
   {
    "date": "2026-11-04",
@@ -615,9 +915,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -10.78,
-   "ex_now": -6.42,
-   "days": 1.0
+   "ret_now": -5.13,
+   "ex_now": -1.08,
+   "days": 2.0
   },
   {
    "date": "2026-11-04",
@@ -630,9 +930,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -10.33,
-   "ex_now": -5.98,
-   "days": 1.0
+   "ret_now": -3.42,
+   "ex_now": 0.64,
+   "days": 2.0
   },
   {
    "date": "2026-11-04",
@@ -645,9 +945,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -2.2,
-   "ex_now": 2.15,
-   "days": 1.0
+   "ret_now": -1.44,
+   "ex_now": 2.62,
+   "days": 2.0
   }
  ],
  "leaderboard": [

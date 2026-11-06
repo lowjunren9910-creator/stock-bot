@@ -1,0 +1,37 @@
+{
+ "checked": "2026-11-06 21:32 UTC",
+ "total": 277,
+ "ok": 275,
+ "problems": [
+  {
+   "ticker": "4588.KL",
+   "name": "UMW",
+   "where": "scanner.py BURSA（每日焦点）",
+   "status": "抓不到数据（代码可能错了或已除牌）"
+  },
+  {
+   "ticker": "4588.KL",
+   "name": "UMW Holdings",
+   "where": "klci.py（KLCI 和选股雷达）",
+   "status": "抓不到数据（代码可能错了或已除牌）"
+  },
+  {
+   "ticker": "5222.KL",
+   "name": "FGV",
+   "where": "klci.py（KLCI 和选股雷达）",
+   "status": "抓不到数据（代码可能错了或已除牌）"
+  },
+  {
+   "ticker": "4588.KL",
+   "name": "UMW",
+   "where": "analysis.py ALIASES（简称）",
+   "status": "抓不到数据（代码可能错了或已除牌）"
+  },
+  {
+   "ticker": "5222.KL",
+   "name": "FGV",
+   "where": "analysis.py ALIASES（简称）",
+   "status": "抓不到数据（代码可能错了或已除牌）"
+  }
+ ]
+}
