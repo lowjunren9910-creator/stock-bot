@@ -63,7 +63,8 @@ GitHub Secrets 需要：`TELEGRAM_BOT_TOKEN`、`TELEGRAM_CHAT_ID`、`GROQ_API_KE
 - 标题一定要提到这家公司才会进 AI；AI 再判断是不是真的相关、重要性 1–5 星，同一件事的几篇报道合并成一条，写分析 + **短期（几天到几周）/ 长期（一年以上）** 是利好、利空还是中性。
 - 3 星以上才推送 Telegram（Variables 的 `NEWS_MIN_IMPORTANCE` 可以改）；每次最多用 8 次 AI（`NEWS_AI_MAX`）。
 - 随时看：Telegram `/news GAMUDA`、网站「🗞️ 新闻追踪」、手机 app「我的」最上面 + 「更多 → 新闻追踪」。
-- 找不到新闻或找错公司：在 `watchlist.yml` 给那家公司加 `keywords`，例如 `keywords: [TNB, 国能]`。
+- 同名问题（PPB、Dialog、Sunway、Tenaga 这种普通字或简称）：只有一个字的名字，新闻里还要出现 Bhd / RM / profit / shares 之类的字才算；AI 也会读公司简介，判断是不是同名的别家机构。
+- 还是找错：Telegram 发 `/notnews PPB pharmacy Kenya`（以后不要）或 `/newskw PPB 玻璃市种植`（一定算），`/newsrules` 看全部规则；也可以在 `watchlist.yml` 写 `keywords` / `exclude`。
 - 注意：AI 只看到标题和摘要，重要新闻请点链接看原文。
 
 ## 📱 手机 app（Android，PWA，免费）

@@ -9,7 +9,7 @@ on:
   workflow_dispatch:        # 也可以在 GitHub 网页手动按"Run workflow"立刻处理
 
 permissions:
-  contents: read
+  contents: write           # 用来保存 /notnews、/newskw 加的新闻规则
 
 concurrency:
   group: bot-mailbox
@@ -52,3 +52,14 @@ jobs:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python bot_mailbox.py
+
+      - if: steps.check.outputs.count != '0'
+        name: 保存新闻规则
+        run: |
+          if [ ! -f reports/news/rules.json ]; then exit 0; fi
+          git config user.name "news-bot"
+          git config user.email "news-bot@users.noreply.github.com"
+          git add reports/news/rules.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "新闻规则更新"
+          for i in 1 2 3; do git pull --rebase -X theirs && git push && break; sleep 5; done

@@ -47,6 +47,8 @@ HELP = f"""<b>📊 股票分析机器人（信箱模式）</b>
 /compare 代码 代码 [代码] - 对比 2 到 3 只股票，例如 <code>/compare MAYBANK PBBANK CIMB</code>
 /quarter 代码 - 最新季报快速分析
 /news 代码 - 最新新闻 + AI 分析（短期 / 长期影响）。自选股的重要新闻会自动推送
+/notnews 代码 字眼 - 新闻找错公司时用，例如 /notnews PPB pharmacy（以后不要）
+/newskw 代码 字眼 - 加一定算的名字，例如 /newskw PPB 玻璃市种植
 /watch - 自选股现况
 /week - 最新周报
 /quick 代码 - 只看数据报告（不开圆桌）
@@ -229,6 +231,19 @@ def handle(chat, text: str):
         return send(chat, A.format_technical(t, A.technical_summary(A.get_history(t))))
     if cmd == "/fund":
         return do_fund(chat, arg)
+    if cmd in ("/notnews", "/newskw"):
+        import news
+        words = arg.split()
+        if len(words) < 2:
+            return send(chat, f"用法：{cmd} 股票 字眼…\n例如 <code>/notnews PPB pharmacy Kenya</code>（标题有这些字的新闻不要）\n"
+                              "<code>/newskw PPB 玻璃市种植</code>（这些字一出现就算这家公司的新闻）")
+        t = news.add_rule(words[0], "exclude" if cmd == "/notnews" else "keywords", words[1:])
+        return send(chat, f"✅ 已记住：{t} " + ("以后标题有「" if cmd == "/notnews" else "以后出现「")
+                    + esc("、".join(words[1:])) + ("」的新闻都不要。" if cmd == "/notnews" else "」就算它的新闻。")
+                    + "\n下一次新闻追踪开始生效。发 /newsrules 看全部规则。")
+    if cmd == "/newsrules":
+        import news
+        return send(chat, news.rules_html())
     if cmd == "/news":
         import news
         typing(chat)

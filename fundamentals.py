@@ -32,6 +32,7 @@ KEEP = (  # 只存用得到的栏位，文件才不会太大
     "revenueGrowth", "earningsGrowth", "debtToEquity", "currentRatio", "totalRevenue",
     "beta", "fiftyTwoWeekHigh", "fiftyTwoWeekLow", "enterpriseToEbitda",
     "mostRecentQuarter", "earningsTimestamp", "heldPercentInsiders", "recommendationKey",
+    "longBusinessSummary",
 )
 _lock = threading.Lock()
 _disk: dict | None = None
@@ -103,6 +104,8 @@ def info(ticker: str) -> dict:
     except Exception:
         full = {}
     slim = {k: full[k] for k in KEEP if full.get(k) is not None}
+    if "longBusinessSummary" in slim:
+        slim["longBusinessSummary"] = slim["longBusinessSummary"][:400]   # 只留开头，文件才不会太大
     if slim:
         _put(ticker, info=slim, info_d=str(date.today()))
         return slim

@@ -60,7 +60,6 @@ IMPACT = {"利好": "📈", "利空": "📉", "中性": "➖"}
 def companies() -> list[dict]:
     """watchlist.yml 的 stocks（除非写 news: false）+ news_only。"""
     import analysis as A
-    import universe
     path = ROOT / "watchlist.yml"
     if not path.exists():
         return []
@@ -77,11 +76,119 @@ def companies() -> list[dict]:
         if t in seen:
             continue
         seen.add(t)
-        name = universe.name_of(t) or _info_name(t) or t
-        kws = [str(k) for k in (s.get("keywords") or [])]
-        out.append({"ticker": t, "name": name, "market": universe.market_of(t), "input": str(s["ticker"]),
-                    "keywords": default_keywords(t, name, str(s["ticker"])) + kws, "extra": kws})
+        out.append(make_company(t, str(s["ticker"]), s.get("keywords"), s.get("exclude")))
     return out
+
+
+LEGAL = r"\b(berhad|bhd\.?|tbk\.?|pt|inc\.?|corp\.?|corporation|ltd\.?|limited|plc|co\.?|n\.v\.|s\.a\.)$"
+# 市场里的「上下文字眼」：简称太短（PPB、IOI、MISC）时，新闻还要出现这些字才算
+BUSINESS = ["profit", "profits", "revenue", "earnings", "quarter", "quarterly", "dividend", "contract", "shares",
+            "share price", "stock", "ceo", "chairman", "billion", "million", "acquisition", "acquire", "merger",
+            "analyst", "analysts", "investor", "investors", "listed", "subsidiary", "target price",
+            "盈利", "营收", "净利", "股价", "股息", "合约", "收购", "股东", "季报", "业绩"]
+CONTEXT = {
+    "bursa": BUSINESS + ["bhd", "berhad", "bursa", "klse", "malaysia", "malaysian", "ringgit", "rm", "sen",
+                         "kuala lumpur", "马来西亚", "大马", "马股", "令吉", "laba", "untung", "syarikat"],
+    "idx": BUSINESS + ["tbk", "bei", "idx", "saham", "indonesia", "rupiah", "jakarta", "laba", "pendapatan",
+                       "dividen", "印尼"],
+    "us": BUSINESS + ["stocks", "nasdaq", "nyse", "wall street", "s&p", "美股"],
+}
+RULES = DIR / "rules.json"      # 你用 Telegram /notnews、/newskw 加的规则（自动存这里）
+
+
+def _strip_legal(n: str) -> str:
+    n = re.sub(r"\(.*?\)", "", n).strip(" ,.")
+    for _ in range(3):
+        n2 = re.sub(LEGAL, "", n, flags=re.I).strip(" ,.")
+        if n2 == n:
+            break
+        n = n2
+    return n
+
+
+def make_company(t: str, user_input: str, extra=None, exclude=None) -> dict:
+    import universe
+    import fundamentals as F
+    try:
+        i = F.info(t)
+    except Exception:
+        i = {}
+    short = universe.name_of(t) or i.get("shortName") or t
+    long_ = _strip_legal(i.get("longName") or i.get("shortName") or short)
+    rule = load_rules().get(t, {})
+    extra = [str(k) for k in (extra or [])] + rule.get("keywords", [])
+    exclude = list(exclude or []) + rule.get("exclude", [])
+    strong, weak = keywords(t, short, long_, user_input)
+    return {"ticker": t, "name": short, "long_name": long_, "market": universe.market_of(t), "input": user_input,
+            "strong": sorted(set(strong + extra)), "weak": sorted(set(weak) - set(extra)),
+            "keywords": sorted(set(strong + weak + extra)),
+            "exclude": [str(k).lower() for k in (exclude or [])],
+            "about": {"行业": i.get("industry"), "板块": i.get("sector"),
+                      "业务简介": (i.get("longBusinessSummary") or "")[:400]}}
+
+
+def load_rules() -> dict:
+    try:
+        return json.loads(RULES.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+
+def add_rule(text: str, kind: str, words: list[str]) -> str:
+    """kind = exclude（这些字出现就不要）或 keywords（这些字一出现就算）。"""
+    import analysis as A
+    t = A.normalize_ticker(text)
+    rules = load_rules()
+    r = rules.setdefault(t, {"exclude": [], "keywords": []})
+    for w in words:
+        if w and w not in r[kind]:
+            r[kind].append(w)
+    DIR.mkdir(parents=True, exist_ok=True)
+    RULES.write_text(json.dumps(rules, ensure_ascii=False, indent=1), encoding="utf-8")
+    return t
+
+
+def rules_html() -> str:
+    rules = load_rules()
+    if not rules:
+        return "还没有自订的新闻规则。"
+    lines = ["<b>🗞️ 新闻规则</b>"]
+    for t, r in rules.items():
+        if r.get("keywords"):
+            lines.append(f"<code>{t}</code> 一定算：{html.escape('、'.join(r['keywords']))}")
+        if r.get("exclude"):
+            lines.append(f"<code>{t}</code> 不要：{html.escape('、'.join(r['exclude']))}")
+    return "\n".join(lines)
+
+
+def keywords(ticker: str, short: str, long_: str, user_input: str) -> tuple[list[str], list[str]]:
+    """强关键字（完整名字：一出现就算）和弱关键字（简称：要配合上下文字眼才算）。"""
+    strong, weak = set(), set()
+
+    def add(k):
+        k = k.strip()
+        if len(k) < 3 or re.search(r"\d{4}", k):     # 太短，或是 1155.KL 这种代码
+            return
+        # 只有一个字的名字（PPB、Maybank、Tenaga、Dialog、Sunway…）可能是普通的字、别的机构或地名，
+        # 所以当弱关键字：新闻里还要有 Bhd / RM / profit / shares 之类的上下文才算
+        (weak if " " not in k else strong).add(k)
+
+    for n in (long_, _strip_legal(short)):
+        add(n)
+        core = [w for w in re.split(r"[\s,.&]+", n) if w and w.lower() not in STOP]
+        if core and " ".join(core) != n:
+            add(" ".join(core))
+    code = ticker.split(".")[0]
+    if not code.isdigit():
+        add(code)                                   # NVDA、BBCA（数字代码的 Bursa 不用）
+    if not user_input.isdigit():
+        add(user_input)                             # MAYBANK、TENAGA、PPB
+    low = {k.lower() for k in strong}
+    weak = {k for k in weak if k.lower() not in low}
+    uniq = {}
+    for k in sorted(weak):                          # MAYBANK 和 Maybank 只留一个
+        uniq.setdefault(k.lower(), k)
+    return sorted(strong), sorted(uniq.values())
 
 
 def _info_name(t):
@@ -91,25 +198,6 @@ def _info_name(t):
         return i.get("shortName") or i.get("longName")
     except Exception:
         return None
-
-
-def default_keywords(ticker: str, name: str, user_input: str) -> list[str]:
-    """公司名字（去掉 Berhad 之类）、用户输入的简称、美股代码。"""
-    kws = set()
-    clean = re.sub(r"\(.*?\)", "", name)
-    words = [w for w in re.split(r"[\s,.&]+", clean) if w]
-    core = [w for w in words if w.lower() not in STOP]
-    if core:
-        kws.add(" ".join(core))
-        if len(core[0]) >= 4:
-            kws.add(core[0])
-    kws.add(clean.strip())
-    code = ticker.split(".")[0]
-    if not code.isdigit() and len(code) >= 3:     # NVDA、BBCA、TLKM（数字代码的 Bursa 不用）
-        kws.add(code)
-    if not user_input.isdigit() and len(user_input) >= 3:
-        kws.add(user_input)                         # MAYBANK、TENAGA
-    return sorted(k for k in kws if len(k) >= 3)
 
 
 # ---------------------------------------------------------------------------
@@ -179,24 +267,43 @@ def yahoo_news(ticker: str) -> list[dict]:
     return out
 
 
-def mentions(item: dict, keywords: list[str]) -> bool:
+def _has(text: str, k: str) -> bool:
+    k = k.lower()
+    if re.search(r"[\u4e00-\u9fff]", k):            # 中文：直接找
+        return k in text
+    return re.search(rf"(?<![a-z0-9]){re.escape(k)}(?![a-z0-9])", text) is not None
+
+
+def mentions(item: dict, c: dict) -> bool:
+    """新闻是不是在讲这家公司。"""
     text = f"{item['title']} {item.get('summary', '')}".lower()
-    for k in keywords:
-        k = k.lower()
-        if re.search(r"[一-鿿]", k):         # 中文关键字：直接找
-            if k in text:
-                return True
-        elif re.search(rf"(?<![a-z0-9]){re.escape(k)}(?![a-z0-9])", text):
-            return True
+    if any(x in text for x in c.get("exclude", [])):
+        return False
+    if item.get("via") == "yahoo":                 # Yahoo 的新闻本来就是按股票代码分好的
+        return True
+    if any(_has(text, k) for k in c.get("strong", [])):
+        return True
+    if any(_has(text, k) for k in c.get("weak", [])):
+        return any(_has(text, w) for w in CONTEXT[c["market"]])   # 简称 + 上下文才算
     return False
 
 
 def gather(c: dict, seen: dict) -> list[dict]:
     """一家公司的新新闻（还没看过、48 小时内、标题提到这家公司）。"""
-    main = max((k for k in c["keywords"] if not re.search(r"[一-鿿]", k)), key=len, default=c["name"])
+    is_zh = lambda k: re.search(r"[\u4e00-\u9fff]", k) is not None
+    strong = [k for k in c.get("strong", []) if not is_zh(k)]
+    weak = [k for k in c.get("weak", []) if not is_zh(k)]
+    ctx = {"bursa": "(Bhd OR Berhad OR Bursa)", "idx": "(Tbk OR saham OR IDX)",
+           "us": "(stock OR shares OR earnings)"}[c["market"]]
+    queries = []
+    if strong:
+        queries.append(f'"{max(strong, key=len)}"')
+    for w in weak[:2]:
+        queries.append(f'"{w}" {ctx}')              # 简称：一定要配合 Bhd / Tbk / stock 之类一起找
     items = []
-    for hl, gl, ceid in REGION[c["market"]]:
-        items += google_news(f'"{main}"', hl, gl, ceid)
+    for q in queries:
+        for hl, gl, ceid in REGION[c["market"]]:
+            items += google_news(q, hl, gl, ceid)
     zh = [k for k in c["keywords"] if re.search(r"[一-鿿]", k)]
     if zh:                                          # 有写中文关键字：也看中文新闻（星洲、南洋…）
         items += google_news(" OR ".join(f'"{k}"' for k in zh), *ZH_REGION[c["market"]])
@@ -211,7 +318,7 @@ def gather(c: dict, seen: dict) -> list[dict]:
         here.add(h)
         it["id"] = h
         it["key"] = key
-        if mentions(it, c["keywords"]):
+        if mentions(it, c):
             out.append(it)
         else:
             seen[key] = it["published"][:10]        # 没提到这家公司：记下来，下次不用再看
@@ -229,7 +336,8 @@ SYSTEM = """你是资深股票分析师，帮投资者读新闻。下面是关�
 "long_term":{"view":"利好|利空|中性","why":"1 句：一年以上对业务和盈利的影响"},"confidence":"高|中|低"}]}
 规则：
 - 报道同一件事的几条新闻合并成一个事件（ids 放在一起）。
-- relevant=false：新闻其实不是在讲这家公司（同名、只是顺带一提、大盘新闻）。
+- relevant=false：新闻其实不是在讲这家公司。特别注意「同名不同机构」：先看「公司资料」的行业和业务，
+  例如简称一样但其实是别国的政府部门、协会、别的公司，一律 relevant=false。只是顺带一提、大盘新闻也是 false。
 - importance：5=重大（业绩大幅偏离、并购、大合约、监管处罚、管理层巨变），3=值得知道，1=无关紧要的例行新闻。
 - 只根据提供的内容判断，不要编造数字或细节；资料不够就说「要看原文确认」，confidence 用「低」。
 - 考虑股价最近的走势：如果已经大涨或大跌，提醒可能已经反映在股价里。"""
@@ -265,7 +373,8 @@ def analyze(c: dict, items: list[dict], px: dict | None = None) -> list[dict]:
     if M.check_setup():
         return []
     px = px if px is not None else price_context(c["ticker"])
-    brief = {"公司": f"{c['name']} ({c['ticker']})", "股价近况": px,
+    brief = {"公司": f"{c.get('long_name') or c['name']} ({c['ticker']})", "公司资料": c.get("about") or {},
+             "股价近况": px,
              "新闻": [{"id": it["id"], "标题": it["title"], "来源": it["source"], "时间": it["published"],
                      "摘要": it.get("summary", "")} for it in items]}
     text = asyncio.run(M.chat(SYSTEM, json.dumps(brief, ensure_ascii=False), 1400))
@@ -345,6 +454,13 @@ def run(push: bool = True) -> dict:
     # 保存：feed 只留 30 天；seen 只留 7 天
     cut = (datetime.now(timezone.utc) - timedelta(days=FEED_KEEP_DAYS)).strftime("%Y-%m-%d")
     fresh_ids = {(e["ticker"], e["id"]) for e in new_events}
+    by_t = {c["ticker"]: c for c in comps}
+
+    def still_ok(e):     # 旧新闻用新的规则再检查一次（例如 PPB 被认成别国的 PPB）
+        c = by_t.get(e["ticker"])
+        return c is None or any(mentions({"title": a["title"]}, c) for a in e.get("articles", []))
+
+    feed["events"] = [e for e in feed.get("events", []) if still_ok(e)]
     events = new_events + [e for e in feed.get("events", [])
                            if e.get("published", "") >= cut and (e["ticker"], e["id"]) not in fresh_ids]
     events.sort(key=lambda e: e["published"], reverse=True)
@@ -373,11 +489,7 @@ def run(push: bool = True) -> dict:
 
 def quick(text: str) -> list[dict]:
     import analysis as A
-    import universe
-    t = A.normalize_ticker(text)
-    name = universe.name_of(t) or _info_name(t) or t
-    c = {"ticker": t, "name": name, "market": universe.market_of(t), "input": text,
-         "keywords": default_keywords(t, name, text), "extra": []}
+    c = make_company(A.normalize_ticker(text), text)
     items = gather(c, {})
     if not items:
         return []
