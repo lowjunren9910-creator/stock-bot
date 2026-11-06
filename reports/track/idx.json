@@ -2,7 +2,7 @@
  "market": "idx",
  "market_name": "🇮🇩 印尼股市 IDX",
  "benchmark": "雅加达综合指数",
- "updated": "2026-11-05 09:31 UTC",
+ "updated": "2026-11-06 09:31 UTC",
  "horizons": {
   "1w": "1 周",
   "1m": "1 个月",
@@ -12,7 +12,7 @@
  "summary": {
   "focus": {
    "name": "每日焦点",
-   "picks": 5,
+   "picks": 10,
    "1w": {
     "n": 0,
     "avg_ret": null,
@@ -32,15 +32,15 @@
     "hit_rate": null
    },
    "now": {
-    "n": 0,
-    "avg_ret": null,
-    "avg_excess": null,
-    "hit_rate": null
+    "n": 5,
+    "avg_ret": -0.52,
+    "avg_excess": -0.92,
+    "hit_rate": 60
    }
   },
   "oversold": {
    "name": "错杀股",
-   "picks": 5,
+   "picks": 10,
    "1w": {
     "n": 0,
     "avg_ret": null,
@@ -60,15 +60,15 @@
     "hit_rate": null
    },
    "now": {
-    "n": 0,
-    "avg_ret": null,
-    "avg_excess": null,
-    "hit_rate": null
+    "n": 5,
+    "avg_ret": 0.45,
+    "avg_excess": 0.05,
+    "hit_rate": 40
    }
   },
   "growth": {
    "name": "成长股",
-   "picks": 5,
+   "picks": 10,
    "1w": {
     "n": 0,
     "avg_ret": null,
@@ -88,15 +88,15 @@
     "hit_rate": null
    },
    "now": {
-    "n": 0,
-    "avg_ret": null,
-    "avg_excess": null,
-    "hit_rate": null
+    "n": 5,
+    "avg_ret": 0.56,
+    "avg_excess": 0.16,
+    "hit_rate": 40
    }
   },
   "double_kill": {
    "name": "双杀股",
-   "picks": 4,
+   "picks": 9,
    "1w": {
     "n": 0,
     "avg_ret": null,
@@ -116,19 +116,19 @@
     "hit_rate": null
    },
    "now": {
-    "n": 0,
-    "avg_ret": null,
-    "avg_excess": null,
-    "hit_rate": null
+    "n": 4,
+    "avg_ret": -0.49,
+    "avg_excess": -0.89,
+    "hit_rate": 50
    }
   }
  },
  "picks": [
   {
-   "date": "2026-11-05",
+   "date": "2026-11-06",
    "strategy": "focus",
-   "ticker": "MDKA.JK",
-   "name": "Merdeka Copper",
+   "ticker": "PTRO.JK",
+   "name": "Petrosea",
    "ret_1w": null,
    "ex_1w": null,
    "ret_1m": null,
@@ -140,7 +140,22 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-05",
+   "date": "2026-11-06",
+   "strategy": "focus",
+   "ticker": "JPFA.JK",
+   "name": "Japfa Comfeed Indonesia",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-06",
    "strategy": "focus",
    "ticker": "BRPT.JK",
    "name": "Barito Pacific",
@@ -155,10 +170,10 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-05",
+   "date": "2026-11-06",
    "strategy": "focus",
-   "ticker": "AMRT.JK",
-   "name": "Alfamart",
+   "ticker": "EMAS.JK",
+   "name": "Merdeka Gold Resources",
    "ret_1w": null,
    "ex_1w": null,
    "ret_1m": null,
@@ -170,10 +185,10 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-05",
+   "date": "2026-11-06",
    "strategy": "focus",
-   "ticker": "BRIS.JK",
-   "name": "Bank Syariah",
+   "ticker": "DSSA.JK",
+   "name": "Dian Swastatika Sentosa",
    "ret_1w": null,
    "ex_1w": null,
    "ret_1m": null,
@@ -185,22 +200,7 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-05",
-   "strategy": "focus",
-   "ticker": "INCO.JK",
-   "name": "Vale Indonesia",
-   "ret_1w": null,
-   "ex_1w": null,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": null,
-   "ex_now": null,
-   "days": 0.0
-  },
-  {
-   "date": "2026-11-05",
+   "date": "2026-11-06",
    "strategy": "oversold",
    "ticker": "MEDC.JK",
    "name": "Medco",
@@ -215,7 +215,52 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-05",
+   "date": "2026-11-06",
+   "strategy": "oversold",
+   "ticker": "TINS.JK",
+   "name": "TIMAH (Persero)",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-06",
+   "strategy": "oversold",
+   "ticker": "DSSA.JK",
+   "name": "Dian Swastatika Sentosa",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-06",
+   "strategy": "oversold",
+   "ticker": "PTRO.JK",
+   "name": "Petrosea",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-06",
    "strategy": "oversold",
    "ticker": "ANTM.JK",
    "name": "Aneka Tambang",
@@ -230,55 +275,10 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-05",
-   "strategy": "oversold",
-   "ticker": "CPIN.JK",
-   "name": "Charoen Pokphand",
-   "ret_1w": null,
-   "ex_1w": null,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": null,
-   "ex_now": null,
-   "days": 0.0
-  },
-  {
-   "date": "2026-11-05",
-   "strategy": "oversold",
-   "ticker": "ICBP.JK",
-   "name": "Indofood CBP",
-   "ret_1w": null,
-   "ex_1w": null,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": null,
-   "ex_now": null,
-   "days": 0.0
-  },
-  {
-   "date": "2026-11-05",
-   "strategy": "oversold",
-   "ticker": "BRIS.JK",
-   "name": "Bank Syariah",
-   "ret_1w": null,
-   "ex_1w": null,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": null,
-   "ex_now": null,
-   "days": 0.0
-  },
-  {
-   "date": "2026-11-05",
+   "date": "2026-11-06",
    "strategy": "growth",
-   "ticker": "ANTM.JK",
-   "name": "Aneka Tambang",
+   "ticker": "TINS.JK",
+   "name": "TIMAH (Persero)",
    "ret_1w": null,
    "ex_1w": null,
    "ret_1m": null,
@@ -290,10 +290,10 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-05",
+   "date": "2026-11-06",
    "strategy": "growth",
-   "ticker": "ADRO.JK",
-   "name": "Adaro",
+   "ticker": "ARCI.JK",
+   "name": "Archi Indonesia",
    "ret_1w": null,
    "ex_1w": null,
    "ret_1m": null,
@@ -305,10 +305,10 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-05",
+   "date": "2026-11-06",
    "strategy": "growth",
-   "ticker": "PTBA.JK",
-   "name": "Bukit Asam",
+   "ticker": "ADMR.JK",
+   "name": "Alamtri Minerals Indonesia",
    "ret_1w": null,
    "ex_1w": null,
    "ret_1m": null,
@@ -320,10 +320,10 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-05",
+   "date": "2026-11-06",
    "strategy": "growth",
-   "ticker": "MEDC.JK",
-   "name": "Medco",
+   "ticker": "JARR.JK",
+   "name": "Jhonlin Agro Raya",
    "ret_1w": null,
    "ex_1w": null,
    "ret_1m": null,
@@ -335,10 +335,10 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-05",
+   "date": "2026-11-06",
    "strategy": "growth",
-   "ticker": "AKRA.JK",
-   "name": "AKR",
+   "ticker": "DSSA.JK",
+   "name": "Dian Swastatika Sentosa",
    "ret_1w": null,
    "ex_1w": null,
    "ret_1m": null,
@@ -350,7 +350,37 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-05",
+   "date": "2026-11-06",
+   "strategy": "double_kill",
+   "ticker": "PANI.JK",
+   "name": "Pantai Indah Kapuk Dua",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-06",
+   "strategy": "double_kill",
+   "ticker": "INDY.JK",
+   "name": "Indika Energy",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-06",
    "strategy": "double_kill",
    "ticker": "ISAT.JK",
    "name": "Indosat",
@@ -365,7 +395,22 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-05",
+   "date": "2026-11-06",
+   "strategy": "double_kill",
+   "ticker": "JPFA.JK",
+   "name": "Japfa Comfeed Indonesia",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-06",
    "strategy": "double_kill",
    "ticker": "BRPT.JK",
    "name": "Barito Pacific",
@@ -381,6 +426,261 @@
   },
   {
    "date": "2026-11-05",
+   "strategy": "focus",
+   "ticker": "MDKA.JK",
+   "name": "Merdeka Copper",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -5.16,
+   "ex_now": -5.57,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-05",
+   "strategy": "focus",
+   "ticker": "BRPT.JK",
+   "name": "Barito Pacific",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -6.59,
+   "ex_now": -6.99,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-05",
+   "strategy": "focus",
+   "ticker": "AMRT.JK",
+   "name": "Alfamart",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": 3.72,
+   "ex_now": 3.32,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-05",
+   "strategy": "focus",
+   "ticker": "BRIS.JK",
+   "name": "Bank Syariah",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": 1.77,
+   "ex_now": 1.37,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-05",
+   "strategy": "focus",
+   "ticker": "INCO.JK",
+   "name": "Vale Indonesia",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": 3.66,
+   "ex_now": 3.26,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-05",
+   "strategy": "oversold",
+   "ticker": "MEDC.JK",
+   "name": "Medco",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -0.83,
+   "ex_now": -1.23,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-05",
+   "strategy": "oversold",
+   "ticker": "ANTM.JK",
+   "name": "Aneka Tambang",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -1.1,
+   "ex_now": -1.5,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-05",
+   "strategy": "oversold",
+   "ticker": "CPIN.JK",
+   "name": "Charoen Pokphand",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -0.84,
+   "ex_now": -1.24,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-05",
+   "strategy": "oversold",
+   "ticker": "ICBP.JK",
+   "name": "Indofood CBP",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": 3.27,
+   "ex_now": 2.86,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-05",
+   "strategy": "oversold",
+   "ticker": "BRIS.JK",
+   "name": "Bank Syariah",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": 1.77,
+   "ex_now": 1.37,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-05",
+   "strategy": "growth",
+   "ticker": "ANTM.JK",
+   "name": "Aneka Tambang",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -1.1,
+   "ex_now": -1.5,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-05",
+   "strategy": "growth",
+   "ticker": "ADRO.JK",
+   "name": "Adaro",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -0.86,
+   "ex_now": -1.26,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-05",
+   "strategy": "growth",
+   "ticker": "PTBA.JK",
+   "name": "Bukit Asam",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": 1.02,
+   "ex_now": 0.62,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-05",
+   "strategy": "growth",
+   "ticker": "MEDC.JK",
+   "name": "Medco",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -0.83,
+   "ex_now": -1.23,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-05",
+   "strategy": "growth",
+   "ticker": "AKRA.JK",
+   "name": "AKR",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": 4.58,
+   "ex_now": 4.18,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-05",
+   "strategy": "double_kill",
+   "ticker": "ISAT.JK",
+   "name": "Indosat",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": 1.42,
+   "ex_now": 1.02,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-05",
+   "strategy": "double_kill",
+   "ticker": "BRPT.JK",
+   "name": "Barito Pacific",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -6.59,
+   "ex_now": -6.99,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-05",
    "strategy": "double_kill",
    "ticker": "TLKM.JK",
    "name": "Telkom",
@@ -390,9 +690,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": null,
-   "ex_now": null,
-   "days": 0.0
+   "ret_now": -0.5,
+   "ex_now": -0.9,
+   "days": 1.0
   },
   {
    "date": "2026-11-05",
@@ -405,9 +705,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": null,
-   "ex_now": null,
-   "days": 0.0
+   "ret_now": 3.72,
+   "ex_now": 3.32,
+   "days": 1.0
   }
  ],
  "leaderboard": [
