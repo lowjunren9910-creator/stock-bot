@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-06 15:45 UTC",
+ "updated": "2026-11-06 16:01 UTC",
  "stocks": [
   {
    "ticker": "1155.KL",
@@ -13,11 +13,11 @@
     "rsi_below": 30
    },
    "triggered": [],
-   "price": 10.12,
-   "change_pct": -0.39,
-   "rsi": 53.9,
-   "date": "2026-11-06",
-   "chg_1m": 3.27,
+   "price": 10.16,
+   "change_pct": 2.63,
+   "rsi": 56.3,
+   "date": "2026-11-05",
+   "chg_1m": 2.94,
    "high_6m": 11.38,
    "low_6m": 9.78
   },
@@ -31,11 +31,11 @@
     "change_pct": 4
    },
    "triggered": [],
-   "price": 13.04,
-   "change_pct": -0.46,
-   "rsi": 41.8,
-   "date": "2026-11-06",
-   "chg_1m": 1.09,
+   "price": 13.1,
+   "change_pct": -0.3,
+   "rsi": 44.7,
+   "date": "2026-11-05",
+   "chg_1m": 1.87,
    "high_6m": 14.9,
    "low_6m": 12.72
   },
@@ -47,11 +47,11 @@
    "market": "bursa",
    "alerts": {},
    "triggered": [],
-   "price": 8.74,
-   "change_pct": -1.47,
-   "rsi": 39.5,
-   "date": "2026-11-06",
-   "chg_1m": -3.74,
+   "price": 8.87,
+   "change_pct": 0.11,
+   "rsi": 44.3,
+   "date": "2026-11-05",
+   "chg_1m": -3.17,
    "high_6m": 11.36,
    "low_6m": 8.5
   },
@@ -65,11 +65,11 @@
     "change_pct": 6
    },
    "triggered": [],
-   "price": 189.01,
-   "change_pct": 4.08,
-   "rsi": 33.0,
+   "price": 189.04,
+   "change_pct": 4.1,
+   "rsi": 33.1,
    "date": "2026-11-06",
-   "chg_1m": -17.99,
+   "chg_1m": -17.98,
    "high_6m": 243.37,
    "low_6m": 181.46
   }
