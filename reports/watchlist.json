@@ -1,0 +1,79 @@
+{
+ "updated": "2026-11-06 09:45 UTC",
+ "stocks": [
+  {
+   "ticker": "1155.KL",
+   "input": "MAYBANK",
+   "name": "Maybank",
+   "note": "收息股",
+   "market": "bursa",
+   "alerts": {
+    "below": 9.5,
+    "above": 11.0,
+    "rsi_below": 30
+   },
+   "triggered": [],
+   "price": 10.12,
+   "change_pct": -0.39,
+   "rsi": 53.9,
+   "date": "2026-11-06",
+   "chg_1m": 3.27,
+   "high_6m": 11.38,
+   "low_6m": 9.78
+  },
+  {
+   "ticker": "5347.KL",
+   "input": "TENAGA",
+   "name": "Tenaga Nasional",
+   "note": "",
+   "market": "bursa",
+   "alerts": {
+    "change_pct": 4
+   },
+   "triggered": [],
+   "price": 13.04,
+   "change_pct": -0.46,
+   "rsi": 41.8,
+   "date": "2026-11-06",
+   "chg_1m": 1.09,
+   "high_6m": 14.9,
+   "low_6m": 12.72
+  },
+  {
+   "ticker": "4065.KL",
+   "input": "PPB",
+   "name": "PPB Group",
+   "note": "",
+   "market": "bursa",
+   "alerts": {},
+   "triggered": [],
+   "price": 8.74,
+   "change_pct": -1.47,
+   "rsi": 39.5,
+   "date": "2026-11-06",
+   "chg_1m": -3.74,
+   "high_6m": 11.36,
+   "low_6m": 8.5
+  },
+  {
+   "ticker": "NVDA",
+   "input": "NVDA",
+   "name": "NVIDIA",
+   "note": "",
+   "market": "us",
+   "alerts": {
+    "change_pct": 6
+   },
+   "triggered": [
+    "change_pct"
+   ],
+   "price": 181.6,
+   "change_pct": -9.26,
+   "rsi": 25.4,
+   "date": "2026-11-05",
+   "chg_1m": -23.53,
+   "high_6m": 243.37,
+   "low_6m": 181.46
+  }
+ ]
+}
