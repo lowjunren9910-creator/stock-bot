@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-06 09:33 UTC",
+ "updated": "2026-11-06 22:23 UTC",
  "companies": [
   {
    "ticker": "1155.KL",
@@ -7,7 +7,7 @@
    "market": "bursa",
    "keywords": [
     "MAYBANK",
-    "Maybank"
+    "Malayan Banking"
    ]
   },
   {
@@ -16,7 +16,7 @@
    "market": "bursa",
    "keywords": [
     "TENAGA",
-    "Tenaga"
+    "Tenaga Nasional"
    ]
   },
   {
@@ -24,7 +24,8 @@
    "name": "PPB",
    "market": "bursa",
    "keywords": [
-    "PPB"
+    "PPB",
+    "PPB Group"
    ]
   },
   {
