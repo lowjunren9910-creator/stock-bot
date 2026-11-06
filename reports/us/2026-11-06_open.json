@@ -1,0 +1,593 @@
+{
+ "market": "us",
+ "market_name": "🇺🇸 美股",
+ "currency": "USD",
+ "session": "open",
+ "session_name": "开市报告",
+ "date": "2026-11-06",
+ "generated_at": "2026-11-06 10:01 EST",
+ "partial_day": 0.1,
+ "breadth": {
+  "scanned": 164,
+  "up": 82,
+  "down": 82,
+  "flat": 0,
+  "avg_change": 0.98,
+  "filtered_out": [
+   "JPM-PC",
+   "JPM-PD",
+   "TM",
+   "BML-PG",
+   "BML-PH",
+   "MUFG",
+   "BML-PL",
+   "BML-PJ",
+   "BAC-PB",
+   "BAC-PK",
+   "BAC-PE",
+   "WFC-PY",
+   "UBS",
+   "SMFG",
+   "BBVA"
+  ]
+ },
+ "watchlist": [
+  {
+   "price": 276.78,
+   "change_pct": 13.2,
+   "gap_pct": 17.37,
+   "range_pct": 8.51,
+   "volume": 2730701.0,
+   "vol_ratio": 7.6,
+   "turnover": 755803419.45,
+   "avg_turnover": 1073454579.62,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 42.05,
+   "ticker": "NET",
+   "name": "Cloudflare",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 25.66
+  },
+  {
+   "price": 455.03,
+   "change_pct": 12.52,
+   "gap_pct": 9.78,
+   "range_pct": 6.39,
+   "volume": 13727922.0,
+   "vol_ratio": 5.29,
+   "turnover": 6246616330.9,
+   "avg_turnover": 13334333944.63,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 39.41,
+   "ticker": "AMD",
+   "name": "AMD",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 20.87
+  },
+  {
+   "price": 879.76,
+   "change_pct": 9.09,
+   "gap_pct": 11.39,
+   "range_pct": 10.15,
+   "volume": 5539062.0,
+   "vol_ratio": 5.47,
+   "turnover": 4873045239.21,
+   "avg_turnover": 12377780072.24,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 29.31,
+   "ticker": "SNDK",
+   "name": "Sandisk",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 18.84
+  },
+  {
+   "price": 718.61,
+   "change_pct": 9.48,
+   "gap_pct": 7.9,
+   "range_pct": 5.5,
+   "volume": 13010821.0,
+   "vol_ratio": 4.45,
+   "turnover": 9349705888.22,
+   "avg_turnover": 25516963814.83,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 34.49,
+   "ticker": "MU",
+   "name": "Micron",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 16.3
+  },
+  {
+   "price": 84.09,
+   "change_pct": -1.3,
+   "gap_pct": -2.28,
+   "range_pct": 1.31,
+   "volume": 2294196.0,
+   "vol_ratio": 9.95,
+   "turnover": 192918933.24,
+   "avg_turnover": 189031661.53,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 57.74,
+   "ticker": "BUD",
+   "name": "Anheuser-Busch Inbev SA Sponsor",
+   "tags": [
+    "成交量 9.9 倍",
+    "跳空低开"
+   ],
+   "score": 15.12
+  }
+ ],
+ "gainers": [
+  {
+   "price": 276.78,
+   "change_pct": 13.2,
+   "gap_pct": 17.37,
+   "range_pct": 8.51,
+   "volume": 2730701.0,
+   "vol_ratio": 7.6,
+   "turnover": 755803419.45,
+   "avg_turnover": 1073454579.62,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 42.05,
+   "ticker": "NET",
+   "name": "Cloudflare",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 25.66
+  },
+  {
+   "price": 455.03,
+   "change_pct": 12.52,
+   "gap_pct": 9.78,
+   "range_pct": 6.39,
+   "volume": 13727922.0,
+   "vol_ratio": 5.29,
+   "turnover": 6246616330.9,
+   "avg_turnover": 13334333944.63,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 39.41,
+   "ticker": "AMD",
+   "name": "AMD",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 20.87
+  },
+  {
+   "price": 205.4,
+   "change_pct": 10.91,
+   "gap_pct": 12.85,
+   "range_pct": 4.35,
+   "volume": 3137038.0,
+   "vol_ratio": 2.48,
+   "turnover": 644347586.05,
+   "avg_turnover": 3092922650.8,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 32.57,
+   "ticker": "LRCX",
+   "name": "Lam Research",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 14.43
+  },
+  {
+   "price": 718.61,
+   "change_pct": 9.48,
+   "gap_pct": 7.9,
+   "range_pct": 5.5,
+   "volume": 13010821.0,
+   "vol_ratio": 4.45,
+   "turnover": 9349705888.22,
+   "avg_turnover": 25516963814.83,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 34.49,
+   "ticker": "MU",
+   "name": "Micron",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 16.3
+  },
+  {
+   "price": 879.76,
+   "change_pct": 9.09,
+   "gap_pct": 11.39,
+   "range_pct": 10.15,
+   "volume": 5539062.0,
+   "vol_ratio": 5.47,
+   "turnover": 4873045239.21,
+   "avg_turnover": 12377780072.24,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 29.31,
+   "ticker": "SNDK",
+   "name": "Sandisk",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 18.84
+  }
+ ],
+ "losers": [
+  {
+   "price": 213.89,
+   "change_pct": -3.83,
+   "gap_pct": -2.56,
+   "range_pct": 2.31,
+   "volume": 863044.0,
+   "vol_ratio": 1.19,
+   "turnover": 184596480.63,
+   "avg_turnover": 1725073547.58,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 33.9,
+   "ticker": "CRM",
+   "name": "Salesforce",
+   "tags": [
+    "跳空低开"
+   ],
+   "score": 4.8
+  },
+  {
+   "price": 234.46,
+   "change_pct": -3.72,
+   "gap_pct": -4.13,
+   "range_pct": 1.17,
+   "volume": 538441.0,
+   "vol_ratio": 2.01,
+   "turnover": 126242880.48,
+   "avg_turnover": 620020592.95,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 56.77,
+   "ticker": "SAP",
+   "name": "Sap  Se",
+   "tags": [
+    "放量大跌",
+    "跳空低开"
+   ],
+   "score": 5.6
+  },
+  {
+   "price": 238.41,
+   "change_pct": -3.26,
+   "gap_pct": -3.02,
+   "range_pct": 1.66,
+   "volume": 573847.0,
+   "vol_ratio": 1.36,
+   "turnover": 136810865.37,
+   "avg_turnover": 1059313557.66,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 41.73,
+   "ticker": "ADBE",
+   "name": "Adobe",
+   "tags": [
+    "跳空低开"
+   ],
+   "score": 4.29
+  },
+  {
+   "price": 26.69,
+   "change_pct": -3.07,
+   "gap_pct": -4.32,
+   "range_pct": 1.2,
+   "volume": 847822.0,
+   "vol_ratio": 1.84,
+   "turnover": 22632608.03,
+   "avg_turnover": 117307058.65,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 63.76,
+   "ticker": "SONY",
+   "name": "Sony Group",
+   "tags": [
+    "放量大跌",
+    "跳空低开"
+   ],
+   "score": 4.69
+  },
+  {
+   "price": 61.21,
+   "change_pct": -2.96,
+   "gap_pct": -4.45,
+   "range_pct": 1.58,
+   "volume": 1057226.0,
+   "vol_ratio": 1.93,
+   "turnover": 64712802.49,
+   "avg_turnover": 327781821.67,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 58.89,
+   "ticker": "BTI",
+   "name": "British American Tobacco  Indus",
+   "tags": [
+    "放量大跌",
+    "跳空低开"
+   ],
+   "score": 4.83
+  }
+ ],
+ "volume_surge": [
+  {
+   "price": 84.09,
+   "change_pct": -1.3,
+   "gap_pct": -2.28,
+   "range_pct": 1.31,
+   "volume": 2294196.0,
+   "vol_ratio": 9.95,
+   "turnover": 192918933.24,
+   "avg_turnover": 189031661.53,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 57.74,
+   "ticker": "BUD",
+   "name": "Anheuser-Busch Inbev SA Sponsor",
+   "tags": [
+    "成交量 9.9 倍",
+    "跳空低开"
+   ],
+   "score": 15.12
+  },
+  {
+   "price": 276.78,
+   "change_pct": 13.2,
+   "gap_pct": 17.37,
+   "range_pct": 8.51,
+   "volume": 2730701.0,
+   "vol_ratio": 7.6,
+   "turnover": 755803419.45,
+   "avg_turnover": 1073454579.62,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 42.05,
+   "ticker": "NET",
+   "name": "Cloudflare",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 25.66
+  },
+  {
+   "price": 879.76,
+   "change_pct": 9.09,
+   "gap_pct": 11.39,
+   "range_pct": 10.15,
+   "volume": 5539062.0,
+   "vol_ratio": 5.47,
+   "turnover": 4873045239.21,
+   "avg_turnover": 12377780072.24,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 29.31,
+   "ticker": "SNDK",
+   "name": "Sandisk",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 18.84
+  },
+  {
+   "price": 455.03,
+   "change_pct": 12.52,
+   "gap_pct": 9.78,
+   "range_pct": 6.39,
+   "volume": 13727922.0,
+   "vol_ratio": 5.29,
+   "turnover": 6246616330.9,
+   "avg_turnover": 13334333944.63,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 39.41,
+   "ticker": "AMD",
+   "name": "AMD",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 20.87
+  },
+  {
+   "price": 131.2,
+   "change_pct": 5.89,
+   "gap_pct": 4.13,
+   "range_pct": 6.58,
+   "volume": 10870394.0,
+   "vol_ratio": 4.48,
+   "turnover": 1426141420.45,
+   "avg_turnover": 3547063297.21,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 38.64,
+   "ticker": "SKHY",
+   "name": "SK hynix",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 13.08
+  }
+ ],
+ "turnover_top": [
+  {
+   "price": 718.61,
+   "change_pct": 9.48,
+   "gap_pct": 7.9,
+   "range_pct": 5.5,
+   "volume": 13010821.0,
+   "vol_ratio": 4.45,
+   "turnover": 9349705888.22,
+   "avg_turnover": 25516963814.83,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 34.49,
+   "ticker": "MU",
+   "name": "Micron",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 16.3
+  },
+  {
+   "price": 193.43,
+   "change_pct": 6.51,
+   "gap_pct": 5.25,
+   "range_pct": 2.7,
+   "volume": 47440340.0,
+   "vol_ratio": 4.21,
+   "turnover": 9176384618.74,
+   "avg_turnover": 23656271620.06,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 36.88,
+   "ticker": "NVDA",
+   "name": "NVIDIA",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 12.13
+  },
+  {
+   "price": 455.03,
+   "change_pct": 12.52,
+   "gap_pct": 9.78,
+   "range_pct": 6.39,
+   "volume": 13727922.0,
+   "vol_ratio": 5.29,
+   "turnover": 6246616330.9,
+   "avg_turnover": 13334333944.63,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 39.41,
+   "ticker": "AMD",
+   "name": "AMD",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 20.87
+  },
+  {
+   "price": 879.76,
+   "change_pct": 9.09,
+   "gap_pct": 11.39,
+   "range_pct": 10.15,
+   "volume": 5539062.0,
+   "vol_ratio": 5.47,
+   "turnover": 4873045239.21,
+   "avg_turnover": 12377780072.24,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 29.31,
+   "ticker": "SNDK",
+   "name": "Sandisk",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 18.84
+  },
+  {
+   "price": 130.55,
+   "change_pct": 5.61,
+   "gap_pct": 6.08,
+   "range_pct": 3.37,
+   "volume": 28071782.0,
+   "vol_ratio": 2.59,
+   "turnover": 3664911293.41,
+   "avg_turnover": 15792551648.44,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 39.67,
+   "ticker": "SPCX",
+   "name": "Space Exploration Technologies",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 9.01
+  }
+ ],
+ "ai_comment": null
+}
