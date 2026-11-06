@@ -28,6 +28,7 @@ def all_lists() -> dict[str, dict]:
     return {
         "scanner.py BURSA（每日焦点）": S.BURSA, "scanner.py IDX": S.IDX, "scanner.py US": S.US,
         "klci.py（KLCI 和选股雷达）": klci.UNIVERSE,
+        "themes.py（主题板块）": {t: n for m in ("bursa", "idx", "us") for t, n in __import__("themes").all_tickers(m).items()},
         "analysis.py ALIASES（简称）": {v: k for k, v in A.ALIASES.items()},
     }
 

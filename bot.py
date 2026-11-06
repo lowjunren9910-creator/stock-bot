@@ -42,6 +42,9 @@ HELP = f"""<b>📊 股票分析机器人</b>
 /company 代码 - 认识公司：业务、成绩、管理层 + 弱到强评级
 /radar [bursa|idx|us] - 今日错杀股 / 成长股 / 双杀股
 /klci - KLCI 50 最有机会入选的公司
+/sector [bursa|idx|us] [板块] - 板块轮动；例如 /sector 手套、/sector us AI
+/compare 代码 代码 [代码] - 对比 2 到 3 只股票
+/quarter 代码 - 最新季报快速分析
 /quick 代码 - 只看数据报告（不开圆桌，更快）
 /panel 代码 - 只开基金经理圆桌
 /tech、/fund、/news、/chart + 代码 - 单独看某一部分
@@ -185,7 +188,48 @@ async def panel(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
 
 
 async def plain_message(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
-    await analyze_text(update, update.message.text)
+    text = update.message.text
+    if " vs " in text.lower():          # 「MAYBANK vs PBBANK」= 对比
+        return await do_compare(update, text)
+    await analyze_text(update, text)
+
+
+async def do_compare(update: Update, text: str):
+    import compare
+    names = [w for w in text.replace(",", " ").replace("，", " ").split() if w.lower() != "vs"]
+    await update.message.reply_text("⚖️ 正在对比，约需 20-40 秒…")
+    try:
+        d = await run_blocking(compare.build, names)
+    except Exception as e:
+        return await send(update, f"❌ {A._esc(str(e))}")
+    try:
+        ai = await compare.ai_verdict(d)
+    except Exception:
+        ai = None
+    await send(update, compare.to_telegram_html(d, ai))
+
+
+async def compare_cmd(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
+    if len(ctx.args) < 2:
+        return await send(update, "用法：/compare MAYBANK PBBANK [CIMB]")
+    await do_compare(update, " ".join(ctx.args))
+
+
+async def quarter_cmd(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
+    import quarterly
+    t = need_ticker(ctx)
+    if not t:
+        return await send(update, "用法：/quarter MAYBANK")
+    try:
+        x = await run_blocking(quarterly.quick, t, True)
+        await send(update, quarterly.one_html(x))
+    except Exception as e:
+        await send(update, f"❌ {A._esc(str(e))}")
+
+
+async def sector_cmd(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
+    import sectors
+    await send(update, sectors.reply(" ".join(ctx.args)))
 
 
 async def tech(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
@@ -279,6 +323,9 @@ def main():
     app.add_handler(CommandHandler("company", company))
     app.add_handler(CommandHandler("radar", radar))
     app.add_handler(CommandHandler("klci", klci_cmd))
+    app.add_handler(CommandHandler(["sector", "theme"], sector_cmd))
+    app.add_handler(CommandHandler("compare", compare_cmd))
+    app.add_handler(CommandHandler("quarter", quarter_cmd))
     app.add_handler(CommandHandler("analyze", analyze))
     app.add_handler(CommandHandler("quick", quick))
     app.add_handler(CommandHandler("panel", panel))

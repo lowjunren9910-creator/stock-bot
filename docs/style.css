@@ -241,3 +241,61 @@ button.hrow:active { background: var(--gold-soft); }
 .tcell { text-align: center; line-height: 1.2; }
 .tcell small { display: block; font-size: 11.5px; color: var(--ink-2); }
 .tcell b { display: block; font-size: 15px; }
+
+/* ---------- 板块照片卡片 ---------- */
+.cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+@media (min-width: 620px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+.scard {
+  position: relative; display: block; height: 112px; border: 0; padding: 0; border-radius: 14px;
+  overflow: hidden; background: var(--c); color: #fff; text-align: left;
+}
+.scard img, .hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.scard::after, .hero::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(10, 14, 28, .08) 15%, rgba(10, 14, 28, .82));
+}
+.scard-in { position: absolute; left: 10px; right: 10px; bottom: 8px; z-index: 1; display: block; }
+.scard-name { display: block; font-weight: 700; font-size: 15px; line-height: 1.25; text-shadow: 0 1px 2px rgba(0,0,0,.4); }
+.scard-name small { font-weight: 400; opacity: .8; font-size: 12px; margin-left: 4px; }
+.scard-num { display: flex; align-items: baseline; gap: 4px; margin-top: 3px; font-size: 14px; }
+.scard-num small { font-size: 11px; opacity: .75; margin-right: 6px; }
+.scard .up { color: #7BEBC0; } .scard .down { color: #FFB1A8; }
+.hero {
+  position: relative; height: 150px; border-radius: 14px; overflow: hidden; background: var(--c);
+  margin-top: 10px; color: #fff;
+}
+.hero span { position: absolute; left: 14px; bottom: 12px; z-index: 1; font-size: 20px; font-weight: 700; text-shadow: 0 1px 3px rgba(0,0,0,.45); }
+
+/* ---------- 对比 ---------- */
+.actions.wrap { flex-wrap: wrap; }
+.cmp-btn.on { background: var(--gold-soft); border-color: var(--gold); color: var(--ink); }
+.cmpbar {
+  position: fixed; left: 12px; right: 12px; bottom: calc(70px + var(--safe-b)); z-index: 5;
+  border: 0; border-radius: 12px; padding: 12px 14px; font-weight: 600; text-align: center;
+  background: var(--gold); color: #1D2433; box-shadow: 0 4px 16px rgba(0,0,0,.18);
+}
+.ctable {
+  display: grid; grid-template-columns: 82px repeat(var(--n), 1fr); background: var(--surface);
+  border-radius: 12px; overflow: hidden; font-size: 13.5px;
+}
+.ctable > div { padding: 8px 6px; border-bottom: 1px solid var(--line); min-width: 0; }
+.ch { line-height: 1.25; }
+.ch b { display: block; font-size: 13.5px; overflow-wrap: anywhere; }
+.ch small { display: block; color: var(--ink-2); font-size: 11.5px; }
+.cl { color: var(--ink-2); font-size: 12.5px; }
+.cv { font-family: var(--num); font-variant-numeric: tabular-nums; text-align: center; }
+.cv.best { background: rgba(19, 153, 106, .12); color: var(--up); font-weight: 700; }
+.qline { padding: 11px 14px; border-bottom: 1px solid var(--line); font-size: 14px; }
+.qline small { color: var(--ink-2); }
+
+/* ---------- 季报 ---------- */
+.tag.gold { background: var(--gold-soft); }
+.tag.q-亮眼, .tag.q-稳健 { background: rgba(19, 153, 106, .14); }
+.tag.q-偏弱, .tag.q-疲弱, .tag.q-亏损 { background: rgba(217, 72, 59, .14); }
+.qbars { width: 100%; height: 108px; display: block; margin: 4px 0; }
+.qbars text { font-size: 10px; fill: var(--ink-2); font-family: var(--num); }
+.qb-rev { fill: #93A5CF; } .qb-net { fill: var(--indigo); }
+@media (prefers-color-scheme: dark) { .qb-net { fill: #C8A23A; } }
+.legend .l-rev, .legend .l-net { display: inline-block; width: 10px; height: 10px; border-radius: 2px; border: 0; }
+.l-rev { background: #93A5CF; } .l-net { background: var(--indigo); }
+@media (prefers-color-scheme: dark) { .l-net { background: #C8A23A; } }

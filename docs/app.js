@@ -40,6 +40,8 @@ const state = {
   index: null,
   sector: null,        // 板块详情：选中的板块名字
   sub: null,           // 「更多」里面打开的页面
+  cmp: store.get("cmp", []),   // 对比篮子：最多 3 只
+  qf: "all",           // 季报筛选
   offline: false,
   loadedAt: 0,
 };
@@ -66,12 +68,19 @@ function webLink(kind, ticker) {
   return `${CFG.web.replace(/\/$/, "")}/?${kind}=${encodeURIComponent(ticker)}`;
 }
 
+function cmpButton(ticker) {
+  const on = state.cmp.includes(ticker);
+  return `<button class="btn ghost cmp-btn${on ? " on" : ""}" data-cmp="${esc(ticker)}">${on ? "✓ 已加入对比" : "＋ 对比"}</button>`;
+}
+
 function actionButtons(ticker) {
   const co = webLink("company", ticker), an = webLink("analyze", ticker);
-  if (!co) return `<p class="muted">在「查股 → 设定」填上网站网址，就能从这里打开认识公司和基金经理圆桌。</p>`;
-  return `<div class="actions">
+  if (!co) return `<div class="actions">${cmpButton(ticker)}</div>
+    <p class="muted">在「更多 → 设定」填上网站网址，就能从这里打开认识公司和基金经理圆桌。</p>`;
+  return `<div class="actions wrap">
     <a class="btn" href="${co}" target="_blank" rel="noopener">认识公司</a>
-    <a class="btn ghost" href="${an}" target="_blank" rel="noopener">走势和圆桌</a></div>`;
+    <a class="btn ghost" href="${an}" target="_blank" rel="noopener">走势和圆桌</a>
+    ${cmpButton(ticker)}</div>`;
 }
 
 // ---------------------------------------------------------------------------
@@ -131,7 +140,7 @@ function stockRow(x, opts = {}) {
     <summary><div class="row-main">
       <span class="rank">${opts.rank ?? ""}</span>
       <span class="name">${esc(x.name)}<small>${esc(x.ticker)}</small></span>
-      <span class="px"><span class="p">${curSym[cur] || ""} ${num(x.price, cur)}</span><br>
+      <span class="px">${x.price != null ? `<span class="p">${curSym[cur] || ""} ${num(x.price, cur)}</span><br>` : ""}
         <span class="pill ${sign(chg)}">${pct(chg)}</span></span>
     </div>${chips ? `<div class="tags">${chips}</div>` : ""}</summary>
     <div class="more">
@@ -329,6 +338,18 @@ function spark(series, bench) {
     <polyline points="${path(series.levels)}" class="sp-main"/></svg>`;
 }
 
+function sectorCard(g, big) {
+  const ph = g.photo && g.photo.url ? g.photo.url.replace("w=640", big ? "w=900" : "w=480") : "";
+  const r1 = g.returns["1d"], rm = g.returns["1m"];
+  return `<button class="scard${big ? " big" : ""}" data-sector="${esc(g.name)}" style="--c:${esc(g.color || "#22305A")}">
+    ${ph ? `<img src="${esc(ph)}" alt="" loading="lazy" decoding="async" onerror="this.remove()">` : ""}
+    <span class="scard-in">
+      <span class="scard-name">${esc(g.emoji || "")} ${esc(g.name)}<small>${g.count} 家</small></span>
+      <span class="scard-num"><b class="num ${sign(r1)}">${pct(r1, 1)}</b><small>1 日</small>
+        <b class="num ${sign(rm)}">${pct(rm, 1)}</b><small>1 月</small></span>
+    </span></button>`;
+}
+
 async function renderSectors() {
   const idx = await loadIndex();
   const dates = (idx && idx.sectors && idx.sectors[state.market]) || [];
@@ -338,44 +359,201 @@ async function renderSectors() {
   }
   const r = await getJSON(`sectors/${state.market}/${dates[0]}.json`);
   const mi = r.market_index;
-  const sec = state.sector && r.sectors.find(s => s.name === state.sector);
+  const themes = r.themes || [];
+  const all = themes.concat(r.sectors);
+  const sec = state.sector && all.find(s => s.name === state.sector);
 
   if (sec) {   // ---- 板块详情 ----
     setBand(sec.name, `
       <div class="stamp">${sec.count} 家公司　指数 <b class="num">${sec.level.toLocaleString("en-US")}</b> 点（一年前 = 1000）</div>
       <div class="dates">${["1d", "1m", "1y"].map(k => `<div>${PZH[k]}<b class="${sign(sec.returns[k])}">${pct(sec.returns[k], 1)}</b></div>`).join("")}</div>`, true);
     const stats = x => [["权重", `${x.weight}%`], ["1 个月", pct(x.chg_1m, 1)], ["1 年", pct(x.chg_1y, 1)],
-                        ["市值", big(x.mcap)], ["P/E", x.pe == null ? "—" : Number(x.pe).toFixed(1)], ["行业", esc(x.industry || "—")]];
+                        ["市值", big(x.mcap)], ["P/E", x.pe == null ? "—" : Number(x.pe).toFixed(1)],
+                        ["股息率", x.div_yield == null ? "—" : `${Number(x.div_yield).toFixed(1)}%`],
+                        ["ROE", x.roe == null ? "—" : `${Number(x.roe).toFixed(1)}%`], ["行业", esc(x.industry || "—")]];
     return `
       <button class="back" data-sector="">‹ 全部板块</button>
+      <div class="hero" style="--c:${esc(sec.color || "#22305A")}">
+        ${sec.photo ? `<img src="${esc(sec.photo.url.replace("w=640", "w=900"))}" alt="" onerror="this.remove()">` : ""}
+        <span>${esc(sec.emoji || "")} ${esc(sec.name)}</span></div>
+      ${sec.desc ? `<p class="lede" style="margin-top:10px">${esc(sec.desc)}</p>` : ""}
       <section>
-        <h2>板块指数 vs 大型股综合</h2>
+        <h2>板块指数 vs 全市场</h2>
         ${spark(sec.series, mi.series)}
-        <p class="legend"><span class="l-main"></span>${esc(sec.name)}　<span class="l-bench"></span>大型股综合</p>
+        <p class="legend"><span class="l-main"></span>${esc(sec.name)}　<span class="l-bench"></span>全市场综合</p>
         ${sec.top_weight >= 40 ? `<p class="lede">最大的公司占 ${sec.top_weight}%，指数主要跟着它走。</p>` : ""}
       </section>
       <section>
         <h2>成分股</h2>
-        <p class="lede">按市值排序。点开可以认识公司。</p>
+        <p class="lede">按市值排序。点开可以认识公司，或「＋ 对比」放进对比篮子。</p>
         <div class="list">${sec.members.map(x => stockRow({ ...x, currency: r.currency }, { chg: x.chg_1d, stats })).join("")}</div>
-      </section>`;
+      </section>
+      ${sec.photo ? `<p class="foot">照片：${esc(sec.photo.credit)}</p>` : ""}`;
   }
 
-  // ---- 板块总览：热力图 ----
-  setBand("板块", `<div class="stamp">${day(r.date)} 收市　大型股综合 1 日 ${pct(mi.returns["1d"])}　1 月 ${pct(mi.returns["1m"], 1)}</div>`, true);
-  const rows = [...r.sectors].sort((a, b) => (b.returns["1w"] ?? -99) - (a.returns["1w"] ?? -99));
+  // ---- 板块总览：照片卡片 + 热力图 ----
+  setBand("板块", `<div class="stamp">${day(r.date)} 收市　${r.universe_size || ""} 只股票综合 1 日 ${pct(mi.returns["1d"])}　1 月 ${pct(mi.returns["1m"], 1)}</div>`, true);
+  const rows = [...all].sort((a, b) => (b.returns["1w"] ?? -99) - (a.returns["1w"] ?? -99));
   const lim = Math.max(1, ...rows.flatMap(s => PKEYS.map(k => Math.abs(s.returns[k] || 0))));
+  const credits = [...new Set(all.map(g => g.photo && g.photo.credit).filter(Boolean).map(c => c.replace(" / Unsplash", "")))];
   return `
+    ${themes.length ? `<section><h2>主题板块</h2>
+      <p class="lede">AI、发电、手套、REIT 这类热门主题。一只股票可以同时在几个主题里。</p>
+      <div class="cards">${themes.map(g => sectorCard(g)).join("")}</div></section>` : ""}
+    <section><h2>普通板块</h2>
+      <div class="cards">${r.sectors.map(g => sectorCard(g)).join("")}</div></section>
     <section>
       <h2>板块轮动</h2>
-      <p class="lede">数字是涨跌 %，按 1 周表现排序。点一个板块看指数和成分股。</p>
+      <p class="lede">数字是涨跌 %，按 1 周表现排序。</p>
       <div class="heat">
         <div class="hrow hhead"><span></span>${PKEYS.map(k => `<span>${PZH[k]}</span>`).join("")}</div>
         ${rows.map(s => `<button class="hrow" data-sector="${esc(s.name)}">
-          <span class="hname">${esc(s.name)}<small>${s.count} 家</small></span>
+          <span class="hname">${esc(s.emoji || "")} ${esc(s.name)}<small>${s.count} 家</small></span>
           ${PKEYS.map(k => heatCell(s.returns[k], lim)).join("")}</button>`).join("")}
       </div>
     </section>
+    <p class="foot">${esc(r.note)}${credits.length ? `<br>照片：${esc(credits.join("、"))}（Unsplash）` : ""}</p>`;
+}
+
+// ---------------------------------------------------------------------------
+// 对比：2–3 只股票（用每天收市后的数据，不用等）
+// ---------------------------------------------------------------------------
+const CMP_ROWS = [  // [键, 中文, 越大越好?, 格式]
+  ["price", "股价", null, "price"], ["mcap", "市值", null, "big"],
+  ["pe", "本益比 P/E", false, "x"], ["pb", "股价/净值", false, "x"],
+  ["div_yield", "股息率", true, "p"], ["roe", "ROE", true, "p"], ["margin", "净利率", true, "p"],
+  ["rev_growth", "营收增长", true, "p"], ["eps_growth", "盈利增长", true, "p"],
+  ["chg_1m", "1 个月", true, "pc"], ["chg_3m", "3 个月", true, "pc"], ["chg_1y", "1 年", true, "pc"],
+  ["rsi", "RSI", null, "n"], ["q", "最新季报", null, "t"],
+];
+
+function cmpFmt(v, k, cur) {
+  if (v == null || v === "") return "—";
+  if (k === "price") return `${curSym[cur] || ""} ${num(v, cur)}`;
+  if (k === "big") return big(v);
+  if (k === "x") return Number(v).toFixed(1);
+  if (k === "p") return `${Number(v).toFixed(1)}%`;
+  if (k === "pc") return pct(v, 1);
+  if (k === "n") return Number(v).toFixed(0);
+  return esc(v);
+}
+
+async function findStocks(tickers) {
+  const prices = (await getJSON("prices.json").catch(() => null)) || {};
+  const idx = await loadIndex();
+  const mkts = [...new Set(tickers.map(t => (prices[t] && prices[t].market) ||
+    (t.endsWith(".KL") ? "bursa" : t.endsWith(".JK") ? "idx" : "us")))];
+  const sect = {}, quart = {};
+  await Promise.all(mkts.map(async m => {
+    const d = idx && idx.sectors && idx.sectors[m] && idx.sectors[m][0];
+    sect[m] = d ? await getJSON(`sectors/${m}/${d}.json`).catch(() => null) : null;
+    quart[m] = (idx && (idx.quarterly || []).includes(m)) ? await getJSON(`quarterly/${m}.json`).catch(() => null) : null;
+  }));
+  return tickers.map(t => {
+    const m = (prices[t] && prices[t].market) || (t.endsWith(".KL") ? "bursa" : t.endsWith(".JK") ? "idx" : "us");
+    let row = null;
+    const r = sect[m];
+    if (r) for (const g of r.sectors) { row = g.members.find(x => x.ticker === t); if (row) break; }
+    const q = quart[m] && quart[m].items && quart[m].items[t];
+    return row ? { ...row, currency: r.currency, market: m, quarter: q,
+                   q: q ? `${q.icon} ${q.verdict}` : null }
+               : { ticker: t, name: (prices[t] && prices[t].name) || t, missing: true, market: m };
+  });
+}
+
+async function renderCompare() {
+  const prices = (await getJSON("prices.json").catch(() => null)) || {};
+  setBand("股票对比", `<div class="stamp">最多 3 只　✓ = 那一项比较好</div>`, false);
+  const options = Object.entries(prices).map(([t, v]) => `<option value="${esc(v.name)} (${esc(t)})">`).join("");
+  const form = state.cmp.length < 3 ? `<form id="cform" class="search" autocomplete="off" style="margin-top:12px">
+      <input name="t" list="c-list" placeholder="加一只股票（名字或代码）" aria-label="股票">
+      <datalist id="c-list">${options}</datalist><button class="btn">加入</button></form>` : "";
+  if (state.cmp.length < 2) {
+    return `<button class="back" data-sub="">‹ 更多</button>${form}
+      <p class="lede" style="margin-top:12px">${state.cmp.length ? `已选：${state.cmp.map(esc).join("、")}。再加一只。` :
+        "在「板块」页面点开公司按「＋ 对比」，或直接在上面输入。试试 Top Glove、Hartalega、Kossan。"}</p>`;
+  }
+  const ss = await findStocks(state.cmp);
+  const best = {}, wins = Object.fromEntries(ss.map(x => [x.ticker, 0]));
+  for (const [k, , better] of CMP_ROWS) {
+    if (better == null) continue;
+    let vals = ss.filter(x => x[k] != null).map(x => [x.ticker, Number(x[k])]);
+    if (k === "pe") vals = vals.filter(v => v[1] > 0);
+    if (vals.length < 2) continue;
+    const b = vals.reduce((a, c) => (better ? c[1] > a[1] : c[1] < a[1]) ? c : a);
+    best[k] = b[0]; wins[b[0]]++;
+  }
+  const mixed = new Set(ss.map(x => x.currency)).size > 1;
+  const head = `<div class="ctable" style="--n:${ss.length}">
+    <div class="ch"></div>${ss.map(x => `<div class="ch"><b>${esc(x.name)}</b><small>${esc(x.ticker)}</small>
+      <button class="linkbtn" data-cmpdel="${esc(x.ticker)}">移除</button></div>`).join("")}
+    ${CMP_ROWS.map(([k, label, , f]) => `<div class="cl">${label}</div>${ss.map(x =>
+      `<div class="cv${best[k] === x.ticker ? " best" : ""}">${x.missing ? "—" : cmpFmt(x[k], f, x.currency)}${best[k] === x.ticker ? " ✓" : ""}</div>`).join("")}`).join("")}
+    <div class="cl">胜出</div>${ss.map(x => `<div class="cv"><b>${wins[x.ticker]} 项</b></div>`).join("")}
+  </div>`;
+  const qs = ss.filter(x => x.quarter);
+  const web = webLink("compare", state.cmp.join(","));
+  return `<button class="back" data-sub="">‹ 更多</button>
+    ${form}
+    <section>${head}
+      ${mixed ? `<p class="lede" style="margin-top:8px">货币不同，股价和市值不能直接比。</p>` : ""}
+      ${ss.some(x => x.missing) ? `<p class="lede" style="margin-top:8px">有的股票不在系统追踪的名单里，所以没有数据。用网站版可以比任何股票。</p>` : ""}
+    </section>
+    ${qs.length ? `<section><h2>最新季报</h2><div class="list">${qs.map(x => `<div class="qline"><b>${esc(x.name)}</b>
+      ${esc(x.quarter.icon)} ${esc(x.quarter.verdict)}（${esc(x.quarter.period)}）<br><small>${esc((x.quarter.reasons || []).join("；"))}</small></div>`).join("")}</div></section>` : ""}
+    <div class="actions" style="margin-top:14px">
+      ${web ? `<a class="btn" href="${web}" target="_blank" rel="noopener">完整对比 + AI 总结</a>` : ""}
+      <button class="btn ghost" data-act="cmpclear">清空</button></div>
+    <p class="foot">数据是最近一次收市后的数字。仅供参考，不构成投资建议。</p>`;
+}
+
+// ---------------------------------------------------------------------------
+// 季报：最近公布的季度报告 + 快速结论
+// ---------------------------------------------------------------------------
+const QF = { all: "全部", new: "新发现", good: "亮眼/稳健", bad: "偏弱/亏损", watch: "自选股" };
+
+function qbars(tr) {
+  if (!tr || !tr.periods || tr.periods.length < 2) return "";
+  const vals = tr.revenue.concat(tr.net).filter(v => v != null);
+  const hi = Math.max(1, ...vals.map(Math.abs));
+  const W = 300, H = 90, n = tr.periods.length, bw = W / n;
+  const bar = (v, i, off, cls) => v == null ? "" : `<rect class="${cls}" x="${(i * bw + off).toFixed(1)}" width="${(bw * 0.36).toFixed(1)}"
+    y="${(v >= 0 ? H / 2 + 30 - v / hi * (H / 2 + 26) : H / 2 + 30).toFixed(1)}" height="${(Math.abs(v) / hi * (H / 2 + 26)).toFixed(1)}"/>`;
+  return `<svg class="qbars" viewBox="0 0 ${W} ${H + 18}" role="img" aria-label="近几季营收和净利">
+    ${tr.periods.map((p, i) => bar(tr.revenue[i], i, bw * 0.12, "qb-rev") + bar(tr.net[i], i, bw * 0.5, "qb-net") +
+      `<text x="${(i * bw + bw / 2).toFixed(1)}" y="${H + 14}" text-anchor="middle">${p.slice(2, 7)}</text>`).join("")}
+  </svg><p class="legend"><span class="l-rev"></span>营收　<span class="l-net"></span>净利</p>`;
+}
+
+async function renderQuarterly() {
+  const idx = await loadIndex();
+  const has = idx && (idx.quarterly || []).includes(state.market);
+  const r = has ? await getJSON(`quarterly/${state.market}.json`).catch(() => null) : null;
+  setBand("季报", r ? `<div class="stamp">追踪 ${r.tracked} / ${r.universe_size} 家　今天新发现 ${r.new_today.length} 份</div>` : "", true);
+  const back = `<button class="back" data-sub="">‹ 更多</button>`;
+  if (!r) return back + emptyView("还没有季报数据", "收市后会自动检查；第一次要几天才会累积完整。");
+  const cut = new Date(Date.now() - 14 * 864e5).toISOString().slice(0, 10);
+  const test = {
+    all: () => true, new: x => (x.found || "") >= cut, watch: x => x.watch,
+    good: x => ["亮眼", "稳健"].includes(x.verdict), bad: x => ["偏弱", "疲弱", "亏损"].includes(x.verdict),
+  }[state.qf] || (() => true);
+  const items = r.recent.map(t => r.items[t]).filter(Boolean).filter(test);
+  const cur = r.currency;
+  const row = x => stockRow({ ...x, price: null, currency: cur }, {
+    chg: x.net_yoy,
+    chips: `<span class="tag q-${esc(x.verdict)}">${esc(x.icon)} ${esc(x.verdict)}</span>
+            <span class="tag">${esc(x.period)}</span>${x.found && x.found >= cut ? `<span class="tag gold">新</span>` : ""}
+            ${x.watch ? `<span class="tag gold">⭐ 自选</span>` : ""}`,
+    stats: q => [["营收按年", pct(q.rev_yoy, 1)], ["净利按年", pct(q.net_yoy, 1)],
+                 ["营收按季", pct(q.rev_qoq, 1)], ["净利率", q.net_margin == null ? "—" : `${q.net_margin}%`],
+                 ["每股盈利", q.eps == null ? "—" : q.eps], ["发现日期", q.found || "—"]],
+  }).replace('<div class="more">', `<div class="more">${qbars(x.trend)}<p>${esc((x.reasons || []).join("；"))}</p>
+      ${x.ai ? `<p class="note"><small>AI 快评</small>${esc(x.ai)}</p>` : ""}`);
+  return `${back}
+    <div class="switch" style="margin-top:12px">${Object.entries(QF).map(([k, v]) =>
+      `<button data-qf="${k}" aria-selected="${state.qf === k}">${v}</button>`).join("")}</div>
+    <p class="lede">绿色/红色数字 = 净利按年增长。点开看营收、利润率和近几季走势。</p>
+    ${items.length ? `<div class="list">${items.slice(0, 80).map(row).join("")}</div>` : `<p class="muted">没有符合的季报。</p>`}
     <p class="foot">${esc(r.note)}</p>`;
 }
 
@@ -449,7 +627,7 @@ async function renderMine() {
         <input name="c" type="number" inputmode="decimal" step="any" min="0" placeholder="平均成本" aria-label="平均成本" required>
         <button class="btn">加入</button>
       </form>
-      <p class="foot">价格用每天收市后的最新价，只有系统追踪的约 200 只大型股和你的自选股有价格。
+      <p class="foot">价格用每天收市后的最新价，只有系统追踪的约 500 只大中型股有价格。
         <button class="linkbtn" data-act="export">备份</button>　<button class="linkbtn" data-act="import">还原</button></p>
     </section>`;
 }
@@ -458,6 +636,8 @@ async function renderMine() {
 // 更多：KLCI 50、成绩单、周报、查股、系统状态、设定
 // ---------------------------------------------------------------------------
 const SUBS = {
+  compare: ["股票对比", "2–3 只股票放在一起比"],
+  quarterly: ["季度报告", "最近公布的季报 + 快速结论"],
   klci: ["KLCI 50 观察", "哪些马股最有机会进入 KLCI 50"],
   track: ["成绩单", "推荐过的股票后来表现 + AI 基金经理排行榜"],
   weekly: ["每周周报", "每个星期六早上自动生成"],
@@ -527,6 +707,8 @@ async function renderHealth() {
 async function renderMoreRouter() {
   const back = `<button class="back" data-sub="">‹ 更多</button>`;
   switch (state.sub) {
+    case "compare": return await renderCompare();
+    case "quarterly": return await renderQuarterly();
     case "klci": return back + await renderKlci();
     case "track": return await renderTrack();
     case "weekly": return await renderWeekly();
@@ -543,13 +725,20 @@ async function renderMoreRouter() {
 const VIEWS = { focus: renderFocus, sectors: renderSectors, radar: renderRadar, mine: renderMine, more: renderMoreRouter };
 if (!VIEWS[state.tab]) { state.sub = state.tab === "klci" || state.tab === "search" ? state.tab : null; state.tab = "more"; }
 
+function cmpBar() {
+  if (!state.cmp.length || (state.tab === "more" && state.sub === "compare")) return "";
+  return `<div style="height:58px"></div><button class="cmpbar" data-gocmp="1">⚖️ 对比篮子：${state.cmp.length} 只　去对比 ›</button>`;
+}
+
+function setCmp(list) { state.cmp = list.slice(0, 3); store.set("cmp", state.cmp); }
+
 async function render(force) {
   document.querySelectorAll(".tabs button").forEach(b => b.setAttribute("aria-selected", String(b.dataset.tab === state.tab)));
   const btn = $("#refresh");
   btn.classList.add("spin");
   try {
     if (force) await loadIndex(true);
-    $("#view").innerHTML = await VIEWS[state.tab]();
+    $("#view").innerHTML = await VIEWS[state.tab]() + cmpBar();
   } catch (e) {
     const noRepo = String(e.message) === "no-repo";
     setBand($("#title").textContent, "", false);
@@ -569,6 +758,19 @@ document.addEventListener("click", e => {
     if (t.dataset.tab === state.tab) { state.sector = null; state.sub = null; }   // 再按一次 = 回到这一页的首页
     state.tab = t.dataset.tab; store.set("tab", state.tab); window.scrollTo(0, 0); render();
   }
+  else if (t.dataset.cmp) {
+    const k = t.dataset.cmp;
+    if (state.cmp.includes(k)) setCmp(state.cmp.filter(x => x !== k));
+    else if (state.cmp.length >= 3) { alert("对比最多 3 只，先移除一只。"); return; }
+    else setCmp([...state.cmp, k]);
+    const open = [...document.querySelectorAll("details[open] summary .name small")].map(e => e.textContent);
+    render().then(() => document.querySelectorAll("details summary .name small").forEach(e => {
+      if (open.includes(e.textContent)) e.closest("details").open = true; }));
+  }
+  else if (t.dataset.cmpdel) { setCmp(state.cmp.filter(x => x !== t.dataset.cmpdel)); render(); }
+  else if (t.dataset.act === "cmpclear") { setCmp([]); render(); }
+  else if (t.dataset.gocmp) { state.tab = "more"; state.sub = "compare"; store.set("tab", "more"); window.scrollTo(0, 0); render(); }
+  else if (t.dataset.qf) { state.qf = t.dataset.qf; render(); }
   else if (t.dataset.sector !== undefined) { state.sector = t.dataset.sector || null; window.scrollTo(0, 0); render(); }
   else if (t.dataset.sub !== undefined) { state.sub = t.dataset.sub || null; window.scrollTo(0, 0); render(); }
   else if (t.dataset.del !== undefined) {
@@ -596,6 +798,14 @@ document.addEventListener("click", e => {
 document.addEventListener("submit", e => {
   e.preventDefault();
   if (e.target.id === "sform") showResult(e.target.q.value);
+  if (e.target.id === "cform") {
+    const text = String(new FormData(e.target).get("t") || "");
+    getJSON("prices.json").catch(() => ({})).then(prices => {
+      const t = resolveTicker(text, prices || {});
+      if (t && !state.cmp.includes(t)) setCmp([...state.cmp, t]);
+      render();
+    });
+  }
   if (e.target.id === "pform") {
     const f = new FormData(e.target);
     getJSON("prices.json").catch(() => ({})).then(prices => {

@@ -29,7 +29,7 @@ concurrency:
 jobs:
   scan:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 50
     steps:
       - uses: actions/checkout@v4
 
@@ -50,6 +50,8 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           SCAN_MARKETS: ${{ vars.SCAN_MARKETS || 'bursa,idx,us' }}
           PANEL_DAILY: ${{ vars.PANEL_DAILY || 'bursa:3,idx:1,us:1' }}
+          UNIVERSE_SIZE: ${{ vars.UNIVERSE_SIZE || 'bursa:250,idx:100,us:150' }}
+          QUARTERLY_AI: ${{ vars.QUARTERLY_AI || '3' }}
         run: |
           if [ -n "${{ github.event.inputs.market }}" ]; then
             python scanner.py --market "${{ github.event.inputs.market }}" --session "${{ github.event.inputs.session }}"

@@ -43,6 +43,19 @@ GitHub Secrets 需要：`TELEGRAM_BOT_TOKEN`、`TELEGRAM_CHAT_ID`、`GROQ_API_KE
 
 ---
 
+## 🆕 股票对比、季报追踪、主题板块、约 500 只股票
+
+- **⚖️ 股票对比**：2 到 3 只放在一起比（估值、ROE、成长、股价表现、最新季报、公司体检），✓ = 那一项比较好，最后 AI 总结谁适合价值 / 成长 / 收息投资者。
+  网站「⚖️ 股票对比」；手机 app 在任何公司按「＋ 对比」；Telegram `/compare MAYBANK PBBANK CIMB` 或直接发 `TOPGLOV vs HARTA`。
+- **📑 季度报告**：每个交易日轮流检查约 500 家公司（每家约 3 天一次，自选股每天），发现新季报就打分：亮眼 / 稳健 / 一般 / 偏弱 / 疲弱 / 亏损，推送 Telegram，重要的几份有 AI 快评。
+  网站「📑 季度报告」可以分析任何一只；Telegram `/quarter TOPGLOV`。
+- **🔥 主题板块**：AI 股、AI 与数据中心、半导体、发电与电网、太阳能、手套股、REIT、银行、油气、建筑、煤炭、镍矿与电动车、数字经济、网络安全、医药。每个板块都有代表照片（Unsplash 免费照片）。
+  想加减主题里的公司：改 `themes.py` 的名单。Telegram `/sector 手套`、`/sector us AI`。
+- **📈 股票池扩大**：大马约 250、印尼约 100、美股约 150 只（Yahoo 按市值筛选，每周更新，存在 `reports/universe/`）。仙股和成交太少的股票仍然不会进每日焦点。
+  想改数量：GitHub → Settings → Variables 加 `UNIVERSE_SIZE`，例如 `bursa:300,idx:100,us:150`。
+- 公司资料会存在 `reports/cache/fundamentals.json`，每天只重抓约三分之一，避免被 Yahoo 限速。
+- 新季报 AI 快评每次最多 3 份（用 Variables 的 `QUARTERLY_AI` 改）。
+
 ## 📱 手机 app（Android，PWA，免费）
 
 `docs/` 文件夹是一个可以安装到手机的 app，放在 GitHub Pages：

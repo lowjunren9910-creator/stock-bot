@@ -325,7 +325,7 @@ def show_report(r: dict, prefix: str = "saved"):
     cur, b = r["currency"], r["breadth"]
     st.markdown(f"#### {r['market_name']}｜{r['session_name']}")
     note = "" if r["partial_day"] >= 1 else f"（盘中数据，交易时间已过约 {r['partial_day']:.0%}）"
-    st.caption(f"生成时间：{r['generated_at']}{note}　·　扫描 {b['scanned']} 只蓝筹股，"
+    st.caption(f"生成时间：{r['generated_at']}{note}　·　扫描 {b['scanned']} 只大中型股，"
                f"已剔除 {len(b['filtered_out'])} 只低价或成交太少的股票")
 
     c = st.columns(4)
@@ -410,7 +410,7 @@ def page_focus():
                 sess = st.radio("时段", list(S.SESSION_ZH), horizontal=True, key=f"sess_{key}",
                                 format_func=lambda s: S.session_label(key, s))
                 if st.button("开始扫描", key=f"scan_{key}", type="primary"):
-                    with st.spinner(f"正在扫描 {len(m.universe)} 只股票…（约 20-60 秒）"):
+                    with st.spinner("正在扫描约 500 只股票…（约 1-2 分钟）"):
                         r = live_scan(key, sess)
                     if r is None:
                         st.warning("今天看起来没有开市（周末、假期，或还没开盘）。")
@@ -897,9 +897,42 @@ def heatmap(sec: dict):
     return fig
 
 
+def sector_card(g: dict, height: int = 118) -> str:
+    """有照片的板块卡片（照片载入不了就只显示底色）。"""
+    ph = (g.get("photo") or {}).get("url", "")
+    r1, r1m = g["returns"].get("1d"), g["returns"].get("1m")
+    col = lambda v: "#6ee7b7" if (v or 0) > 0 else "#fca5a5" if (v or 0) < 0 else "#e5e7eb"
+    return f"""<div style="position:relative;height:{height}px;border-radius:14px;overflow:hidden;
+      background:{g.get('color', '#22305A')} url('{ph}') center/cover no-repeat;margin-bottom:6px">
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.78))"></div>
+      <div style="position:absolute;left:12px;right:12px;bottom:9px;color:#fff;font-family:inherit">
+        <div style="font-weight:700;font-size:1.02rem">{g.get('emoji', '')} {g['name']}
+          <span style="font-weight:400;opacity:.8;font-size:.8rem">· {g['count']} 家</span></div>
+        <div style="font-size:.86rem;margin-top:2px">1 日 <b style="color:{col(r1)}">{fnum(r1, 2)}</b>
+          　1 个月 <b style="color:{col(r1m)}">{fnum(r1m, 1)}</b></div>
+      </div></div>"""
+
+
+def photo_credit(groups) -> str:
+    names = sorted({(g.get("photo") or {}).get("credit", "").replace(" / Unsplash", "") for g in groups} - {""})
+    return "照片：" + "、".join(names) + "（Unsplash）" if names else ""
+
+
+def card_grid(groups, key: str, ncol: int = 3):
+    for i in range(0, len(groups), ncol):
+        cols = st.columns(ncol)
+        for col, g in zip(cols, groups[i:i + ncol]):
+            with col:
+                st.markdown(sector_card(g), unsafe_allow_html=True)
+                if st.button("查看", key=f"open_{key}_{g['name']}", width="stretch"):
+                    st.session_state[f"sec_{key}"] = g["name"]
+                    st.rerun()
+
+
 def page_sectors():
     st.title("🧩 板块")
-    st.caption("约 200 只大型股按板块分类。每个板块有自己的市值加权指数（一年前 = 1000 点）。点公司就能认识它。")
+    st.caption("约 500 只大中型股按板块分类，另外有 AI 股、发电股、手套股、REIT 等主题板块。"
+               "每个板块有自己的市值加权指数（一年前 = 1000 点）。点公司就能认识它，也可以勾选几家去对比。")
     tabs = st.tabs([m.name for m in S.MARKETS.values()])
     for tab, key in zip(tabs, S.MARKETS):
         with tab:
@@ -909,44 +942,266 @@ def page_sectors():
                 continue
             sec = read_json(S.REPORT_DIR / "sectors" / key / f"{files[0]}.json")
             mi = sec["market_index"]
-            st.caption(f"{sec['date']} 收市　大型股综合：1 日 {fnum(mi['returns']['1d'], 2)}　1 个月 {fnum(mi['returns']['1m'], 2)}　1 年 {fnum(mi['returns']['1y'], 1)}")
-            st.markdown("##### 板块轮动（按 1 周表现排序）")
-            st.plotly_chart(heatmap(sec), width="stretch", key=f"hm_{key}")
+            themes = sec.get("themes") or []
+            st.caption(f"{sec['date']} 收市　{sec.get('universe_size', '')} 只股票综合：1 日 {fnum(mi['returns']['1d'], 2)}"
+                       f"　1 个月 {fnum(mi['returns']['1m'], 2)}　1 年 {fnum(mi['returns']['1y'], 1)}")
 
-            names = [s["name"] for s in sec["sectors"]]
-            pick = st.selectbox("选一个板块看详情", names, key=f"sec_{key}")
-            s = next(x for x in sec["sectors"] if x["name"] == pick)
+            all_groups = themes + sec["sectors"]
+            pick = st.session_state.get(f"sec_{key}")
+            g = next((x for x in all_groups if x["name"] == pick), None)
+            if g is None:
+                if themes:
+                    st.markdown("##### 🔥 主题板块")
+                    card_grid(themes, key)
+                st.markdown("##### 🗂️ 普通板块")
+                card_grid(sec["sectors"], key)
+                with st.expander("板块轮动热力图（按 1 周表现排序）"):
+                    st.plotly_chart(heatmap({"sectors": all_groups}), width="stretch", key=f"hm_{key}")
+                st.caption(photo_credit(all_groups))
+                continue
+
+            # ---- 板块详情 ----
+            if st.button("‹ 全部板块", key=f"back_{key}"):
+                st.session_state[f"sec_{key}"] = None
+                st.rerun()
+            st.markdown(sector_card(g, 150), unsafe_allow_html=True)
+            if g.get("desc"):
+                st.write(g["desc"])
             c = st.columns(5)
             for col, k in zip(c, PERIOD_KEYS):
-                col.metric(PERIOD_ZH[k], fnum(s["returns"][k], 2))
+                col.metric(PERIOD_ZH[k], fnum(g["returns"][k], 2))
             fig = go.Figure()
-            fig.add_trace(go.Scatter(x=s["series"]["dates"], y=s["series"]["levels"], name=f"{pick}指数",
+            fig.add_trace(go.Scatter(x=g["series"]["dates"], y=g["series"]["levels"], name=f"{g['name']}指数",
                                      line=dict(color="#22305A", width=2)))
-            fig.add_trace(go.Scatter(x=mi["series"]["dates"], y=mi["series"]["levels"], name="大型股综合",
+            fig.add_trace(go.Scatter(x=mi["series"]["dates"], y=mi["series"]["levels"], name="全市场综合",
                                      line=dict(color="#C8A23A", width=1.5, dash="dot")))
             fig.update_layout(height=320, margin=dict(l=10, r=10, t=10, b=10), legend=dict(orientation="h", y=1.1),
                               yaxis_title="点（起点 1000）")
             st.plotly_chart(fig, width="stretch", key=f"line_{key}")
-            st.caption(f"指数 {s['level']:,.1f} 点　今天 {s['up']} 涨 {s['down']} 跌"
-                       + (f"　⚠️ 最大的公司占 {s['top_weight']}%，指数主要跟着它走" if (s["top_weight"] or 0) >= 40 else ""))
+            st.caption(f"指数 {g['level']:,.1f} 点　今天 {g['up']} 涨 {g['down']} 跌"
+                       + (f"　⚠️ 最大的公司占 {g['top_weight']}%，指数主要跟着它走" if (g["top_weight"] or 0) >= 40 else ""))
 
-            df = pd.DataFrame(s["members"])
+            df = pd.DataFrame(g["members"])
             df["市值"] = df["mcap"].map(C.big)
-            show = df[["name", "ticker", "price", "weight", "chg_1d", "chg_1m", "chg_1y", "市值", "pe"]]
-            show.columns = ["公司", "代码", "股价", "权重%", "1 日%", "1 个月%", "1 年%", "市值", "P/E"]
-            tkey = f"members_{key}_{pick}"
+            for col_ in ("div_yield", "roe"):
+                if col_ not in df:
+                    df[col_] = None
+            show = df[["name", "ticker", "price", "weight", "chg_1d", "chg_1m", "chg_1y", "市值", "pe", "div_yield", "roe"]]
+            show.columns = ["公司", "代码", "股价", "权重%", "1 日%", "1 个月%", "1 年%", "市值", "P/E", "股息率%", "ROE%"]
+            tkey = f"members_{key}_{g['name']}"
 
-            def on_pick(rows=s["members"], tkey=tkey):
+            def on_pick(rows=g["members"], tkey=tkey):
                 sel = st.session_state[tkey].selection.rows
                 if sel:
                     goto_company(rows[sel[0]]["ticker"])
 
             st.dataframe(show.style.format({"股价": "{:,.2f}", "权重%": "{:.1f}", "1 日%": "{:+.2f}", "1 个月%": "{:+.1f}",
-                                            "1 年%": "{:+.1f}", "P/E": "{:.1f}"}, na_rep="—").map(
+                                            "1 年%": "{:+.1f}", "P/E": "{:.1f}", "股息率%": "{:.1f}", "ROE%": "{:.1f}"},
+                                           na_rep="—").map(
                 lambda v: f"color:{'#16a34a' if v > 0 else '#dc2626'}" if isinstance(v, (int, float)) and v == v else "",
                 subset=["1 日%", "1 个月%", "1 年%"]),
                 hide_index=True, width="stretch", key=tkey, on_select=on_pick, selection_mode="single-row")
             st.caption("👆 点任何一行就能认识那家公司。" + sec["note"])
+
+            opts = {f"{m['name']}（{m['ticker']}）": m["ticker"] for m in g["members"]}
+            chosen = st.multiselect("⚖️ 勾选 2–3 家来对比", list(opts), max_selections=3, key=f"cmp_{key}_{g['name']}")
+            if st.button("对比这几家", key=f"cmpbtn_{key}_{g['name']}", disabled=len(chosen) < 2, type="primary"):
+                goto_compare([opts[c] for c in chosen])
+                st.rerun()
+
+
+# ---------------------------------------------------------------------------
+# 页面：股票对比
+# ---------------------------------------------------------------------------
+
+def goto_compare(tickers: list[str]):
+    st.session_state.compare_query = list(tickers)[:3]
+    st.session_state.nav = "⚖️ 股票对比"
+
+
+@st.cache_data(ttl=1800, show_spinner=False)
+def cached_compare(tickers: tuple):
+    import compare
+    return compare.build(list(tickers))
+
+
+@st.cache_data(ttl=3600, show_spinner=False)
+def cached_compare_ai(tickers: tuple):
+    import compare
+    return asyncio.run(compare.ai_verdict(cached_compare(tickers)))
+
+
+def page_compare():
+    import compare
+    st.title("⚖️ 股票对比")
+    st.caption("放 2 到 3 家公司在同一张表：估值、获利、成长、财务、股价表现、最新季报和公司体检评级，"
+               "✓ 表示那一项比较好。最后 AI 会说谁比较适合哪种投资者。")
+    q = st.session_state.get("compare_query") or ["", "", ""]
+    q = (list(q) + ["", "", ""])[:3]
+    with st.form("compare_form"):
+        cols = st.columns(3)
+        vals = [c.text_input(f"股票 {i + 1}", value=q[i], placeholder=["MAYBANK", "PBBANK", "（可留空）"][i])
+                for i, c in enumerate(cols)]
+        go_ = st.form_submit_button("开始对比", type="primary")
+    if go_:
+        st.session_state.compare_query = [v.strip() for v in vals if v.strip()]
+    names = [v for v in (st.session_state.get("compare_query") or []) if v]
+    if len(names) < 2:
+        st.info("试试看：MAYBANK / PBBANK / CIMB，或 TOPGLOV / HARTA / KOSSAN，或 NVDA / AMD / AVGO。"
+                "也可以在「板块」页面勾选同板块的公司来对比。")
+        return
+    with st.spinner("正在收集资料和财报（约 20-40 秒）…"):
+        try:
+            d = cached_compare(tuple(names))
+        except Exception as e:
+            st.error(f"❌ {e}")
+            return
+
+    ss = d["stocks"]
+    cols = st.columns(len(ss))
+    for col, x in zip(cols, ss):
+        with col:
+            lvl = x.get("level")
+            st.markdown(f"**{x['name']}**  \n`{x['ticker']}`　{x.get('industry') or ''}")
+            st.metric("股价", f"{x.get('price') or 0:,.2f} {x['currency']}",
+                      None if x.get("chg_1m") is None else fnum(x["chg_1m"], 1) + "（1 个月）")
+            if lvl:
+                st.markdown(f"公司体检：<b style='color:{C.LEVEL_COLOR.get(lvl, '#555')}'>{lvl}</b>", unsafe_allow_html=True)
+            st.caption(f"胜出 {d['wins'][x['ticker']]} 项")
+            if st.button("认识公司", key=f"cmpco_{x['ticker']}"):
+                goto_company(x["ticker"])
+                st.rerun()
+    if d["mixed_currency"]:
+        st.warning("这几只股票的货币不同，股价和市值不能直接比，看比例类的数字（P/E、ROE、增长率）就好。")
+
+    st.dataframe(compare.table(d), width="stretch", height=36 * (len(compare.METRICS) + 1))
+
+    fig = go.Figure()
+    for x in ss:
+        if x.get("series"):
+            fig.add_trace(go.Scatter(x=x["series"]["dates"], y=x["series"]["rebased"], name=x["name"]))
+    fig.update_layout(height=320, margin=dict(l=10, r=10, t=30, b=10), legend=dict(orientation="h", y=1.12),
+                      title="一年股价走势（起点 = 100）", yaxis_title="")
+    st.plotly_chart(fig, width="stretch", key="cmp_chart")
+
+    qs = [x for x in ss if x.get("quarter")]
+    if qs:
+        st.markdown("##### 📑 最新季报")
+        cols = st.columns(len(qs))
+        for col, x in zip(cols, qs):
+            qq = x["quarter"]
+            col.markdown(f"**{x['name']}**：{qq['icon']} {qq['verdict']}（{qq['period']}）")
+            col.caption("；".join(qq["reasons"]))
+
+    st.markdown("##### 🧠 AI 总结")
+    with st.spinner("AI 正在比较…"):
+        try:
+            ai = cached_compare_ai(tuple(names))
+        except Exception as e:
+            ai = None
+            st.caption(f"AI 暂时不可用：{e}")
+    if ai:
+        st.info(ai)
+    st.caption("仅供学习参考，不构成投资建议。")
+
+
+# ---------------------------------------------------------------------------
+# 页面：季度报告
+# ---------------------------------------------------------------------------
+
+def big_money(v):
+    import quarterly
+    return quarterly.big(v)
+
+
+def show_quarter(x: dict, key: str):
+    st.markdown(f"#### {x['icon']} {x['name']}（{x['ticker']}）季报结论：{x['verdict']}")
+    st.caption(f"季度结束 {x['period']}" + (f"　·　发现日期 {x['found']}" if x.get("found") else "")
+               + (f"　·　下次业绩预计 {x['next_earnings']}" if x.get("next_earnings") else ""))
+    c = st.columns(4)
+    c[0].metric("营收", big_money(x["revenue"]), fnum(x["rev_yoy"], 1) + " 按年" if x["rev_yoy"] is not None else None)
+    c[1].metric("净利", big_money(x["net"]), fnum(x["net_yoy"], 1) + " 按年" if x["net_yoy"] is not None else None)
+    c[2].metric("净利率", fnum(x["net_margin"], 1, sign=False),
+                f"去年 {x['net_margin_yoy']:.1f}%" if x.get("net_margin_yoy") is not None else None, delta_color="off")
+    c[3].metric("每股盈利", "—" if x.get("eps") is None else f"{x['eps']}")
+    for r in x["reasons"]:
+        st.markdown(f"- {r}")
+    tr = x.get("trend") or {}
+    if tr.get("periods"):
+        fig = go.Figure()
+        fig.add_trace(go.Bar(x=tr["periods"], y=tr["revenue"], name="营收", marker_color="#93a5cf"))
+        fig.add_trace(go.Bar(x=tr["periods"], y=tr["net"], name="净利", marker_color="#22305A"))
+        fig.update_layout(height=260, barmode="group", margin=dict(l=10, r=10, t=10, b=10),
+                          legend=dict(orientation="h", y=1.15))
+        st.plotly_chart(fig, width="stretch", key=f"qtrend_{key}")
+    if x.get("ai"):
+        st.info("🧠 " + x["ai"])
+    b1, b2 = st.columns(2)
+    if b1.button("认识这家公司", key=f"qco_{key}"):
+        goto_company(x["ticker"])
+        st.rerun()
+    if b2.button("跟别家对比", key=f"qcmp_{key}"):
+        goto_compare([x["ticker"]])
+        st.rerun()
+
+
+@st.cache_data(ttl=3600, show_spinner=False)
+def cached_quarter(text: str):
+    import quarterly
+    return quarterly.quick(text, with_ai=True)
+
+
+def page_quarterly():
+    st.title("📑 季度报告")
+    st.caption("系统每个交易日轮流检查股票池里约 500 家公司的季报（自选股每天检查），"
+               "发现新季报就打分：营收、净利按年和按季增长，再看利润率有没有变好。")
+    with st.form("q_search"):
+        c1, c2 = st.columns([4, 1])
+        text = c1.text_input("分析任何一只股票的最新季报", placeholder="例如 TOPGLOV、TENAGA、NVDA",
+                             value=st.session_state.get("quarter_query", ""))
+        btn = c2.form_submit_button("分析", type="primary", width="stretch")
+    if btn and text.strip():
+        st.session_state.quarter_query = text.strip()
+    q = st.session_state.get("quarter_query")
+    if q:
+        with st.spinner(f"正在读取 {q.upper()} 的季报…"):
+            try:
+                show_quarter(cached_quarter(q), "live")
+            except Exception as e:
+                st.error(f"❌ {e}")
+        st.markdown("---")
+
+    tabs = st.tabs([m.name for m in S.MARKETS.values()])
+    for tab, key in zip(tabs, S.MARKETS):
+        with tab:
+            r = read_json(S.REPORT_DIR / "quarterly" / f"{key}.json")
+            if not r or not r.get("items"):
+                st.info("还没有季报追踪数据，每个交易日收市后会自动更新（第一次要几天才会累积完整）。")
+                continue
+            items = [r["items"][t] for t in r["recent"] if t in r["items"]]
+            st.caption(f"更新：{r['generated_at']}　·　追踪 {r['tracked']} / {r['universe_size']} 家　·　"
+                       f"今天新发现 {len(r['new_today'])} 份")
+            only_new = st.toggle("只看最近 14 天新发现的", key=f"qnew_{key}")
+            if only_new:
+                cut = str(date.fromordinal(date.today().toordinal() - 14))
+                items = [x for x in items if (x.get("found") or "") >= cut]
+            if not items:
+                st.info("没有符合的季报。")
+                continue
+            df = pd.DataFrame([{"结论": f"{x['icon']} {x['verdict']}", "公司": x["name"], "代码": x["ticker"],
+                                "季度": x["period"], "营收按年%": x["rev_yoy"], "净利按年%": x["net_yoy"],
+                                "净利率%": x["net_margin"], "发现": x.get("found") or "",
+                                "⭐": "⭐" if x.get("watch") else ""} for x in items])
+            tkey = f"qtable_{key}"
+            st.dataframe(df.style.format({"营收按年%": "{:+.1f}", "净利按年%": "{:+.1f}", "净利率%": "{:.1f}"}, na_rep="—").map(
+                lambda v: f"color:{'#16a34a' if v > 0 else '#dc2626'}" if isinstance(v, (int, float)) and v == v else "",
+                subset=["营收按年%", "净利按年%"]), hide_index=True, width="stretch", key=tkey,
+                on_select="rerun", selection_mode="single-row")
+            sel = st.session_state[tkey].selection.rows if tkey in st.session_state else []
+            if sel:
+                show_quarter(items[sel[0]], f"{key}_{sel[0]}")
+            else:
+                st.caption("👆 点一行看详细分析。" + r["note"])
 
 
 # ---------------------------------------------------------------------------
@@ -1076,7 +1331,7 @@ def page_health():
 # ---------------------------------------------------------------------------
 
 PAGES = {"📅 每日焦点": page_focus, "🧩 板块": page_sectors, "🔍 选股雷达": page_radar,
-         "⭐ 自选股": page_watchlist, "🏆 KLCI 50 观察": page_klci, "📈 成绩单": page_track,
+         "⚖️ 股票对比": page_compare, "📑 季度报告": page_quarterly, "⭐ 自选股": page_watchlist, "🏆 KLCI 50 观察": page_klci, "📈 成绩单": page_track,
          "📰 周报": page_weekly, "📊 个股分析": page_analysis, "🏢 认识公司": page_company,
          "💼 投资组合": page_portfolio, "🩺 系统状态": page_health}
 
@@ -1087,13 +1342,20 @@ if check_password():
         if qp.get("company"):
             st.session_state.company_query = qp["company"]
             st.session_state.nav = "🏢 认识公司"
+        elif qp.get("compare"):
+            st.session_state.compare_query = [t for t in qp["compare"].split(",") if t][:3]
+            st.session_state.nav = "⚖️ 股票对比"
+        elif qp.get("quarter"):
+            st.session_state.quarter_query = qp["quarter"]
+            st.session_state.nav = "📑 季度报告"
         elif qp.get("analyze"):
             st.session_state.query = qp["analyze"]
             st.session_state.nav = "📊 个股分析"
-        elif qp.get("page") in ("focus", "radar", "klci", "sectors", "track", "weekly", "watch"):
+        elif qp.get("page") in ("focus", "radar", "klci", "sectors", "track", "weekly", "watch", "quarterly", "compare"):
             st.session_state.nav = {"focus": "📅 每日焦点", "radar": "🔍 选股雷达", "klci": "🏆 KLCI 50 观察",
                                     "sectors": "🧩 板块", "track": "📈 成绩单", "weekly": "📰 周报",
-                                    "watch": "⭐ 自选股"}[qp["page"]]
+                                    "watch": "⭐ 自选股", "quarterly": "📑 季度报告",
+                                    "compare": "⚖️ 股票对比"}[qp["page"]]
         st.session_state._qp_done = True
     page = st.sidebar.radio("功能", list(PAGES), key="nav")
     st.sidebar.markdown("---")

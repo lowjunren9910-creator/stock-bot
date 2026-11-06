@@ -246,13 +246,15 @@ def scan(market: str, session: str, now: datetime | None = None,
          with_ai: bool = True) -> dict | None:
     m = MARKETS[market]
     now = now or datetime.now(m.zone())
-    data = download(list(m.universe))
+    import universe
+    uni = universe.get(market)          # 约 500 只（大型 + 中型股），见 universe.py
+    data = download(list(uni))
     today = now.date()
 
     # 今天有没有开市？（大部分股票最新一根K线不是今天 = 假期或还没开）
     from collections import Counter
     last_days = Counter(str(d.index[-1].date()) for d in data.values())
-    print(f"  [{market}] 当地日期 {today}，抓到 {len(data)}/{len(m.universe)} 只，"
+    print(f"  [{market}] 当地日期 {today}，抓到 {len(data)}/{len(uni)} 只，"
           f"最新K线日期分布：{dict(last_days.most_common(3))}")
     fresh = {t: d for t, d in data.items() if d.index[-1].date() == today}
     if len(fresh) < max(5, len(data) // 2):
@@ -266,7 +268,7 @@ def scan(market: str, session: str, now: datetime | None = None,
         if x["price"] < m.min_price or x["avg_turnover"] < m.min_turnover:
             skipped.append(t)
             continue
-        x.update(ticker=t, name=m.universe[t], tags=tags_for(x), score=watch_score(x))
+        x.update(ticker=t, name=uni[t], tags=tags_for(x), score=watch_score(x))
         rows.append(x)
 
     print(f"  [{market}] 今天有数据 {len(fresh)} 只，通过门槛 {len(rows)} 只，剔除 {len(skipped)} 只")
@@ -341,6 +343,7 @@ def update_index():
     idx["sectors"] = {mk: sorted(stems(REPORT_DIR / "sectors" / mk), reverse=True)[:30] for mk in MARKETS}
     idx["weekly"] = sorted(stems(REPORT_DIR / "weekly"), reverse=True)[:30]
     idx["track"] = [mk for mk in MARKETS if (REPORT_DIR / "track" / f"{mk}.json").exists()]
+    idx["quarterly"] = [mk for mk in MARKETS if (REPORT_DIR / "quarterly" / f"{mk}.json").exists()]
     idx["updated"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     REPORT_DIR.mkdir(parents=True, exist_ok=True)
     (REPORT_DIR / "index.json").write_text(json.dumps(idx, ensure_ascii=False, indent=1), encoding="utf-8")
@@ -355,7 +358,7 @@ def to_telegram_html(r: dict) -> str:
     b = r["breadth"]
     lines = [f"<b>{e(r['market_name'])}｜{r['session_name']}</b>",
              f"{r['generated_at']}",
-             f"上涨 {b['up']} · 下跌 {b['down']} · 平均 {b['avg_change']:+.2f}%（{b['scanned']} 只蓝筹）",
+             f"上涨 {b['up']} · 下跌 {b['down']} · 平均 {b['avg_change']:+.2f}%（{b['scanned']} 只大中型股）",
              "", "<b>🔥 最值得关注</b>"]
     for i, w in enumerate(r["watchlist"], 1):
         tags = "、".join(w["tags"]) or "波动较大"
@@ -480,8 +483,8 @@ def run_daily_extras(market: str, with_ai: bool = True, push: bool = True):
         print("选股雷达失败：", e)
     if market == "bursa":
         _run_klci(with_ai, push)
-    for name, fn in (("板块指数", lambda: _run_sectors(market)), ("成绩单", lambda: _run_track(market)),
-                     ("每日圆桌", lambda: _run_panels(market))):
+    for name, fn in (("板块指数", lambda: _run_sectors(market)), ("季报追踪", lambda: _run_quarterly(market, with_ai, push)),
+                     ("成绩单", lambda: _run_track(market)), ("每日圆桌", lambda: _run_panels(market))):
         try:
             print(f"→ {name} {market} …")
             fn()
@@ -500,6 +503,11 @@ def run_daily_extras(market: str, with_ai: bool = True, push: bool = True):
 def _run_sectors(market):
     import sectors
     print("  已保存：", sectors.save(sectors.build(market)))
+
+
+def _run_quarterly(market, with_ai, push):
+    import quarterly
+    quarterly.run(market, push=push, with_ai=with_ai)
 
 
 def _run_track(market):

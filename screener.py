@@ -49,10 +49,8 @@ CATEGORIES = {
 
 
 def universe(market: str) -> dict:
-    if market == "bursa":
-        import klci
-        return klci.UNIVERSE
-    return S.MARKETS[market].universe
+    import universe as U
+    return U.get(market)
 
 
 def pct(x):

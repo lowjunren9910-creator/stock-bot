@@ -79,6 +79,10 @@ def _name_index() -> dict:
         for uni in (klci.UNIVERSE, scanner.IDX, scanner.US):
             for code, name in uni.items():
                 idx.setdefault(_key(name), code)
+        import universe   # 扩大后的股票池（只读存好的名单，不上网）
+        for m in ("bursa", "idx", "us"):
+            for code, name in universe.get(m, online=False).items():
+                idx.setdefault(_key(name), code)
     except Exception:
         pass
     return idx

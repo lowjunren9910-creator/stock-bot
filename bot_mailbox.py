@@ -43,7 +43,9 @@ HELP = f"""<b>📊 股票分析机器人（信箱模式）</b>
 /company 代码 - 认识公司：业务、成绩、管理层 + 弱到强评级
 /radar [bursa|idx|us] - 今日错杀股 / 成长股 / 双杀股
 /klci - KLCI 50 最有机会入选的公司
-/sector [bursa|idx|us] - 板块轮动
+/sector [bursa|idx|us] - 板块轮动；/sector 手套、/sector REIT、/sector us AI - 看某个板块或主题
+/compare 代码 代码 [代码] - 对比 2 到 3 只股票，例如 <code>/compare MAYBANK PBBANK CIMB</code>
+/quarter 代码 - 最新季报快速分析
 /watch - 自选股现况
 /week - 最新周报
 /quick 代码 - 只看数据报告（不开圆桌）
@@ -149,6 +151,31 @@ def do_fund(chat, text: str):
     send(chat, A.format_fundamental(A.fundamental_summary(t, A.get_info(t), float(df["Close"].iloc[-1]))))
 
 
+def do_compare(chat, arg: str):
+    import compare
+    names = [w for w in arg.replace(",", " ").replace("，", " ").split() if w.lower() != "vs"]
+    typing(chat)
+    try:
+        d = compare.build(names)
+    except Exception as e:
+        return send(chat, f"⚠️ {esc(str(e))}")
+    ai = None
+    try:
+        ai = asyncio.run(compare.ai_verdict(d))
+    except Exception as e:
+        print("对比 AI 失败：", e)
+    send(chat, compare.to_telegram_html(d, ai))
+
+
+def do_quarter(chat, arg: str):
+    import quarterly
+    typing(chat)
+    try:
+        send(chat, quarterly.one_html(quarterly.quick(arg, with_ai=True)))
+    except Exception as e:
+        send(chat, f"⚠️ {esc(str(e))}")
+
+
 def handle(chat, text: str):
     parts = text.split(maxsplit=1)
     cmd = parts[0].lower().split("@")[0]  # 群组里会是 /radar@你的bot
@@ -161,7 +188,7 @@ def handle(chat, text: str):
     if cmd in ("/buy", "/sell", "/portfolio"):
         return send(chat, "💼 信箱模式不会保存资料，投资组合请用网站版的「投资组合」页面。")
 
-    need = {"/analyze", "/quick", "/panel", "/company", "/tech", "/fund", "/news", "/chart"}
+    need = {"/analyze", "/quick", "/panel", "/company", "/tech", "/fund", "/news", "/chart", "/quarter", "/compare"}
     if cmd in need and not arg:
         return send(chat, f"用法：{cmd} 股票代码，例如 {cmd} MAYBANK")
 
@@ -171,10 +198,12 @@ def handle(chat, text: str):
         return do_radar(chat, arg)
     if cmd == "/klci":
         return do_klci(chat)
-    if cmd == "/sector":
-        mk = (arg or "bursa").lower()
-        r = SE.latest(mk) if mk in SC.S.MARKETS else None
-        return send(chat, SE.to_telegram_html(r) if r else "还没有板块报告（收市后会生成）。用法：/sector [bursa|idx|us]")
+    if cmd in ("/sector", "/theme"):
+        return send(chat, SE.reply(arg))
+    if cmd == "/compare":
+        return do_compare(chat, arg)
+    if cmd == "/quarter":
+        return do_quarter(chat, arg)
     if cmd == "/watch":
         import json
         p = SC.S.REPORT_DIR / "watchlist.json"
@@ -206,6 +235,8 @@ def handle(chat, text: str):
         return send_photo(chat, A.make_chart(t, A.get_history(t)), t)
     if cmd.startswith("/"):
         return send(chat, "看不懂这个指令，发 /help 看看有什么功能。")
+    if " vs " in text.lower():                # 「MAYBANK vs PBBANK」= 对比
+        return do_compare(chat, text)
     return do_analyze(chat, text)  # 直接发股票代码
 
 
