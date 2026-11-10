@@ -1,0 +1,102 @@
+{
+ "date": "2026-11-10",
+ "market": "bursa",
+ "panels": [
+  {
+   "ticker": "1155.KL",
+   "name": "Malayan Banking Berhad",
+   "price": 10.0600004196167,
+   "opinions": [
+    {
+     "id": "value",
+     "name": "老陈",
+     "rating": null
+    },
+    {
+     "id": "growth",
+     "name": "Kelly",
+     "rating": null
+    },
+    {
+     "id": "technical",
+     "name": "阿杰",
+     "rating": null
+    },
+    {
+     "id": "dividend",
+     "name": "Auntie Lim",
+     "rating": null
+    },
+    {
+     "id": "bear",
+     "name": "冷面周",
+     "rating": null
+    }
+   ]
+  },
+  {
+   "ticker": "5347.KL",
+   "name": "Tenaga Nasional Berhad",
+   "price": 13.180000305175781,
+   "opinions": [
+    {
+     "id": "value",
+     "name": "老陈",
+     "rating": null
+    },
+    {
+     "id": "growth",
+     "name": "Kelly",
+     "rating": null
+    },
+    {
+     "id": "technical",
+     "name": "阿杰",
+     "rating": null
+    },
+    {
+     "id": "dividend",
+     "name": "Auntie Lim",
+     "rating": null
+    },
+    {
+     "id": "bear",
+     "name": "冷面周",
+     "rating": null
+    }
+   ]
+  },
+  {
+   "ticker": "4065.KL",
+   "name": "PPB Group Berhad",
+   "price": 8.609999656677246,
+   "opinions": [
+    {
+     "id": "value",
+     "name": "老陈",
+     "rating": null
+    },
+    {
+     "id": "growth",
+     "name": "Kelly",
+     "rating": null
+    },
+    {
+     "id": "technical",
+     "name": "阿杰",
+     "rating": null
+    },
+    {
+     "id": "dividend",
+     "name": "Auntie Lim",
+     "rating": null
+    },
+    {
+     "id": "bear",
+     "name": "冷面周",
+     "rating": null
+    }
+   ]
+  }
+ ]
+}
