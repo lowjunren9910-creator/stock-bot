@@ -1378,300 +1378,300 @@
  },
  "BBCA.JK": {
   "name": "Bank Central Asia",
-  "price": 5300.0,
-  "chg_1d": -0.47,
+  "price": 5325.0,
+  "chg_1d": 0.47,
   "currency": "IDR",
   "market": "idx",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "BBRI.JK": {
   "name": "Bank Rakyat",
-  "price": 2820.0,
-  "chg_1d": 0.0,
+  "price": 2860.0,
+  "chg_1d": 1.42,
   "currency": "IDR",
   "market": "idx",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "BMRI.JK": {
   "name": "Bank Mandiri",
-  "price": 3750.0,
-  "chg_1d": 1.08,
+  "price": 3770.0,
+  "chg_1d": 0.53,
   "currency": "IDR",
   "market": "idx",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "BRIS.JK": {
   "name": "Bank Syariah",
-  "price": 1130.0,
-  "chg_1d": -2.59,
+  "price": 1125.0,
+  "chg_1d": -0.44,
   "currency": "IDR",
   "market": "idx",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "ARTO.JK": {
   "name": "Bank Jago",
-  "price": 505.0,
-  "chg_1d": -0.98,
+  "price": 500.0,
+  "chg_1d": -0.99,
   "currency": "IDR",
   "market": "idx",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "BBNI.JK": {
   "name": "Bank Negara",
-  "price": 3400.0,
-  "chg_1d": 0.59,
+  "price": 3370.0,
+  "chg_1d": -0.88,
   "currency": "IDR",
   "market": "idx",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "TPIA.JK": {
   "name": "Chandra Asri",
-  "price": 1265.0,
-  "chg_1d": 0.8,
+  "price": 1260.0,
+  "chg_1d": -0.4,
   "currency": "IDR",
   "market": "idx",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "BRPT.JK": {
   "name": "Barito Pacific",
-  "price": 820.0,
-  "chg_1d": 3.14,
+  "price": 765.0,
+  "chg_1d": -6.71,
   "currency": "IDR",
   "market": "idx",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "UNTR.JK": {
   "name": "United Tractors",
-  "price": 23425.0,
-  "chg_1d": 0.21,
+  "price": 23600.0,
+  "chg_1d": 0.75,
   "currency": "IDR",
   "market": "idx",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "ANTM.JK": {
   "name": "Aneka Tambang",
-  "price": 2760.0,
-  "chg_1d": 1.85,
+  "price": 2750.0,
+  "chg_1d": -0.36,
   "currency": "IDR",
   "market": "idx",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "MDKA.JK": {
   "name": "Merdeka Copper",
-  "price": 2060.0,
-  "chg_1d": 3.0,
+  "price": 2010.0,
+  "chg_1d": -2.43,
   "currency": "IDR",
   "market": "idx",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "INKP.JK": {
   "name": "Indah Kiat",
   "price": 6425.0,
-  "chg_1d": 1.98,
+  "chg_1d": 0.0,
   "currency": "IDR",
   "market": "idx",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "INCO.JK": {
   "name": "Vale Indonesia",
-  "price": 3680.0,
-  "chg_1d": 5.75,
+  "price": 3660.0,
+  "chg_1d": -0.54,
   "currency": "IDR",
   "market": "idx",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "SMGR.JK": {
   "name": "Semen Indonesia",
-  "price": 1495.0,
-  "chg_1d": 6.03,
+  "price": 1475.0,
+  "chg_1d": -1.34,
   "currency": "IDR",
   "market": "idx",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "HRUM.JK": {
   "name": "Harum Energy",
-  "price": 685.0,
-  "chg_1d": 3.01,
+  "price": 675.0,
+  "chg_1d": -1.46,
   "currency": "IDR",
   "market": "idx",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "TLKM.JK": {
   "name": "Telkom",
-  "price": 2040.0,
-  "chg_1d": -0.49,
+  "price": 2060.0,
+  "chg_1d": 0.98,
   "currency": "IDR",
   "market": "idx",
   "sector": "电讯媒体",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "ISAT.JK": {
   "name": "Indosat",
-  "price": 1415.0,
-  "chg_1d": 0.71,
+  "price": 1390.0,
+  "chg_1d": -1.77,
   "currency": "IDR",
   "market": "idx",
   "sector": "电讯媒体",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "EXCL.JK": {
   "name": "XL Axiata",
   "price": 1520.0,
-  "chg_1d": 2.7,
-  "currency": "IDR",
-  "market": "idx",
-  "sector": "电讯媒体",
-  "date": "2026-11-10"
- },
- "ICBP.JK": {
-  "name": "Indofood CBP",
-  "price": 6300.0,
-  "chg_1d": 1.61,
-  "currency": "IDR",
-  "market": "idx",
-  "sector": "必需消费",
-  "date": "2026-11-10"
- },
- "INDF.JK": {
-  "name": "Indofood",
-  "price": 6875.0,
   "chg_1d": 0.0,
   "currency": "IDR",
   "market": "idx",
+  "sector": "电讯媒体",
+  "date": "2026-11-11"
+ },
+ "ICBP.JK": {
+  "name": "Indofood CBP",
+  "price": 6475.0,
+  "chg_1d": 2.78,
+  "currency": "IDR",
+  "market": "idx",
   "sector": "必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
+ },
+ "INDF.JK": {
+  "name": "Indofood",
+  "price": 6900.0,
+  "chg_1d": 0.36,
+  "currency": "IDR",
+  "market": "idx",
+  "sector": "必需消费",
+  "date": "2026-11-11"
  },
  "UNVR.JK": {
   "name": "Unilever ID",
-  "price": 1540.0,
-  "chg_1d": 0.98,
+  "price": 1535.0,
+  "chg_1d": -0.32,
   "currency": "IDR",
   "market": "idx",
   "sector": "必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "AMRT.JK": {
   "name": "Alfamart",
-  "price": 930.0,
-  "chg_1d": -1.06,
+  "price": 960.0,
+  "chg_1d": 3.23,
   "currency": "IDR",
   "market": "idx",
   "sector": "必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "SIDO.JK": {
   "name": "Sido Muncul",
-  "price": 324.0,
-  "chg_1d": 1.25,
+  "price": 326.0,
+  "chg_1d": 0.62,
   "currency": "IDR",
   "market": "idx",
   "sector": "必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "ASII.JK": {
   "name": "Astra",
-  "price": 5350.0,
-  "chg_1d": 3.88,
+  "price": 5250.0,
+  "chg_1d": -1.87,
   "currency": "IDR",
   "market": "idx",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "JSMR.JK": {
   "name": "Jasa Marga",
-  "price": 2770.0,
-  "chg_1d": -0.72,
+  "price": 2800.0,
+  "chg_1d": 1.08,
   "currency": "IDR",
   "market": "idx",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "ADRO.JK": {
   "name": "Adaro",
-  "price": 2340.0,
-  "chg_1d": 0.43,
+  "price": 2310.0,
+  "chg_1d": -1.28,
   "currency": "IDR",
   "market": "idx",
   "sector": "能源",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "PTBA.JK": {
   "name": "Bukit Asam",
-  "price": 2940.0,
-  "chg_1d": -1.01,
+  "price": 3000.0,
+  "chg_1d": 2.04,
   "currency": "IDR",
   "market": "idx",
   "sector": "能源",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "MEDC.JK": {
   "name": "Medco",
-  "price": 1140.0,
-  "chg_1d": -3.39,
+  "price": 1165.0,
+  "chg_1d": 2.19,
   "currency": "IDR",
   "market": "idx",
   "sector": "能源",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "ITMG.JK": {
   "name": "Indo Tambangraya",
-  "price": 24750.0,
-  "chg_1d": -0.3,
+  "price": 23625.0,
+  "chg_1d": -4.55,
   "currency": "IDR",
   "market": "idx",
   "sector": "能源",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "AKRA.JK": {
   "name": "AKR",
-  "price": 1275.0,
-  "chg_1d": -4.85,
+  "price": 1270.0,
+  "chg_1d": -0.39,
   "currency": "IDR",
   "market": "idx",
   "sector": "能源",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "CPIN.JK": {
   "name": "Charoen Pokphand",
-  "price": 2340.0,
-  "chg_1d": 1.3,
+  "price": 2310.0,
+  "chg_1d": -1.28,
   "currency": "IDR",
   "market": "idx",
   "sector": "种植",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "KLBF.JK": {
   "name": "Kalbe Farma",
-  "price": 750.0,
-  "chg_1d": 1.35,
+  "price": 770.0,
+  "chg_1d": 2.67,
   "currency": "IDR",
   "market": "idx",
   "sector": "医疗保健",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "PGAS.JK": {
   "name": "PGN",
-  "price": 1515.0,
-  "chg_1d": 2.02,
+  "price": 1525.0,
+  "chg_1d": 0.66,
   "currency": "IDR",
   "market": "idx",
   "sector": "公用事业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "GOTO.JK": {
   "name": "GoTo",
@@ -1680,25 +1680,25 @@
   "currency": "IDR",
   "market": "idx",
   "sector": "科技",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "MAPI.JK": {
   "name": "Mitra Adiperkasa",
-  "price": 1245.0,
-  "chg_1d": -0.4,
+  "price": 1225.0,
+  "chg_1d": -1.61,
   "currency": "IDR",
   "market": "idx",
   "sector": "非必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "TOWR.JK": {
   "name": "Sarana Menara",
-  "price": 362.0,
-  "chg_1d": 0.0,
+  "price": 366.0,
+  "chg_1d": 1.1,
   "currency": "IDR",
   "market": "idx",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "8621.KL": {
   "name": "Lpi",
@@ -3079,318 +3079,318 @@
  },
  "CASA.JK": {
   "name": "Capital Financial Indonesia",
-  "price": 1880.0,
-  "chg_1d": 0.27,
+  "price": 1875.0,
+  "chg_1d": -0.27,
   "currency": "IDR",
   "market": "idx",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "MEGA.JK": {
   "name": "Bank Mega",
-  "price": 1945.0,
-  "chg_1d": -0.26,
-  "currency": "IDR",
-  "market": "idx",
-  "sector": "金融",
-  "date": "2026-11-10"
- },
- "BSWD.JK": {
-  "name": "Bank Of India Indonesia",
-  "price": 6775.0,
-  "chg_1d": -6.87,
-  "currency": "IDR",
-  "market": "idx",
-  "sector": "金融",
-  "date": "2026-11-10"
- },
- "NISP.JK": {
-  "name": "Bank OCBC NISP",
-  "price": 1140.0,
-  "chg_1d": -1.72,
-  "currency": "IDR",
-  "market": "idx",
-  "sector": "金融",
-  "date": "2026-11-10"
- },
- "BTPN.JK": {
-  "name": "Bank SMBC Indonesia",
-  "price": 2420.0,
-  "chg_1d": -1.63,
-  "currency": "IDR",
-  "market": "idx",
-  "sector": "金融",
-  "date": "2026-11-10"
- },
- "SRTG.JK": {
-  "name": "Saratoga Investama Sedaya",
-  "price": 1725.0,
-  "chg_1d": -0.58,
-  "currency": "IDR",
-  "market": "idx",
-  "sector": "金融",
-  "date": "2026-11-10"
- },
- "BINA.JK": {
-  "name": "Bank Ina Perdana",
-  "price": 3620.0,
-  "chg_1d": 0.28,
-  "currency": "IDR",
-  "market": "idx",
-  "sector": "金融",
-  "date": "2026-11-10"
- },
- "LIFE.JK": {
-  "name": "MSIG Life Insurance Indonesia T",
-  "price": 9600.0,
+  "price": 1950.0,
   "chg_1d": 0.26,
   "currency": "IDR",
   "market": "idx",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
- "PNBN.JK": {
-  "name": "Bank Pan Indonesia",
-  "price": 720.0,
-  "chg_1d": -0.69,
+ "BSWD.JK": {
+  "name": "Bank Of India Indonesia",
+  "price": 6325.0,
+  "chg_1d": -6.64,
   "currency": "IDR",
   "market": "idx",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
- "BBTN.JK": {
-  "name": "Bank Tabungan Negara",
-  "price": 975.0,
-  "chg_1d": 3.17,
+ "NISP.JK": {
+  "name": "Bank OCBC NISP",
+  "price": 1135.0,
+  "chg_1d": -0.44,
   "currency": "IDR",
   "market": "idx",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
- "SMMA.JK": {
-  "name": "Sinarmas Multiartha",
-  "price": 21425.0,
-  "chg_1d": 0.12,
+ "BTPN.JK": {
+  "name": "Bank SMBC Indonesia",
+  "price": 2450.0,
+  "chg_1d": 1.24,
   "currency": "IDR",
   "market": "idx",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
- "BDMN.JK": {
-  "name": "Bank Danamon Indonesia",
-  "price": 4700.0,
-  "chg_1d": -0.63,
+ "SRTG.JK": {
+  "name": "Saratoga Investama Sedaya",
+  "price": 1695.0,
+  "chg_1d": -1.74,
   "currency": "IDR",
   "market": "idx",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
- "BNGA.JK": {
-  "name": "CIMB Niaga",
-  "price": 1510.0,
+ "BINA.JK": {
+  "name": "Bank Ina Perdana",
+  "price": 3700.0,
+  "chg_1d": 2.21,
+  "currency": "IDR",
+  "market": "idx",
+  "sector": "金融",
+  "date": "2026-11-11"
+ },
+ "LIFE.JK": {
+  "name": "MSIG Life Insurance Indonesia T",
+  "price": 9600.0,
   "chg_1d": 0.0,
   "currency": "IDR",
   "market": "idx",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
- "BNLI.JK": {
-  "name": "Bank Permata",
-  "price": 1305.0,
-  "chg_1d": -5.09,
+ "PNBN.JK": {
+  "name": "Bank Pan Indonesia",
+  "price": 710.0,
+  "chg_1d": -1.39,
   "currency": "IDR",
   "market": "idx",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
+ },
+ "BBTN.JK": {
+  "name": "Bank Tabungan Negara",
+  "price": 955.0,
+  "chg_1d": -2.05,
+  "currency": "IDR",
+  "market": "idx",
+  "sector": "金融",
+  "date": "2026-11-11"
+ },
+ "SMMA.JK": {
+  "name": "Sinarmas Multiartha",
+  "price": 21400.0,
+  "chg_1d": -0.12,
+  "currency": "IDR",
+  "market": "idx",
+  "sector": "金融",
+  "date": "2026-11-11"
+ },
+ "BDMN.JK": {
+  "name": "Bank Danamon Indonesia",
+  "price": 4620.0,
+  "chg_1d": -1.7,
+  "currency": "IDR",
+  "market": "idx",
+  "sector": "金融",
+  "date": "2026-11-11"
+ },
+ "BNGA.JK": {
+  "name": "CIMB Niaga",
+  "price": 1500.0,
+  "chg_1d": -0.66,
+  "currency": "IDR",
+  "market": "idx",
+  "sector": "金融",
+  "date": "2026-11-11"
+ },
+ "BNLI.JK": {
+  "name": "Bank Permata",
+  "price": 1295.0,
+  "chg_1d": -0.77,
+  "currency": "IDR",
+  "market": "idx",
+  "sector": "金融",
+  "date": "2026-11-11"
  },
  "AMMN.JK": {
   "name": "Amman Mineral Internasional",
-  "price": 3730.0,
-  "chg_1d": 3.9,
+  "price": 3640.0,
+  "chg_1d": -2.41,
   "currency": "IDR",
   "market": "idx",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "EMAS.JK": {
   "name": "Merdeka Gold Resources",
-  "price": 5450.0,
-  "chg_1d": 5.83,
+  "price": 5200.0,
+  "chg_1d": -4.59,
   "currency": "IDR",
   "market": "idx",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "ADMR.JK": {
   "name": "Alamtri Minerals Indonesia",
-  "price": 1305.0,
-  "chg_1d": -1.14,
+  "price": 1285.0,
+  "chg_1d": -1.53,
   "currency": "IDR",
   "market": "idx",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "NCKL.JK": {
   "name": "Trimegah Bangun (Harita Nickel)",
-  "price": 750.0,
-  "chg_1d": 2.74,
+  "price": 735.0,
+  "chg_1d": -2.0,
   "currency": "IDR",
   "market": "idx",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "MBMA.JK": {
   "name": "Merdeka Battery",
-  "price": 314.0,
-  "chg_1d": 3.97,
+  "price": 298.0,
+  "chg_1d": -5.1,
   "currency": "IDR",
   "market": "idx",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "TINS.JK": {
   "name": "TIMAH (Persero)",
-  "price": 3530.0,
-  "chg_1d": 6.01,
+  "price": 3600.0,
+  "chg_1d": 1.98,
   "currency": "IDR",
   "market": "idx",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "ARCI.JK": {
   "name": "Archi Indonesia",
-  "price": 1025.0,
-  "chg_1d": 6.77,
+  "price": 995.0,
+  "chg_1d": -2.93,
   "currency": "IDR",
   "market": "idx",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "PTRO.JK": {
   "name": "Petrosea",
-  "price": 2410.0,
-  "chg_1d": 15.31,
+  "price": 2250.0,
+  "chg_1d": -6.64,
   "currency": "IDR",
   "market": "idx",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "TKIM.JK": {
   "name": "Pabrik Kertas Tjiwi Kimia",
-  "price": 6150.0,
-  "chg_1d": 0.41,
+  "price": 6200.0,
+  "chg_1d": 0.81,
   "currency": "IDR",
   "market": "idx",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "INTP.JK": {
   "name": "Indocement Tunggal Prakarsa",
-  "price": 5650.0,
-  "chg_1d": -3.42,
+  "price": 5600.0,
+  "chg_1d": -0.88,
   "currency": "IDR",
   "market": "idx",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "AVIA.JK": {
   "name": "Avia Avian",
-  "price": 298.0,
-  "chg_1d": -1.97,
+  "price": 292.0,
+  "chg_1d": -2.01,
   "currency": "IDR",
   "market": "idx",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "BRMS.JK": {
   "name": "Bumi Resources Minerals",
-  "price": 306.0,
-  "chg_1d": -1.29,
+  "price": 298.0,
+  "chg_1d": -2.61,
   "currency": "IDR",
   "market": "idx",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "BYAN.JK": {
   "name": "Bayan Resources",
-  "price": 8950.0,
-  "chg_1d": 3.17,
+  "price": 8725.0,
+  "chg_1d": -2.51,
   "currency": "IDR",
   "market": "idx",
   "sector": "能源",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "DSSA.JK": {
   "name": "Dian Swastatika Sentosa",
-  "price": 700.0,
-  "chg_1d": -0.71,
+  "price": 745.0,
+  "chg_1d": 6.43,
   "currency": "IDR",
   "market": "idx",
   "sector": "能源",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "AADI.JK": {
   "name": "Adaro Andalan",
   "price": 10125.0,
-  "chg_1d": -1.22,
-  "currency": "IDR",
-  "market": "idx",
-  "sector": "能源",
-  "date": "2026-11-10"
- },
- "BUMI.JK": {
-  "name": "Bumi Resources",
-  "price": 120.0,
-  "chg_1d": 3.45,
-  "currency": "IDR",
-  "market": "idx",
-  "sector": "能源",
-  "date": "2026-11-10"
- },
- "CUAN.JK": {
-  "name": "Petrindo Jaya Kreasi",
-  "price": 380.0,
-  "chg_1d": 7.34,
-  "currency": "IDR",
-  "market": "idx",
-  "sector": "能源",
-  "date": "2026-11-10"
- },
- "GEMS.JK": {
-  "name": "Golden Energy Mines",
-  "price": 6800.0,
-  "chg_1d": 0.74,
-  "currency": "IDR",
-  "market": "idx",
-  "sector": "能源",
-  "date": "2026-11-10"
- },
- "ENRG.JK": {
-  "name": "Energi Mega Persada",
-  "price": 560.0,
   "chg_1d": 0.0,
   "currency": "IDR",
   "market": "idx",
   "sector": "能源",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
- "INDY.JK": {
-  "name": "Indika Energy",
-  "price": 1860.0,
-  "chg_1d": 3.91,
+ "BUMI.JK": {
+  "name": "Bumi Resources",
+  "price": 120.0,
+  "chg_1d": 0.0,
   "currency": "IDR",
   "market": "idx",
   "sector": "能源",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
+ },
+ "CUAN.JK": {
+  "name": "Petrindo Jaya Kreasi",
+  "price": 364.0,
+  "chg_1d": -4.21,
+  "currency": "IDR",
+  "market": "idx",
+  "sector": "能源",
+  "date": "2026-11-11"
+ },
+ "GEMS.JK": {
+  "name": "Golden Energy Mines",
+  "price": 6750.0,
+  "chg_1d": -0.74,
+  "currency": "IDR",
+  "market": "idx",
+  "sector": "能源",
+  "date": "2026-11-11"
+ },
+ "ENRG.JK": {
+  "name": "Energi Mega Persada",
+  "price": 615.0,
+  "chg_1d": 9.82,
+  "currency": "IDR",
+  "market": "idx",
+  "sector": "能源",
+  "date": "2026-11-11"
+ },
+ "INDY.JK": {
+  "name": "Indika Energy",
+  "price": 1800.0,
+  "chg_1d": -3.23,
+  "currency": "IDR",
+  "market": "idx",
+  "sector": "能源",
+  "date": "2026-11-11"
  },
  "DCII.JK": {
   "name": "DCI Indonesia",
-  "price": 146750.0,
-  "chg_1d": 0.17,
+  "price": 146500.0,
+  "chg_1d": -0.17,
   "currency": "IDR",
   "market": "idx",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "MPRO.JK": {
   "name": "Maha Properti Indonesia",
@@ -3399,214 +3399,214 @@
   "currency": "IDR",
   "market": "idx",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "PANI.JK": {
   "name": "Pantai Indah Kapuk Dua",
-  "price": 3750.0,
-  "chg_1d": 1.08,
+  "price": 3710.0,
+  "chg_1d": -1.07,
   "currency": "IDR",
   "market": "idx",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "MKPI.JK": {
   "name": "Metropolitan Kentjana",
-  "price": 19000.0,
-  "chg_1d": 0.0,
+  "price": 17950.0,
+  "chg_1d": -5.53,
   "currency": "IDR",
   "market": "idx",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "CBDK.JK": {
   "name": "Bangun Kosambi Sukses",
-  "price": 2760.0,
-  "chg_1d": 2.22,
+  "price": 2750.0,
+  "chg_1d": -0.36,
   "currency": "IDR",
   "market": "idx",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "JRPT.JK": {
   "name": "Jaya Real Property",
-  "price": 1180.0,
-  "chg_1d": 0.85,
+  "price": 1175.0,
+  "chg_1d": -0.42,
   "currency": "IDR",
   "market": "idx",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "DNET.JK": {
   "name": "Indoritel Makmur Internasional",
-  "price": 9800.0,
-  "chg_1d": 2.08,
+  "price": 9900.0,
+  "chg_1d": 1.02,
   "currency": "IDR",
   "market": "idx",
   "sector": "电讯媒体",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "MORA.JK": {
   "name": "Ekamas Mora Republik",
-  "price": 1385.0,
-  "chg_1d": -6.73,
+  "price": 1290.0,
+  "chg_1d": -6.86,
   "currency": "IDR",
   "market": "idx",
   "sector": "电讯媒体",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "MTEL.JK": {
   "name": "Dayamitra Telekomunikasi",
-  "price": 330.0,
-  "chg_1d": -2.94,
+  "price": 326.0,
+  "chg_1d": -1.21,
   "currency": "IDR",
   "market": "idx",
   "sector": "电讯媒体",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "TBIG.JK": {
   "name": "Tower Bersama Infrastructure Tb",
-  "price": 1000.0,
-  "chg_1d": -2.44,
+  "price": 1095.0,
+  "chg_1d": 9.5,
   "currency": "IDR",
   "market": "idx",
   "sector": "电讯媒体",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "EMTK.JK": {
   "name": "Elang Mahkota",
-  "price": 294.0,
-  "chg_1d": 0.0,
+  "price": 288.0,
+  "chg_1d": -2.04,
   "currency": "IDR",
   "market": "idx",
   "sector": "电讯媒体",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "HMSP.JK": {
   "name": "H.M. Sampoerna",
   "price": 645.0,
-  "chg_1d": -2.27,
+  "chg_1d": 0.0,
   "currency": "IDR",
   "market": "idx",
   "sector": "必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "CMRY.JK": {
   "name": "Cisarua Mountain Dairy",
-  "price": 4170.0,
-  "chg_1d": 0.72,
+  "price": 4190.0,
+  "chg_1d": 0.48,
   "currency": "IDR",
   "market": "idx",
   "sector": "必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "MYOR.JK": {
   "name": "Mayora Indah",
-  "price": 1385.0,
-  "chg_1d": 2.97,
+  "price": 1440.0,
+  "chg_1d": 3.97,
   "currency": "IDR",
   "market": "idx",
   "sector": "必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "GGRM.JK": {
   "name": "Gudang Garam",
-  "price": 15250.0,
-  "chg_1d": -0.65,
+  "price": 15125.0,
+  "chg_1d": -0.82,
   "currency": "IDR",
   "market": "idx",
   "sector": "必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "ULTJ.JK": {
   "name": "Ultrajaya Milk Industry & Tradi",
   "price": 2070.0,
-  "chg_1d": 0.98,
+  "chg_1d": 0.0,
   "currency": "IDR",
   "market": "idx",
   "sector": "必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "ADES.JK": {
   "name": "Akasha Wira International",
-  "price": 28900.0,
-  "chg_1d": -0.26,
+  "price": 28500.0,
+  "chg_1d": -1.38,
   "currency": "IDR",
   "market": "idx",
   "sector": "必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "BREN.JK": {
   "name": "Barito Renewables",
-  "price": 2060.0,
-  "chg_1d": -3.29,
+  "price": 2080.0,
+  "chg_1d": 0.97,
   "currency": "IDR",
   "market": "idx",
   "sector": "公用事业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "CDIA.JK": {
   "name": "Chandra Daya Investasi",
-  "price": 340.0,
-  "chg_1d": 3.66,
+  "price": 348.0,
+  "chg_1d": 2.35,
   "currency": "IDR",
   "market": "idx",
   "sector": "公用事业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "PGEO.JK": {
   "name": "Pertamina Geothermal",
-  "price": 960.0,
-  "chg_1d": 2.13,
+  "price": 945.0,
+  "chg_1d": -1.56,
   "currency": "IDR",
   "market": "idx",
   "sector": "公用事业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "POWR.JK": {
   "name": "Cikarang Listrindo",
-  "price": 965.0,
-  "chg_1d": 1.05,
+  "price": 940.0,
+  "chg_1d": -2.59,
   "currency": "IDR",
   "market": "idx",
   "sector": "公用事业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "IMPC.JK": {
   "name": "Impack Pratama Industri",
-  "price": 780.0,
-  "chg_1d": 5.41,
+  "price": 755.0,
+  "chg_1d": -3.21,
   "currency": "IDR",
   "market": "idx",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "PGUN.JK": {
   "name": "Pradiksi Gunatama",
   "price": 8325.0,
-  "chg_1d": 0.3,
+  "chg_1d": 0.0,
   "currency": "IDR",
   "market": "idx",
   "sector": "种植",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "TAPG.JK": {
   "name": "Triputra Agro Persada",
-  "price": 1900.0,
-  "chg_1d": -0.26,
+  "price": 1860.0,
+  "chg_1d": -2.11,
   "currency": "IDR",
   "market": "idx",
   "sector": "种植",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "FAPA.JK": {
   "name": "FAP Agri",
   "price": 7125.0,
-  "chg_1d": 0.35,
+  "chg_1d": 0.0,
   "currency": "IDR",
   "market": "idx",
   "sector": "种植",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "JARR.JK": {
   "name": "Jhonlin Agro Raya",
@@ -3615,124 +3615,124 @@
   "currency": "IDR",
   "market": "idx",
   "sector": "种植",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "SMAR.JK": {
   "name": "Sinar Mas Agro Resources and Te",
-  "price": 7200.0,
-  "chg_1d": 0.0,
+  "price": 7150.0,
+  "chg_1d": -0.69,
   "currency": "IDR",
   "market": "idx",
   "sector": "种植",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "AALI.JK": {
   "name": "Astra Agro Lestari",
-  "price": 9400.0,
-  "chg_1d": 0.27,
+  "price": 9475.0,
+  "chg_1d": 0.8,
   "currency": "IDR",
   "market": "idx",
   "sector": "种植",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "JPFA.JK": {
   "name": "Japfa Comfeed Indonesia",
-  "price": 1490.0,
-  "chg_1d": -0.67,
+  "price": 1470.0,
+  "chg_1d": -1.34,
   "currency": "IDR",
   "market": "idx",
   "sector": "种植",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "SRAJ.JK": {
   "name": "Sejahteraraya Anugrahjaya",
-  "price": 10350.0,
-  "chg_1d": 0.0,
+  "price": 10575.0,
+  "chg_1d": 2.17,
   "currency": "IDR",
   "market": "idx",
   "sector": "医疗保健",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "SILO.JK": {
   "name": "Siloam International Hospitals",
-  "price": 1740.0,
-  "chg_1d": -5.18,
+  "price": 1650.0,
+  "chg_1d": -5.17,
   "currency": "IDR",
   "market": "idx",
   "sector": "医疗保健",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "MIKA.JK": {
   "name": "Mitra Keluarga Karyasehat",
-  "price": 1285.0,
-  "chg_1d": -1.91,
+  "price": 1255.0,
+  "chg_1d": -2.33,
   "currency": "IDR",
   "market": "idx",
   "sector": "医疗保健",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "BELI.JK": {
   "name": "Global Digital Niaga",
-  "price": 232.0,
-  "chg_1d": 0.0,
+  "price": 230.0,
+  "chg_1d": -0.86,
   "currency": "IDR",
   "market": "idx",
   "sector": "非必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "MDIY.JK": {
   "name": "Daya Intiguna Yasa",
-  "price": 765.0,
-  "chg_1d": 0.66,
+  "price": 760.0,
+  "chg_1d": -0.65,
   "currency": "IDR",
   "market": "idx",
   "sector": "非必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "MAPA.JK": {
   "name": "Map Aktif Adiperkasa",
-  "price": 600.0,
-  "chg_1d": 0.84,
+  "price": 605.0,
+  "chg_1d": 0.83,
   "currency": "IDR",
   "market": "idx",
   "sector": "非必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "MGLV.JK": {
   "name": "NexAI Digital Infrastruktur",
-  "price": 8175.0,
-  "chg_1d": -0.91,
+  "price": 8650.0,
+  "chg_1d": 5.81,
   "currency": "IDR",
   "market": "idx",
   "sector": "非必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "AUTO.JK": {
   "name": "Astra Otoparts",
-  "price": 3340.0,
-  "chg_1d": 1.52,
+  "price": 3220.0,
+  "chg_1d": -3.59,
   "currency": "IDR",
   "market": "idx",
   "sector": "非必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "BUKA.JK": {
   "name": "Bukalapak",
   "price": 103.0,
-  "chg_1d": -1.9,
+  "chg_1d": 0.0,
   "currency": "IDR",
   "market": "idx",
   "sector": "非必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "MLPT.JK": {
   "name": "Multipolar Technology",
-  "price": 386.0,
-  "chg_1d": -1.03,
+  "price": 380.0,
+  "chg_1d": -1.55,
   "currency": "IDR",
   "market": "idx",
   "sector": "科技",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "SKHY": {
   "name": "SK hynix",

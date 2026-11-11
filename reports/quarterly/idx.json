@@ -2,9 +2,9 @@
  "market": "idx",
  "market_name": "🇮🇩 印尼股市 IDX",
  "currency": "IDR",
- "date": "2026-11-10",
- "generated_at": "2026-11-10 16:31 WIB",
- "tracked": 71,
+ "date": "2026-11-11",
+ "generated_at": "2026-11-11 16:31 WIB",
+ "tracked": 107,
  "universe_size": 109,
  "new_today": [],
  "recent": [
@@ -3621,6 +3621,1814 @@
    ],
    "ticker": "ULTJ.JK",
    "name": "Ultrajaya Milk Industry & Tradi",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "AALI.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 8455274000000.0,
+   "net": 806111000000.0,
+   "eps": null,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": 9.0,
+   "net_qoq": 11.1,
+   "net_margin": 9.5,
+   "net_margin_yoy": null,
+   "gross_margin": 21.8,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     7422828000000.0,
+     6535932000000.0,
+     7501811000000.0,
+     7757236000000.0,
+     8455274000000.0
+    ],
+    "net": [
+     425089000000.0,
+     401599000000.0,
+     373407000000.0,
+     725482000000.0,
+     806111000000.0
+    ]
+   },
+   "score": 2,
+   "verdict": "稳健",
+   "icon": "👍",
+   "reasons": [
+    "营收按季 +9.0%",
+    "净利按季 +11.1%"
+   ],
+   "ticker": "AALI.JK",
+   "name": "Astra Agro Lestari",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "ADES.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 1214384000000.0,
+   "net": 281190000000.0,
+   "eps": null,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": 11.9,
+   "net_qoq": 2.4,
+   "net_margin": 23.2,
+   "net_margin_yoy": null,
+   "gross_margin": 46.4,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     617408000000.0,
+     878594000000.0,
+     942040000000.0,
+     1085124000000.0,
+     1214384000000.0
+    ],
+    "net": [
+     170269000000.0,
+     253116000000.0,
+     255528000000.0,
+     274698000000.0,
+     281190000000.0
+    ]
+   },
+   "score": 1,
+   "verdict": "一般",
+   "icon": "😐",
+   "reasons": [
+    "营收按季 +11.9%",
+    "净利按季 +2.4%"
+   ],
+   "ticker": "ADES.JK",
+   "name": "Akasha Wira International",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "AKRA.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 15688527483000.0,
+   "net": 780403087000.0,
+   "eps": null,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": -12.4,
+   "net_qoq": 0.8,
+   "net_margin": 5.0,
+   "net_margin_yoy": null,
+   "gross_margin": 8.5,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     11162027852000.0,
+     13622758522000.0,
+     12940865115000.0,
+     17901983501000.0,
+     15688527483000.0
+    ],
+    "net": [
+     614868909000.0,
+     822475911000.0,
+     656492588000.0,
+     774307781000.0,
+     780403087000.0
+    ]
+   },
+   "score": -1,
+   "verdict": "偏弱",
+   "icon": "👎",
+   "reasons": [
+    "营收按季 -12.4%",
+    "净利按季 +0.8%"
+   ],
+   "ticker": "AKRA.JK",
+   "name": "AKR",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "ARCI.JK": {
+   "period": "2026-06-30",
+   "prev_period": "2026-03-31",
+   "yoy_period": "2025-06-30",
+   "revenue": 185380713.0,
+   "net": 50458123.0,
+   "eps": null,
+   "rev_yoy": 82.2,
+   "net_yoy": 105.2,
+   "rev_qoq": 35.4,
+   "net_qoq": 69.4,
+   "net_margin": 27.2,
+   "net_margin_yoy": 24.2,
+   "gross_margin": 47.1,
+   "trend": {
+    "periods": [
+     "2025-03-31",
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30"
+    ],
+    "revenue": [
+     90777245.0,
+     101773471.0,
+     167529362.0,
+     136907652.0,
+     185380713.0
+    ],
+    "net": [
+     10284956.0,
+     24586979.0,
+     31343324.0,
+     29793303.0,
+     50458123.0
+    ]
+   },
+   "score": 5,
+   "verdict": "亮眼",
+   "icon": "🌟",
+   "reasons": [
+    "营收按年 +82.2%",
+    "净利按年 +105.2%",
+    "净利率升到 27.2%（去年 24.2%）"
+   ],
+   "ticker": "ARCI.JK",
+   "name": "Archi Indonesia",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "ARTO.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 821741000000.0,
+   "net": 109008000000.0,
+   "eps": null,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": 5.9,
+   "net_qoq": 5.5,
+   "net_margin": 13.3,
+   "net_margin_yoy": null,
+   "gross_margin": null,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     604464000000.0,
+     716624000000.0,
+     749210000000.0,
+     775693000000.0,
+     821741000000.0
+    ],
+    "net": [
+     66797000000.0,
+     77101000000.0,
+     85776000000.0,
+     103294000000.0,
+     109008000000.0
+    ]
+   },
+   "score": 1,
+   "verdict": "一般",
+   "icon": "😐",
+   "reasons": [
+    "营收按季 +5.9%",
+    "净利按季 +5.5%"
+   ],
+   "ticker": "ARTO.JK",
+   "name": "Bank Jago",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "BBRI.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 47177551000000.0,
+   "net": 16823595000000.0,
+   "eps": null,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": -3.2,
+   "net_qoq": 9.4,
+   "net_margin": 35.7,
+   "net_margin_yoy": null,
+   "gross_margin": null,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     44774521000000.0,
+     50553249000000.0,
+     49615870000000.0,
+     48719054000000.0,
+     47177551000000.0
+    ],
+    "net": [
+     12603456000000.0,
+     15873574000000.0,
+     15492710000000.0,
+     15372692000000.0,
+     16823595000000.0
+    ]
+   },
+   "score": 0,
+   "verdict": "一般",
+   "icon": "😐",
+   "reasons": [
+    "营收按季 -3.2%",
+    "净利按季 +9.4%"
+   ],
+   "ticker": "BBRI.JK",
+   "name": "Bank Rakyat",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "BMRI.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": "2025-09-30",
+   "revenue": 33033147000000.0,
+   "net": 15121682000000.0,
+   "eps": null,
+   "rev_yoy": -5.9,
+   "net_yoy": null,
+   "rev_qoq": 9.0,
+   "net_qoq": 0.6,
+   "net_margin": 45.8,
+   "net_margin_yoy": null,
+   "gross_margin": null,
+   "trend": {
+    "periods": [
+     "2025-09-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     35112999000000.0,
+     38615968000000.0,
+     34297413000000.0,
+     30292818000000.0,
+     33033147000000.0
+    ],
+    "net": [
+     null,
+     18563808000000.0,
+     15384131000000.0,
+     15028188000000.0,
+     15121682000000.0
+    ]
+   },
+   "score": -1,
+   "verdict": "偏弱",
+   "icon": "👎",
+   "reasons": [
+    "营收按年 -5.9%",
+    "净利按季 +0.6%"
+   ],
+   "ticker": "BMRI.JK",
+   "name": "Bank Mandiri",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "BTPN.JK": {
+   "period": "2026-06-30",
+   "prev_period": "2026-03-31",
+   "yoy_period": "2025-06-30",
+   "revenue": 4008772000000.0,
+   "net": 947731000000.0,
+   "eps": null,
+   "rev_yoy": -10.7,
+   "net_yoy": 93.2,
+   "rev_qoq": -10.0,
+   "net_qoq": 108.0,
+   "net_margin": 23.6,
+   "net_margin_yoy": 10.9,
+   "gross_margin": null,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-09-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30"
+    ],
+    "revenue": [
+     4487282000000.0,
+     4530799000000.0,
+     4646085000000.0,
+     4455393000000.0,
+     4008772000000.0
+    ],
+    "net": [
+     490515000000.0,
+     473499000000.0,
+     -968039000000.0,
+     455690000000.0,
+     947731000000.0
+    ]
+   },
+   "score": 1,
+   "verdict": "一般",
+   "icon": "😐",
+   "reasons": [
+    "营收按年 -10.7%",
+    "净利按年 +93.2%",
+    "净利率升到 23.6%（去年 10.9%）"
+   ],
+   "ticker": "BTPN.JK",
+   "name": "Bank SMBC Indonesia",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "BUKA.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 1649073109000.0,
+   "net": -65149670000.0,
+   "eps": null,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": 1.7,
+   "net_qoq": null,
+   "net_margin": -4.0,
+   "net_margin_yoy": null,
+   "gross_margin": 9.6,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     1630615129000.0,
+     1783411024000.0,
+     2369832294000.0,
+     1621929136000.0,
+     1649073109000.0
+    ],
+    "net": [
+     353791457000.0,
+     234286598000.0,
+     -425780438000.0,
+     -394959824000.0,
+     -65149670000.0
+    ]
+   },
+   "score": -2,
+   "verdict": "亏损",
+   "icon": "🔻",
+   "reasons": [
+    "营收按季 +1.7%",
+    "这一季亏损"
+   ],
+   "ticker": "BUKA.JK",
+   "name": "Bukalapak",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "CASA.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 761831000000.0,
+   "net": -5301000000.0,
+   "eps": null,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": 32.8,
+   "net_qoq": -125.1,
+   "net_margin": -0.7,
+   "net_margin_yoy": null,
+   "gross_margin": null,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     1440327000000.0,
+     1435908000000.0,
+     1229490000000.0,
+     573739000000.0,
+     761831000000.0
+    ],
+    "net": [
+     -1163000000.0,
+     98309000000.0,
+     9757000000.0,
+     21157000000.0,
+     -5301000000.0
+    ]
+   },
+   "score": -1,
+   "verdict": "亏损",
+   "icon": "🔻",
+   "reasons": [
+    "营收按季 +32.8%",
+    "这一季亏损"
+   ],
+   "ticker": "CASA.JK",
+   "name": "Capital Financial Indonesia",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "CBDK.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 355848321000.0,
+   "net": 141110611000.0,
+   "eps": null,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": -75.6,
+   "net_qoq": -87.6,
+   "net_margin": 39.7,
+   "net_margin_yoy": null,
+   "gross_margin": 53.1,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     769126979000.0,
+     205498122000.0,
+     742591511000.0,
+     1459236083000.0,
+     355848321000.0
+    ],
+    "net": [
+     387050165000.0,
+     52706998000.0,
+     541437397000.0,
+     1141362256000.0,
+     141110611000.0
+    ]
+   },
+   "score": -2,
+   "verdict": "偏弱",
+   "icon": "👎",
+   "reasons": [
+    "营收按季 -75.6%",
+    "净利按季 -87.6%"
+   ],
+   "ticker": "CBDK.JK",
+   "name": "Bangun Kosambi Sukses",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "CPIN.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 20785169000000.0,
+   "net": 1473839000000.0,
+   "eps": null,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": 6.8,
+   "net_qoq": 30.4,
+   "net_margin": 7.1,
+   "net_margin_yoy": null,
+   "gross_margin": 17.2,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     15356986000000.0,
+     20100446000000.0,
+     19952120000000.0,
+     19466374000000.0,
+     20785169000000.0
+    ],
+    "net": [
+     363359000000.0,
+     2278820000000.0,
+     2577936000000.0,
+     1130394000000.0,
+     1473839000000.0
+    ]
+   },
+   "score": 2,
+   "verdict": "稳健",
+   "icon": "👍",
+   "reasons": [
+    "营收按季 +6.8%",
+    "净利按季 +30.4%"
+   ],
+   "ticker": "CPIN.JK",
+   "name": "Charoen Pokphand",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "EXCL.JK": {
+   "period": "2026-06-30",
+   "prev_period": "2026-03-31",
+   "yoy_period": "2025-06-30",
+   "revenue": 12173264000000.0,
+   "net": -277220000000.0,
+   "eps": null,
+   "rev_yoy": 16.0,
+   "net_yoy": null,
+   "rev_qoq": 3.0,
+   "net_qoq": null,
+   "net_margin": -2.3,
+   "net_margin_yoy": -15.3,
+   "gross_margin": 59.7,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-09-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30"
+    ],
+    "revenue": [
+     10493717000000.0,
+     11452569000000.0,
+     11898497000000.0,
+     11819341000000.0,
+     12173264000000.0
+    ],
+    "net": [
+     -1608086000000.0,
+     -1379561000000.0,
+     -1823536000000.0,
+     -716930000000.0,
+     -277220000000.0
+    ]
+   },
+   "score": 2,
+   "verdict": "亏损收窄",
+   "icon": "🩹",
+   "reasons": [
+    "营收按年 +16.0%",
+    "仍然亏损，但亏损比去年同期收窄",
+    "净利率升到 -2.3%（去年 -15.3%）"
+   ],
+   "ticker": "EXCL.JK",
+   "name": "XL Axiata",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "GEMS.JK": {
+   "period": "2026-06-30",
+   "prev_period": "2026-03-31",
+   "yoy_period": "2025-06-30",
+   "revenue": 912686597.0,
+   "net": 140208617.0,
+   "eps": null,
+   "rev_yoy": 84.0,
+   "net_yoy": 262.9,
+   "rev_qoq": 56.7,
+   "net_qoq": 75.8,
+   "net_margin": 15.4,
+   "net_margin_yoy": 7.8,
+   "gross_margin": 34.7,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-09-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30"
+    ],
+    "revenue": [
+     496077917.0,
+     593395101.0,
+     676241351.0,
+     582596487.0,
+     912686597.0
+    ],
+    "net": [
+     38631179.0,
+     47645953.0,
+     58915995.0,
+     79754928.0,
+     140208617.0
+    ]
+   },
+   "score": 5,
+   "verdict": "亮眼",
+   "icon": "🌟",
+   "reasons": [
+    "营收按年 +84.0%",
+    "净利按年 +262.9%",
+    "净利率升到 15.4%（去年 7.8%）"
+   ],
+   "ticker": "GEMS.JK",
+   "name": "Golden Energy Mines",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "GOTO.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 5554893000000.0,
+   "net": 557037000000.0,
+   "eps": null,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": -1.7,
+   "net_qoq": 59.4,
+   "net_margin": 10.0,
+   "net_margin_yoy": null,
+   "gross_margin": 62.3,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     4328335000000.0,
+     5026636000000.0,
+     5341314000000.0,
+     5652799000000.0,
+     5554893000000.0
+    ],
+    "net": [
+     -296685000000.0,
+     -410104000000.0,
+     257943000000.0,
+     349548000000.0,
+     557037000000.0
+    ]
+   },
+   "score": 1,
+   "verdict": "一般",
+   "icon": "😐",
+   "reasons": [
+    "营收按季 -1.7%",
+    "净利按季 +59.4%"
+   ],
+   "ticker": "GOTO.JK",
+   "name": "GoTo",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "IMPC.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 1257725052691.0,
+   "net": 193726077236.0,
+   "eps": null,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": -2.5,
+   "net_qoq": -20.6,
+   "net_margin": 15.4,
+   "net_margin_yoy": null,
+   "gross_margin": -52.2,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     963344082175.0,
+     1247653239756.0,
+     1175611319712.0,
+     1289965716265.0,
+     1257725052691.0
+    ],
+    "net": [
+     143181577826.0,
+     154282231446.0,
+     202606320902.0,
+     243898051256.0,
+     193726077236.0
+    ]
+   },
+   "score": -1,
+   "verdict": "偏弱",
+   "icon": "👎",
+   "reasons": [
+    "营收按季 -2.5%",
+    "净利按季 -20.6%"
+   ],
+   "ticker": "IMPC.JK",
+   "name": "Impack Pratama Industri",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "INCO.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 353001000.0,
+   "net": 42747000.0,
+   "eps": null,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": 21.6,
+   "net_qoq": -29.7,
+   "net_margin": 12.1,
+   "net_margin_yoy": null,
+   "gross_margin": 19.6,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     220214000.0,
+     284806000.0,
+     252663000.0,
+     290405000.0,
+     353001000.0
+    ],
+    "net": [
+     6258000.0,
+     23616000.0,
+     43612000.0,
+     60765000.0,
+     42747000.0
+    ]
+   },
+   "score": 0,
+   "verdict": "一般",
+   "icon": "😐",
+   "reasons": [
+    "营收按季 +21.6%",
+    "净利按季 -29.7%"
+   ],
+   "ticker": "INCO.JK",
+   "name": "Vale Indonesia",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "INDY.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 695371996.0,
+   "net": 10015130.0,
+   "eps": null,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": 6.4,
+   "net_qoq": 215.8,
+   "net_margin": 1.4,
+   "net_margin_yoy": null,
+   "gross_margin": 14.2,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     467218638.0,
+     587939151.0,
+     493216734.0,
+     653726952.0,
+     695371996.0
+    ],
+    "net": [
+     -654927.0,
+     5548072.0,
+     7024044.0,
+     3171706.0,
+     10015130.0
+    ]
+   },
+   "score": 2,
+   "verdict": "稳健",
+   "icon": "👍",
+   "reasons": [
+    "营收按季 +6.4%",
+    "净利按季 +215.8%"
+   ],
+   "ticker": "INDY.JK",
+   "name": "Indika Energy",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "JRPT.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": "2025-09-30",
+   "revenue": 874591436000.0,
+   "net": 342205147000.0,
+   "eps": null,
+   "rev_yoy": 10.3,
+   "net_yoy": 7.5,
+   "rev_qoq": -6.1,
+   "net_qoq": -10.3,
+   "net_margin": 39.1,
+   "net_margin_yoy": 40.1,
+   "gross_margin": 54.1,
+   "trend": {
+    "periods": [
+     "2025-09-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     792981643000.0,
+     1010204267000.0,
+     733724631000.0,
+     931743945000.0,
+     874591436000.0
+    ],
+    "net": [
+     318196768000.0,
+     400055436000.0,
+     285343795000.0,
+     381594052000.0,
+     342205147000.0
+    ]
+   },
+   "score": 2,
+   "verdict": "稳健",
+   "icon": "👍",
+   "reasons": [
+    "营收按年 +10.3%",
+    "净利按年 +7.5%",
+    "净利率降到 39.1%（去年 40.1%）"
+   ],
+   "ticker": "JRPT.JK",
+   "name": "Jaya Real Property",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "KLBF.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 9495208000000.0,
+   "net": 817432000000.0,
+   "eps": null,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": -3.1,
+   "net_qoq": -8.2,
+   "net_margin": 8.6,
+   "net_margin_yoy": null,
+   "gross_margin": 37.8,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     8233926212788.0,
+     9336247428329.0,
+     9678361000000.0,
+     9800446000000.0,
+     9495208000000.0
+    ],
+    "net": [
+     898165583868.0,
+     1033652671230.0,
+     1028927000000.0,
+     890536000000.0,
+     817432000000.0
+    ]
+   },
+   "score": 0,
+   "verdict": "一般",
+   "icon": "😐",
+   "reasons": [
+    "营收按季 -3.1%",
+    "净利按季 -8.2%"
+   ],
+   "ticker": "KLBF.JK",
+   "name": "Kalbe Farma",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "MAPI.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 14066204000000.0,
+   "net": 505309000000.0,
+   "eps": null,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": 11.7,
+   "net_qoq": -14.0,
+   "net_margin": 3.6,
+   "net_margin_yoy": null,
+   "gross_margin": 39.1,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     10970876000000.0,
+     13924185000000.0,
+     13198732000000.0,
+     12590657000000.0,
+     14066204000000.0
+    ],
+    "net": [
+     488665000000.0,
+     856371000000.0,
+     628036000000.0,
+     587466000000.0,
+     505309000000.0
+    ]
+   },
+   "score": 0,
+   "verdict": "一般",
+   "icon": "😐",
+   "reasons": [
+    "营收按季 +11.7%",
+    "净利按季 -14.0%"
+   ],
+   "ticker": "MAPI.JK",
+   "name": "Mitra Adiperkasa",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "MBMA.JK": {
+   "period": "2026-06-30",
+   "prev_period": "2026-03-31",
+   "yoy_period": "2025-06-30",
+   "revenue": 592642746.0,
+   "net": 24483309.0,
+   "eps": null,
+   "rev_yoy": 126.6,
+   "net_yoy": 163.0,
+   "rev_qoq": 30.2,
+   "net_qoq": -18.2,
+   "net_margin": 4.1,
+   "net_margin_yoy": 3.6,
+   "gross_margin": 25.2,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-09-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30"
+    ],
+    "revenue": [
+     261592725.0,
+     307288415.0,
+     499527393.0,
+     455134050.0,
+     592642746.0
+    ],
+    "net": [
+     9309392.0,
+     19453152.0,
+     4258969.0,
+     29948485.0,
+     24483309.0
+    ]
+   },
+   "score": 4,
+   "verdict": "亮眼",
+   "icon": "🌟",
+   "reasons": [
+    "营收按年 +126.6%",
+    "净利按年 +163.0%"
+   ],
+   "ticker": "MBMA.JK",
+   "name": "Merdeka Battery",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "MDKA.JK": {
+   "period": "2026-06-30",
+   "prev_period": "2026-03-31",
+   "yoy_period": "2025-06-30",
+   "revenue": 782100642.0,
+   "net": 44102926.0,
+   "eps": null,
+   "rev_yoy": 121.9,
+   "net_yoy": null,
+   "rev_qoq": 26.1,
+   "net_qoq": -23.2,
+   "net_margin": 5.6,
+   "net_margin_yoy": -3.4,
+   "gross_margin": 27.7,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-09-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30"
+    ],
+    "revenue": [
+     352432172.0,
+     432464825.0,
+     607700916.0,
+     620279327.0,
+     782100642.0
+    ],
+    "net": [
+     -12065451.0,
+     -18957256.0,
+     -27302700.0,
+     57455882.0,
+     44102926.0
+    ]
+   },
+   "score": 5,
+   "verdict": "亮眼",
+   "icon": "🌟",
+   "reasons": [
+    "营收按年 +121.9%",
+    "去年同期亏损，这一季转亏为盈",
+    "净利率升到 5.6%（去年 -3.4%）"
+   ],
+   "ticker": "MDKA.JK",
+   "name": "Merdeka Copper",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "MIKA.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 1498503921551.0,
+   "net": 400798163873.0,
+   "eps": null,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": 6.1,
+   "net_qoq": 11.9,
+   "net_margin": 26.7,
+   "net_margin_yoy": null,
+   "gross_margin": 54.8,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     1291278362241.0,
+     1387816136735.0,
+     1356542155192.0,
+     1412421768013.0,
+     1498503921551.0
+    ],
+    "net": [
+     328760809131.0,
+     347842572246.0,
+     325801396451.0,
+     358250299830.0,
+     400798163873.0
+    ]
+   },
+   "score": 2,
+   "verdict": "稳健",
+   "icon": "👍",
+   "reasons": [
+    "营收按季 +6.1%",
+    "净利按季 +11.9%"
+   ],
+   "ticker": "MIKA.JK",
+   "name": "Mitra Keluarga Karyasehat",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "MPRO.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 482087000.0,
+   "net": -16850148000.0,
+   "eps": null,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": -76.6,
+   "net_qoq": null,
+   "net_margin": -3495.3,
+   "net_margin_yoy": null,
+   "gross_margin": 11.0,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     1579911000.0,
+     1038393000.0,
+     1097934000.0,
+     2055958000.0,
+     482087000.0
+    ],
+    "net": [
+     -9102938000.0,
+     -7085654000.0,
+     -8716541000.0,
+     -7493865000.0,
+     -16850148000.0
+    ]
+   },
+   "score": -3,
+   "verdict": "亏损",
+   "icon": "🔻",
+   "reasons": [
+    "营收按季 -76.6%",
+    "这一季亏损"
+   ],
+   "ticker": "MPRO.JK",
+   "name": "Maha Properti Indonesia",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "NCKL.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 9771021000000.0,
+   "net": 2875849000000.0,
+   "eps": null,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": -5.0,
+   "net_qoq": -7.3,
+   "net_margin": 29.4,
+   "net_margin_yoy": null,
+   "gross_margin": 25.8,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     6967379000000.0,
+     7230219000000.0,
+     6809824000000.0,
+     10287454000000.0,
+     9771021000000.0
+    ],
+    "net": [
+     2445139000000.0,
+     2504792000000.0,
+     2711702000000.0,
+     3102362000000.0,
+     2875849000000.0
+    ]
+   },
+   "score": -1,
+   "verdict": "偏弱",
+   "icon": "👎",
+   "reasons": [
+    "营收按季 -5.0%",
+    "净利按季 -7.3%"
+   ],
+   "ticker": "NCKL.JK",
+   "name": "Trimegah Bangun (Harita Nickel)",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "PANI.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 762851793000.0,
+   "net": 273049315000.0,
+   "eps": null,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": -57.9,
+   "net_qoq": -75.0,
+   "net_margin": 35.8,
+   "net_margin_yoy": null,
+   "gross_margin": 52.0,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     1033470495000.0,
+     1217125906000.0,
+     1110916848000.0,
+     1811690067000.0,
+     762851793000.0
+    ],
+    "net": [
+     236283104000.0,
+     356019873000.0,
+     578339351000.0,
+     1090475145000.0,
+     273049315000.0
+    ]
+   },
+   "score": -2,
+   "verdict": "偏弱",
+   "icon": "👎",
+   "reasons": [
+    "营收按季 -57.9%",
+    "净利按季 -75.0%"
+   ],
+   "ticker": "PANI.JK",
+   "name": "Pantai Indah Kapuk Dua",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "PGAS.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 1014491077.0,
+   "net": 90671241.0,
+   "eps": null,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": -5.6,
+   "net_qoq": -18.9,
+   "net_margin": 8.9,
+   "net_margin_yoy": null,
+   "gross_margin": 17.9,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     971229131.0,
+     1053016925.0,
+     929561551.0,
+     1075164186.0,
+     1014491077.0
+    ],
+    "net": [
+     82407788.0,
+     -22527711.0,
+     90447959.0,
+     111831559.0,
+     90671241.0
+    ]
+   },
+   "score": -2,
+   "verdict": "偏弱",
+   "icon": "👎",
+   "reasons": [
+    "营收按季 -5.6%",
+    "净利按季 -18.9%"
+   ],
+   "ticker": "PGAS.JK",
+   "name": "PGN",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "PNBN.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 2387672000000.0,
+   "net": 794401000000.0,
+   "eps": null,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": -7.2,
+   "net_qoq": 19.5,
+   "net_margin": 33.3,
+   "net_margin_yoy": null,
+   "gross_margin": null,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     2628083000000.0,
+     2693190000000.0,
+     2567523000000.0,
+     2573999000000.0,
+     2387672000000.0
+    ],
+    "net": [
+     648848000000.0,
+     630854000000.0,
+     698530000000.0,
+     664842000000.0,
+     794401000000.0
+    ]
+   },
+   "score": 0,
+   "verdict": "一般",
+   "icon": "😐",
+   "reasons": [
+    "营收按季 -7.2%",
+    "净利按季 +19.5%"
+   ],
+   "ticker": "PNBN.JK",
+   "name": "Bank Pan Indonesia",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "PTRO.JK": {
+   "period": "2026-06-30",
+   "prev_period": "2026-03-31",
+   "yoy_period": "2025-06-30",
+   "revenue": 259851000.0,
+   "net": 9402000.0,
+   "eps": null,
+   "rev_yoy": 32.0,
+   "net_yoy": 5926.9,
+   "rev_qoq": -8.5,
+   "net_qoq": 578.8,
+   "net_margin": 3.6,
+   "net_margin_yoy": 0.1,
+   "gross_margin": 4.0,
+   "trend": {
+    "periods": [
+     "2025-03-31",
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30"
+    ],
+    "revenue": [
+     154219000.0,
+     196891000.0,
+     282616000.0,
+     284132000.0,
+     259851000.0
+    ],
+    "net": [
+     920000.0,
+     156000.0,
+     21871000.0,
+     1385000.0,
+     9402000.0
+    ]
+   },
+   "score": 5,
+   "verdict": "亮眼",
+   "icon": "🌟",
+   "reasons": [
+    "营收按年 +32.0%",
+    "净利按年 +5926.9%",
+    "净利率升到 3.6%（去年 0.1%）"
+   ],
+   "ticker": "PTRO.JK",
+   "name": "Petrosea",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "SILO.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 3728556000000.0,
+   "net": 348049000000.0,
+   "eps": null,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": 7.0,
+   "net_qoq": 15.7,
+   "net_margin": 9.3,
+   "net_margin_yoy": null,
+   "gross_margin": 39.1,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     3067977000000.0,
+     3421901000000.0,
+     3277776000000.0,
+     3485623000000.0,
+     3728556000000.0
+    ],
+    "net": [
+     210841000000.0,
+     351321000000.0,
+     279968000000.0,
+     300714000000.0,
+     348049000000.0
+    ]
+   },
+   "score": 2,
+   "verdict": "稳健",
+   "icon": "👍",
+   "reasons": [
+    "营收按季 +7.0%",
+    "净利按季 +15.7%"
+   ],
+   "ticker": "SILO.JK",
+   "name": "Siloam International Hospitals",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "SMAR.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 25156685000000.0,
+   "net": 1717437000000.0,
+   "eps": null,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": 9.4,
+   "net_qoq": 13.4,
+   "net_margin": 6.8,
+   "net_margin_yoy": null,
+   "gross_margin": 19.0,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     22108083000000.0,
+     21291713000000.0,
+     20734239000000.0,
+     22995924000000.0,
+     25156685000000.0
+    ],
+    "net": [
+     691145000000.0,
+     986651000000.0,
+     829521000000.0,
+     1514589000000.0,
+     1717437000000.0
+    ]
+   },
+   "score": 2,
+   "verdict": "稳健",
+   "icon": "👍",
+   "reasons": [
+    "营收按季 +9.4%",
+    "净利按季 +13.4%"
+   ],
+   "ticker": "SMAR.JK",
+   "name": "Sinar Mas Agro Resources and Te",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "SRAJ.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 708129000000.0,
+   "net": -103447000000.0,
+   "eps": null,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": 7.8,
+   "net_qoq": null,
+   "net_margin": -14.6,
+   "net_margin_yoy": null,
+   "gross_margin": 39.3,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     388443000000.0,
+     714372000000.0,
+     644900000000.0,
+     657127000000.0,
+     708129000000.0
+    ],
+    "net": [
+     -37002000000.0,
+     -110538000000.0,
+     -90596000000.0,
+     -154081000000.0,
+     -103447000000.0
+    ]
+   },
+   "score": -1,
+   "verdict": "亏损",
+   "icon": "🔻",
+   "reasons": [
+    "营收按季 +7.8%",
+    "这一季亏损"
+   ],
+   "ticker": "SRAJ.JK",
+   "name": "Sejahteraraya Anugrahjaya",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "TLKM.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": "2025-09-30",
+   "revenue": 37624000000000.0,
+   "net": 3823000000000.0,
+   "eps": null,
+   "rev_yoy": 2.8,
+   "net_yoy": -20.5,
+   "rev_qoq": -2.8,
+   "net_qoq": -39.1,
+   "net_margin": 10.2,
+   "net_margin_yoy": 13.1,
+   "gross_margin": 66.6,
+   "trend": {
+    "periods": [
+     "2025-09-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     36613000000000.0,
+     37125000000000.0,
+     37189000000000.0,
+     38689000000000.0,
+     37624000000000.0
+    ],
+    "net": [
+     4809000000000.0,
+     1702000000000.0,
+     4344000000000.0,
+     6279000000000.0,
+     3823000000000.0
+    ]
+   },
+   "score": -2,
+   "verdict": "偏弱",
+   "icon": "👎",
+   "reasons": [
+    "营收按年 +2.8%",
+    "净利按年 -20.5%",
+    "净利率降到 10.2%（去年 13.1%）"
+   ],
+   "ticker": "TLKM.JK",
+   "name": "Telkom",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "TPIA.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 2840390000.0,
+   "net": -3428000.0,
+   "eps": null,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": -3.6,
+   "net_qoq": -102.5,
+   "net_margin": -0.1,
+   "net_margin_yoy": null,
+   "gross_margin": -311.4,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     2304090000.0,
+     1917633000.0,
+     2403741000.0,
+     2945028000.0,
+     2840390000.0
+    ],
+    "net": [
+     1298401000.0,
+     -207362000.0,
+     146132000.0,
+     137107000.0,
+     -3428000.0
+    ]
+   },
+   "score": -2,
+   "verdict": "亏损",
+   "icon": "🔻",
+   "reasons": [
+    "营收按季 -3.6%",
+    "这一季亏损"
+   ],
+   "ticker": "TPIA.JK",
+   "name": "Chandra Asri",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "UNTR.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 32045196000000.0,
+   "net": 3509097000000.0,
+   "eps": null,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": 7.8,
+   "net_qoq": 1019.2,
+   "net_margin": 11.0,
+   "net_margin_yoy": null,
+   "gross_margin": 23.0,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     34264503000000.0,
+     30835607000000.0,
+     28554084000000.0,
+     29735327000000.0,
+     32045196000000.0
+    ],
+    "net": [
+     4942630000000.0,
+     3335268000000.0,
+     642755000000.0,
+     313526000000.0,
+     3509097000000.0
+    ]
+   },
+   "score": 2,
+   "verdict": "稳健",
+   "icon": "👍",
+   "reasons": [
+    "营收按季 +7.8%",
+    "净利按季 +1019.2%"
+   ],
+   "ticker": "UNTR.JK",
+   "name": "United Tractors",
    "currency": "IDR",
    "watch": false,
    "found": null
