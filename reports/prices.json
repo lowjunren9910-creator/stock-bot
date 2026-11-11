@@ -361,282 +361,282 @@
  },
  "1155.KL": {
   "name": "Maybank",
-  "price": 10.06,
-  "chg_1d": -0.59,
+  "price": 9.95,
+  "chg_1d": -1.09,
   "currency": "MYR",
   "market": "bursa",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "1295.KL": {
   "name": "Public Bank",
-  "price": 4.68,
-  "chg_1d": -4.49,
+  "price": 4.53,
+  "chg_1d": -3.21,
   "currency": "MYR",
   "market": "bursa",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "1023.KL": {
   "name": "CIMB",
   "price": 7.08,
-  "chg_1d": 0.28,
+  "chg_1d": 0.0,
   "currency": "MYR",
   "market": "bursa",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5819.KL": {
   "name": "Hong Leong Bank",
-  "price": 21.98,
-  "chg_1d": -0.09,
+  "price": 21.48,
+  "chg_1d": -2.27,
   "currency": "MYR",
   "market": "bursa",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "1066.KL": {
   "name": "RHB Bank",
-  "price": 7.69,
-  "chg_1d": -0.52,
+  "price": 7.54,
+  "chg_1d": -1.95,
   "currency": "MYR",
   "market": "bursa",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "1015.KL": {
   "name": "AmBank",
-  "price": 6.64,
-  "chg_1d": -0.15,
+  "price": 6.68,
+  "chg_1d": 0.6,
   "currency": "MYR",
   "market": "bursa",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "1082.KL": {
   "name": "HL Financial",
-  "price": 17.72,
-  "chg_1d": 0.57,
+  "price": 17.48,
+  "chg_1d": -1.35,
   "currency": "MYR",
   "market": "bursa",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "2488.KL": {
   "name": "Alliance Bank",
-  "price": 4.64,
-  "chg_1d": -0.85,
+  "price": 4.61,
+  "chg_1d": -0.65,
   "currency": "MYR",
   "market": "bursa",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "1818.KL": {
   "name": "Bursa Malaysia",
-  "price": 8.15,
+  "price": 8.19,
   "chg_1d": 0.49,
   "currency": "MYR",
   "market": "bursa",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5185.KL": {
   "name": "Affin Bank",
   "price": 1.98,
-  "chg_1d": -1.98,
+  "chg_1d": 0.0,
   "currency": "MYR",
   "market": "bursa",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5258.KL": {
   "name": "Bank Islam",
   "price": 1.89,
-  "chg_1d": -2.58,
+  "chg_1d": 0.0,
   "currency": "MYR",
   "market": "bursa",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "1171.KL": {
   "name": "MBSB",
-  "price": 0.505,
-  "chg_1d": -0.98,
+  "price": 0.51,
+  "chg_1d": 0.99,
   "currency": "MYR",
   "market": "bursa",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "1163.KL": {
   "name": "Allianz Malaysia",
-  "price": 19.9,
-  "chg_1d": 1.22,
+  "price": 19.6,
+  "chg_1d": -1.51,
   "currency": "MYR",
   "market": "bursa",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5139.KL": {
   "name": "AEON Credit",
-  "price": 4.51,
-  "chg_1d": -1.1,
+  "price": 4.52,
+  "chg_1d": 0.22,
   "currency": "MYR",
   "market": "bursa",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "9296.KL": {
   "name": "RCE Capital",
-  "price": 0.895,
-  "chg_1d": 0.56,
+  "price": 0.875,
+  "chg_1d": -2.23,
   "currency": "MYR",
   "market": "bursa",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5301.KL": {
   "name": "CTOS Digital",
-  "price": 0.43,
-  "chg_1d": 11.69,
+  "price": 0.425,
+  "chg_1d": -1.16,
   "currency": "MYR",
   "market": "bursa",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "3816.KL": {
   "name": "MISC",
-  "price": 7.99,
-  "chg_1d": -0.25,
+  "price": 7.7,
+  "chg_1d": -3.63,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5211.KL": {
   "name": "Sunway",
-  "price": 4.4,
-  "chg_1d": 1.62,
+  "price": 4.41,
+  "chg_1d": 0.23,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5398.KL": {
   "name": "Gamuda",
-  "price": 4.84,
-  "chg_1d": 0.41,
+  "price": 4.9,
+  "chg_1d": 1.24,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5246.KL": {
   "name": "Westports",
-  "price": 7.41,
-  "chg_1d": 3.64,
+  "price": 7.42,
+  "chg_1d": 0.13,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "2445.KL": {
   "name": "KL Kepong",
-  "price": 21.0,
-  "chg_1d": 0.0,
+  "price": 21.08,
+  "chg_1d": 0.38,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5263.KL": {
   "name": "Sunway Construction",
-  "price": 8.36,
-  "chg_1d": 6.36,
+  "price": 8.35,
+  "chg_1d": -0.12,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "3336.KL": {
   "name": "IJM",
-  "price": 2.51,
-  "chg_1d": 0.0,
+  "price": 2.61,
+  "chg_1d": 3.98,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0128.KL": {
   "name": "Frontken",
-  "price": 4.83,
-  "chg_1d": 2.33,
+  "price": 4.99,
+  "chg_1d": 3.31,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5292.KL": {
   "name": "UWC",
-  "price": 6.14,
-  "chg_1d": -2.38,
+  "price": 6.68,
+  "chg_1d": 8.79,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0151.KL": {
   "name": "Kelington",
-  "price": 7.55,
-  "chg_1d": -1.18,
+  "price": 7.85,
+  "chg_1d": 3.97,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0208.KL": {
   "name": "Greatech",
-  "price": 2.5,
-  "chg_1d": 4.17,
+  "price": 2.53,
+  "chg_1d": 1.2,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "3034.KL": {
   "name": "Hap Seng",
-  "price": 2.5,
-  "chg_1d": -0.79,
+  "price": 2.49,
+  "chg_1d": -0.4,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5309.KL": {
   "name": "ITMAX",
-  "price": 4.29,
-  "chg_1d": -1.38,
+  "price": 4.42,
+  "chg_1d": 3.03,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "7160.KL": {
   "name": "Pentamaster",
-  "price": 5.0,
-  "chg_1d": 2.46,
+  "price": 5.29,
+  "chg_1d": 5.8,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "9822.KL": {
   "name": "SAM Engineering",
-  "price": 3.67,
-  "chg_1d": -3.42,
+  "price": 3.74,
+  "chg_1d": 1.91,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5032.KL": {
   "name": "Bintulu Port",
@@ -645,250 +645,250 @@
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5238.KL": {
   "name": "AirAsia X",
-  "price": 0.515,
-  "chg_1d": 6.19,
+  "price": 0.505,
+  "chg_1d": -1.94,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5099.KL": {
   "name": "Capital A",
-  "price": 0.25,
-  "chg_1d": 4.17,
+  "price": 0.245,
+  "chg_1d": -2.0,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5347.KL": {
   "name": "Tenaga",
-  "price": 13.18,
-  "chg_1d": 1.07,
+  "price": 12.96,
+  "chg_1d": -1.67,
   "currency": "MYR",
   "market": "bursa",
   "sector": "公用事业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "6742.KL": {
   "name": "YTL Power",
-  "price": 4.69,
-  "chg_1d": -6.39,
+  "price": 4.79,
+  "chg_1d": 2.13,
   "currency": "MYR",
   "market": "bursa",
   "sector": "公用事业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "4677.KL": {
   "name": "YTL Corp",
-  "price": 2.0,
-  "chg_1d": -2.91,
+  "price": 1.98,
+  "chg_1d": -1.0,
   "currency": "MYR",
   "market": "bursa",
   "sector": "公用事业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5209.KL": {
   "name": "Gas Malaysia",
-  "price": 5.32,
-  "chg_1d": -1.48,
+  "price": 5.35,
+  "chg_1d": 0.56,
   "currency": "MYR",
   "market": "bursa",
   "sector": "公用事业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5272.KL": {
   "name": "Ranhill Utilities",
   "price": 3.2,
-  "chg_1d": -3.61,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "公用事业",
-  "date": "2026-11-10"
- },
- "5264.KL": {
-  "name": "Malakoff",
-  "price": 0.795,
-  "chg_1d": -0.62,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "公用事业",
-  "date": "2026-11-10"
- },
- "3069.KL": {
-  "name": "Mega First",
-  "price": 2.71,
-  "chg_1d": -0.73,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "公用事业",
-  "date": "2026-11-10"
- },
- "5285.KL": {
-  "name": "SD Guthrie",
-  "price": 5.93,
-  "chg_1d": -1.17,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "必需消费",
-  "date": "2026-11-10"
- },
- "1961.KL": {
-  "name": "IOI Corp",
-  "price": 4.29,
-  "chg_1d": -0.92,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "必需消费",
-  "date": "2026-11-10"
- },
- "4707.KL": {
-  "name": "Nestle",
-  "price": 95.0,
-  "chg_1d": 0.89,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "必需消费",
-  "date": "2026-11-10"
- },
- "4065.KL": {
-  "name": "PPB",
-  "price": 8.61,
-  "chg_1d": -1.49,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "必需消费",
-  "date": "2026-11-10"
- },
- "3689.KL": {
-  "name": "Fraser & Neave",
-  "price": 22.0,
-  "chg_1d": -0.99,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "必需消费",
-  "date": "2026-11-10"
- },
- "3255.KL": {
-  "name": "Heineken Malaysia",
-  "price": 13.42,
-  "chg_1d": 2.44,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "必需消费",
-  "date": "2026-11-10"
- },
- "2836.KL": {
-  "name": "Carlsberg Malaysia",
-  "price": 12.72,
-  "chg_1d": 0.32,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "必需消费",
-  "date": "2026-11-10"
- },
- "5225.KL": {
-  "name": "IHH",
-  "price": 7.74,
-  "chg_1d": 0.52,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "医疗保健",
-  "date": "2026-11-10"
- },
- "5555.KL": {
-  "name": "Sunway Healthcare",
-  "price": 2.1,
-  "chg_1d": 0.48,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "医疗保健",
-  "date": "2026-11-10"
- },
- "5878.KL": {
-  "name": "KPJ Healthcare",
-  "price": 2.7,
-  "chg_1d": -1.46,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "医疗保健",
-  "date": "2026-11-10"
- },
- "7113.KL": {
-  "name": "Top Glove",
-  "price": 0.94,
-  "chg_1d": -2.59,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "医疗保健",
-  "date": "2026-11-10"
- },
- "7153.KL": {
-  "name": "Kossan",
-  "price": 1.22,
-  "chg_1d": -3.17,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "医疗保健",
-  "date": "2026-11-10"
- },
- "7148.KL": {
-  "name": "Duopharma",
-  "price": 1.07,
-  "chg_1d": -3.6,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "医疗保健",
-  "date": "2026-11-10"
- },
- "4863.KL": {
-  "name": "TM",
-  "price": 7.88,
-  "chg_1d": -0.13,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "电讯媒体",
-  "date": "2026-11-10"
- },
- "6947.KL": {
-  "name": "CelcomDigi",
-  "price": 2.51,
   "chg_1d": 0.0,
   "currency": "MYR",
   "market": "bursa",
+  "sector": "公用事业",
+  "date": "2026-11-11"
+ },
+ "5264.KL": {
+  "name": "Malakoff",
+  "price": 0.785,
+  "chg_1d": -1.26,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "公用事业",
+  "date": "2026-11-11"
+ },
+ "3069.KL": {
+  "name": "Mega First",
+  "price": 2.73,
+  "chg_1d": 0.74,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "公用事业",
+  "date": "2026-11-11"
+ },
+ "5285.KL": {
+  "name": "SD Guthrie",
+  "price": 5.99,
+  "chg_1d": 1.01,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "必需消费",
+  "date": "2026-11-11"
+ },
+ "1961.KL": {
+  "name": "IOI Corp",
+  "price": 4.39,
+  "chg_1d": 2.33,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "必需消费",
+  "date": "2026-11-11"
+ },
+ "4707.KL": {
+  "name": "Nestle",
+  "price": 95.54,
+  "chg_1d": 0.57,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "必需消费",
+  "date": "2026-11-11"
+ },
+ "4065.KL": {
+  "name": "PPB",
+  "price": 8.58,
+  "chg_1d": -0.35,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "必需消费",
+  "date": "2026-11-11"
+ },
+ "3689.KL": {
+  "name": "Fraser & Neave",
+  "price": 20.54,
+  "chg_1d": -6.64,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "必需消费",
+  "date": "2026-11-11"
+ },
+ "3255.KL": {
+  "name": "Heineken Malaysia",
+  "price": 13.32,
+  "chg_1d": -0.75,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "必需消费",
+  "date": "2026-11-11"
+ },
+ "2836.KL": {
+  "name": "Carlsberg Malaysia",
+  "price": 12.84,
+  "chg_1d": 0.94,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "必需消费",
+  "date": "2026-11-11"
+ },
+ "5225.KL": {
+  "name": "IHH",
+  "price": 7.73,
+  "chg_1d": -0.13,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "医疗保健",
+  "date": "2026-11-11"
+ },
+ "5555.KL": {
+  "name": "Sunway Healthcare",
+  "price": 2.09,
+  "chg_1d": -0.48,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "医疗保健",
+  "date": "2026-11-11"
+ },
+ "5878.KL": {
+  "name": "KPJ Healthcare",
+  "price": 2.69,
+  "chg_1d": -0.37,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "医疗保健",
+  "date": "2026-11-11"
+ },
+ "7113.KL": {
+  "name": "Top Glove",
+  "price": 0.965,
+  "chg_1d": 2.66,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "医疗保健",
+  "date": "2026-11-11"
+ },
+ "7153.KL": {
+  "name": "Kossan",
+  "price": 1.23,
+  "chg_1d": 0.82,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "医疗保健",
+  "date": "2026-11-11"
+ },
+ "7148.KL": {
+  "name": "Duopharma",
+  "price": 1.1,
+  "chg_1d": 2.8,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "医疗保健",
+  "date": "2026-11-11"
+ },
+ "4863.KL": {
+  "name": "TM",
+  "price": 7.83,
+  "chg_1d": -0.63,
+  "currency": "MYR",
+  "market": "bursa",
   "sector": "电讯媒体",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
+ },
+ "6947.KL": {
+  "name": "CelcomDigi",
+  "price": 2.57,
+  "chg_1d": 2.39,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "电讯媒体",
+  "date": "2026-11-11"
  },
  "6012.KL": {
   "name": "Maxis",
-  "price": 3.58,
-  "chg_1d": 2.29,
+  "price": 3.57,
+  "chg_1d": -0.28,
   "currency": "MYR",
   "market": "bursa",
   "sector": "电讯媒体",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "6888.KL": {
   "name": "Axiata",
-  "price": 1.63,
-  "chg_1d": -1.81,
+  "price": 1.67,
+  "chg_1d": 2.45,
   "currency": "MYR",
   "market": "bursa",
   "sector": "电讯媒体",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5031.KL": {
   "name": "TIME dotCom",
-  "price": 5.42,
-  "chg_1d": -1.63,
+  "price": 5.4,
+  "chg_1d": -0.37,
   "currency": "MYR",
   "market": "bursa",
   "sector": "电讯媒体",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "6399.KL": {
   "name": "Astro",
@@ -897,169 +897,169 @@
   "currency": "MYR",
   "market": "bursa",
   "sector": "电讯媒体",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "8869.KL": {
   "name": "Press Metal",
-  "price": 6.76,
-  "chg_1d": -1.31,
+  "price": 6.89,
+  "chg_1d": 1.92,
   "currency": "MYR",
   "market": "bursa",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5183.KL": {
   "name": "PChem",
-  "price": 4.2,
-  "chg_1d": 0.0,
+  "price": 4.26,
+  "chg_1d": 1.43,
   "currency": "MYR",
   "market": "bursa",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "3794.KL": {
   "name": "Malayan Cement",
-  "price": 5.35,
-  "chg_1d": -1.65,
+  "price": 5.41,
+  "chg_1d": 1.12,
   "currency": "MYR",
   "market": "bursa",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5273.KL": {
   "name": "Chin Hin",
   "price": 2.05,
-  "chg_1d": -0.97,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "原材料",
-  "date": "2026-11-10"
- },
- "5168.KL": {
-  "name": "Hartalega",
-  "price": 1.15,
-  "chg_1d": -3.36,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "原材料",
-  "date": "2026-11-10"
- },
- "5284.KL": {
-  "name": "Lotte Chemical Titan",
-  "price": 0.285,
-  "chg_1d": -5.0,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "原材料",
-  "date": "2026-11-10"
- },
- "5249.KL": {
-  "name": "IOI Properties",
-  "price": 3.12,
-  "chg_1d": -2.19,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "房地产",
-  "date": "2026-11-10"
- },
- "5235SS.KL": {
-  "name": "KLCC Property",
-  "price": 8.25,
-  "chg_1d": -0.6,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "房地产",
-  "date": "2026-11-10"
- },
- "5227.KL": {
-  "name": "IGB REIT",
-  "price": 2.76,
-  "chg_1d": 0.73,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "房地产",
-  "date": "2026-11-10"
- },
- "5288.KL": {
-  "name": "Sime Darby Property",
-  "price": 1.3,
-  "chg_1d": 2.36,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "房地产",
-  "date": "2026-11-10"
- },
- "5176.KL": {
-  "name": "Sunway REIT",
-  "price": 2.03,
-  "chg_1d": -0.98,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "房地产",
-  "date": "2026-11-10"
- },
- "5212.KL": {
-  "name": "Pavilion REIT",
-  "price": 1.56,
   "chg_1d": 0.0,
   "currency": "MYR",
   "market": "bursa",
+  "sector": "原材料",
+  "date": "2026-11-11"
+ },
+ "5168.KL": {
+  "name": "Hartalega",
+  "price": 1.18,
+  "chg_1d": 2.61,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "原材料",
+  "date": "2026-11-11"
+ },
+ "5284.KL": {
+  "name": "Lotte Chemical Titan",
+  "price": 0.29,
+  "chg_1d": 1.75,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "原材料",
+  "date": "2026-11-11"
+ },
+ "5249.KL": {
+  "name": "IOI Properties",
+  "price": 3.08,
+  "chg_1d": -1.28,
+  "currency": "MYR",
+  "market": "bursa",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
+ },
+ "5235SS.KL": {
+  "name": "KLCC Property",
+  "price": 8.17,
+  "chg_1d": -0.97,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "房地产",
+  "date": "2026-11-11"
+ },
+ "5227.KL": {
+  "name": "IGB REIT",
+  "price": 2.67,
+  "chg_1d": -3.26,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "房地产",
+  "date": "2026-11-11"
+ },
+ "5288.KL": {
+  "name": "Sime Darby Property",
+  "price": 1.28,
+  "chg_1d": -1.54,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "房地产",
+  "date": "2026-11-11"
+ },
+ "5176.KL": {
+  "name": "Sunway REIT",
+  "price": 2.01,
+  "chg_1d": -0.99,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "房地产",
+  "date": "2026-11-11"
+ },
+ "5212.KL": {
+  "name": "Pavilion REIT",
+  "price": 1.53,
+  "chg_1d": -1.92,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "房地产",
+  "date": "2026-11-11"
  },
  "5106.KL": {
   "name": "Axis REIT",
-  "price": 1.77,
-  "chg_1d": -0.56,
+  "price": 1.74,
+  "chg_1d": -1.69,
   "currency": "MYR",
   "market": "bursa",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "8664.KL": {
   "name": "SP Setia",
-  "price": 0.6,
-  "chg_1d": -4.76,
+  "price": 0.605,
+  "chg_1d": 0.83,
   "currency": "MYR",
   "market": "bursa",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5038.KL": {
   "name": "KSL Holdings",
-  "price": 2.48,
+  "price": 2.47,
   "chg_1d": -0.4,
   "currency": "MYR",
   "market": "bursa",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5401.KL": {
   "name": "Tropicana",
-  "price": 1.11,
-  "chg_1d": -3.48,
+  "price": 1.13,
+  "chg_1d": 1.8,
   "currency": "MYR",
   "market": "bursa",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5148.KL": {
   "name": "UEM Sunrise",
-  "price": 0.465,
-  "chg_1d": -1.06,
+  "price": 0.47,
+  "chg_1d": 1.08,
   "currency": "MYR",
   "market": "bursa",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "8583.KL": {
   "name": "Mah Sing",
-  "price": 0.915,
-  "chg_1d": -1.61,
+  "price": 0.905,
+  "chg_1d": -1.09,
   "currency": "MYR",
   "market": "bursa",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5180.KL": {
   "name": "CapitaLand Malaysia Trust",
@@ -1068,313 +1068,313 @@
   "currency": "MYR",
   "market": "bursa",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5236.KL": {
   "name": "Matrix Concepts",
-  "price": 0.96,
-  "chg_1d": -2.04,
+  "price": 0.95,
+  "chg_1d": -1.04,
   "currency": "MYR",
   "market": "bursa",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "3417.KL": {
   "name": "Eastern & Oriental",
-  "price": 0.745,
-  "chg_1d": 1.36,
+  "price": 0.735,
+  "chg_1d": -1.34,
   "currency": "MYR",
   "market": "bursa",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "2429.KL": {
   "name": "Tanco",
-  "price": 0.15,
-  "chg_1d": 0.0,
+  "price": 0.145,
+  "chg_1d": -3.33,
   "currency": "MYR",
   "market": "bursa",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5326.KL": {
   "name": "99 Speed Mart",
-  "price": 3.06,
+  "price": 3.03,
+  "chg_1d": -0.98,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "非必需消费",
+  "date": "2026-11-11"
+ },
+ "4197.KL": {
+  "name": "Sime Darby",
+  "price": 2.47,
+  "chg_1d": 0.82,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "非必需消费",
+  "date": "2026-11-11"
+ },
+ "5296.KL": {
+  "name": "MR DIY",
+  "price": 1.1,
+  "chg_1d": -1.79,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "非必需消费",
+  "date": "2026-11-11"
+ },
+ "4715.KL": {
+  "name": "Genting Malaysia",
+  "price": 1.23,
+  "chg_1d": -0.81,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "非必需消费",
+  "date": "2026-11-11"
+ },
+ "5337.KL": {
+  "name": "Eco-Shop",
+  "price": 1.21,
+  "chg_1d": -0.82,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "非必需消费",
+  "date": "2026-11-11"
+ },
+ "3182.KL": {
+  "name": "Genting",
+  "price": 1.52,
   "chg_1d": -0.65,
   "currency": "MYR",
   "market": "bursa",
   "sector": "非必需消费",
-  "date": "2026-11-10"
- },
- "4197.KL": {
-  "name": "Sime Darby",
-  "price": 2.45,
-  "chg_1d": -0.41,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "非必需消费",
-  "date": "2026-11-10"
- },
- "5296.KL": {
-  "name": "MR DIY",
-  "price": 1.12,
-  "chg_1d": -4.27,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "非必需消费",
-  "date": "2026-11-10"
- },
- "4715.KL": {
-  "name": "Genting Malaysia",
-  "price": 1.24,
-  "chg_1d": 1.64,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "非必需消费",
-  "date": "2026-11-10"
- },
- "5337.KL": {
-  "name": "Eco-Shop",
-  "price": 1.22,
-  "chg_1d": 0.0,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "非必需消费",
-  "date": "2026-11-10"
- },
- "3182.KL": {
-  "name": "Genting",
-  "price": 1.53,
-  "chg_1d": 3.38,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "非必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "4731.KL": {
   "name": "Scientex",
   "price": 3.4,
-  "chg_1d": -2.02,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "非必需消费",
-  "date": "2026-11-10"
- },
- "3301.KL": {
-  "name": "Hong Leong Industries",
-  "price": 16.52,
-  "chg_1d": -0.72,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "非必需消费",
-  "date": "2026-11-10"
- },
- "6599.KL": {
-  "name": "AEON Co",
-  "price": 0.88,
   "chg_1d": 0.0,
   "currency": "MYR",
   "market": "bursa",
   "sector": "非必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
- "5248.KL": {
-  "name": "Bermaz Auto",
-  "price": 0.83,
-  "chg_1d": -1.19,
+ "3301.KL": {
+  "name": "Hong Leong Industries",
+  "price": 16.8,
+  "chg_1d": 1.69,
   "currency": "MYR",
   "market": "bursa",
   "sector": "非必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
+ },
+ "6599.KL": {
+  "name": "AEON Co",
+  "price": 0.9,
+  "chg_1d": 2.27,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "非必需消费",
+  "date": "2026-11-11"
+ },
+ "5248.KL": {
+  "name": "Bermaz Auto",
+  "price": 0.84,
+  "chg_1d": 1.2,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "非必需消费",
+  "date": "2026-11-11"
  },
  "6033.KL": {
   "name": "Petronas Gas",
   "price": 17.44,
-  "chg_1d": 0.11,
+  "chg_1d": 0.0,
   "currency": "MYR",
   "market": "bursa",
   "sector": "能源",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5681.KL": {
   "name": "Petronas Dagangan",
-  "price": 19.22,
-  "chg_1d": 0.1,
+  "price": 19.52,
+  "chg_1d": 1.56,
   "currency": "MYR",
   "market": "bursa",
   "sector": "能源",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "7277.KL": {
   "name": "Dialog",
-  "price": 1.9,
-  "chg_1d": -3.55,
+  "price": 1.91,
+  "chg_1d": 0.53,
   "currency": "MYR",
   "market": "bursa",
   "sector": "能源",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "7293.KL": {
   "name": "Yinson",
-  "price": 2.22,
-  "chg_1d": -1.77,
+  "price": 2.2,
+  "chg_1d": -0.9,
   "currency": "MYR",
   "market": "bursa",
   "sector": "能源",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5243.KL": {
   "name": "Velesto",
   "price": 0.175,
-  "chg_1d": 6.06,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "能源",
-  "date": "2026-11-10"
- },
- "5199.KL": {
-  "name": "Hibiscus Petroleum",
-  "price": 1.85,
-  "chg_1d": -2.12,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "能源",
-  "date": "2026-11-10"
- },
- "3042.KL": {
-  "name": "Petron Malaysia",
-  "price": 3.03,
-  "chg_1d": -4.11,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "能源",
-  "date": "2026-11-10"
- },
- "0097.KL": {
-  "name": "ViTrox",
-  "price": 9.85,
-  "chg_1d": -2.67,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "科技",
-  "date": "2026-11-10"
- },
- "0166.KL": {
-  "name": "Inari",
-  "price": 2.19,
-  "chg_1d": 3.3,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "科技",
-  "date": "2026-11-10"
- },
- "5005.KL": {
-  "name": "Unisem",
-  "price": 3.65,
-  "chg_1d": -1.35,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "科技",
-  "date": "2026-11-10"
- },
- "5286.KL": {
-  "name": "Mi Technovation",
-  "price": 5.93,
-  "chg_1d": -2.79,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "科技",
-  "date": "2026-11-10"
- },
- "0270.KL": {
-  "name": "NationGate",
-  "price": 1.82,
   "chg_1d": 0.0,
   "currency": "MYR",
   "market": "bursa",
+  "sector": "能源",
+  "date": "2026-11-11"
+ },
+ "5199.KL": {
+  "name": "Hibiscus Petroleum",
+  "price": 1.88,
+  "chg_1d": 1.62,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "能源",
+  "date": "2026-11-11"
+ },
+ "3042.KL": {
+  "name": "Petron Malaysia",
+  "price": 3.1,
+  "chg_1d": 2.31,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "能源",
+  "date": "2026-11-11"
+ },
+ "0097.KL": {
+  "name": "ViTrox",
+  "price": 10.06,
+  "chg_1d": 2.13,
+  "currency": "MYR",
+  "market": "bursa",
   "sector": "科技",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
+ },
+ "0166.KL": {
+  "name": "Inari",
+  "price": 2.27,
+  "chg_1d": 3.65,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "科技",
+  "date": "2026-11-11"
+ },
+ "5005.KL": {
+  "name": "Unisem",
+  "price": 3.68,
+  "chg_1d": 0.82,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "科技",
+  "date": "2026-11-11"
+ },
+ "5286.KL": {
+  "name": "Mi Technovation",
+  "price": 6.35,
+  "chg_1d": 7.08,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "科技",
+  "date": "2026-11-11"
+ },
+ "0270.KL": {
+  "name": "NationGate",
+  "price": 1.87,
+  "chg_1d": 2.75,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "科技",
+  "date": "2026-11-11"
  },
  "0215.KL": {
   "name": "Solarvest",
-  "price": 4.06,
-  "chg_1d": -1.22,
+  "price": 4.15,
+  "chg_1d": 2.22,
   "currency": "MYR",
   "market": "bursa",
   "sector": "科技",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "6963.KL": {
   "name": "VS Industry",
-  "price": 0.305,
-  "chg_1d": 3.39,
+  "price": 0.295,
+  "chg_1d": -3.28,
   "currency": "MYR",
   "market": "bursa",
   "sector": "科技",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "7100.KL": {
   "name": "Uchi Technologies",
-  "price": 2.38,
-  "chg_1d": -0.42,
+  "price": 2.32,
+  "chg_1d": -2.52,
   "currency": "MYR",
   "market": "bursa",
   "sector": "科技",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "7204.KL": {
   "name": "D&O Green Tech",
-  "price": 0.405,
-  "chg_1d": -1.22,
+  "price": 0.41,
+  "chg_1d": 1.23,
   "currency": "MYR",
   "market": "bursa",
   "sector": "科技",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0138.KL": {
   "name": "MyEG",
-  "price": 0.06,
-  "chg_1d": -7.69,
+  "price": 0.055,
+  "chg_1d": -8.33,
   "currency": "MYR",
   "market": "bursa",
   "sector": "科技",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "2089.KL": {
   "name": "United Plantations",
-  "price": 30.4,
-  "chg_1d": 0.07,
+  "price": 30.24,
+  "chg_1d": -0.53,
   "currency": "MYR",
   "market": "bursa",
   "sector": "种植",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "7084.KL": {
   "name": "QL Resources",
-  "price": 3.82,
+  "price": 3.8,
   "chg_1d": -0.52,
   "currency": "MYR",
   "market": "bursa",
   "sector": "种植",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5126.KL": {
   "name": "Sarawak Oil Palms",
-  "price": 5.13,
-  "chg_1d": -2.47,
+  "price": 5.17,
+  "chg_1d": 0.78,
   "currency": "MYR",
   "market": "bursa",
   "sector": "种植",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "2291.KL": {
   "name": "Genting Plantations",
-  "price": 4.87,
-  "chg_1d": -2.6,
+  "price": 4.83,
+  "chg_1d": -0.82,
   "currency": "MYR",
   "market": "bursa",
   "sector": "种植",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "BBCA.JK": {
   "name": "Bank Central Asia",
@@ -1702,174 +1702,174 @@
  },
  "8621.KL": {
   "name": "Lpi",
-  "price": 12.98,
+  "price": 12.96,
   "chg_1d": -0.15,
   "currency": "MYR",
   "market": "bursa",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "6459.KL": {
   "name": "Mnrb",
-  "price": 2.39,
-  "chg_1d": -2.05,
+  "price": 2.4,
+  "chg_1d": 0.42,
   "currency": "MYR",
   "market": "bursa",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0242.KL": {
   "name": "Ppjack",
-  "price": 0.895,
+  "price": 0.89,
   "chg_1d": -0.56,
   "currency": "MYR",
   "market": "bursa",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5274.KL": {
   "name": "Hlcap",
-  "price": 2.9,
-  "chg_1d": 0.0,
+  "price": 2.88,
+  "chg_1d": -0.69,
   "currency": "MYR",
   "market": "bursa",
   "sector": "金融",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "1899.KL": {
   "name": "Bkawan",
-  "price": 19.5,
-  "chg_1d": 0.93,
+  "price": 19.4,
+  "chg_1d": -0.51,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "7161.KL": {
   "name": "Kerjaya",
-  "price": 3.3,
-  "chg_1d": -0.3,
+  "price": 3.37,
+  "chg_1d": 2.12,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0225.KL": {
   "name": "Scgbhd",
-  "price": 2.65,
-  "chg_1d": -1.85,
+  "price": 2.76,
+  "chg_1d": 4.15,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5352.KL": {
   "name": "Mttsl",
-  "price": 1.29,
-  "chg_1d": 5.74,
+  "price": 1.34,
+  "chg_1d": 3.88,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "7172.KL": {
   "name": "Pmbtech",
-  "price": 1.48,
-  "chg_1d": -1.33,
+  "price": 1.5,
+  "chg_1d": 1.35,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0245.KL": {
   "name": "Mnhldg",
-  "price": 3.73,
-  "chg_1d": -2.36,
+  "price": 3.98,
+  "chg_1d": 6.7,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "3565.KL": {
   "name": "Wcehb",
-  "price": 0.68,
-  "chg_1d": 1.49,
+  "price": 0.675,
+  "chg_1d": -0.74,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "1562.KL": {
   "name": "Sptoto",
-  "price": 1.29,
-  "chg_1d": -0.77,
+  "price": 1.31,
+  "chg_1d": 1.55,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0375.KL": {
   "name": "Thmy",
-  "price": 1.96,
-  "chg_1d": 2.08,
+  "price": 2.0,
+  "chg_1d": 2.04,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0223.KL": {
   "name": "Samaiden",
-  "price": 2.92,
-  "chg_1d": -2.67,
+  "price": 3.15,
+  "chg_1d": 7.88,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0339.KL": {
   "name": "Cbhb",
-  "price": 0.85,
-  "chg_1d": -1.73,
+  "price": 0.885,
+  "chg_1d": 4.12,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0045.KL": {
   "name": "Ssb8",
-  "price": 0.595,
-  "chg_1d": 2.59,
+  "price": 0.6,
+  "chg_1d": 0.84,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "7233.KL": {
   "name": "Dufu",
-  "price": 2.42,
-  "chg_1d": -1.22,
+  "price": 2.58,
+  "chg_1d": 6.61,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5327.KL": {
   "name": "Megafb",
-  "price": 1.08,
-  "chg_1d": -22.86,
+  "price": 1.16,
+  "chg_1d": 7.41,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0351.KL": {
   "name": "Lsh",
-  "price": 1.35,
-  "chg_1d": -1.46,
+  "price": 1.36,
+  "chg_1d": 0.74,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "1651.KL": {
   "name": "MRCB",
@@ -1878,79 +1878,79 @@
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0295.KL": {
   "name": "Mtec",
   "price": 1.03,
-  "chg_1d": -0.96,
+  "chg_1d": 0.0,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0168.KL": {
   "name": "Bmgreen",
-  "price": 1.4,
-  "chg_1d": -1.41,
+  "price": 1.43,
+  "chg_1d": 2.14,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5908.KL": {
   "name": "Dksh",
-  "price": 5.95,
-  "chg_1d": -1.0,
+  "price": 5.98,
+  "chg_1d": 0.5,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5320.KL": {
   "name": "Plintas",
-  "price": 0.875,
-  "chg_1d": 2.94,
+  "price": 0.87,
+  "chg_1d": -0.57,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0291.KL": {
   "name": "Chb",
-  "price": 2.22,
-  "chg_1d": -1.33,
+  "price": 2.39,
+  "chg_1d": 7.66,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5335.KL": {
   "name": "Hi",
-  "price": 1.76,
-  "chg_1d": 3.53,
+  "price": 1.74,
+  "chg_1d": -1.14,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0390.KL": {
   "name": "Isf",
-  "price": 0.88,
-  "chg_1d": -0.56,
+  "price": 0.94,
+  "chg_1d": 6.82,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5173.KL": {
   "name": "Sygroup",
   "price": 0.7,
-  "chg_1d": -0.71,
+  "chg_1d": 0.0,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0193.KL": {
   "name": "Kinergy",
@@ -1959,106 +1959,106 @@
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0112.KL": {
   "name": "Mikromb",
-  "price": 0.655,
-  "chg_1d": 0.0,
+  "price": 0.65,
+  "chg_1d": -0.76,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5293.KL": {
   "name": "Ame",
   "price": 1.26,
-  "chg_1d": 0.8,
+  "chg_1d": 0.0,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0099.KL": {
   "name": "Scicom",
-  "price": 2.2,
-  "chg_1d": 0.46,
+  "price": 2.23,
+  "chg_1d": 1.36,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "3905.KL": {
   "name": "Mulpha",
-  "price": 2.53,
+  "price": 2.51,
+  "chg_1d": -0.79,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "工业",
+  "date": "2026-11-11"
+ },
+ "5348.KL": {
+  "name": "Orkim",
+  "price": 0.72,
+  "chg_1d": -5.26,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "工业",
+  "date": "2026-11-11"
+ },
+ "7241.KL": {
+  "name": "Nggb",
+  "price": 0.74,
+  "chg_1d": 3.5,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "工业",
+  "date": "2026-11-11"
+ },
+ "6971.KL": {
+  "name": "Kobay",
+  "price": 2.08,
+  "chg_1d": 0.48,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "工业",
+  "date": "2026-11-11"
+ },
+ "6491.KL": {
+  "name": "Kfima",
+  "price": 2.58,
   "chg_1d": -0.39,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
- },
- "5348.KL": {
-  "name": "Orkim",
-  "price": 0.76,
-  "chg_1d": -1.94,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "工业",
-  "date": "2026-11-10"
- },
- "7241.KL": {
-  "name": "Nggb",
-  "price": 0.715,
-  "chg_1d": 1.42,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "工业",
-  "date": "2026-11-10"
- },
- "6971.KL": {
-  "name": "Kobay",
-  "price": 2.07,
-  "chg_1d": -7.59,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "工业",
-  "date": "2026-11-10"
- },
- "6491.KL": {
-  "name": "Kfima",
-  "price": 2.59,
-  "chg_1d": 3.19,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "7010.KL": {
   "name": "Ptt",
   "price": 1.46,
-  "chg_1d": 2.1,
+  "chg_1d": 0.0,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0293.KL": {
   "name": "Kjts",
-  "price": 1.0,
-  "chg_1d": 2.04,
+  "price": 1.07,
+  "chg_1d": 7.0,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "7245.KL": {
   "name": "Citaglb",
-  "price": 1.19,
-  "chg_1d": 3.48,
+  "price": 1.2,
+  "chg_1d": 0.84,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0360.KL": {
   "name": "Sag",
@@ -2067,160 +2067,160 @@
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0310.KL": {
   "name": "Uue",
-  "price": 0.66,
-  "chg_1d": -2.94,
+  "price": 0.68,
+  "chg_1d": 3.03,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "8877.KL": {
   "name": "Ekovest",
   "price": 0.19,
-  "chg_1d": 2.7,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "工业",
-  "date": "2026-11-10"
- },
- "9679.KL": {
-  "name": "WCT",
-  "price": 0.27,
   "chg_1d": 0.0,
   "currency": "MYR",
   "market": "bursa",
   "sector": "工业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
+ },
+ "9679.KL": {
+  "name": "WCT",
+  "price": 0.275,
+  "chg_1d": 1.85,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "工业",
+  "date": "2026-11-11"
  },
  "0318.KL": {
   "name": "Elridge",
-  "price": 0.965,
+  "price": 0.96,
+  "chg_1d": -0.52,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "公用事业",
+  "date": "2026-11-11"
+ },
+ "5041.KL": {
+  "name": "Pba",
+  "price": 1.93,
   "chg_1d": 0.52,
   "currency": "MYR",
   "market": "bursa",
   "sector": "公用事业",
-  "date": "2026-11-10"
- },
- "5041.KL": {
-  "name": "Pba",
-  "price": 1.92,
-  "chg_1d": 0.0,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "公用事业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5184.KL": {
   "name": "Cypark",
-  "price": 0.66,
-  "chg_1d": -1.49,
+  "price": 0.68,
+  "chg_1d": 3.03,
   "currency": "MYR",
   "market": "bursa",
   "sector": "公用事业",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5102.KL": {
   "name": "Gcb",
-  "price": 1.37,
-  "chg_1d": 0.74,
+  "price": 1.41,
+  "chg_1d": 2.92,
   "currency": "MYR",
   "market": "bursa",
   "sector": "必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5306.KL": {
   "name": "Ffb",
-  "price": 1.81,
-  "chg_1d": -2.16,
+  "price": 1.83,
+  "chg_1d": 1.1,
   "currency": "MYR",
   "market": "bursa",
   "sector": "必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5027.KL": {
   "name": "Kmloong",
-  "price": 2.42,
-  "chg_1d": -1.63,
+  "price": 2.41,
+  "chg_1d": -0.41,
   "currency": "MYR",
   "market": "bursa",
   "sector": "必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "7103.KL": {
   "name": "Spritzer",
-  "price": 3.57,
-  "chg_1d": -2.19,
+  "price": 3.75,
+  "chg_1d": 5.04,
   "currency": "MYR",
   "market": "bursa",
   "sector": "必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5318.KL": {
   "name": "Dxn",
-  "price": 0.465,
-  "chg_1d": 0.0,
+  "price": 0.47,
+  "chg_1d": 1.08,
   "currency": "MYR",
   "market": "bursa",
   "sector": "必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5250.KL": {
   "name": "Sem",
   "price": 1.98,
-  "chg_1d": -1.0,
+  "chg_1d": 0.0,
   "currency": "MYR",
   "market": "bursa",
   "sector": "必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "3026.KL": {
   "name": "Dlady",
-  "price": 28.78,
-  "chg_1d": -0.07,
+  "price": 28.7,
+  "chg_1d": -0.28,
   "currency": "MYR",
   "market": "bursa",
   "sector": "必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "2658.KL": {
   "name": "Aji",
   "price": 19.74,
-  "chg_1d": 0.1,
+  "chg_1d": 0.0,
   "currency": "MYR",
   "market": "bursa",
   "sector": "必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "4162.KL": {
   "name": "Bat",
-  "price": 3.55,
-  "chg_1d": -1.11,
+  "price": 3.57,
+  "chg_1d": 0.56,
   "currency": "MYR",
   "market": "bursa",
   "sector": "必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "9792.KL": {
   "name": "Seg",
-  "price": 0.64,
-  "chg_1d": -0.78,
+  "price": 0.645,
+  "chg_1d": 0.78,
   "currency": "MYR",
   "market": "bursa",
   "sector": "必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5328.KL": {
   "name": "Lwsabah",
-  "price": 1.55,
-  "chg_1d": 1.31,
+  "price": 1.6,
+  "chg_1d": 3.23,
   "currency": "MYR",
   "market": "bursa",
   "sector": "必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "7048.KL": {
   "name": "Atlan",
@@ -2229,34 +2229,34 @@
   "currency": "MYR",
   "market": "bursa",
   "sector": "必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5024.KL": {
   "name": "Hupseng",
-  "price": 0.79,
-  "chg_1d": 0.0,
+  "price": 0.8,
+  "chg_1d": 1.27,
   "currency": "MYR",
   "market": "bursa",
   "sector": "必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "8206.KL": {
   "name": "Ecowld",
-  "price": 1.86,
-  "chg_1d": -1.06,
+  "price": 1.8,
+  "chg_1d": -3.23,
   "currency": "MYR",
   "market": "bursa",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5053.KL": {
   "name": "Osk",
-  "price": 1.56,
-  "chg_1d": 0.0,
+  "price": 1.53,
+  "chg_1d": -1.92,
   "currency": "MYR",
   "market": "bursa",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5606.KL": {
   "name": "Igbb",
@@ -2265,25 +2265,25 @@
   "currency": "MYR",
   "market": "bursa",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5200.KL": {
   "name": "Uoadev",
   "price": 1.49,
-  "chg_1d": -0.67,
+  "chg_1d": 0.0,
   "currency": "MYR",
   "market": "bursa",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "7195.KL": {
   "name": "Bnastra",
   "price": 2.65,
-  "chg_1d": -0.38,
+  "chg_1d": 0.0,
   "currency": "MYR",
   "market": "bursa",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5313.KL": {
   "name": "Radium",
@@ -2292,16 +2292,16 @@
   "currency": "MYR",
   "market": "bursa",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5109.KL": {
   "name": "YTL Hospitality REIT",
-  "price": 0.945,
+  "price": 0.94,
   "chg_1d": -0.53,
   "currency": "MYR",
   "market": "bursa",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "9687.KL": {
   "name": "Ideal",
@@ -2310,7 +2310,7 @@
   "currency": "MYR",
   "market": "bursa",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5299.KL": {
   "name": "IGB Commercial REIT",
@@ -2319,52 +2319,52 @@
   "currency": "MYR",
   "market": "bursa",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "7105.KL": {
   "name": "Hck",
-  "price": 2.15,
-  "chg_1d": -0.92,
+  "price": 2.16,
+  "chg_1d": 0.47,
   "currency": "MYR",
   "market": "bursa",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5338.KL": {
   "name": "Paradigm",
-  "price": 0.785,
-  "chg_1d": -0.63,
+  "price": 0.79,
+  "chg_1d": 0.64,
   "currency": "MYR",
   "market": "bursa",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "1287.KL": {
   "name": "Exsimhb",
   "price": 0.5,
-  "chg_1d": -0.99,
+  "chg_1d": 0.0,
   "currency": "MYR",
   "market": "bursa",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5116.KL": {
   "name": "Al-Aqar Healthcare REIT",
-  "price": 1.19,
-  "chg_1d": -0.83,
+  "price": 1.2,
+  "chg_1d": 0.84,
   "currency": "MYR",
   "market": "bursa",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5280.KL": {
   "name": "KIP REIT",
-  "price": 0.855,
-  "chg_1d": -0.58,
+  "price": 0.86,
+  "chg_1d": 0.58,
   "currency": "MYR",
   "market": "bursa",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "6718.KL": {
   "name": "Cresndo",
@@ -2373,25 +2373,25 @@
   "currency": "MYR",
   "market": "bursa",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0273.KL": {
   "name": "Vlb",
-  "price": 0.87,
-  "chg_1d": -0.57,
+  "price": 0.875,
+  "chg_1d": 0.57,
   "currency": "MYR",
   "market": "bursa",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5307.KL": {
   "name": "Amereit",
-  "price": 1.48,
-  "chg_1d": -0.67,
+  "price": 1.44,
+  "chg_1d": -2.7,
   "currency": "MYR",
   "market": "bursa",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5827.KL": {
   "name": "Oib",
@@ -2400,34 +2400,34 @@
   "currency": "MYR",
   "market": "bursa",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5123.KL": {
   "name": "Sentral REIT",
-  "price": 0.59,
-  "chg_1d": 0.0,
+  "price": 0.575,
+  "chg_1d": -2.54,
   "currency": "MYR",
   "market": "bursa",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "1724.KL": {
   "name": "Paramon",
   "price": 0.97,
-  "chg_1d": -0.51,
+  "chg_1d": 0.0,
   "currency": "MYR",
   "market": "bursa",
   "sector": "房地产",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5330.KL": {
   "name": "Tmk",
-  "price": 3.17,
-  "chg_1d": -0.63,
+  "price": 3.14,
+  "chg_1d": -0.95,
   "currency": "MYR",
   "market": "bursa",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5136.KL": {
   "name": "Hextech",
@@ -2436,34 +2436,34 @@
   "currency": "MYR",
   "market": "bursa",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5000.KL": {
   "name": "Humeind",
-  "price": 2.67,
-  "chg_1d": 3.89,
+  "price": 2.7,
+  "chg_1d": 1.12,
   "currency": "MYR",
   "market": "bursa",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5916.KL": {
   "name": "Msc",
-  "price": 1.52,
-  "chg_1d": 2.01,
+  "price": 1.53,
+  "chg_1d": 0.66,
   "currency": "MYR",
   "market": "bursa",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "2852.KL": {
   "name": "Cmsb",
   "price": 0.9,
-  "chg_1d": -0.55,
+  "chg_1d": 0.0,
   "currency": "MYR",
   "market": "bursa",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "8052.KL": {
   "name": "Cgb",
@@ -2472,34 +2472,34 @@
   "currency": "MYR",
   "market": "bursa",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "4758.KL": {
   "name": "Ancomny",
-  "price": 0.835,
-  "chg_1d": 0.6,
+  "price": 0.83,
+  "chg_1d": -0.6,
   "currency": "MYR",
   "market": "bursa",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "7180.KL": {
   "name": "Sernkou",
-  "price": 0.78,
-  "chg_1d": 1.3,
+  "price": 0.76,
+  "chg_1d": -2.56,
   "currency": "MYR",
   "market": "bursa",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5665.KL": {
   "name": "Ssteel",
-  "price": 0.47,
-  "chg_1d": 2.17,
+  "price": 0.475,
+  "chg_1d": 1.06,
   "currency": "MYR",
   "market": "bursa",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5001.KL": {
   "name": "Mieco",
@@ -2508,34 +2508,34 @@
   "currency": "MYR",
   "market": "bursa",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "2127.KL": {
   "name": "Comfort Gloves",
-  "price": 0.19,
-  "chg_1d": -2.56,
+  "price": 0.195,
+  "chg_1d": 2.63,
   "currency": "MYR",
   "market": "bursa",
   "sector": "原材料",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "7106.KL": {
   "name": "Supermax",
-  "price": 0.445,
-  "chg_1d": -1.11,
+  "price": 0.46,
+  "chg_1d": 3.37,
   "currency": "MYR",
   "market": "bursa",
   "sector": "医疗保健",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "7081.KL": {
   "name": "Pharmaniaga",
-  "price": 0.75,
-  "chg_1d": -1.32,
+  "price": 0.735,
+  "chg_1d": -2.0,
   "currency": "MYR",
   "market": "bursa",
   "sector": "医疗保健",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0101.KL": {
   "name": "Tmclife",
@@ -2544,34 +2544,34 @@
   "currency": "MYR",
   "market": "bursa",
   "sector": "医疗保健",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "7178.KL": {
   "name": "YSP Southeast Asia",
   "price": 1.94,
-  "chg_1d": -0.51,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "医疗保健",
-  "date": "2026-11-10"
- },
- "4006.KL": {
-  "name": "Orient",
-  "price": 6.88,
   "chg_1d": 0.0,
   "currency": "MYR",
   "market": "bursa",
-  "sector": "非必需消费",
-  "date": "2026-11-10"
+  "sector": "医疗保健",
+  "date": "2026-11-11"
  },
- "5983.KL": {
-  "name": "Mbmr",
-  "price": 4.76,
-  "chg_1d": 0.21,
+ "4006.KL": {
+  "name": "Orient",
+  "price": 6.93,
+  "chg_1d": 0.73,
   "currency": "MYR",
   "market": "bursa",
   "sector": "非必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
+ },
+ "5983.KL": {
+  "name": "Mbmr",
+  "price": 4.75,
+  "chg_1d": -0.21,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "非必需消费",
+  "date": "2026-11-11"
  },
  "0338.KL": {
   "name": "Kopi",
@@ -2580,70 +2580,70 @@
   "currency": "MYR",
   "market": "bursa",
   "sector": "非必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "3859.KL": {
   "name": "Magnum",
-  "price": 1.16,
-  "chg_1d": 0.0,
+  "price": 1.19,
+  "chg_1d": 2.59,
   "currency": "MYR",
   "market": "bursa",
   "sector": "非必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "1619.KL": {
   "name": "Drbhcom",
-  "price": 0.815,
-  "chg_1d": 0.0,
+  "price": 0.805,
+  "chg_1d": -1.23,
   "currency": "MYR",
   "market": "bursa",
   "sector": "非必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "7187.KL": {
   "name": "Chgp",
-  "price": 0.92,
-  "chg_1d": 0.0,
+  "price": 0.93,
+  "chg_1d": 1.09,
   "currency": "MYR",
   "market": "bursa",
   "sector": "非必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "7179.KL": {
   "name": "Lagenda",
   "price": 1.45,
-  "chg_1d": -0.68,
+  "chg_1d": 0.0,
   "currency": "MYR",
   "market": "bursa",
   "sector": "非必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5271.KL": {
   "name": "Pecca",
-  "price": 1.46,
-  "chg_1d": 0.69,
+  "price": 1.47,
+  "chg_1d": 0.68,
   "currency": "MYR",
   "market": "bursa",
   "sector": "非必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "7052.KL": {
   "name": "Padini",
   "price": 1.03,
-  "chg_1d": -0.96,
+  "chg_1d": 0.0,
   "currency": "MYR",
   "market": "bursa",
   "sector": "非必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5351.KL": {
   "name": "Empire",
-  "price": 0.79,
-  "chg_1d": 0.64,
+  "price": 0.8,
+  "chg_1d": 1.27,
   "currency": "MYR",
   "market": "bursa",
   "sector": "非必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "7246.KL": {
   "name": "Sign",
@@ -2652,7 +2652,7 @@
   "currency": "MYR",
   "market": "bursa",
   "sector": "非必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5517.KL": {
   "name": "Shang",
@@ -2661,196 +2661,196 @@
   "currency": "MYR",
   "market": "bursa",
   "sector": "非必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "6351.KL": {
   "name": "Amway",
-  "price": 3.98,
-  "chg_1d": -0.25,
+  "price": 4.05,
+  "chg_1d": 1.76,
   "currency": "MYR",
   "market": "bursa",
   "sector": "非必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5325.KL": {
   "name": "Wellchip",
-  "price": 1.06,
-  "chg_1d": 0.0,
+  "price": 1.05,
+  "chg_1d": -0.94,
   "currency": "MYR",
   "market": "bursa",
   "sector": "非必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "7087.KL": {
   "name": "Magni",
-  "price": 1.42,
-  "chg_1d": 0.0,
+  "price": 1.43,
+  "chg_1d": 0.7,
   "currency": "MYR",
   "market": "bursa",
   "sector": "非必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0239.KL": {
   "name": "Ecomate",
-  "price": 0.865,
-  "chg_1d": 1.17,
+  "price": 0.855,
+  "chg_1d": -1.16,
   "currency": "MYR",
   "market": "bursa",
   "sector": "非必需消费",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "3867.KL": {
   "name": "MPI",
-  "price": 37.68,
-  "chg_1d": 4.09,
+  "price": 38.3,
+  "chg_1d": 1.65,
   "currency": "MYR",
   "market": "bursa",
   "sector": "科技",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5340.KL": {
   "name": "Umsint",
-  "price": 6.95,
-  "chg_1d": 0.0,
+  "price": 7.12,
+  "chg_1d": 2.45,
   "currency": "MYR",
   "market": "bursa",
   "sector": "科技",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5357.KL": {
   "name": "Skyechip",
   "price": 2.48,
-  "chg_1d": 2.48,
+  "chg_1d": 0.0,
   "currency": "MYR",
   "market": "bursa",
   "sector": "科技",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5356.KL": {
   "name": "Stratus",
-  "price": 2.15,
-  "chg_1d": 1.42,
+  "price": 2.1,
+  "chg_1d": -2.33,
   "currency": "MYR",
   "market": "bursa",
   "sector": "科技",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0233.KL": {
   "name": "Pekat",
-  "price": 2.79,
-  "chg_1d": -5.1,
+  "price": 2.93,
+  "chg_1d": 5.02,
   "currency": "MYR",
   "market": "bursa",
   "sector": "科技",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5162.KL": {
   "name": "Vstecs",
-  "price": 1.37,
-  "chg_1d": 0.74,
+  "price": 1.41,
+  "chg_1d": 2.92,
   "currency": "MYR",
   "market": "bursa",
   "sector": "科技",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "8907.KL": {
   "name": "Eg",
-  "price": 1.51,
-  "chg_1d": 0.67,
+  "price": 1.54,
+  "chg_1d": 1.99,
   "currency": "MYR",
   "market": "bursa",
   "sector": "科技",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "4456.KL": {
   "name": "Dnex",
-  "price": 0.385,
-  "chg_1d": 0.0,
+  "price": 0.405,
+  "chg_1d": 5.19,
   "currency": "MYR",
   "market": "bursa",
   "sector": "科技",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0056.KL": {
   "name": "Nct",
-  "price": 0.545,
-  "chg_1d": -1.8,
+  "price": 0.55,
+  "chg_1d": 0.92,
   "currency": "MYR",
   "market": "bursa",
   "sector": "科技",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5161.KL": {
   "name": "Jcy",
-  "price": 0.505,
-  "chg_1d": -2.88,
+  "price": 0.525,
+  "chg_1d": 3.96,
   "currency": "MYR",
   "market": "bursa",
   "sector": "科技",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0265.KL": {
   "name": "Infom",
-  "price": 1.8,
-  "chg_1d": 2.27,
+  "price": 1.83,
+  "chg_1d": 1.67,
   "currency": "MYR",
   "market": "bursa",
   "sector": "科技",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5302.KL": {
   "name": "Atech",
-  "price": 0.66,
-  "chg_1d": -2.94,
+  "price": 0.67,
+  "chg_1d": 1.52,
   "currency": "MYR",
   "market": "bursa",
   "sector": "科技",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5317.KL": {
   "name": "Cpetech",
-  "price": 1.16,
-  "chg_1d": 0.0,
+  "price": 1.22,
+  "chg_1d": 5.17,
   "currency": "MYR",
   "market": "bursa",
   "sector": "科技",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0259.KL": {
   "name": "Sns",
-  "price": 0.435,
-  "chg_1d": -1.14,
+  "price": 0.44,
+  "chg_1d": 1.15,
   "currency": "MYR",
   "market": "bursa",
   "sector": "科技",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0325.KL": {
   "name": "Ne",
-  "price": 0.94,
-  "chg_1d": -1.57,
+  "price": 0.96,
+  "chg_1d": 2.13,
   "currency": "MYR",
   "market": "bursa",
   "sector": "科技",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0146.KL": {
   "name": "Jftech",
-  "price": 0.67,
-  "chg_1d": -2.19,
+  "price": 0.695,
+  "chg_1d": 3.73,
   "currency": "MYR",
   "market": "bursa",
   "sector": "科技",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0127.KL": {
   "name": "JHM Consolidation",
-  "price": 0.52,
-  "chg_1d": 0.0,
+  "price": 0.535,
+  "chg_1d": 2.88,
   "currency": "MYR",
   "market": "bursa",
   "sector": "科技",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "0023.KL": {
   "name": "Datasonic",
@@ -2859,25 +2859,25 @@
   "currency": "MYR",
   "market": "bursa",
   "sector": "科技",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5210.KL": {
   "name": "Bumi Armada",
   "price": 0.32,
-  "chg_1d": -3.03,
+  "chg_1d": 0.0,
   "currency": "MYR",
   "market": "bursa",
   "sector": "能源",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "4324.KL": {
   "name": "Hengyuan",
-  "price": 2.62,
-  "chg_1d": -10.27,
+  "price": 2.68,
+  "chg_1d": 2.29,
   "currency": "MYR",
   "market": "bursa",
   "sector": "能源",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5255.KL": {
   "name": "Lfg",
@@ -2886,196 +2886,196 @@
   "currency": "MYR",
   "market": "bursa",
   "sector": "能源",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5141.KL": {
   "name": "Dayang",
-  "price": 1.22,
-  "chg_1d": 0.0,
+  "price": 1.25,
+  "chg_1d": 2.46,
   "currency": "MYR",
   "market": "bursa",
   "sector": "能源",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5321.KL": {
   "name": "Keyfield",
-  "price": 1.36,
-  "chg_1d": -2.86,
+  "price": 1.4,
+  "chg_1d": 2.94,
   "currency": "MYR",
   "market": "bursa",
   "sector": "能源",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5071.KL": {
   "name": "Coastal",
-  "price": 1.67,
-  "chg_1d": 0.0,
+  "price": 1.65,
+  "chg_1d": -1.2,
   "currency": "MYR",
   "market": "bursa",
   "sector": "能源",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5142.KL": {
   "name": "Wasco",
-  "price": 0.675,
-  "chg_1d": -2.88,
+  "price": 0.67,
+  "chg_1d": -0.74,
   "currency": "MYR",
   "market": "bursa",
   "sector": "能源",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5323.KL": {
   "name": "Jpg",
-  "price": 1.74,
-  "chg_1d": 0.0,
+  "price": 1.75,
+  "chg_1d": 0.57,
   "currency": "MYR",
   "market": "bursa",
   "sector": "种植",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5151.KL": {
   "name": "Hextar",
   "price": 0.78,
-  "chg_1d": -0.64,
+  "chg_1d": 0.0,
   "currency": "MYR",
   "market": "bursa",
   "sector": "种植",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5012.KL": {
   "name": "Taann",
-  "price": 5.41,
-  "chg_1d": -4.25,
+  "price": 5.46,
+  "chg_1d": 0.92,
   "currency": "MYR",
   "market": "bursa",
   "sector": "种植",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5029.KL": {
   "name": "Fareast",
   "price": 3.9,
-  "chg_1d": -1.27,
+  "chg_1d": 0.0,
   "currency": "MYR",
   "market": "bursa",
   "sector": "种植",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "6633.KL": {
   "name": "Lhi",
-  "price": 0.715,
-  "chg_1d": 0.7,
+  "price": 0.745,
+  "chg_1d": 4.2,
   "currency": "MYR",
   "market": "bursa",
   "sector": "种植",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "5138.KL": {
   "name": "Hsplant",
-  "price": 2.18,
-  "chg_1d": -2.24,
+  "price": 2.2,
+  "chg_1d": 0.92,
   "currency": "MYR",
   "market": "bursa",
   "sector": "种植",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "3476.KL": {
   "name": "Kseng",
-  "price": 4.71,
-  "chg_1d": 0.0,
+  "price": 4.68,
+  "chg_1d": -0.64,
   "currency": "MYR",
   "market": "bursa",
   "sector": "种植",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "1996.KL": {
   "name": "Kretam",
-  "price": 0.63,
-  "chg_1d": 0.0,
+  "price": 0.65,
+  "chg_1d": 3.17,
   "currency": "MYR",
   "market": "bursa",
   "sector": "种植",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "9059.KL": {
   "name": "Tsh",
-  "price": 1.11,
-  "chg_1d": -0.89,
+  "price": 1.16,
+  "chg_1d": 4.5,
   "currency": "MYR",
   "market": "bursa",
   "sector": "种植",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
  "2593.KL": {
   "name": "Umcca",
   "price": 6.08,
-  "chg_1d": -0.16,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "种植",
-  "date": "2026-11-10"
- },
- "5069.KL": {
-  "name": "Bldplnt",
-  "price": 14.96,
   "chg_1d": 0.0,
   "currency": "MYR",
   "market": "bursa",
   "sector": "种植",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
  },
- "5135.KL": {
-  "name": "Swkplnt",
-  "price": 3.85,
-  "chg_1d": -2.53,
+ "5069.KL": {
+  "name": "Bldplnt",
+  "price": 14.98,
+  "chg_1d": 0.13,
   "currency": "MYR",
   "market": "bursa",
   "sector": "种植",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
+ },
+ "5135.KL": {
+  "name": "Swkplnt",
+  "price": 3.93,
+  "chg_1d": 2.08,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "种植",
+  "date": "2026-11-11"
  },
  "1929.KL": {
   "name": "Chintek",
   "price": 10.64,
-  "chg_1d": 2.31,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "种植",
-  "date": "2026-11-10"
- },
- "6262.KL": {
-  "name": "Inno",
-  "price": 1.84,
-  "chg_1d": -1.6,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "种植",
-  "date": "2026-11-10"
- },
- "4383.KL": {
-  "name": "Jtiasa",
-  "price": 0.845,
-  "chg_1d": -3.43,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "种植",
-  "date": "2026-11-10"
- },
- "3662.KL": {
-  "name": "Mflour",
-  "price": 0.6,
-  "chg_1d": 1.69,
-  "currency": "MYR",
-  "market": "bursa",
-  "sector": "种植",
-  "date": "2026-11-10"
- },
- "5319.KL": {
-  "name": "Mkhop",
-  "price": 0.62,
   "chg_1d": 0.0,
   "currency": "MYR",
   "market": "bursa",
   "sector": "种植",
-  "date": "2026-11-10"
+  "date": "2026-11-11"
+ },
+ "6262.KL": {
+  "name": "Inno",
+  "price": 1.84,
+  "chg_1d": 0.0,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "种植",
+  "date": "2026-11-11"
+ },
+ "4383.KL": {
+  "name": "Jtiasa",
+  "price": 0.85,
+  "chg_1d": 0.59,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "种植",
+  "date": "2026-11-11"
+ },
+ "3662.KL": {
+  "name": "Mflour",
+  "price": 0.6,
+  "chg_1d": 0.0,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "种植",
+  "date": "2026-11-11"
+ },
+ "5319.KL": {
+  "name": "Mkhop",
+  "price": 0.615,
+  "chg_1d": -0.81,
+  "currency": "MYR",
+  "market": "bursa",
+  "sector": "种植",
+  "date": "2026-11-11"
  },
  "CASA.JK": {
   "name": "Capital Financial Indonesia",
