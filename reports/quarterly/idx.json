@@ -2,12 +2,15 @@
  "market": "idx",
  "market_name": "🇮🇩 印尼股市 IDX",
  "currency": "IDR",
- "date": "2026-11-11",
- "generated_at": "2026-11-11 16:31 WIB",
+ "date": "2026-11-12",
+ "generated_at": "2026-11-12 16:31 WIB",
  "tracked": 107,
  "universe_size": 109,
- "new_today": [],
+ "new_today": [
+  "ITMG.JK"
+ ],
  "recent": [
+  "ITMG.JK",
   "ADMR.JK",
   "AMMN.JK",
   "AMRT.JK",
@@ -66,8 +69,7 @@
   "POWR.JK",
   "SIDO.JK",
   "SRTG.JK",
-  "TINS.JK",
-  "TKIM.JK"
+  "TINS.JK"
  ],
  "items": {
   "ADMR.JK": {
@@ -1024,55 +1026,55 @@
    "found": null
   },
   "ITMG.JK": {
-   "period": "2026-06-30",
-   "prev_period": "2026-03-31",
-   "yoy_period": "2025-06-30",
-   "revenue": 502914000.0,
-   "net": 51324000.0,
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": "2025-09-30",
+   "revenue": 600933000.0,
+   "net": 56932000.0,
    "eps": null,
-   "rev_yoy": 15.1,
-   "net_yoy": 97.3,
-   "rev_qoq": 1.1,
-   "net_qoq": -6.1,
-   "net_margin": 10.2,
-   "net_margin_yoy": 6.0,
-   "gross_margin": 24.6,
+   "rev_yoy": 33.6,
+   "net_yoy": 43.7,
+   "rev_qoq": 19.5,
+   "net_qoq": 10.9,
+   "net_margin": 9.5,
+   "net_margin_yoy": 8.8,
+   "gross_margin": 27.6,
    "trend": {
     "periods": [
-     "2025-06-30",
      "2025-09-30",
      "2025-12-31",
      "2026-03-31",
-     "2026-06-30"
+     "2026-06-30",
+     "2026-09-30"
     ],
     "revenue": [
-     436900000.0,
      449800000.0,
      511891000.0,
      497577000.0,
-     502914000.0
+     502914000.0,
+     600933000.0
     ],
     "net": [
-     26011000.0,
      39608000.0,
      60354000.0,
      54674000.0,
-     51324000.0
+     51324000.0,
+     56932000.0
     ]
    },
-   "score": 5,
+   "score": 4,
    "verdict": "亮眼",
    "icon": "🌟",
    "reasons": [
-    "营收按年 +15.1%",
-    "净利按年 +97.3%",
-    "净利率升到 10.2%（去年 6.0%）"
+    "营收按年 +33.6%",
+    "净利按年 +43.7%"
    ],
    "ticker": "ITMG.JK",
    "name": "Indo Tambangraya",
    "currency": "IDR",
    "watch": false,
-   "found": null
+   "found": "2026-11-12",
+   "ai": null
   },
   "JARR.JK": {
    "period": "2026-09-30",
