@@ -1,0 +1,38 @@
+{
+ "date": "2026-11-13",
+ "market": "idx",
+ "panels": [
+  {
+   "ticker": "BRPT.JK",
+   "name": "PT Barito Pacific Tbk",
+   "price": 805.0,
+   "opinions": [
+    {
+     "id": "value",
+     "name": "老陈",
+     "rating": null
+    },
+    {
+     "id": "growth",
+     "name": "Kelly",
+     "rating": null
+    },
+    {
+     "id": "technical",
+     "name": "阿杰",
+     "rating": null
+    },
+    {
+     "id": "dividend",
+     "name": "Auntie Lim",
+     "rating": null
+    },
+    {
+     "id": "bear",
+     "name": "冷面周",
+     "rating": null
+    }
+   ]
+  }
+ ]
+}

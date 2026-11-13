@@ -2,13 +2,11 @@
  "market": "idx",
  "market_name": "🇮🇩 印尼股市 IDX",
  "currency": "IDR",
- "date": "2026-11-12",
- "generated_at": "2026-11-12 16:31 WIB",
+ "date": "2026-11-13",
+ "generated_at": "2026-11-13 16:31 WIB",
  "tracked": 107,
  "universe_size": 109,
- "new_today": [
-  "ITMG.JK"
- ],
+ "new_today": [],
  "recent": [
   "ITMG.JK",
   "ADMR.JK",
