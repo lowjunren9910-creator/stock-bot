@@ -40,6 +40,7 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           NEWS_MIN_IMPORTANCE: ${{ vars.NEWS_MIN_IMPORTANCE || '3' }}
           NEWS_AI_MAX: ${{ vars.NEWS_AI_MAX || '8' }}
+          NEWS_MACRO_EVERY: ${{ vars.NEWS_MACRO_EVERY || '2' }}
         run: python news.py
 
       - name: 保存

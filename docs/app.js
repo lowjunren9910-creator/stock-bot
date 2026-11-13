@@ -583,7 +583,29 @@ const ago = iso => {
   return m < 60 ? `${m} 分钟前` : m < 2880 ? `${Math.round(m / 60)} 小时前` : `${Math.round(m / 1440)} 天前`;
 };
 
+function macroCard(e) {
+  const row = a => `<div class="maff"><b>${esc(a.name)}</b><small>${esc(a.ticker)}</small>
+    <div class="impacts">
+      <div class="impact v-${esc(a.short_term.view)}"><small>短期</small><b>${VIEW_ICON[a.short_term.view] || ""} ${esc(a.short_term.view)}</b><span>${esc(a.short_term.why)}</span></div>
+      <div class="impact v-${esc(a.long_term.view)}"><small>长期</small><b>${VIEW_ICON[a.long_term.view] || ""} ${esc(a.long_term.view)}</b><span>${esc(a.long_term.why)}</span></div>
+    </div></div>`;
+  return `<details class="ncard macro">
+    <summary>
+      <span class="nhead"><b>🌏 宏观</b><small>${ago(e.published)}</small>
+        <span class="stars" aria-label="重要性 ${e.importance}">${"★".repeat(e.importance)}${"☆".repeat(5 - e.importance)}</span></span>
+      <span class="ntitle">${esc(e.headline_zh)}</span>
+      <span class="nviews">${e.affected.map(a => `<span class="tag v-${esc(a.short_term.view)}">${esc(a.name)} ${esc(a.short_term.view)}</span>`).join("")}</span>
+    </summary>
+    <div class="nbody">
+      ${e.analysis ? `<p>${esc(e.analysis)}</p>` : ""}
+      ${e.affected.map(row).join("")}
+      <p class="muted" style="font-size:12.5px">把握度：${esc(e.confidence || "中")}</p>
+      ${(e.articles || []).slice(0, 3).map(a => `<a class="nlink" href="${esc(a.link)}" target="_blank" rel="noopener">${esc(a.title)}<small>${esc(a.source || "")}　${ago(a.published)}</small></a>`).join("")}
+    </div></details>`;
+}
+
 function newsCard(e) {
+  if (e.type === "macro") return macroCard(e);
   const imp = (k, label) => `<div class="impact v-${esc(e[k].view)}"><small>${label}</small>
     <b>${VIEW_ICON[e[k].view] || ""} ${esc(e[k].view)}</b><span>${esc(e[k].why)}</span></div>`;
   return `<details class="ncard">
@@ -609,14 +631,16 @@ async function renderNews() {
   const back = `<button class="back" data-sub="">‹ 更多</button>`;
   if (!r) return back + emptyView("还没有新闻", "新闻追踪每小时自动跑一次，第一次运行后这里就会有内容。");
   const pick = state.newsPick || "";
-  const evs = r.events.filter(e => (!pick || e.ticker === pick) && e.importance >= (state.newsAll ? 1 : 3));
+  const evs = r.events.filter(e => (!pick || (pick === "macro" ? e.type === "macro" : (e.tickers || [e.ticker]).includes(pick)))
+                                   && e.importance >= (state.newsAll ? 1 : 3));
   return `${back}
     <div class="switch" style="margin-top:12px"><button data-npick="" aria-selected="${!pick}">全部</button>
+      <button data-npick="macro" aria-selected="${pick === "macro"}">🌏 宏观</button>
       ${r.companies.map(c => `<button data-npick="${esc(c.ticker)}" aria-selected="${pick === c.ticker}">${esc(c.name)}</button>`).join("")}</div>
     <p class="lede">${state.newsAll ? "显示全部新闻。" : "只显示重要性 3 星以上。"}
       <button class="linkbtn" data-act="newsall">${state.newsAll ? "只看重要的" : "显示全部"}</button></p>
     ${evs.length ? `<div class="nlist">${evs.slice(0, 50).map(newsCard).join("")}</div>` : `<p class="muted">没有符合的新闻。</p>`}
-    <p class="foot">${esc(r.note)}<br>想追踪别的公司：在 GitHub 编辑 watchlist.yml。</p>`;
+    <p class="foot">${esc(r.note)}<br>想追踪别的公司：Telegram 发 /follow 代码（例如 /follow GAMUDA），不要了就 /unfollow。</p>`;
 }
 
 async function renderMine() {

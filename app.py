@@ -1214,7 +1214,33 @@ def page_quarterly():
 VIEW_STYLE = {"利好": ("📈", "#2BC48A"), "利空": ("📉", "#F06A5D"), "中性": ("➖", "#A3ADC2")}
 
 
+def macro_card(e: dict, key: str):
+    import news as N
+    with st.container(border=True):
+        top = st.columns([5, 2])
+        top[0].markdown("**🌏 宏观新闻**　" + "、".join(f"`{a['name']}`" for a in e["affected"]))
+        top[1].markdown(f"<div style='text-align:right;color:#C8A23A;letter-spacing:2px'>{N.stars(e['importance'])}</div>",
+                        unsafe_allow_html=True)
+        st.markdown(f"#### {e['headline_zh']}")
+        if e.get("analysis"):
+            st.write(e["analysis"])
+        for a in e["affected"]:
+            c1, c2 = st.columns(2)
+            for col, label, k in ((c1, f"{a['name']} · 短期", "short_term"), (c2, f"{a['name']} · 长期", "long_term")):
+                v = a[k]["view"]
+                icon, color = VIEW_STYLE.get(v, VIEW_STYLE["中性"])
+                col.markdown(f"<div style='border-left:4px solid {color};padding:6px 12px;border-radius:8px;margin-bottom:6px;"
+                             f"background:rgba(127,127,127,.08)'><div style='font-size:.82rem;opacity:.7'>{label}</div>"
+                             f"<div style='font-weight:700;color:{color}'>{icon} {v}</div>"
+                             f"<div style='font-size:.9rem'>{a[k]['why']}</div></div>", unsafe_allow_html=True)
+        st.caption(f"把握度：{e.get('confidence', '中')}")
+        for a in e["articles"][:3]:
+            st.markdown(f"🔗 [{a['title']}]({a['link']}) — {a.get('source') or ''}，{N._ago(a['published'])}")
+
+
 def news_card(e: dict, key: str):
+    if e.get("type") == "macro":
+        return macro_card(e, key)
     import news as N
     with st.container(border=True):
         top = st.columns([5, 2])
@@ -1286,14 +1312,20 @@ def page_news():
         return
     names = {c["ticker"]: c["name"] for c in r["companies"]}
     st.caption(f"更新：{r['updated']}　·　追踪 {len(names)} 家：" + "、".join(names.values()))
+    st.caption("想加减追踪的公司：Telegram 发 /follow 代码 或 /unfollow 代码（例如 /follow GAMUDA NVDA），"
+               "下一小时就开始追踪。宏观大新闻（利率、油价、关税、汇率…）牵连到这些公司时也会出现在这里。")
     c1, c2, c3 = st.columns([3, 2, 2])
     pick = c1.multiselect("公司", list(names), format_func=lambda t: names.get(t, t), key="news_pick", placeholder="全部公司")
     min_imp = c2.select_slider("重要性至少", options=[1, 2, 3, 4, 5], value=2, key="news_imp")
     view = c3.selectbox("影响", ["全部", "短期利好", "短期利空", "长期利好", "长期利空"], key="news_view")
-    evs = [e for e in r["events"] if e["importance"] >= min_imp and (not pick or e["ticker"] in pick)]
+    only_macro = st.toggle("只看宏观新闻", key="news_macro")
+    tick = lambda e: e.get("tickers") or [e["ticker"]]
+    evs = [e for e in r["events"] if e["importance"] >= min_imp and (not pick or set(tick(e)) & set(pick))
+           and (not only_macro or e.get("type") == "macro")]
     if view != "全部":
         k = "short_term" if view.startswith("短期") else "long_term"
-        evs = [e for e in evs if e[k]["view"] == view[2:]]
+        evs = [e for e in evs if (e[k]["view"] == view[2:] if e.get("type") != "macro"
+                                  else any(a[k]["view"] == view[2:] for a in e["affected"]))]
     if not evs:
         st.info("没有符合条件的新闻。")
     for i, e in enumerate(evs[:40]):

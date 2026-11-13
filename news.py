@@ -57,6 +57,34 @@ IMPACT = {"利好": "📈", "利空": "📉", "中性": "➖"}
 # 1. 要追踪哪些公司
 # ---------------------------------------------------------------------------
 
+FOLLOW = DIR / "follow.json"      # 你用 Telegram /follow 加的公司（自动存这里）
+
+
+def load_follow() -> list[str]:
+    try:
+        return list(json.loads(FOLLOW.read_text(encoding="utf-8")))
+    except Exception:
+        return []
+
+
+def set_follow(texts: list[str], add: bool = True) -> list[str]:
+    """/follow、/unfollow：回传改了哪些代码。"""
+    import analysis as A
+    cur = load_follow()
+    changed = []
+    for x in texts:
+        t = A.normalize_ticker(x)
+        if add and t not in cur:
+            cur.append(t)
+            changed.append(t)
+        elif not add and t in cur:
+            cur.remove(t)
+            changed.append(t)
+    DIR.mkdir(parents=True, exist_ok=True)
+    FOLLOW.write_text(json.dumps(cur, ensure_ascii=False, indent=1), encoding="utf-8")
+    return changed
+
+
 def companies() -> list[dict]:
     """watchlist.yml 的 stocks（除非写 news: false）+ news_only。"""
     import analysis as A
@@ -68,6 +96,7 @@ def companies() -> list[dict]:
     raw = [s if isinstance(s, dict) else {"ticker": s} for s in (data.get("stocks") or [])]
     raw = [s for s in raw if s.get("news", True) is not False]
     raw += [s if isinstance(s, dict) else {"ticker": s} for s in (data.get("news_only") or [])]
+    raw += [{"ticker": t} for t in load_follow()]          # Telegram /follow 加的公司
     out, seen = [], set()
     for s in raw:
         if not s.get("ticker"):
@@ -422,6 +451,155 @@ def _load(p: Path, d):
         return d
 
 
+# ---------------------------------------------------------------------------
+# 4b. 宏观大新闻：利率、油价、关税、汇率、政府预算…… 有牵连到你的公司才发
+# ---------------------------------------------------------------------------
+
+MACRO_STATE = DIR / "macro_state.json"
+MACRO_QUERIES = {
+    "bursa": [("en-MY", "MY", "MY:en"), ['"Bank Negara" OPR', "ringgit", "Malaysia budget", "Malaysia GDP OR inflation",
+                                          "Malaysia subsidy OR SST OR tariff", "crude palm oil prices",
+                                          "Malaysia data centre electricity tariff"]],
+    "idx": [("en-ID", "ID", "ID:en"), ['"Bank Indonesia" rate', "rupiah", "Indonesia coal OR nickel export",
+                                        "Indonesia budget OR GDP"]],
+    "global": [("en-US", "US", "US:en"), ['"Federal Reserve" rates', "oil prices OPEC", "tariffs trade war",
+                                           "China economy stimulus", "US inflation CPI", "chip export controls",
+                                           "AI data center spending"]],
+}
+TOPIC_FEEDS = {   # Google 新闻的「商业」头条
+    "bursa": "https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=en-MY&gl=MY&ceid=MY:en",
+    "global": "https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=en-US&gl=US&ceid=US:en",
+}
+
+MACRO_SYSTEM = """你是宏观策略分析师。下面是最近的宏观 / 行业新闻标题，以及投资者关注的公司名单（附行业和业务）。
+找出「会明显影响名单里某些公司」的宏观或行业事件，用简体中文分析，只回传 JSON：
+{"events":[{"ids":["新闻id",...],"importance":1-5,"headline_zh":"一句话中文标题",
+"analysis":"2-3 句：发生了什么、通过什么途径影响这些公司（利率、成本、需求、汇率、政策…）",
+"affected":[{"ticker":"名单里的代码","short_term":{"view":"利好|利空|中性","why":"1 句"},
+"long_term":{"view":"利好|利空|中性","why":"1 句"}}],"confidence":"高|中|低"}]}
+规则：
+- 只要宏观、政策、商品价格、行业层面的事件；只讲某一家公司的新闻不要（另外有系统处理）。
+- affected 只放真的有明显牵连的公司，说得出影响途径才放；没有任何公司受影响的事件不要回传。
+- 报道同一件事的几条合并成一个事件。importance：5=央行利率决定、大型政策 / 关税、商品价格剧变；3=值得知道；1=小事。
+- 只根据提供的内容，不要编造数字；不确定就 confidence「低」。"""
+
+
+def macro_due(every_h: float, now: datetime) -> bool:
+    st_ = _load(MACRO_STATE, {})
+    last = st_.get("last")
+    if not last:
+        return True
+    try:
+        return (now - datetime.fromisoformat(last)).total_seconds() >= every_h * 3600 - 600
+    except Exception:
+        return True
+
+
+def _feed(url: str) -> list[dict]:
+    """直接读一个 Google 新闻 RSS 网址（商业头条）。"""
+    try:
+        r = requests.get(url, headers=UA, timeout=20)
+        r.raise_for_status()
+        root = ET.fromstring(r.content)
+    except Exception as e:
+        print(f"  商业头条失败：{e}")
+        return []
+    out = []
+    for it in root.iter("item"):
+        src_el = it.find("source")
+        source = src_el.text if src_el is not None else ""
+        try:
+            when = parsedate_to_datetime(it.findtext("pubDate")).astimezone(timezone.utc)
+        except Exception:
+            when = datetime.now(timezone.utc)
+        out.append({"title": _strip_source(html.unescape(it.findtext("title") or ""), source), "source": source,
+                    "link": it.findtext("link"), "published": when.strftime("%Y-%m-%dT%H:%M:%SZ"),
+                    "summary": "", "via": "google"})
+    return out
+
+
+def macro_headlines(markets: set[str], seen: dict, max_items: int = 30) -> list[dict]:
+    items = []
+    for key in ["global", *sorted(markets)]:
+        if key not in MACRO_QUERIES:
+            continue
+        (hl, gl, ceid), queries = MACRO_QUERIES[key]
+        for q in queries:
+            items += google_news(q, hl, gl, ceid)
+        if key in TOPIC_FEEDS:
+            items += _feed(TOPIC_FEEDS[key])
+    cutoff = (datetime.now(timezone.utc) - timedelta(hours=24)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    out, here = [], set()
+    for it in sorted(items, key=lambda x: x["published"], reverse=True):
+        h = _hash(it["title"])
+        key = f"macro:{h}"
+        if h in here or key in seen or it["published"] < cutoff:
+            continue
+        here.add(h)
+        it.update(id=h, key=key)
+        out.append(it)
+    return out[:max_items]
+
+
+def analyze_macro(comps: list[dict], items: list[dict]) -> list[dict]:
+    import asyncio
+    import managers as M
+    if M.check_setup() or not comps or not items:
+        return []
+    by_t = {c["ticker"]: c for c in comps}
+    brief = {"关注的公司": [{"代码": c["ticker"], "名字": c.get("long_name") or c["name"],
+                         "行业": (c.get("about") or {}).get("行业"), "板块": (c.get("about") or {}).get("板块"),
+                         "业务": ((c.get("about") or {}).get("业务简介") or "")[:160]} for c in comps],
+             "新闻": [{"id": it["id"], "标题": it["title"], "来源": it["source"], "时间": it["published"]} for it in items]}
+    text = asyncio.run(M.chat(MACRO_SYSTEM, json.dumps(brief, ensure_ascii=False), 1800))
+    data = _json_from(text)
+    if not data or "events" not in data:
+        raise ValueError("AI 回传的格式不对")
+    by_id = {it["id"]: it for it in items}
+    events = []
+    for ev in data["events"]:
+        ids = [i for i in ev.get("ids") or [] if i in by_id]
+        aff = []
+        for a in ev.get("affected") or []:
+            c = by_t.get(str(a.get("ticker", "")).strip())
+            if not c:
+                continue
+            st_, lt = a.get("short_term") or {}, a.get("long_term") or {}
+            aff.append({"ticker": c["ticker"], "name": c["name"],
+                        "short_term": {"view": _view(st_.get("view")), "why": str(st_.get("why") or "")},
+                        "long_term": {"view": _view(lt.get("view")), "why": str(lt.get("why") or "")}})
+        if not ids or not aff:
+            continue
+        arts = [by_id[i] for i in ids]
+        events.append({
+            "type": "macro", "id": ids[0], "ticker": None, "name": "宏观", "market": None, "relevant": True,
+            "tickers": [a["ticker"] for a in aff], "affected": aff,
+            "importance": max(1, min(5, int(ev.get("importance") or 1))),
+            "headline_zh": str(ev.get("headline_zh") or arts[0]["title"]),
+            "analysis": str(ev.get("analysis") or ""), "confidence": str(ev.get("confidence") or "中"),
+            "articles": [{k: a.get(k) for k in ("title", "source", "link", "published")} for a in arts],
+            "published": max(a["published"] for a in arts)})
+    return events
+
+
+def macro_html(e: dict) -> str:
+    x = html.escape
+    lines = [f"🌏 <b>宏观新闻</b>　重要性 {stars(e['importance'])}", f"<b>{x(e['headline_zh'])}</b>", ""]
+    if e["analysis"]:
+        lines += [f"🧠 {x(e['analysis'])}", ""]
+    lines.append("<b>对你关注的公司：</b>")
+    for a in e["affected"]:
+        st_, lt = a["short_term"], a["long_term"]
+        lines.append(f"• <b>{x(a['name'])}</b> <code>{a['ticker']}</code>\n"
+                     f"   {IMPACT[st_['view']]} 短期{st_['view']}：{x(st_['why'])}\n"
+                     f"   {IMPACT[lt['view']]} 长期{lt['view']}：{x(lt['why'])}")
+    lines.append(f"\n把握度：{x(e['confidence'])}")
+    for a in e["articles"][:3]:
+        lines.append(f"🔗 <a href=\"{x(a['link'] or '')}\">{x(a['title'][:90])}</a> — {x(a['source'] or '')}，{_ago(a['published'])}")
+    lines.append("\n<i>AI 只看了标题，仅供参考，不构成投资建议。</i>")
+    return "\n".join(lines)
+
+
 def run(push: bool = True) -> dict:
     import scanner as S
     comps = companies()
@@ -451,6 +629,25 @@ def run(push: bool = True) -> dict:
             seen[it["key"]] = it["published"][:10]
         new_events += [e for e in evs if e["relevant"]]
 
+    # 宏观新闻：默认每 2 小时一次（一次 AI 看完全部标题），有牵连到你的公司才留下
+    every = float(os.getenv("NEWS_MACRO_EVERY") or 2)
+    now = datetime.now(timezone.utc)
+    if every > 0 and comps and macro_due(every, now):
+        heads = macro_headlines({c["market"] for c in comps}, seen)
+        print(f"  宏观新闻：{len(heads)} 条新标题")
+        if heads:
+            try:
+                mev = analyze_macro(comps, heads)
+                ai_used += 1
+                for it in heads:
+                    seen[it["key"]] = it["published"][:10]
+                new_events += mev
+                print(f"    跟你的公司有关的宏观事件：{len(mev)} 个")
+            except Exception as e:
+                print(f"    宏观 AI 分析失败（下次再试）：{e}")
+        MACRO_STATE.parent.mkdir(parents=True, exist_ok=True)
+        MACRO_STATE.write_text(json.dumps({"last": now.isoformat()}), encoding="utf-8")
+
     # 保存：feed 只留 30 天；seen 只留 7 天
     cut = (datetime.now(timezone.utc) - timedelta(days=FEED_KEEP_DAYS)).strftime("%Y-%m-%d")
     fresh_ids = {(e["ticker"], e["id"]) for e in new_events}
@@ -468,6 +665,7 @@ def run(push: bool = True) -> dict:
     seen = {k: v for k, v in seen.items() if v >= week}
     out = {"updated": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
            "companies": [{k: c[k] for k in ("ticker", "name", "market", "keywords")} for c in comps],
+           "followed": load_follow(),
            "events": events[:300],
            "note": "AI 只看了新闻标题和摘要，重要新闻请点链接看原文。影响判断仅供参考，不构成投资建议。"}
     DIR.mkdir(parents=True, exist_ok=True)
@@ -479,7 +677,7 @@ def run(push: bool = True) -> dict:
     print(f"  新事件 {len(new_events)} 个，推送 {len(hot)} 个（重要性 ≥ {min_imp}），用了 AI {ai_used} 次")
     if push and not first_run:                       # 第一次运行只建立新闻库，不一次推一大堆
         for e in sorted(hot, key=lambda e: -e["importance"]):
-            S.push_text(event_html(e))
+            S.push_text(macro_html(e) if e.get("type") == "macro" else event_html(e))
     return out
 
 

@@ -323,3 +323,7 @@ button.hrow:active { background: var(--gold-soft); }
 .impact.v-利空 { border-left-color: var(--down); } .impact.v-利空 b { color: var(--down); }
 .nlink { display: block; padding: 8px 0; border-top: 1px solid var(--line); color: var(--ink); text-decoration: none; font-size: 13.5px; }
 .nlink small { display: block; color: var(--ink-2); font-size: 12px; }
+.ncard.macro { border-left: 3px solid var(--gold); }
+.maff { padding: 8px 0; border-top: 1px solid var(--line); }
+.maff > b { font-size: 14px; } .maff > small { color: var(--ink-2); margin-left: 6px; font-size: 12px; }
+.maff .impacts { margin-top: 6px; }

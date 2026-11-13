@@ -47,6 +47,8 @@ HELP = f"""<b>📊 股票分析机器人（信箱模式）</b>
 /compare 代码 代码 [代码] - 对比 2 到 3 只股票，例如 <code>/compare MAYBANK PBBANK CIMB</code>
 /quarter 代码 - 最新季报快速分析
 /news 代码 - 最新新闻 + AI 分析（短期 / 长期影响）。自选股的重要新闻会自动推送
+/follow 代码… - 追踪这些公司的新闻（含宏观大新闻的牵连），例如 /follow GAMUDA NVDA
+/unfollow 代码 - 不再追踪；/following - 看追踪名单
 /notnews 代码 字眼 - 新闻找错公司时用，例如 /notnews PPB pharmacy（以后不要）
 /newskw 代码 字眼 - 加一定算的名字，例如 /newskw PPB 玻璃市种植
 /watch - 自选股现况
@@ -231,6 +233,24 @@ def handle(chat, text: str):
         return send(chat, A.format_technical(t, A.technical_summary(A.get_history(t))))
     if cmd == "/fund":
         return do_fund(chat, arg)
+    if cmd in ("/follow", "/unfollow"):
+        import news
+        words = arg.replace(",", " ").replace("，", " ").split()
+        if not words:
+            return send(chat, f"用法：{cmd} 代码 [代码…]，例如 <code>/follow GAMUDA TOPGLOV NVDA</code>")
+        changed = news.set_follow(words, add=cmd == "/follow")
+        verb = "开始追踪" if cmd == "/follow" else "不再追踪"
+        msg = (f"✅ {verb}：" + "、".join(changed)) if changed else "没有改变（可能已经在 / 不在名单里）。"
+        return send(chat, msg + "\n新闻每小时检查一次；宏观大新闻有牵连到它们也会通知你。发 /following 看全部。")
+    if cmd == "/following":
+        import news
+        comps = news.companies()
+        if not comps:
+            return send(chat, "还没有追踪任何公司。用 <code>/follow 代码</code> 加，例如 <code>/follow GAMUDA</code>")
+        fl = set(news.load_follow())
+        return send(chat, "<b>🗞️ 新闻追踪的公司</b>\n" + "\n".join(
+            f"• {esc(c['name'])} <code>{c['ticker']}</code>" + ("" if c["ticker"] in fl else "（watchlist.yml）")
+            for c in comps) + "\n\n用 /unfollow 代码 移除（watchlist.yml 里的要在 GitHub 改）。")
     if cmd in ("/notnews", "/newskw"):
         import news
         words = arg.split()

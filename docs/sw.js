@@ -1,5 +1,5 @@
 // Service worker：把 app 本身存在手机里，没网络也能打开（数据的离线备份在 app.js 处理）
-const SHELL = "shell-v4";
+const SHELL = "shell-v5";
 const PHOTOS = "photos-v1";   // 板块照片（Unsplash）：看过一次就存在手机
 const FILES = ["./", "index.html", "style.css", "app.js", "config.js", "manifest.webmanifest",
                "icon-192.png", "icon-512.png"];
