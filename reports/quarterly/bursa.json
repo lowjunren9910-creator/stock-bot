@@ -2,15 +2,15 @@
  "market": "bursa",
  "market_name": "🇲🇾 大马股市 Bursa",
  "currency": "MYR",
- "date": "2026-11-12",
- "generated_at": "2026-11-12 17:16 +08",
+ "date": "2026-11-13",
+ "generated_at": "2026-11-13 17:16 +08",
  "tracked": 264,
  "universe_size": 268,
  "new_today": [
-  "6012.KL",
-  "7160.KL"
+  "3255.KL"
  ],
  "recent": [
+  "3255.KL",
   "6012.KL",
   "7160.KL",
   "5180.KL",
@@ -69,8 +69,7 @@
   "0146.KL",
   "0151.KL",
   "0225.KL",
-  "0242.KL",
-  "0245.KL"
+  "0242.KL"
  ],
  "items": {
   "0099.KL": {
@@ -5482,55 +5481,55 @@
    "found": null
   },
   "3255.KL": {
-   "period": "2026-06-30",
-   "prev_period": "2026-03-31",
-   "yoy_period": "2025-06-30",
-   "revenue": 434748000.0,
-   "net": 50532000.0,
-   "eps": 0.1673,
-   "rev_yoy": -19.5,
-   "net_yoy": -39.1,
-   "rev_qoq": -34.5,
-   "net_qoq": -51.6,
-   "net_margin": 11.6,
-   "net_margin_yoy": 15.4,
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 539135000.0,
+   "net": 69184000.0,
+   "eps": 0.229,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": 24.0,
+   "net_qoq": 36.9,
+   "net_margin": 12.8,
+   "net_margin_yoy": null,
    "gross_margin": null,
    "trend": {
     "periods": [
-     "2025-03-31",
      "2025-06-30",
      "2025-12-31",
      "2026-03-31",
-     "2026-06-30"
+     "2026-06-30",
+     "2026-09-30"
     ],
     "revenue": [
-     763628000.0,
      539725000.0,
      839049000.0,
      664209000.0,
-     434748000.0
+     434748000.0,
+     539135000.0
     ],
     "net": [
-     122154000.0,
      82996000.0,
      141246000.0,
      104455000.0,
-     50532000.0
+     50532000.0,
+     69184000.0
     ]
    },
-   "score": -5,
-   "verdict": "疲弱",
-   "icon": "⚠️",
+   "score": 2,
+   "verdict": "稳健",
+   "icon": "👍",
    "reasons": [
-    "营收按年 -19.5%",
-    "净利按年 -39.1%",
-    "净利率降到 11.6%（去年 15.4%）"
+    "营收按季 +24.0%",
+    "净利按季 +36.9%"
    ],
    "ticker": "3255.KL",
    "name": "Heineken Malaysia",
    "currency": "MYR",
    "watch": false,
-   "found": null
+   "found": "2026-11-13",
+   "ai": null
   },
   "3301.KL": {
    "period": "2026-06-30",
