@@ -204,6 +204,45 @@ def fix_stage(rec: dict, today: date) -> list[str]:
 # 2. 上市后表现（Yahoo）
 # ---------------------------------------------------------------------------
 
+MIH_CURRENT = "https://mih.com.my/ipo/current-ipo"
+
+
+def mih_current() -> list[dict]:
+    """Malaysian Issuing House「Current IPO」：正在招股 / 等上市的 IPO（有准确的日期和价格）。"""
+    import pandas as pd
+    try:
+        tables = pd.read_html(io.StringIO(_get(MIH_CURRENT).text))
+    except Exception as e:
+        print(f"  MIH 读取失败：{e}")
+        return []
+    out = []
+    for t in tables:
+        cols = {str(c).strip().lower(): c for c in t.columns}
+        name_c = next((cols[c] for c in cols if "company" in c), None)
+        if name_c is None:
+            continue
+        pick = lambda key: next((cols[c] for c in cols if key in c), None)
+        def d(v):
+            try:
+                return str(datetime.strptime(str(v).strip(), "%d-%b-%Y").date())
+            except Exception:
+                return None
+        for _, row in t.iterrows():
+            name = str(row[name_c]).strip()
+            if not name or name.lower() == "nan":
+                continue
+            mk = str(row[pick("market")]) if pick("market") is not None else ""
+            out.append({"name": name.title().replace("Bhd", "Bhd").replace("Berhad", "Berhad"),
+                        "market": "ACE" if "ace" in mk.lower() else "Main" if "main" in mk.lower() else None,
+                        "application_open": d(row[pick("open")]) if pick("open") is not None else None,
+                        "application_close": d(row[pick("clos")]) if pick("clos") is not None else None,
+                        "balloting_date": d(row[pick("ballot")]) if pick("ballot") is not None else None,
+                        "listing_date": d(row[pick("listing")]) if pick("listing") is not None else None,
+                        "ipo_price": _num(row[pick("price")]) if pick("price") is not None else None,
+                        "issuing_house": "Malaysian Issuing House", "stage": "招股中", "articles": []})
+    return out
+
+
 def find_ticker(name: str) -> str | None:
     try:
         import yfinance as yf
@@ -375,7 +414,138 @@ def analyze_pdf(data: bytes, source: str = "", name_hint: str = "") -> dict:
     return a
 
 
-def save_analysis(a: dict) -> dict | None:
+# ---------------------------------------------------------------------------
+# 3b. 一键分析：自动找招股书；找不到就用新闻
+# ---------------------------------------------------------------------------
+
+SC_INDEX = "https://www.sc.com.my/resources/prospectus-exposure"
+SC_SECTIONS = [("prospectus summary", 1), ("details of our ipo", 2), ("financial information", 3),
+               ("risk factors", 4), ("business overview", 5)]          # 要下载的章节（数字 = 优先次序）
+UA = {"User-Agent": "Mozilla/5.0 (compatible; stock-bot/1.0)"}
+
+NEWS_SYSTEM = PDF_SYSTEM.replace("下面是一份马来西亚 IPO 招股书的重点段落（摘要、IPO 详情、财务、募资用途、股息政策、风险）。",
+                                 "找不到这家公司的招股书，下面是关于它 IPO 的新闻标题和摘要，以及已知资料。") + \
+    "\n额外规则：新闻没提到的一律 null，不要用常识补数字；summary_zh 开头要写「根据新闻（未读招股书）」。"
+
+
+def _get(url: str, timeout: int = 40):
+    import requests
+    r = requests.get(url, headers=UA, timeout=timeout)
+    r.raise_for_status()
+    return r
+
+
+def _plain(htm: str) -> str:
+    return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", htm))).strip()
+
+
+def sc_page(name: str) -> str | None:
+    """证监会「招股书曝光」（主板 IPO 才有）：找这家公司的页面网址。"""
+    want = slug(name)
+    try:
+        idx = _get(SC_INDEX).text
+        for href, text in re.findall(r'href="([^"]*prospectus-exposure-[^"]+)"[^>]*>(.*?)</a>', idx, re.S | re.I):
+            if slug(_plain(text)) == want or want in slug(href.rsplit("prospectus-exposure-", 1)[-1]):
+                return href if href.startswith("http") else "https://www.sc.com.my" + href
+    except Exception as e:
+        print(f"  证监会名单读取失败：{e}")
+    full = re.sub(r"\bbhd\b\.?", "berhad", name.lower())
+    guess = SC_INDEX + "/prospectus-exposure-" + re.sub(r"[^a-z0-9]+", "-", full).strip("-")
+    try:
+        _get(guess)
+        return guess
+    except Exception:
+        return None
+
+
+def sc_sections(page_url: str) -> list[tuple[str, str]]:
+    """页面里各章节的 PDF：[(章节名, 网址)]，按重要性排好。"""
+    htm = _get(page_url).text
+    out = []
+    parts = re.split(r'(href="[^"]*download\.ashx\?id=[^"]+")', htm)
+    for i in range(1, len(parts), 2):
+        url = html.unescape(parts[i][6:-1])
+        url = url if url.startswith("http") else "https://www.sc.com.my" + url
+        label = _plain(parts[i - 1][-400:]).lower()
+        for key, rank in SC_SECTIONS:
+            if key in label[-120:]:
+                out.append((rank, key, url))
+                break
+    seen, res = set(), []
+    for rank, key, url in sorted(out):
+        if key not in seen:
+            seen.add(key)
+            res.append((key, url))
+    return res
+
+
+def find_prospectus(rec: dict) -> dict | None:
+    """自动找招股书。现在支持：证监会招股书曝光（主板）。找到就回传各章节文字。"""
+    page = sc_page(rec["name"])
+    if not page:
+        return None
+    secs = sc_sections(page)
+    if not secs:
+        return None
+    texts = []
+    for key, url in secs:
+        try:
+            data = _get(url, 90).content
+            if b"%PDF" in data[:1024]:
+                texts.append(f"===== {key.upper()} =====\n" + pdf_text(data, max_pages=60))
+        except Exception as e:
+            print(f"  下载 {key} 失败：{e}")
+    if not texts:
+        return None
+    return {"text": "\n".join(texts), "source": page, "kind": "证监会招股书曝光（草拟版）"}
+
+
+def _ai_json(system: str, user: str, tokens: int = 2500) -> dict:
+    import asyncio
+    import managers as M
+    import news as N
+    if M.check_setup():
+        raise ValueError(M.check_setup())
+    a = N._json_from(asyncio.run(M.chat(system, user, tokens)))
+    if not a:
+        raise ValueError("AI 回传的格式不对，请再试一次。")
+    return a
+
+
+def analyze_ipo(rec: dict) -> dict:
+    """一键分析：先找招股书，找不到就用新闻。"""
+    facts = {k: rec.get(k) for k in FIELDS if rec.get(k) is not None}
+    pro = None
+    try:
+        pro = find_prospectus(rec)
+    except Exception as e:
+        print(f"  找招股书失败：{e}")
+    if pro:
+        dg = digest(pro["text"])
+        a = _ai_json(PDF_SYSTEM, f"公司：{rec['name']}\n已知资料：{json.dumps(facts, ensure_ascii=False)}\n\n{dg}")
+        a.update(basis="prospectus", basis_zh=pro["kind"], source=pro["source"])
+    else:
+        import news as N
+        short = re.sub(r"(?i)\b(berhad|bhd)\b\.?", "", rec["name"]).strip()
+        items = N.google_news(f'"{short}" IPO', "en-MY", "MY", "MY:en", when="120d")
+        arts = [{"标题": it["title"], "摘要": it.get("summary", "")[:300], "来源": it["source"], "时间": it["published"][:10]}
+                for it in items[:25]]
+        arts += [{"标题": x.get("title"), "来源": x.get("source"), "时间": (x.get("published") or "")[:10]}
+                 for x in rec.get("articles", [])[:10]]
+        if not arts and not facts:
+            raise ValueError("找不到招股书，也找不到相关新闻。可以上传招股书 PDF 来分析。")
+        a = _ai_json(NEWS_SYSTEM, json.dumps({"公司": rec["name"], "已知资料": facts, "新闻": arts}, ensure_ascii=False))
+        a.update(basis="news", basis_zh="新闻（没有找到招股书）", source="Google 新闻")
+    a["name"] = a.get("name") or rec["name"]
+    for k in ("ipo_price", "market_cap_rm_m", "pe", "market"):          # AI 没抓到的，用资料卡的数字
+        if a.get(k) in (None, "") and rec.get(k) is not None:
+            a[k] = rec[k]
+    a["score"] = scorecard(a)
+    a["analyzed"] = str(today_myt())
+    return a
+
+
+def save_analysis(a: dict, rec_slug: str | None = None) -> dict | None:
     """存起来，并挂到对应的 IPO 资料卡上（找不到就新建一张）。"""
     if not a.get("name"):
         return None
@@ -386,7 +556,7 @@ def save_analysis(a: dict) -> dict | None:
          "application_open": a.get("application_open"), "application_close": a.get("application_close"),
          "listing_date": a.get("listing_date"), "stage": "招股中" if a.get("application_open") else None}
     # 名字可能跟新闻的写法不同：先找相近的
-    key = slug(a["name"])
+    key = rec_slug or slug(a["name"])
     for k in store.get("ipos", {}):
         if k == key or (len(key) > 4 and (k.startswith(key) or key.startswith(k))):
             x["name"] = store["ipos"][k]["name"]
@@ -395,9 +565,22 @@ def save_analysis(a: dict) -> dict | None:
     ANALYSIS_DIR.mkdir(parents=True, exist_ok=True)
     (ANALYSIS_DIR / f"{rec['slug']}.json").write_text(json.dumps(a, ensure_ascii=False, indent=1), encoding="utf-8")
     rec["analysis"] = {"level": a["score"]["level"], "avg": a["score"]["avg"], "summary": a.get("summary_zh"),
-                       "date": a["analyzed"], "file": f"analysis/{rec['slug']}.json"}
+                       "date": a["analyzed"], "file": f"analysis/{rec['slug']}.json", "basis": a.get("basis", "prospectus")}
     _save(store)
     return rec
+
+
+def save_analysis_into(store: dict, rec: dict, a: dict):
+    """把分析存成文件，并挂在这张资料卡上（run() 里用，不重读数据库）。"""
+    ANALYSIS_DIR.mkdir(parents=True, exist_ok=True)
+    (ANALYSIS_DIR / f"{rec['slug']}.json").write_text(json.dumps(a, ensure_ascii=False, indent=1), encoding="utf-8")
+    rec["analysis"] = {"level": a["score"]["level"], "avg": a["score"]["avg"], "summary": a.get("summary_zh"),
+                       "date": a["analyzed"], "file": f"analysis/{rec['slug']}.json", "basis": a.get("basis")}
+    for k in ("market_cap_rm_m", "proceeds_rm_m", "pe"):
+        if rec.get(k) is None and _num(a.get(k)) is not None:
+            rec[k] = _num(a.get(k))
+    if not rec.get("business") and a.get("business_zh"):
+        rec["business"] = a["business_zh"][:80]
 
 
 def attach_analyses(store: dict):
@@ -409,7 +592,8 @@ def attach_analyses(store: dict):
         a = _load(f, None)
         if rec is not None and a:
             rec["analysis"] = {"level": (a.get("score") or {}).get("level"), "avg": (a.get("score") or {}).get("avg"),
-                               "summary": a.get("summary_zh"), "date": a.get("analyzed"), "file": f"analysis/{f.stem}.json"}
+                               "summary": a.get("summary_zh"), "date": a.get("analyzed"), "file": f"analysis/{f.stem}.json",
+                               "basis": a.get("basis", "prospectus")}
 
 
 def _save(store: dict):
@@ -443,6 +627,11 @@ def run(push: bool = True, force: bool = False) -> dict:
     store = _load(STORE, {"ipos": {}})
     today = today_myt()
     msgs = []
+
+    for x in mih_current():                          # 发行处网站：准确的日期和价格（不用 AI）
+        rec, ch = merge(store, x)
+        if not first:
+            msgs += [(rec, c) for c in ch]
 
     items = gather_news(seen, first)
     print(f"IPO 追踪：{len(items)} 条新新闻" + ("（第一次：看最近 3 个星期）" if first else ""))
@@ -481,6 +670,22 @@ def run(push: bool = True, force: bool = False) -> dict:
 
     attach_analyses(store)
 
+    # 自动分析：招股中 / 等上市 / 草拟招股书的 IPO，还没分析过（或只用新闻分析过、超过 7 天）
+    auto_max = int(os.getenv("IPO_AUTO_MAX") or 2)
+    todo = [r for r in store["ipos"].values() if r["stage"] in ("草拟招股书", "招股中", "认购结果")
+            and (not r.get("analysis") or (r["analysis"].get("basis") == "news"
+                                            and r["analysis"].get("date", "") <= str(today - timedelta(days=7))))]
+    todo.sort(key=lambda r: STAGES.index(r["stage"]), reverse=True)
+    for r in todo[:auto_max]:
+        try:
+            a = analyze_ipo(r)
+            save_analysis_into(store, r, a)
+            print(f"  自动分析 {r['name']}：{a['score']['level']}（{a['basis_zh']}）")
+            if r["stage"] == "招股中" and not first:
+                msgs.append((r, "analysis"))
+        except Exception as e:
+            print(f"  自动分析 {r['name']} 失败：{e}")
+
     week = str(today - timedelta(days=30))
     state["seen"] = {k: v for k, v in seen.items() if v >= week}
     state["last"] = datetime.now(timezone.utc).isoformat()
@@ -491,6 +696,14 @@ def run(push: bool = True, force: bool = False) -> dict:
     for rec, kind in msgs:
         key = f"{rec['slug']}:{kind}"
         if key in pushed:
+            continue
+        if kind == "analysis":
+            pushed[key] = str(today)
+            if push:
+                a = _load(DIR / rec["analysis"]["file"], None)
+                if a:
+                    S.push_text(analysis_html(a))
+                    sent += 1
             continue
         if kind.startswith("stage:") and kind[6:] not in ("招股中", "已撤回"):
             continue                                  # 「已上市」等首日表现才发；草拟阶段不打扰
@@ -550,7 +763,8 @@ def analysis_html(a: dict) -> str:
     e = html.escape
     sc = a.get("score") or {}
     lines = [f"<b>📑 招股书分析｜{e(a.get('name') or '')}</b>（{e(a.get('market') or '?')} Market）",
-             f"规则评分：<b>{sc.get('level') or '—'}</b>（{sc.get('avg') or '—'} / 5）"]
+             f"规则评分：<b>{sc.get('level') or '—'}</b>（{sc.get('avg') or '—'} / 5）",
+             f"资料来源：{e(a.get('basis_zh') or '招股书')}"]
     for it in sc.get("items", []):
         lines.append(f"  · {it['name']}：{it['value']}" + (f"（{it['score']} 分）" if it["score"] else ""))
     if a.get("business_zh"):
@@ -569,7 +783,9 @@ def analysis_html(a: dict) -> str:
             lines.append(f"\n<b>{label}</b>\n" + "\n".join(f"• {e(str(x))}" for x in a[k]))
     if a.get("summary_zh"):
         lines += ["", f"🧠 {e(a['summary_zh'])}"]
-    lines.append("\n<i>AI 只读了招股书的重点段落，数字请对照原文。不构成投资建议。</i>")
+    if a.get("basis") == "news":
+        lines.append("\n<i>⚠️ 没找到招股书，只根据新闻分析，很多数字可能缺。把招股书 PDF 传给我可以分析得更准。</i>")
+    lines.append("\n<i>AI 只读了重点段落，数字请对照原文。不构成投资建议。</i>")
     return "\n".join(lines)
 
 

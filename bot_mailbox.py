@@ -47,7 +47,7 @@ HELP = f"""<b>📊 股票分析机器人（信箱模式）</b>
 /compare 代码 代码 [代码] - 对比 2 到 3 只股票，例如 <code>/compare MAYBANK PBBANK CIMB</code>
 /quarter 代码 - 最新季报快速分析
 /news 代码 - 最新新闻 + AI 分析（短期 / 长期影响）。自选股的重要新闻会自动推送
-/ipo - 马股 IPO 追踪（招股中、认购结果、最近上市表现）；/ipo 公司名 看详细
+/ipo - 马股 IPO 追踪（招股中、认购结果、最近上市表现）；/ipo 公司名 看详细 + 自动分析
 /ipopdf 链接 - 分析招股书（也可以直接把招股书 PDF 传给我）
 /follow 代码… - 追踪这些公司的新闻（含宏观大新闻的牵连），例如 /follow GAMUDA NVDA
 /unfollow 代码 - 不再追踪；/following - 看追踪名单
@@ -272,7 +272,16 @@ def handle(chat, text: str):
         if not r:
             return send(chat, f"找不到「{esc(arg)}」。发 /ipo 看全部。")
         a = ipo._load(ipo.DIR / r["analysis"]["file"], None) if r.get("analysis") else None
-        return send(chat, ipo.card_html(r) + ("\n\n" + ipo.analysis_html(a) if a else ""))
+        send(chat, ipo.card_html(r))
+        if not a:                                  # 还没分析过：自动找招股书（找不到用新闻）来分析
+            send(chat, "🔍 还没分析过，正在自动找招股书并分析（约 1–2 分钟）…")
+            typing(chat)
+            try:
+                a = ipo.analyze_ipo(r)
+                ipo.save_analysis(a, r["slug"])
+            except Exception as e:
+                return send(chat, f"⚠️ 分析失败：{esc(str(e))}")
+        return send(chat, ipo.analysis_html(a))
     if cmd == "/ipopdf":
         if not arg.startswith("http"):
             return send(chat, "用法：/ipopdf 招股书 PDF 链接\n或直接把 PDF 文件传给我（20MB 以内）。")

@@ -640,11 +640,11 @@ function ipoCard(r) {
                  ["申请份数", r.applications ? Number(r.applications).toLocaleString("en-US") : "—"],
                  ["申请截止", r.application_close || "—"], ["上市日", r.listing_date || "—"]];
   if (p) stats.push(["首日", pct(p.first_day_pct, 1)], ["至今", pct(p.since_ipo_pct, 1)]);
-  const web = webLink("page", "ipo");
+  const web = webLink("ipo", r.slug);
   return `<details class="ncard">
     <summary>
       <span class="nhead"><b>${esc(r.name)}</b><small>${esc(r.market ? r.market + " Market" : "")}</small>
-        <span class="stars" style="letter-spacing:0">${a ? "招股书 " + esc(a.level || "") : ""}</span></span>
+        <span class="stars" style="letter-spacing:0">${a ? "评分 " + esc(a.level || "") : ""}</span></span>
       <span class="nviews"><span class="tag ${r.stage === "招股中" ? "gold" : ""}">${IPO_ICON[r.stage] || ""} ${esc(r.stage)}</span>
         ${r.oversub_times ? `<span class="tag">超额 ${Number(r.oversub_times).toFixed(1)}x</span>` : ""}
         ${p ? `<span class="tag v-${p.first_day_pct >= 0 ? "利好" : "利空"}">首日 ${pct(p.first_day_pct, 1)}</span>` : ""}
@@ -653,11 +653,11 @@ function ipoCard(r) {
     <div class="nbody">
       ${r.business ? `<p>${esc(r.business)}</p>` : ""}
       <dl class="stats">${stats.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>
-      ${a && a.summary ? `<p class="note"><small>招股书分析（${esc(a.level || "")}）</small>${esc(a.summary)}</p>` : ""}
+      ${a && a.summary ? `<p class="note"><small>${a.basis === "news" ? "新闻分析" : "招股书分析"}（${esc(a.level || "")}）</small>${esc(a.summary)}</p>` : ""}
       ${(r.articles || []).slice(0, 3).map(x => `<a class="nlink" href="${esc(x.link)}" target="_blank" rel="noopener">${esc(x.title)}<small>${esc(x.source || "")}　${esc((x.published || "").slice(0, 10))}</small></a>`).join("")}
       <div class="actions wrap" style="margin-top:8px">
         ${r.ticker ? `<a class="btn" href="${webLink("company", r.ticker) || "#"}" target="_blank" rel="noopener">认识公司</a>` : ""}
-        ${web ? `<a class="btn ghost" href="${web}" target="_blank" rel="noopener">网站：分析招股书</a>` : ""}
+        ${web ? `<a class="btn" href="${web}" target="_blank" rel="noopener">🔍 ${a ? "看完整分析" : "分析这家公司"}</a>` : ""}
       </div>
     </div></details>`;
 }
@@ -682,7 +682,7 @@ async function renderIpo() {
     ${tab === "listed" && avg != null ? `<p class="lede">平均首日表现 <b class="${sign(avg)}">${pct(avg, 1)}</b>，
       首日上涨 ${perf.filter(x => x.perf.first_day_pct > 0).length}/${perf.length} 个。</p>` : ""}
     ${groups[tab].length ? `<div class="nlist">${groups[tab].slice(0, 40).map(ipoCard).join("")}</div>` : `<p class="muted">没有资料。</p>`}
-    <p class="foot">资料由 AI 整理自公开新闻，可能不完整；申购前请看招股书原文。<br>分析招股书：在 Telegram 把 PDF 传给机器人。</p>`;
+    <p class="foot">资料由 AI 整理自公开新闻，可能不完整；申购前请看招股书原文。<br>点「🔍 分析这家公司」会打开网站，自动找招股书分析；招股中的 IPO 系统会先自动分析好。</p>`;
 }
 
 async function renderNews() {

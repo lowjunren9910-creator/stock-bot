@@ -1219,7 +1219,11 @@ def show_ipo_analysis(a: dict, key: str):
     import ipo
     sc = a.get("score") or {}
     with st.container(border=True):
-        st.markdown(f"#### 📑 招股书分析：{a.get('name') or ''}")
+        st.markdown(f"#### 📑 IPO 分析：{a.get('name') or ''}")
+        if a.get("basis") == "news":
+            st.warning("没有自动找到招股书，这份分析只根据新闻，很多数字可能缺。想更准：在上面「分析招股书」上传 PDF，或在 Telegram 把 PDF 传给机器人。")
+        else:
+            st.caption(f"资料来源：{a.get('basis_zh') or '招股书'}　" + (f"[原文]({a['source']})" if str(a.get('source', '')).startswith('http') else ""))
         lvl = sc.get("level")
         c = st.columns(5)
         c[0].metric("规则评分", lvl or "—", f"{sc.get('avg') or '—'} / 5", delta_color="off")
@@ -1227,7 +1231,7 @@ def show_ipo_analysis(a: dict, key: str):
         c[2].metric("盈利年复合增长", f"{sc['pat_cagr']:+.1f}%" if sc.get("pat_cagr") is not None else "—")
         c[3].metric("净利率", f"{sc['margin']:.1f}%" if sc.get("margin") is not None else "—")
         c[4].metric("募资用在扩张", f"{sc['growth_pct']:.0f}%" if sc.get("growth_pct") is not None else "—")
-        st.dataframe(pd.DataFrame([{"项目": i["name"], "数值": i["value"], "分数（1–5）": i["score"] or "—"}
+        st.dataframe(pd.DataFrame([{"项目": i["name"], "数值": i["value"], "分数（1–5）": str(i["score"]) if i["score"] else "—"}
                                    for i in sc.get("items", [])]), hide_index=True, width="stretch")
         if a.get("summary_zh"):
             st.info("🧠 " + a["summary_zh"])
@@ -1270,7 +1274,7 @@ def ipo_card(r: dict, key: str):
                         f"border-radius:999px;font-size:.85rem'>{ipo.STAGE_ICON.get(r['stage'], '')} {r['stage']}</span>"
                         + (f"　`{r['market']} Market`" if r.get("market") else ""), unsafe_allow_html=True)
         if r.get("analysis"):
-            top[1].markdown(f"<div style='text-align:right'>招股书评分 <b style='color:#C8A23A'>{r['analysis']['level']}</b></div>",
+            top[1].markdown(f"<div style='text-align:right'>分析评分 <b style='color:#C8A23A'>{r['analysis']['level']}</b></div>",
                             unsafe_allow_html=True)
         if r.get("business"):
             st.caption(r["business"])
@@ -1295,17 +1299,34 @@ def ipo_card(r: dict, key: str):
                  ("代码", r.get("ticker")), ("土著部分", f"{r['bumi_oversub_times']:.2f} 倍" if r.get("bumi_oversub_times") else None),
                  ("顾问", r.get("principal_adviser")), ("发行处", r.get("issuing_house"))]
         st.caption("　·　".join(f"{k} {v}" for k, v in dates if v))
-        with st.expander("新闻来源" + (" 和招股书分析" if r.get("analysis") else "")):
+        with st.expander("新闻来源"):
             for a in r.get("articles", [])[:6]:
                 st.markdown(f"🔗 [{a.get('title')}]({a.get('link')}) — {a.get('source') or ''}，{(a.get('published') or '')[:10]}")
-            if r.get("analysis"):
-                a = read_json(S.REPORT_DIR / "ipo" / r["analysis"]["file"])
-                if a:
-                    show_ipo_analysis(a, key)
-        b = st.columns(3)
-        if r.get("ticker") and b[0].button("认识这家公司", key=f"ipoco_{key}"):
+        # ---- 一键分析：已经分析过就直接显示；没有就按按钮（自动找招股书，找不到用新闻）----
+        saved = read_json(S.REPORT_DIR / "ipo" / r["analysis"]["file"]) if r.get("analysis") else None
+        live = st.session_state.get(f"ipo_live_{r['slug']}")
+        b = st.columns([2, 2, 3])
+        label = "🔍 重新分析" if (saved or live) else "🔍 分析这家公司"
+        auto = st.session_state.get("ipo_auto") == r["slug"]
+        if b[0].button(label, key=f"ipoan_{key}", type="primary" if not (saved or live) else "secondary") or (auto and not live):
+            st.session_state.ipo_auto = None
+            with st.spinner(f"正在找 {r['name']} 的招股书并分析（约 1–2 分钟）…"):
+                try:
+                    st.session_state[f"ipo_live_{r['slug']}"] = cached_ipo_analysis(r["slug"], json.dumps(r, ensure_ascii=False))
+                    live = st.session_state[f"ipo_live_{r['slug']}"]
+                except Exception as e:
+                    st.error(f"❌ {e}")
+        if r.get("ticker") and b[1].button("认识这家公司", key=f"ipoco_{key}"):
             goto_company(r["ticker"])
             st.rerun()
+        if live or saved:
+            show_ipo_analysis(live or saved, key)
+
+
+@st.cache_data(ttl=6 * 3600, show_spinner=False)
+def cached_ipo_analysis(slug: str, rec_json: str):
+    import ipo
+    return ipo.analyze_ipo(json.loads(rec_json))
 
 
 @st.cache_data(ttl=3600, show_spinner=False)
@@ -1317,12 +1338,12 @@ def cached_ipo_pdf(data: bytes, source: str):
 def page_ipo():
     import ipo
     st.title("🆕 IPO 追踪")
-    st.caption("自动从新闻整理马股新上市公司（Main / ACE / LEAP）：招股资料、认购情况、上市后表现，每 3 小时更新。"
-               "招股书可以在下面上传分析，或在 Telegram 把 PDF 传给机器人（那边的分析会存起来）。")
+    st.caption("自动从新闻和发行处网站整理马股新股（Main / ACE / LEAP）：招股资料、认购情况、上市后表现，每 3 小时更新。"
+               "点任何一家的「🔍 分析这家公司」：系统自动找招股书（证监会网站），找不到就用新闻分析。招股中的 IPO 会自动先分析好。")
     r = read_json(S.REPORT_DIR / "ipo" / "ipos.json")
     recs = list((r or {}).get("ipos", {}).values())
 
-    with st.expander("📑 分析招股书（上传 PDF 或贴链接）", expanded=not recs):
+    with st.expander("📑 自己上传招股书（自动找不到时用）", expanded=False):
         up = st.file_uploader("招股书 PDF", type=["pdf"], key="ipo_pdf")
         url = st.text_input("或 PDF 链接", placeholder="https://…/prospectus.pdf", key="ipo_url")
         if st.button("开始分析", type="primary", disabled=not (up or url.strip())):
@@ -1654,6 +1675,9 @@ if check_password():
         elif qp.get("quarter"):
             st.session_state.quarter_query = qp["quarter"]
             st.session_state.nav = "📑 季度报告"
+        elif qp.get("ipo"):
+            st.session_state.ipo_auto = qp["ipo"]
+            st.session_state.nav = "🆕 IPO 追踪"
         elif qp.get("news"):
             st.session_state.news_query = qp["news"]
             st.session_state.nav = "🗞️ 新闻追踪"

@@ -241,7 +241,18 @@ async def ipo_cmd(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
     if not store.get("ipos"):
         return await send(update, "还没有 IPO 资料（「新闻追踪」自动任务每 3 小时更新一次）。")
     r = ipo.find(store, arg) if arg else None
-    await send(update, ipo.card_html(r) if r else ipo.list_html(store))
+    if not r:
+        return await send(update, ipo.list_html(store))
+    await send(update, ipo.card_html(r))
+    a = ipo._load(ipo.DIR / r["analysis"]["file"], None) if r.get("analysis") else None
+    if not a:
+        await update.message.reply_text("🔍 正在自动找招股书并分析（约 1–2 分钟）…")
+        try:
+            a = await run_blocking(ipo.analyze_ipo, r)
+            ipo.save_analysis(a, r["slug"])
+        except Exception as e:
+            return await send(update, f"❌ {A._esc(str(e))}")
+    await send(update, ipo.analysis_html(a))
 
 
 async def ipopdf_cmd(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
