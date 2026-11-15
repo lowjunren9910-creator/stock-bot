@@ -619,12 +619,14 @@ def due(every_h: float) -> bool:
 def run(push: bool = True, force: bool = False) -> dict:
     import scanner as S
     every = float(os.getenv("IPO_EVERY") or 3)
-    if every <= 0 or not (force or due(every)):
-        return _load(STORE, {"ipos": {}})
+    store = _load(STORE, {"ipos": {}})
+    first = not store.get("ipos")                    # 还是空的（包括上次什么都没抓到）→ 当第一次：看 3 个星期，不推送
+    if every <= 0 or not (force or first or due(every)):
+        return store
     state = _load(STATE, {"seen": {}, "pushed": {}})
     seen, pushed = state.setdefault("seen", {}), state.setdefault("pushed", {})
-    first = not STORE.exists()
-    store = _load(STORE, {"ipos": {}})
+    if first:
+        seen.clear()
     today = today_myt()
     msgs = []
 

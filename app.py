@@ -1329,6 +1329,13 @@ def cached_ipo_analysis(slug: str, rec_json: str):
     return ipo.analyze_ipo(json.loads(rec_json))
 
 
+@st.cache_data(ttl=3 * 3600, show_spinner=False)
+def live_ipo_list():
+    """自动任务还没存到资料时：网站自己去抓一次（发行处网站 + 新闻 + AI 整理），不推送 Telegram。"""
+    import ipo
+    return ipo.run(push=False, force=True)
+
+
 @st.cache_data(ttl=3600, show_spinner=False)
 def cached_ipo_pdf(data: bytes, source: str):
     import ipo
@@ -1358,8 +1365,20 @@ def page_ipo():
             st.caption("网站上的分析不会存起来；想长期保存，请在 Telegram 把 PDF 传给机器人。")
 
     if not recs:
-        st.info("还没有 IPO 资料。「新闻追踪」自动任务每 3 小时会更新一次，第一次会找最近 3 个星期的 IPO 新闻。")
-        return
+        with st.spinner("自动任务还没存到 IPO 资料，网站现在自己去找（发行处网站 + 最近 3 个星期的新闻，约 1 分钟）…"):
+            try:
+                r = live_ipo_list()
+            except Exception as e:
+                st.error(f"❌ 抓取失败：{e}")
+                r = None
+        recs = list((r or {}).get("ipos", {}).values())
+        if not recs:
+            live_ipo_list.clear()
+            st.warning("现在找不到 IPO 资料（可能是新闻网站或 AI 暂时连不上）。等一下重新整理这一页再试。")
+            if st.button("🔄 再找一次"):
+                st.rerun()
+            return
+        st.caption("（这是网站刚刚自己抓的；「新闻追踪」自动任务存好资料后，手机 App 和 Telegram 也会看到。）")
     st.caption(f"更新：{r.get('updated')}　·　共 {len(recs)} 个 IPO")
     active = sorted([x for x in recs if x["stage"] in ("招股中", "认购结果")], key=lambda x: x.get("listing_date") or "9")
     pipeline = sorted([x for x in recs if x["stage"] in ("计划中", "草拟招股书")], key=lambda x: x.get("updated") or "", reverse=True)

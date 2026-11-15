@@ -29,7 +29,7 @@ jobs:
           cache: pip
 
       - name: 安装工具包
-        run: pip install yfinance pandas requests python-dotenv openai matplotlib vaderSentiment pyyaml pypdf
+        run: pip install yfinance pandas requests python-dotenv openai matplotlib vaderSentiment pyyaml pypdf lxml
 
       - name: 抓新闻 + AI 分析
         env:
