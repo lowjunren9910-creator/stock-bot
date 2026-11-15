@@ -331,3 +331,17 @@ button.hrow:active { background: var(--gold-soft); }
 .nbody dl.stats div { min-width: 0; }
 .nbody dl.stats dt { color: var(--ink-2); font-size: 12px; }
 .nbody dl.stats dd { margin: 0; font-family: var(--num); font-weight: 600; font-size: 14.5px; }
+
+/* 新闻：报纸式头条 + 小图 */
+.nthumb { float: right; width: 78px; height: 78px; margin: 0 0 6px 12px; border-radius: 8px; background: #2a3550 center/cover no-repeat; }
+.ncard summary::after { content: ""; display: block; clear: both; }
+.nlead { background: #fff; color: #121212; border-radius: 14px; padding: 14px 14px 16px; margin: 14px 0 6px; }
+.nlead a { color: inherit; text-decoration: none; }
+.nlead-img { aspect-ratio: 16/9; border-radius: 8px; background: #eee center/cover no-repeat; }
+.nlead-kick { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; color: #b42318; margin: 10px 0 2px; }
+.nlead-kick .stars { color: #b8860b; }
+.nlead h3 { font-family: "Noto Serif SC", "Songti SC", serif; font-weight: 900; font-size: 23px; line-height: 1.3; margin: 4px 0 8px; }
+.nlead p { font-family: "Noto Serif SC", "Songti SC", serif; color: #333; font-size: 15px; line-height: 1.65; margin: 0 0 8px; }
+.nlead small { color: #666; font-size: 11.5px; letter-spacing: .3px; }
+.nlead .nviews { margin-bottom: 6px; }
+.nsec { font-size: 17px; margin: 18px 0 8px; }

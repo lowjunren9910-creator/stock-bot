@@ -228,3 +228,49 @@ def all_tickers(market: str) -> dict:
 
 def look(theme: dict) -> dict:
     return {"emoji": theme["emoji"], "color": theme["color"], "photo": photo(theme["photo"])}
+
+
+# ---------------------------------------------------------------------------
+# 3. 新闻配图：新闻本身没有图片时，用公司所属主题 / 行业的照片
+# ---------------------------------------------------------------------------
+SECTOR_EN = {"Financial Services": "finance", "Technology": "tech", "Consumer Defensive": "staples",
+             "Consumer Cyclical": "retail", "Utilities": "grid", "Industrials": "industrial",
+             "Basic Materials": "materials", "Energy": "oilgas", "Real Estate": "property",
+             "Healthcare": "health", "Communication Services": "telecom"}
+NEWS_WORDS = [("棕榈", "plantation"), ("原油", "oilgas"), ("油价", "oilgas"), ("天然气", "oilgas"), ("煤", "coal"),
+              ("芯片", "semis"), ("半导体", "semis"), ("数据中心", "datacenter"), ("人工智能", "ai"), ("AI", "ai"),
+              ("电费", "power"), ("电力", "power"), ("太阳能", "solar"), ("电动车", "ev"), ("手套", "gloves"),
+              ("利率", "bank"), ("央行", "bank"), ("银行", "bank"), ("通胀", "finance"), ("令吉", "finance"),
+              ("汇率", "finance"), ("美元", "finance"), ("房地产", "property"), ("产业", "property"),
+              ("建筑", "construction"), ("基建", "construction"), ("药", "pharma"), ("医疗", "health"),
+              ("电讯", "telecom"), ("5G", "telecom"), ("关税", "industrial"), ("出口", "industrial"),
+              ("预算", "market"), ("消费", "retail")]
+
+
+def photo_key_for(ticker: str | None, sector_en: str | None = None, text: str = "") -> str:
+    """新闻配图用哪张：先看文字里的关键字（宏观新闻），再看公司的主题，再看行业。"""
+    if not ticker:
+        for w, k in NEWS_WORDS:
+            if w in (text or ""):
+                return k
+        return "market"
+    for th in THEMES:
+        for m in th["tickers"].values():
+            if ticker in m:
+                return th["photo"]
+    if sector_en in SECTOR_EN:
+        return SECTOR_EN[sector_en]
+    for w, k in NEWS_WORDS:
+        if w in (text or ""):
+            return k
+    return "market"
+
+
+def news_image(e: dict, width: int = 800) -> str:
+    """一则新闻事件的图片网址：新闻自带的图 > 存好的配图 > 现在临时找一张。"""
+    if e.get("img"):
+        return e["img"]
+    key = e.get("photo_key") or photo_key_for(e.get("ticker"), e.get("sector"),
+                                              (e.get("headline_zh") or "") + (e.get("analysis") or ""))
+    p = photo(key, width) or photo("market", width)
+    return p["url"]

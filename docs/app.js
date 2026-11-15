@@ -590,7 +590,7 @@ function macroCard(e) {
       <div class="impact v-${esc(a.long_term.view)}"><small>长期</small><b>${VIEW_ICON[a.long_term.view] || ""} ${esc(a.long_term.view)}</b><span>${esc(a.long_term.why)}</span></div>
     </div></div>`;
   return `<details class="ncard macro">
-    <summary>
+    <summary>${e.image ? `<span class="nthumb" style="background-image:url('${esc(e.image)}')"></span>` : ""}
       <span class="nhead"><b>🌏 宏观</b><small>${ago(e.published)}</small>
         <span class="stars" aria-label="重要性 ${e.importance}">${"★".repeat(e.importance)}${"☆".repeat(5 - e.importance)}</span></span>
       <span class="ntitle">${esc(e.headline_zh)}</span>
@@ -609,7 +609,7 @@ function newsCard(e) {
   const imp = (k, label) => `<div class="impact v-${esc(e[k].view)}"><small>${label}</small>
     <b>${VIEW_ICON[e[k].view] || ""} ${esc(e[k].view)}</b><span>${esc(e[k].why)}</span></div>`;
   return `<details class="ncard">
-    <summary>
+    <summary>${e.image ? `<span class="nthumb" style="background-image:url('${esc(e.image)}')"></span>` : ""}
       <span class="nhead"><b>${esc(e.name)}</b><small>${esc(e.ticker)}　${ago(e.published)}</small>
         <span class="stars" aria-label="重要性 ${e.importance}">${"★".repeat(e.importance)}${"☆".repeat(5 - e.importance)}</span></span>
       <span class="ntitle">${esc(e.headline_zh)}</span>
@@ -642,7 +642,7 @@ function ipoCard(r) {
   if (p) stats.push(["首日", pct(p.first_day_pct, 1)], ["至今", pct(p.since_ipo_pct, 1)]);
   const web = webLink("ipo", r.slug);
   return `<details class="ncard">
-    <summary>
+    <summary>${e.image ? `<span class="nthumb" style="background-image:url('${esc(e.image)}')"></span>` : ""}
       <span class="nhead"><b>${esc(r.name)}</b><small>${esc(r.market ? r.market + " Market" : "")}</small>
         <span class="stars" style="letter-spacing:0">${a ? "评分 " + esc(a.level || "") : ""}</span></span>
       <span class="nviews"><span class="tag ${r.stage === "招股中" ? "gold" : ""}">${IPO_ICON[r.stage] || ""} ${esc(r.stage)}</span>
@@ -685,6 +685,28 @@ async function renderIpo() {
     <p class="foot">资料由 AI 整理自公开新闻，可能不完整；申购前请看招股书原文。<br>点「🔍 分析这家公司」会打开网站，自动找招股书分析；招股中的 IPO 系统会先自动分析好。</p>`;
 }
 
+// 报纸式头条：最重要又够新的一则放大（大图 + 大标题），其他照时间排
+const newsScore = e => e.importance * 10 - Math.min((Date.now() - new Date(e.published)) / 3.6e6, 96) / 4;
+function newsLead(evs) {
+  const lead = [...evs].sort((a, b) => newsScore(b) - newsScore(a))[0];
+  const rest = evs.filter(e => e !== lead);
+  const a0 = (lead.articles || [])[0] || {};
+  const kick = lead.type === "macro" ? `宏观 · ${(lead.affected || []).map(a => a.name).slice(0, 3).join("、")}`
+                                     : `${lead.name}${lead.topic && lead.topic !== "其他" ? " · " + lead.topic : ""}`;
+  const views = lead.type === "macro" ? lead.affected.map(a => `<span class="tag v-${esc(a.short_term.view)}">${esc(a.name)} ${esc(a.short_term.view)}</span>`).join("")
+    : `<span class="tag v-${esc(lead.short_term.view)}">短期 ${esc(lead.short_term.view)}</span><span class="tag v-${esc(lead.long_term.view)}">长期 ${esc(lead.long_term.view)}</span>`;
+  return `<article class="nlead">
+      <a href="${esc(a0.link || "#")}" target="_blank" rel="noopener">
+        ${lead.image ? `<div class="nlead-img" style="background-image:url('${esc(lead.image)}')"></div>` : ""}
+        <div class="nlead-kick">${esc(kick)}<span class="stars">${"★".repeat(lead.importance)}</span></div>
+        <h3>${esc(lead.headline_zh)}</h3></a>
+      ${lead.analysis ? `<p>${esc(lead.analysis)}</p>` : ""}
+      <div class="nviews">${views}</div>
+      <small>${ago(lead.published)} · ${esc((a0.source || "").toUpperCase())}</small>
+    </article>
+    ${rest.length ? `<h2 class="nsec">更多新闻</h2><div class="nlist">${rest.slice(0, 50).map(newsCard).join("")}</div>` : ""}`;
+}
+
 async function renderNews() {
   const r = await getJSON("news/feed.json").catch(() => null);
   setBand("新闻追踪", r ? `<div class="stamp">追踪 ${r.companies.length} 家公司　更新 ${esc(r.updated)}</div>` : "", false);
@@ -699,7 +721,7 @@ async function renderNews() {
       ${r.companies.map(c => `<button data-npick="${esc(c.ticker)}" aria-selected="${pick === c.ticker}">${esc(c.name)}</button>`).join("")}</div>
     <p class="lede">${state.newsAll ? "显示全部新闻。" : "只显示重要性 3 星以上。"}
       <button class="linkbtn" data-act="newsall">${state.newsAll ? "只看重要的" : "显示全部"}</button></p>
-    ${evs.length ? `<div class="nlist">${evs.slice(0, 50).map(newsCard).join("")}</div>` : `<p class="muted">没有符合的新闻。</p>`}
+    ${evs.length ? newsLead(evs) : `<p class="muted">没有符合的新闻。</p>`}
     <p class="foot">${esc(r.note)}<br>想追踪别的公司：Telegram 发 /follow 代码（例如 /follow GAMUDA），不要了就 /unfollow。</p>`;
 }
 

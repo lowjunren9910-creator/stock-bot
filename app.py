@@ -10,7 +10,7 @@ import hmac
 import io
 import json
 import os
-from datetime import date
+from datetime import date, datetime, timedelta, timezone
 
 import pandas as pd
 import plotly.graph_objects as go
@@ -1498,56 +1498,69 @@ def cached_news(text: str):
 
 
 def page_news():
+    import newspaper as NP
     st.title("🗞️ 新闻追踪")
-    st.caption("只追踪你感兴趣的公司（watchlist.yml 的自选股和 news_only）。每小时检查一次，"
-               "AI 会判断新闻是不是真的跟公司有关，再分析对股价的短期和长期影响。重要的会推送到 Telegram。")
-    with st.form("news_search"):
-        c1, c2 = st.columns([4, 1])
-        text = c1.text_input("现在就看某只股票的最新新闻", placeholder="例如 GAMUDA、TOPGLOV、NVDA",
-                             value=st.session_state.get("news_query", ""))
-        btn = c2.form_submit_button("分析", type="primary", width="stretch")
-    if btn and text.strip():
-        st.session_state.news_query = text.strip()
-    q = st.session_state.get("news_query")
-    if q:
-        with st.spinner(f"正在找 {q.upper()} 的新闻并请 AI 分析（约 20-40 秒）…"):
-            try:
-                evs = cached_news(q)
-            except Exception as e:
-                evs = None
-                st.error(f"❌ {e}")
-        if evs == []:
-            st.info("最近 48 小时没有找到这家公司的新闻。")
-        for i, e in enumerate(evs or []):
-            if e["relevant"]:
-                news_card(e, f"q{i}")
-        st.markdown("---")
-
+    st.caption("只追踪你关注的公司（自选股、news_only、Telegram /follow），加上牵连到它们的宏观大新闻。"
+               "AI 先确认新闻真的跟公司有关，再分析短期和长期影响；点标题看原文，点「AI 分析」看理由。")
     r = read_json(S.REPORT_DIR / "news" / "feed.json")
+    events = (r or {}).get("events") or []
+    names = {c["ticker"]: c["name"] for c in (r or {}).get("companies", [])}
+
+    c1, c2, c3, c4 = st.columns([6, 1.3, 1.4, 1.1], vertical_alignment="bottom")
+    with c1:
+        sec = st.pills("栏目", list(NP.SECTIONS), default="头条", key="np_sec", label_visibility="collapsed") or "头条"
+    with c2:
+        lang = st.segmented_control("语言", ["中文", "EN"], default="中文", key="np_lang",
+                                    label_visibility="collapsed") or "中文"
+    with c3:
+        sort = st.selectbox("排序", ["最新", "最重要"], key="np_sort", label_visibility="collapsed",
+                            format_func=lambda v: f"排序：{v}")
+    with c4:
+        with st.popover("筛选", icon=":material/tune:", width="stretch"):
+            pick = st.multiselect("公司", list(names), format_func=lambda t: names.get(t, t), key="news_pick",
+                                  placeholder="全部公司")
+            min_imp = st.select_slider("重要性至少", options=[1, 2, 3, 4, 5], value=1, key="news_imp")
+            days = st.select_slider("时间", options=[1, 3, 7, 14, 30], value=30, key="news_days",
+                                    format_func=lambda d: f"最近 {d} 天")
+    tick = lambda e: e.get("tickers") or [e.get("ticker")]
+    cut = (datetime.now(timezone.utc) - timedelta(days=days)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    evs = [e for e in events if e.get("importance", 1) >= min_imp and e.get("published", "") >= cut
+           and (not pick or set(tick(e)) & set(pick))]
+
     if not r:
         st.info("还没有新闻记录。新闻追踪每小时自动跑一次（GitHub Actions 的「新闻追踪」），第一次运行后这里就会有内容。")
-        return
-    names = {c["ticker"]: c["name"] for c in r["companies"]}
-    st.caption(f"更新：{r['updated']}　·　追踪 {len(names)} 家：" + "、".join(names.values()))
-    st.caption("想加减追踪的公司：Telegram 发 /follow 代码 或 /unfollow 代码（例如 /follow GAMUDA NVDA），"
-               "下一小时就开始追踪。宏观大新闻（利率、油价、关税、汇率…）牵连到这些公司时也会出现在这里。")
-    c1, c2, c3 = st.columns([3, 2, 2])
-    pick = c1.multiselect("公司", list(names), format_func=lambda t: names.get(t, t), key="news_pick", placeholder="全部公司")
-    min_imp = c2.select_slider("重要性至少", options=[1, 2, 3, 4, 5], value=2, key="news_imp")
-    view = c3.selectbox("影响", ["全部", "短期利好", "短期利空", "长期利好", "长期利空"], key="news_view")
-    only_macro = st.toggle("只看宏观新闻", key="news_macro")
-    tick = lambda e: e.get("tickers") or [e["ticker"]]
-    evs = [e for e in r["events"] if e["importance"] >= min_imp and (not pick or set(tick(e)) & set(pick))
-           and (not only_macro or e.get("type") == "macro")]
-    if view != "全部":
-        k = "short_term" if view.startswith("短期") else "long_term"
-        evs = [e for e in evs if (e[k]["view"] == view[2:] if e.get("type") != "macro"
-                                  else any(a[k]["view"] == view[2:] for a in e["affected"]))]
-    if not evs:
-        st.info("没有符合条件的新闻。")
-    for i, e in enumerate(evs[:40]):
-        news_card(e, f"f{i}")
-    st.caption(r["note"])
+    else:
+        st.html(NP.page(evs, sec, lang, sort))
+        st.caption(f"更新：{r['updated']}　·　追踪 {len(names)} 家：" + "、".join(names.values())
+                   + "　·　加减公司：Telegram 发 /follow 代码 或 /unfollow 代码")
+        if r.get("note"):
+            st.caption(r["note"])
+
+    with st.expander("🔍 现在就查某只股票的新闻（不在追踪名单也可以）", expanded=bool(st.session_state.get("news_query"))):
+        with st.form("news_search"):
+            f1, f2 = st.columns([4, 1])
+            text = f1.text_input("股票", placeholder="例如 GAMUDA、TOPGLOV、NVDA", label_visibility="collapsed",
+                                 value=st.session_state.get("news_query", ""))
+            btn = f2.form_submit_button("分析", type="primary", width="stretch")
+        if btn and text.strip():
+            st.session_state.news_query = text.strip()
+        q = st.session_state.get("news_query")
+        if q:
+            with st.spinner(f"正在找 {q.upper()} 的新闻并请 AI 分析（约 20-40 秒）…"):
+                try:
+                    found = cached_news(q)
+                except Exception as e:
+                    found = None
+                    st.error(f"❌ {e}")
+            found = [e for e in found or [] if e["relevant"]]
+            if not found and found is not None:
+                st.info("最近 48 小时没有找到这家公司的新闻。")
+            else:
+                st.html(NP.page(found, "最新", lang, "最重要", title=q.upper()))
+                b1, b2 = st.columns(2)
+                b1.button("🏢 认识这家公司", key="nq_co", on_click=goto_company, args=(found[0]["ticker"],))
+                b2.button("📊 看走势和圆桌", key="nq_an", on_click=goto_analysis, args=(found[0]["ticker"],))
+
 
 # ---------------------------------------------------------------------------
 # 页面：自选股

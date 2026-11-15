@@ -290,7 +290,13 @@ def yahoo_news(ticker: str) -> list[dict]:
         except Exception:
             when = datetime.now(timezone.utc)
         prov = c.get("provider") or {}
-        out.append({"title": title, "source": prov.get("displayName") if isinstance(prov, dict) else c.get("publisher", ""),
+        img = None
+        th = c.get("thumbnail") or {}
+        res = th.get("resolutions") if isinstance(th, dict) else None
+        if res:
+            res = sorted([r for r in res if isinstance(r, dict) and r.get("url")], key=lambda r: -(r.get("width") or 0))
+            img = (next((r for r in res if (r.get("width") or 0) <= 1000), res[0] if res else {}) or {}).get("url")
+        out.append({"image": img, "title": title, "source": prov.get("displayName") if isinstance(prov, dict) else c.get("publisher", ""),
                     "link": link, "published": when.strftime("%Y-%m-%dT%H:%M:%SZ"),
                     "summary": (c.get("summary") or "")[:300], "via": "yahoo"})
     return out
@@ -362,7 +368,7 @@ SYSTEM = """你是资深股票分析师，帮投资者读新闻。下面是关�
 请用简体中文分析，只回传 JSON，格式：
 {"events":[{"ids":["新闻id",...],"relevant":true,"importance":1-5,"headline_zh":"一句话中文标题",
 "analysis":"2-3 句：发生了什么、为什么重要","short_term":{"view":"利好|利空|中性","why":"1 句：几天到几周的股价影响"},
-"long_term":{"view":"利好|利空|中性","why":"1 句：一年以上对业务和盈利的影响"},"confidence":"高|中|低"}]}
+"long_term":{"view":"利好|利空|中性","why":"1 句：一年以上对业务和盈利的影响"},"confidence":"高|中|低","topic":"业绩|合约订单|并购重组|派息融资|管理层|监管法律|业务扩张|行业动态|其他"}]}
 规则：
 - 报道同一件事的几条新闻合并成一个事件（ids 放在一起）。
 - relevant=false：新闻其实不是在讲这家公司。特别注意「同名不同机构」：先看「公司资料」的行业和业务，
@@ -431,7 +437,11 @@ def analyze(c: dict, items: list[dict], px: dict | None = None) -> list[dict]:
             "articles": [{k: a.get(k) for k in ("title", "source", "link", "published")} for a in arts],
             "published": max(a["published"] for a in arts),
             "price": px,
+            "topic": str(ev.get("topic") or "其他")[:6],
+            "img": next((a.get("image") for a in arts if a.get("image")), None),
+            "sector": (c.get("about") or {}).get("板块"),
         })
+        events[-1]["photo_key"] = _photo_key(events[-1])
     return events
 
 
@@ -578,8 +588,17 @@ def analyze_macro(comps: list[dict], items: list[dict]) -> list[dict]:
             "headline_zh": str(ev.get("headline_zh") or arts[0]["title"]),
             "analysis": str(ev.get("analysis") or ""), "confidence": str(ev.get("confidence") or "中"),
             "articles": [{k: a.get(k) for k in ("title", "source", "link", "published")} for a in arts],
-            "published": max(a["published"] for a in arts)})
+            "published": max(a["published"] for a in arts), "topic": "宏观"})
+        events[-1]["photo_key"] = _photo_key(events[-1])
     return events
+
+
+def _photo_key(e: dict) -> str:
+    try:
+        import themes
+        return themes.photo_key_for(e.get("ticker"), e.get("sector"), (e.get("headline_zh") or "") + (e.get("analysis") or ""))
+    except Exception:
+        return "market"
 
 
 def macro_html(e: dict) -> str:
@@ -668,6 +687,12 @@ def run(push: bool = True) -> dict:
            "followed": load_follow(),
            "events": events[:300],
            "note": "AI 只看了新闻标题和摘要，重要新闻请点链接看原文。影响判断仅供参考，不构成投资建议。"}
+    try:                                             # 每则新闻配一张图（手机 App 直接用）
+        import themes
+        for e in out["events"]:
+            e["image"] = themes.news_image(e, 800)
+    except Exception:
+        pass
     DIR.mkdir(parents=True, exist_ok=True)
     FEED.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
     SEEN.write_text(json.dumps(seen, ensure_ascii=False), encoding="utf-8")
