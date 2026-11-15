@@ -1208,6 +1208,183 @@ def page_quarterly():
 
 
 # ---------------------------------------------------------------------------
+# 页面：IPO 追踪
+# ---------------------------------------------------------------------------
+
+STAGE_COLOR = {"计划中": "#A3ADC2", "草拟招股书": "#8EA2F0", "招股中": "#C8A23A", "认购结果": "#2BC48A",
+               "已上市": "#6ee7b7", "已撤回": "#F06A5D"}
+
+
+def show_ipo_analysis(a: dict, key: str):
+    import ipo
+    sc = a.get("score") or {}
+    with st.container(border=True):
+        st.markdown(f"#### 📑 招股书分析：{a.get('name') or ''}")
+        lvl = sc.get("level")
+        c = st.columns(5)
+        c[0].metric("规则评分", lvl or "—", f"{sc.get('avg') or '—'} / 5", delta_color="off")
+        c[1].metric("本益比", f"{sc['pe']:.1f} 倍" if sc.get("pe") else "—")
+        c[2].metric("盈利年复合增长", f"{sc['pat_cagr']:+.1f}%" if sc.get("pat_cagr") is not None else "—")
+        c[3].metric("净利率", f"{sc['margin']:.1f}%" if sc.get("margin") is not None else "—")
+        c[4].metric("募资用在扩张", f"{sc['growth_pct']:.0f}%" if sc.get("growth_pct") is not None else "—")
+        st.dataframe(pd.DataFrame([{"项目": i["name"], "数值": i["value"], "分数（1–5）": i["score"] or "—"}
+                                   for i in sc.get("items", [])]), hide_index=True, width="stretch")
+        if a.get("summary_zh"):
+            st.info("🧠 " + a["summary_zh"])
+        if a.get("business_zh"):
+            st.markdown(f"**业务**：{a['business_zh']}")
+        if a.get("model_zh"):
+            st.markdown(f"**营业模式**：{a['model_zh']}")
+        fy = [f for f in a.get("fy") or [] if f.get("year")]
+        if fy:
+            fig = go.Figure()
+            fig.add_trace(go.Bar(x=[f["year"] for f in fy], y=[ipo._num(f.get("revenue_rm_m")) for f in fy],
+                                 name="营收（RM 百万）", marker_color="#8EA2F0"))
+            fig.add_trace(go.Bar(x=[f["year"] for f in fy], y=[ipo._num(f.get("pat_rm_m")) for f in fy],
+                                 name="净利（RM 百万）", marker_color="#C8A23A"))
+            fig.update_layout(height=260, barmode="group", margin=dict(l=10, r=10, t=10, b=10),
+                              legend=dict(orientation="h", y=1.15))
+            st.plotly_chart(fig, width="stretch", key=f"ipofy_{key}")
+        if a.get("proceeds"):
+            st.markdown("**募资用途**")
+            st.dataframe(pd.DataFrame([{"用途": p.get("use"), "RM 百万": ipo._num(p.get("rm_m")), "%": ipo._num(p.get("pct")),
+                                        "用在扩张": "✓" if p.get("growth") else ""} for p in a["proceeds"]]),
+                         hide_index=True, width="stretch")
+        for label, k in (("股息政策", "dividend_policy"), ("大股东", "major_shareholders"), ("禁售期", "moratorium")):
+            if a.get(k):
+                st.markdown(f"**{label}**：{a[k]}")
+        cols = st.columns(3)
+        for col, (label, k) in zip(cols, (("✅ 优势", "strengths_zh"), ("⚠️ 风险", "risks_zh"), ("🚩 要警惕", "red_flags_zh"))):
+            col.markdown(f"**{label}**")
+            for x in a.get(k) or ["—"]:
+                col.markdown(f"- {x}")
+        st.caption("AI 只读了招股书的重点段落（摘要、IPO 详情、财务、募资用途、风险），数字请对照原文。不构成投资建议。")
+
+
+def ipo_card(r: dict, key: str):
+    import ipo
+    with st.container(border=True):
+        top = st.columns([5, 2])
+        color = STAGE_COLOR.get(r["stage"], "#A3ADC2")
+        top[0].markdown(f"**{r['name']}**　<span style='background:{color}22;color:{color};padding:2px 10px;"
+                        f"border-radius:999px;font-size:.85rem'>{ipo.STAGE_ICON.get(r['stage'], '')} {r['stage']}</span>"
+                        + (f"　`{r['market']} Market`" if r.get("market") else ""), unsafe_allow_html=True)
+        if r.get("analysis"):
+            top[1].markdown(f"<div style='text-align:right'>招股书评分 <b style='color:#C8A23A'>{r['analysis']['level']}</b></div>",
+                            unsafe_allow_html=True)
+        if r.get("business"):
+            st.caption(r["business"])
+        p = r.get("perf")
+        facts = [("IPO 价", f"RM{r['ipo_price']:g}" if r.get("ipo_price") else "—", None),
+                 ("集资", ipo.f_rm(r.get("proceeds_rm_m")) if r.get("proceeds_rm_m") else "—", None),
+                 ("上市市值", ipo.f_rm(r.get("market_cap_rm_m")) if r.get("market_cap_rm_m") else "—", None),
+                 ("超额认购", f"{r['oversub_times']:.1f} 倍" if r.get("oversub_times") else "—",
+                  f"{r['applications']:,.0f} 份申请" if r.get("applications") else None)]
+        if p:
+            facts.append(("首日", f"{p['first_day_pct']:+.1f}%", f"至今 {p['since_ipo_pct']:+.1f}%"))
+        else:
+            facts.append(("本益比", f"{r['pe']:.1f} 倍" if r.get("pe") else "—", None))
+        st.markdown("<div style='display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:6px 0'>" + "".join(
+            f"<div style='background:#1B2540;border:1px solid #2C3756;border-radius:12px;padding:10px 12px'>"
+            f"<div style='font-size:.8rem;color:#A3ADC2'>{k}</div>"
+            f"<div style='font-family:\"Barlow Semi Condensed\",sans-serif;font-weight:700;font-size:1.35rem'>{v}</div>"
+            + (f"<div style='font-size:.78rem;color:#A3ADC2'>{sub}</div>" if sub else "") + "</div>"
+            for k, v, sub in facts) + "</div>", unsafe_allow_html=True)
+        dates = [("申请", f"{r.get('application_open') or '?'} → {r['application_close']}" if r.get("application_close") else None),
+                 ("抽签", r.get("balloting_date")), ("上市", r.get("listing_date")),
+                 ("代码", r.get("ticker")), ("土著部分", f"{r['bumi_oversub_times']:.2f} 倍" if r.get("bumi_oversub_times") else None),
+                 ("顾问", r.get("principal_adviser")), ("发行处", r.get("issuing_house"))]
+        st.caption("　·　".join(f"{k} {v}" for k, v in dates if v))
+        with st.expander("新闻来源" + (" 和招股书分析" if r.get("analysis") else "")):
+            for a in r.get("articles", [])[:6]:
+                st.markdown(f"🔗 [{a.get('title')}]({a.get('link')}) — {a.get('source') or ''}，{(a.get('published') or '')[:10]}")
+            if r.get("analysis"):
+                a = read_json(S.REPORT_DIR / "ipo" / r["analysis"]["file"])
+                if a:
+                    show_ipo_analysis(a, key)
+        b = st.columns(3)
+        if r.get("ticker") and b[0].button("认识这家公司", key=f"ipoco_{key}"):
+            goto_company(r["ticker"])
+            st.rerun()
+
+
+@st.cache_data(ttl=3600, show_spinner=False)
+def cached_ipo_pdf(data: bytes, source: str):
+    import ipo
+    return ipo.analyze_pdf(data, source)
+
+
+def page_ipo():
+    import ipo
+    st.title("🆕 IPO 追踪")
+    st.caption("自动从新闻整理马股新上市公司（Main / ACE / LEAP）：招股资料、认购情况、上市后表现，每 3 小时更新。"
+               "招股书可以在下面上传分析，或在 Telegram 把 PDF 传给机器人（那边的分析会存起来）。")
+    r = read_json(S.REPORT_DIR / "ipo" / "ipos.json")
+    recs = list((r or {}).get("ipos", {}).values())
+
+    with st.expander("📑 分析招股书（上传 PDF 或贴链接）", expanded=not recs):
+        up = st.file_uploader("招股书 PDF", type=["pdf"], key="ipo_pdf")
+        url = st.text_input("或 PDF 链接", placeholder="https://…/prospectus.pdf", key="ipo_url")
+        if st.button("开始分析", type="primary", disabled=not (up or url.strip())):
+            with st.spinner("正在读招股书的重点段落并分析（约 1–2 分钟）…"):
+                try:
+                    data = up.getvalue() if up else ipo.fetch_pdf(url.strip())
+                    st.session_state.ipo_result = cached_ipo_pdf(data, up.name if up else url.strip())
+                except Exception as e:
+                    st.error(f"❌ {e}")
+        if st.session_state.get("ipo_result"):
+            show_ipo_analysis(st.session_state.ipo_result, "upload")
+            st.caption("网站上的分析不会存起来；想长期保存，请在 Telegram 把 PDF 传给机器人。")
+
+    if not recs:
+        st.info("还没有 IPO 资料。「新闻追踪」自动任务每 3 小时会更新一次，第一次会找最近 3 个星期的 IPO 新闻。")
+        return
+    st.caption(f"更新：{r.get('updated')}　·　共 {len(recs)} 个 IPO")
+    active = sorted([x for x in recs if x["stage"] in ("招股中", "认购结果")], key=lambda x: x.get("listing_date") or "9")
+    pipeline = sorted([x for x in recs if x["stage"] in ("计划中", "草拟招股书")], key=lambda x: x.get("updated") or "", reverse=True)
+    listed = sorted([x for x in recs if x["stage"] == "已上市"], key=lambda x: x.get("listing_date") or "", reverse=True)
+    tabs = st.tabs([f"招股中 / 等上市（{len(active)}）", f"已上市（{len(listed)}）", f"筹备中（{len(pipeline)}）"])
+    with tabs[0]:
+        if not active:
+            st.info("现在没有开放申请或等待上市的 IPO。")
+        for i, x in enumerate(active):
+            ipo_card(x, f"a{i}")
+    with tabs[1]:
+        perf = [x for x in listed if x.get("perf")]
+        if perf:
+            c = st.columns(3)
+            avg1 = sum(x["perf"]["first_day_pct"] for x in perf) / len(perf)
+            up_ = sum(1 for x in perf if x["perf"]["first_day_pct"] > 0)
+            c[0].metric("平均首日表现", f"{avg1:+.1f}%")
+            c[1].metric("首日上涨比例", f"{up_}/{len(perf)}")
+            c[2].metric("至今仍高于 IPO 价", f"{sum(1 for x in perf if x['perf']['since_ipo_pct'] > 0)}/{len(perf)}")
+            pts = [x for x in perf if x.get("oversub_times")]
+            if len(pts) >= 3:
+                fig = go.Figure(go.Scatter(x=[x["oversub_times"] for x in pts], y=[x["perf"]["first_day_pct"] for x in pts],
+                                           mode="markers+text", text=[x["name"].split()[0] for x in pts], textposition="top center",
+                                           marker=dict(size=10, color="#C8A23A")))
+                fig.update_layout(height=320, margin=dict(l=10, r=10, t=30, b=10), title="超额认购倍数 vs 首日表现",
+                                  xaxis_title="公众部分超额认购（倍，对数）", yaxis_title="首日涨跌 %", xaxis_type="log")
+                st.plotly_chart(fig, width="stretch", key="ipo_scatter")
+            st.dataframe(pd.DataFrame([{"公司": x["name"], "代码": x.get("ticker"), "市场": x.get("market"),
+                                        "上市日": x.get("listing_date"), "IPO 价": x.get("ipo_price"),
+                                        "超额认购": x.get("oversub_times"), "首日%": x["perf"]["first_day_pct"],
+                                        "现价": x["perf"]["last"], "至今%": x["perf"]["since_ipo_pct"]} for x in perf]
+                                      ).style.format({"IPO 价": "{:g}", "超额认购": "{:.1f}", "首日%": "{:+.1f}", "至今%": "{:+.1f}",
+                                                      "现价": "{:g}"}, na_rep="—").map(
+                lambda v: f"color:{'#16a34a' if v > 0 else '#dc2626'}" if isinstance(v, (int, float)) and v == v else "",
+                subset=["首日%", "至今%"]), hide_index=True, width="stretch")
+        for i, x in enumerate(listed[:20]):
+            ipo_card(x, f"l{i}")
+    with tabs[2]:
+        if not pipeline:
+            st.info("没有筹备中的 IPO 资料。")
+        for i, x in enumerate(pipeline[:30]):
+            ipo_card(x, f"p{i}")
+    st.caption("资料由 AI 整理自公开新闻，可能不完整或有出入；申购前请看招股书原文。不构成投资建议。")
+
+
+# ---------------------------------------------------------------------------
 # 页面：新闻追踪
 # ---------------------------------------------------------------------------
 
@@ -1459,7 +1636,7 @@ def page_health():
 # ---------------------------------------------------------------------------
 
 PAGES = {  # 顺序要跟 ui.NAV_GROUPS 的分组对应
-    "📅 每日焦点": page_focus, "🧩 板块": page_sectors, "🔍 选股雷达": page_radar, "🏆 KLCI 50 观察": page_klci,
+    "📅 每日焦点": page_focus, "🧩 板块": page_sectors, "🔍 选股雷达": page_radar, "🏆 KLCI 50 观察": page_klci, "🆕 IPO 追踪": page_ipo,
     "📊 个股分析": page_analysis, "🏢 认识公司": page_company, "⚖️ 股票对比": page_compare, "📑 季度报告": page_quarterly,
     "⭐ 自选股": page_watchlist, "🗞️ 新闻追踪": page_news, "💼 投资组合": page_portfolio, "📈 成绩单": page_track, "📰 周报": page_weekly,
     "🩺 系统状态": page_health}
@@ -1483,11 +1660,11 @@ if check_password():
         elif qp.get("analyze"):
             st.session_state.query = qp["analyze"]
             st.session_state.nav = "📊 个股分析"
-        elif qp.get("page") in ("focus", "radar", "klci", "sectors", "track", "weekly", "watch", "quarterly", "compare", "news"):
+        elif qp.get("page") in ("focus", "radar", "klci", "sectors", "track", "weekly", "watch", "quarterly", "compare", "news", "ipo"):
             st.session_state.nav = {"focus": "📅 每日焦点", "radar": "🔍 选股雷达", "klci": "🏆 KLCI 50 观察",
                                     "sectors": "🧩 板块", "track": "📈 成绩单", "weekly": "📰 周报",
                                     "watch": "⭐ 自选股", "quarterly": "📑 季度报告",
-                                    "compare": "⚖️ 股票对比", "news": "🗞️ 新闻追踪"}[qp["page"]]
+                                    "compare": "⚖️ 股票对比", "news": "🗞️ 新闻追踪", "ipo": "🆕 IPO 追踪"}[qp["page"]]
         st.session_state._qp_done = True
     ui.sidebar_brand()
     page = st.sidebar.radio("功能", list(PAGES), key="nav")

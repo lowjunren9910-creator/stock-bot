@@ -327,3 +327,7 @@ button.hrow:active { background: var(--gold-soft); }
 .maff { padding: 8px 0; border-top: 1px solid var(--line); }
 .maff > b { font-size: 14px; } .maff > small { color: var(--ink-2); margin-left: 6px; font-size: 12px; }
 .maff .impacts { margin-top: 6px; }
+.nbody dl.stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px 12px; margin: 4px 0 10px; }
+.nbody dl.stats div { min-width: 0; }
+.nbody dl.stats dt { color: var(--ink-2); font-size: 12px; }
+.nbody dl.stats dd { margin: 0; font-family: var(--num); font-weight: 600; font-size: 14.5px; }

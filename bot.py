@@ -45,6 +45,7 @@ HELP = f"""<b>📊 股票分析机器人</b>
 /sector [bursa|idx|us] [板块] - 板块轮动；例如 /sector 手套、/sector us AI
 /compare 代码 代码 [代码] - 对比 2 到 3 只股票
 /quarter 代码 - 最新季报快速分析
+/ipo [公司名] - 马股 IPO 追踪；/ipopdf 链接 - 分析招股书
 /news 代码 - 最新新闻 + AI 分析（短期 / 长期影响）
 /quick 代码 - 只看数据报告（不开圆桌，更快）
 /panel 代码 - 只开基金经理圆桌
@@ -56,11 +57,16 @@ HELP = f"""<b>📊 股票分析机器人</b>
 
 
 async def send(update: Update, text: str):
-    # Telegram 每条消息上限 4096 字
-    for i in range(0, len(text), 4000):
-        await update.message.reply_text(
-            text[i:i + 4000], parse_mode=ParseMode.HTML,
-            disable_web_page_preview=True)
+    # Telegram 每条消息上限 4096 字：按行切开，避免把 HTML 标签切断
+    parts, cur = [], ""
+    for line in text.split("\n"):
+        if len(cur) + len(line) + 1 > 3900 and cur:
+            parts.append(cur)
+            cur = ""
+        cur += (("\n" if cur else "") + line)[:3900]
+    parts.append(cur)
+    for p in parts:
+        await update.message.reply_text(p, parse_mode=ParseMode.HTML, disable_web_page_preview=True)
 
 
 def need_ticker(ctx) -> str | None:
@@ -228,6 +234,30 @@ async def quarter_cmd(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
         await send(update, f"❌ {A._esc(str(e))}")
 
 
+async def ipo_cmd(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
+    import ipo
+    store = ipo._load(ipo.STORE, {"ipos": {}})
+    arg = " ".join(ctx.args)
+    if not store.get("ipos"):
+        return await send(update, "还没有 IPO 资料（「新闻追踪」自动任务每 3 小时更新一次）。")
+    r = ipo.find(store, arg) if arg else None
+    await send(update, ipo.card_html(r) if r else ipo.list_html(store))
+
+
+async def ipopdf_cmd(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
+    import ipo
+    if not ctx.args or not ctx.args[0].startswith("http"):
+        return await send(update, "用法：/ipopdf 招股书 PDF 链接")
+    await update.message.reply_text("📑 正在分析招股书（约 1–2 分钟）…")
+    try:
+        data = await run_blocking(ipo.fetch_pdf, ctx.args[0])
+        a = await run_blocking(ipo.analyze_pdf, data, ctx.args[0])
+        ipo.save_analysis(a)
+        await send(update, ipo.analysis_html(a))
+    except Exception as e:
+        await send(update, f"❌ {A._esc(str(e))}")
+
+
 async def sector_cmd(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
     import sectors
     await send(update, sectors.reply(" ".join(ctx.args)))
@@ -334,6 +364,8 @@ def main():
     app.add_handler(CommandHandler("klci", klci_cmd))
     app.add_handler(CommandHandler(["sector", "theme"], sector_cmd))
     app.add_handler(CommandHandler("compare", compare_cmd))
+    app.add_handler(CommandHandler("ipo", ipo_cmd))
+    app.add_handler(CommandHandler("ipopdf", ipopdf_cmd))
     app.add_handler(CommandHandler("quarter", quarter_cmd))
     app.add_handler(CommandHandler("analyze", analyze))
     app.add_handler(CommandHandler("quick", quick))

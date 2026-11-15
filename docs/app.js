@@ -625,6 +625,66 @@ function newsCard(e) {
     </div></details>`;
 }
 
+// ---------------------------------------------------------------------------
+// IPO 追踪
+// ---------------------------------------------------------------------------
+const IPO_TABS = { active: "招股中 / 等上市", listed: "已上市", pipeline: "筹备中" };
+const IPO_ICON = { "计划中": "🗂", "草拟招股书": "📄", "招股中": "📝", "认购结果": "🎯", "已上市": "🔔", "已撤回": "⛔" };
+const rm = v => v == null ? "—" : v >= 1000 ? `RM${(v / 1000).toFixed(2)} 十亿` : `RM${Number(v).toFixed(1)} 百万`;
+
+function ipoCard(r) {
+  const p = r.perf, a = r.analysis;
+  const stats = [["IPO 价", r.ipo_price != null ? `RM${r.ipo_price}` : "—"], ["集资", rm(r.proceeds_rm_m)],
+                 ["上市市值", rm(r.market_cap_rm_m)], ["本益比", r.pe ? `${Number(r.pe).toFixed(1)} 倍` : "—"],
+                 ["超额认购", r.oversub_times ? `${Number(r.oversub_times).toFixed(2)} 倍` : "—"],
+                 ["申请份数", r.applications ? Number(r.applications).toLocaleString("en-US") : "—"],
+                 ["申请截止", r.application_close || "—"], ["上市日", r.listing_date || "—"]];
+  if (p) stats.push(["首日", pct(p.first_day_pct, 1)], ["至今", pct(p.since_ipo_pct, 1)]);
+  const web = webLink("page", "ipo");
+  return `<details class="ncard">
+    <summary>
+      <span class="nhead"><b>${esc(r.name)}</b><small>${esc(r.market ? r.market + " Market" : "")}</small>
+        <span class="stars" style="letter-spacing:0">${a ? "招股书 " + esc(a.level || "") : ""}</span></span>
+      <span class="nviews"><span class="tag ${r.stage === "招股中" ? "gold" : ""}">${IPO_ICON[r.stage] || ""} ${esc(r.stage)}</span>
+        ${r.oversub_times ? `<span class="tag">超额 ${Number(r.oversub_times).toFixed(1)}x</span>` : ""}
+        ${p ? `<span class="tag v-${p.first_day_pct >= 0 ? "利好" : "利空"}">首日 ${pct(p.first_day_pct, 1)}</span>` : ""}
+        ${r.listing_date && !p ? `<span class="tag">上市 ${esc(r.listing_date.slice(5))}</span>` : ""}</span>
+    </summary>
+    <div class="nbody">
+      ${r.business ? `<p>${esc(r.business)}</p>` : ""}
+      <dl class="stats">${stats.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>
+      ${a && a.summary ? `<p class="note"><small>招股书分析（${esc(a.level || "")}）</small>${esc(a.summary)}</p>` : ""}
+      ${(r.articles || []).slice(0, 3).map(x => `<a class="nlink" href="${esc(x.link)}" target="_blank" rel="noopener">${esc(x.title)}<small>${esc(x.source || "")}　${esc((x.published || "").slice(0, 10))}</small></a>`).join("")}
+      <div class="actions wrap" style="margin-top:8px">
+        ${r.ticker ? `<a class="btn" href="${webLink("company", r.ticker) || "#"}" target="_blank" rel="noopener">认识公司</a>` : ""}
+        ${web ? `<a class="btn ghost" href="${web}" target="_blank" rel="noopener">网站：分析招股书</a>` : ""}
+      </div>
+    </div></details>`;
+}
+
+async function renderIpo() {
+  const r = await getJSON("ipo/ipos.json").catch(() => null);
+  const back = `<button class="back" data-sub="">‹ 更多</button>`;
+  const recs = Object.values((r && r.ipos) || {});
+  setBand("IPO 追踪", r ? `<div class="stamp">共 ${recs.length} 个 IPO　更新 ${esc(r.updated || "")}</div>` : "", false);
+  if (!recs.length) return back + emptyView("还没有 IPO 资料", "「新闻追踪」自动任务每 3 小时更新一次。");
+  const tab = state.ipoTab || "active";
+  const groups = {
+    active: recs.filter(x => ["招股中", "认购结果"].includes(x.stage)).sort((a, b) => (a.listing_date || "9").localeCompare(b.listing_date || "9")),
+    listed: recs.filter(x => x.stage === "已上市").sort((a, b) => (b.listing_date || "").localeCompare(a.listing_date || "")),
+    pipeline: recs.filter(x => ["计划中", "草拟招股书"].includes(x.stage)),
+  };
+  const perf = groups.listed.filter(x => x.perf);
+  const avg = perf.length ? perf.reduce((s, x) => s + x.perf.first_day_pct, 0) / perf.length : null;
+  return `${back}
+    <div class="switch" style="margin-top:12px">${Object.entries(IPO_TABS).map(([k, v]) =>
+      `<button data-ipotab="${k}" aria-selected="${tab === k}">${v}（${groups[k].length}）</button>`).join("")}</div>
+    ${tab === "listed" && avg != null ? `<p class="lede">平均首日表现 <b class="${sign(avg)}">${pct(avg, 1)}</b>，
+      首日上涨 ${perf.filter(x => x.perf.first_day_pct > 0).length}/${perf.length} 个。</p>` : ""}
+    ${groups[tab].length ? `<div class="nlist">${groups[tab].slice(0, 40).map(ipoCard).join("")}</div>` : `<p class="muted">没有资料。</p>`}
+    <p class="foot">资料由 AI 整理自公开新闻，可能不完整；申购前请看招股书原文。<br>分析招股书：在 Telegram 把 PDF 传给机器人。</p>`;
+}
+
 async function renderNews() {
   const r = await getJSON("news/feed.json").catch(() => null);
   setBand("新闻追踪", r ? `<div class="stamp">追踪 ${r.companies.length} 家公司　更新 ${esc(r.updated)}</div>` : "", false);
@@ -709,6 +769,7 @@ async function renderMine() {
 // 更多：KLCI 50、成绩单、周报、查股、系统状态、设定
 // ---------------------------------------------------------------------------
 const SUBS = {
+  ipo: ["IPO 追踪", "马股新股：招股资料、认购倍数、上市表现"],
   news: ["新闻追踪", "感兴趣公司的新闻 + AI 分析短期 / 长期影响"],
   compare: ["股票对比", "2–3 只股票放在一起比"],
   quarterly: ["季度报告", "最近公布的季报 + 快速结论"],
@@ -781,6 +842,7 @@ async function renderHealth() {
 async function renderMoreRouter() {
   const back = `<button class="back" data-sub="">‹ 更多</button>`;
   switch (state.sub) {
+    case "ipo": return await renderIpo();
     case "news": return await renderNews();
     case "compare": return await renderCompare();
     case "quarterly": return await renderQuarterly();
@@ -845,6 +907,7 @@ document.addEventListener("click", e => {
   else if (t.dataset.cmpdel) { setCmp(state.cmp.filter(x => x !== t.dataset.cmpdel)); render(); }
   else if (t.dataset.act === "cmpclear") { setCmp([]); render(); }
   else if (t.dataset.gocmp) { state.tab = "more"; state.sub = "compare"; store.set("tab", "more"); window.scrollTo(0, 0); render(); }
+  else if (t.dataset.ipotab) { state.ipoTab = t.dataset.ipotab; render(); }
   else if (t.dataset.npick !== undefined) { state.newsPick = t.dataset.npick; render(); }
   else if (t.dataset.act === "newsall") { state.newsAll = !state.newsAll; render(); }
   else if (t.dataset.gosub) { state.tab = "more"; state.sub = t.dataset.gosub; store.set("tab", "more"); window.scrollTo(0, 0); render(); }

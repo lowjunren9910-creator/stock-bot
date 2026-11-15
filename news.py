@@ -244,8 +244,8 @@ def _strip_source(title: str, source: str) -> str:
     return title
 
 
-def google_news(query: str, hl: str, gl: str, ceid: str) -> list[dict]:
-    url = (f"https://news.google.com/rss/search?q={quote(query)}+when:2d"
+def google_news(query: str, hl: str, gl: str, ceid: str, when: str = "2d") -> list[dict]:
+    url = (f"https://news.google.com/rss/search?q={quote(query)}+when:{when}"
            f"&hl={hl}&gl={gl}&ceid={quote(ceid)}")
     try:
         r = requests.get(url, headers=UA, timeout=20)
@@ -744,3 +744,8 @@ if __name__ == "__main__":
         print(list_html(quick(sys.argv[1]), f"新闻：{sys.argv[1]}"))
     else:
         run()
+        try:                      # IPO 追踪（每 3 小时一次，见 ipo.py）
+            import ipo
+            ipo.run()
+        except Exception as e:
+            print("IPO 追踪失败：", e)

@@ -47,6 +47,8 @@ HELP = f"""<b>📊 股票分析机器人（信箱模式）</b>
 /compare 代码 代码 [代码] - 对比 2 到 3 只股票，例如 <code>/compare MAYBANK PBBANK CIMB</code>
 /quarter 代码 - 最新季报快速分析
 /news 代码 - 最新新闻 + AI 分析（短期 / 长期影响）。自选股的重要新闻会自动推送
+/ipo - 马股 IPO 追踪（招股中、认购结果、最近上市表现）；/ipo 公司名 看详细
+/ipopdf 链接 - 分析招股书（也可以直接把招股书 PDF 传给我）
 /follow 代码… - 追踪这些公司的新闻（含宏观大新闻的牵连），例如 /follow GAMUDA NVDA
 /unfollow 代码 - 不再追踪；/following - 看追踪名单
 /notnews 代码 字眼 - 新闻找错公司时用，例如 /notnews PPB pharmacy（以后不要）
@@ -71,9 +73,16 @@ def tg(method: str, files=None, **data) -> dict:
 
 
 def send(chat, text: str):
-    for i in range(0, len(text), 4000):
-        tg("sendMessage", chat_id=chat, text=text[i:i + 4000], parse_mode="HTML",
-           disable_web_page_preview=True)
+    # 超过 Telegram 4096 字的上限：按行切开，避免把 HTML 标签切断
+    parts, cur = [], ""
+    for line in text.split("\n"):
+        if len(cur) + len(line) + 1 > 3900 and cur:
+            parts.append(cur)
+            cur = ""
+        cur += (("\n" if cur else "") + line)[:3900]
+    parts.append(cur)
+    for p in parts:
+        tg("sendMessage", chat_id=chat, text=p, parse_mode="HTML", disable_web_page_preview=True)
 
 
 def send_photo(chat, buf, caption: str = ""):
@@ -181,6 +190,25 @@ def do_quarter(chat, arg: str):
         send(chat, f"⚠️ {esc(str(e))}")
 
 
+def do_ipo_pdf(chat, url: str = "", file_id: str = "", name: str = ""):
+    import ipo
+    send(chat, "📑 收到招股书，正在读重点段落并分析（约 1–2 分钟）…")
+    typing(chat)
+    try:
+        if file_id:
+            info = tg("getFile", file_id=file_id).get("result") or {}
+            r = requests.get(f"https://api.telegram.org/file/bot{TOKEN}/{info['file_path']}", timeout=120)
+            r.raise_for_status()
+            data = r.content
+        else:
+            data = ipo.fetch_pdf(url)
+        a = ipo.analyze_pdf(data, url or name)
+        ipo.save_analysis(a)
+        send(chat, ipo.analysis_html(a))
+    except Exception as e:
+        send(chat, f"⚠️ 分析失败：{esc(str(e))}")
+
+
 def handle(chat, text: str):
     parts = text.split(maxsplit=1)
     cmd = parts[0].lower().split("@")[0]  # 群组里会是 /radar@你的bot
@@ -233,6 +261,22 @@ def handle(chat, text: str):
         return send(chat, A.format_technical(t, A.technical_summary(A.get_history(t))))
     if cmd == "/fund":
         return do_fund(chat, arg)
+    if cmd == "/ipo":
+        import ipo
+        store = ipo._load(ipo.STORE, {"ipos": {}})
+        if not store.get("ipos"):
+            return send(chat, "还没有 IPO 资料（「新闻追踪」每 3 小时会更新一次）。")
+        if not arg:
+            return send(chat, ipo.list_html(store))
+        r = ipo.find(store, arg)
+        if not r:
+            return send(chat, f"找不到「{esc(arg)}」。发 /ipo 看全部。")
+        a = ipo._load(ipo.DIR / r["analysis"]["file"], None) if r.get("analysis") else None
+        return send(chat, ipo.card_html(r) + ("\n\n" + ipo.analysis_html(a) if a else ""))
+    if cmd == "/ipopdf":
+        if not arg.startswith("http"):
+            return send(chat, "用法：/ipopdf 招股书 PDF 链接\n或直接把 PDF 文件传给我（20MB 以内）。")
+        return do_ipo_pdf(chat, url=arg.split()[0])
     if cmd in ("/follow", "/unfollow"):
         import news
         words = arg.replace(",", " ").replace("，", " ").split()
@@ -303,8 +347,9 @@ def main():
     for u in ups:
         msg = u.get("message") or {}
         chat = (msg.get("chat") or {}).get("id")
-        text = (msg.get("text") or "").strip()
-        if not chat or not text:
+        text = (msg.get("text") or msg.get("caption") or "").strip()
+        doc = msg.get("document") or {}
+        if not chat or not (text or doc):
             continue
         if not ALLOWED:
             send(chat, f"⚙️ 机器人还没设置主人。你的 Chat ID 是 <code>{chat}</code>，"
@@ -314,6 +359,15 @@ def main():
             send(chat, "🔒 这是私人机器人。")
             continue
         try:
+            if doc:
+                if doc.get("mime_type") == "application/pdf" or (doc.get("file_name") or "").lower().endswith(".pdf"):
+                    if (doc.get("file_size") or 0) > 20 * 1024 * 1024:
+                        send(chat, "⚠️ PDF 超过 20MB，Telegram 不让机器人下载。请改发 /ipopdf 链接。")
+                    else:
+                        do_ipo_pdf(chat, file_id=doc["file_id"], name=doc.get("file_name", ""))
+                else:
+                    send(chat, "只看得懂 PDF（招股书）。")
+                continue
             handle(chat, text)
         except Exception as e:
             print("处理失败：", e)

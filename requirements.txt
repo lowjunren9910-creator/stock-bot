@@ -11,3 +11,4 @@ pyyaml>=6.0
 # 网页版需要
 streamlit>=1.50
 plotly>=5.20
+pypdf>=4.0

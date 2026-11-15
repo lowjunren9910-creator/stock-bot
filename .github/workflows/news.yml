@@ -29,7 +29,7 @@ jobs:
           cache: pip
 
       - name: 安装工具包
-        run: pip install yfinance pandas requests python-dotenv openai matplotlib vaderSentiment pyyaml
+        run: pip install yfinance pandas requests python-dotenv openai matplotlib vaderSentiment pyyaml pypdf
 
       - name: 抓新闻 + AI 分析
         env:
@@ -41,6 +41,7 @@ jobs:
           NEWS_MIN_IMPORTANCE: ${{ vars.NEWS_MIN_IMPORTANCE || '3' }}
           NEWS_AI_MAX: ${{ vars.NEWS_AI_MAX || '8' }}
           NEWS_MACRO_EVERY: ${{ vars.NEWS_MACRO_EVERY || '2' }}
+          IPO_EVERY: ${{ vars.IPO_EVERY || '3' }}
         run: python news.py
 
       - name: 保存
@@ -48,8 +49,8 @@ jobs:
         run: |
           git config user.name "news-bot"
           git config user.email "news-bot@users.noreply.github.com"
-          if [ ! -d reports/news ]; then echo "没有新闻文件（上一步可能出错了）"; exit 0; fi
-          git add reports/news/
+          if [ ! -d reports/news ] && [ ! -d reports/ipo ]; then echo "没有新闻文件（上一步可能出错了）"; exit 0; fi
+          for d in reports/news reports/ipo; do if [ -d "$d" ]; then git add "$d"; fi; done
           if git diff --cached --quiet; then
             echo "没有新新闻"
           else
