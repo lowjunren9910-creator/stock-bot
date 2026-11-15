@@ -2,15 +2,15 @@
  "market": "us",
  "market_name": "🇺🇸 美股",
  "currency": "USD",
- "date": "2026-11-12",
- "generated_at": "2026-11-12 16:31 EST",
+ "date": "2026-11-13",
+ "generated_at": "2026-11-13 16:31 EST",
  "tracked": 173,
  "universe_size": 179,
  "new_today": [
-  "OXY",
-  "NET"
+  "SMCI"
  ],
  "recent": [
+  "SMCI",
   "NET",
   "OXY",
   "SCHW",
@@ -69,8 +69,7 @@
   "CAT",
   "CVX",
   "DHR",
-  "DLR",
-  "EOG"
+  "DLR"
  ],
  "items": {
   "AAPL": {
@@ -4902,55 +4901,56 @@
    "found": null
   },
   "SMCI": {
-   "period": "2026-06-30",
-   "prev_period": "2026-03-31",
-   "yoy_period": "2025-06-30",
-   "revenue": 11119777000.0,
-   "net": 1143606000.0,
-   "eps": 1.62,
-   "rev_yoy": 93.2,
-   "net_yoy": 486.0,
-   "rev_qoq": 8.6,
-   "net_qoq": 136.6,
-   "net_margin": 10.3,
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": "2025-09-30",
+   "revenue": 19945832000.0,
+   "net": 1594205000.0,
+   "eps": 1.75,
+   "rev_yoy": 297.5,
+   "net_yoy": 847.3,
+   "rev_qoq": 79.4,
+   "net_qoq": 39.4,
+   "net_margin": 8.0,
    "net_margin_yoy": 3.4,
-   "gross_margin": 17.5,
+   "gross_margin": 12.7,
    "trend": {
     "periods": [
-     "2025-06-30",
      "2025-09-30",
      "2025-12-31",
      "2026-03-31",
-     "2026-06-30"
+     "2026-06-30",
+     "2026-09-30"
     ],
     "revenue": [
-     5756911000.0,
      5017790000.0,
      12682491000.0,
      10243014000.0,
-     11119777000.0
+     11119777000.0,
+     19945832000.0
     ],
     "net": [
-     195154000.0,
      168285000.0,
      400564000.0,
      483387000.0,
-     1143606000.0
+     1143606000.0,
+     1594205000.0
     ]
    },
    "score": 5,
    "verdict": "亮眼",
    "icon": "🌟",
    "reasons": [
-    "营收按年 +93.2%",
-    "净利按年 +486.0%",
-    "净利率升到 10.3%（去年 3.4%）"
+    "营收按年 +297.5%",
+    "净利按年 +847.3%",
+    "净利率升到 8.0%（去年 3.4%）"
    ],
    "ticker": "SMCI",
    "name": "Super Micro",
    "currency": "USD",
    "watch": false,
-   "found": null
+   "found": "2026-11-13",
+   "ai": null
   },
   "SMFG": {
    "period": "2026-06-30",

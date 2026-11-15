@@ -1,0 +1,38 @@
+{
+ "date": "2026-11-13",
+ "market": "us",
+ "panels": [
+  {
+   "ticker": "NVDA",
+   "name": "NVIDIA Corporation",
+   "price": 162.85000610351562,
+   "opinions": [
+    {
+     "id": "value",
+     "name": "老陈",
+     "rating": null
+    },
+    {
+     "id": "growth",
+     "name": "Kelly",
+     "rating": null
+    },
+    {
+     "id": "technical",
+     "name": "阿杰",
+     "rating": null
+    },
+    {
+     "id": "dividend",
+     "name": "Auntie Lim",
+     "rating": null
+    },
+    {
+     "id": "bear",
+     "name": "冷面周",
+     "rating": null
+    }
+   ]
+  }
+ ]
+}
