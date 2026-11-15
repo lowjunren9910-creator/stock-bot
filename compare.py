@@ -14,8 +14,10 @@ compare.py - 股票对比（2 到 3 家）
 
 from __future__ import annotations
 
+import asyncio
 import html
 import json
+from datetime import date
 
 import pandas as pd
 
@@ -177,11 +179,18 @@ async def ai_verdict(data: dict) -> str | None:
                 b[label] = fmt(s.get(k), kind)
         if s.get("quarter"):
             b["季报重点"] = s["quarter"]["reasons"]
+        try:                                   # 最近 14 天新闻（附日期），让结论跟得上近况
+            import recent
+            items = await asyncio.to_thread(recent.news_items, s["ticker"], 4)
+            b["最近新闻"] = [f"{recent._day(i['published'])}：{i['title'][:120]}" for i in items] or ["最近 14 天没有新闻"]
+        except Exception:
+            pass
         brief.append(b)
     system = ("你是资深基金经理。用户在比较几只股票。根据提供的数据，用简体中文写 250 字以内的对比总结："
               "1) 每只股票一句话说出最大优势和最大风险；2) 分别说明哪只比较适合「价值型」「成长型」「收息型」投资者"
               "（没有明显适合的就说没有）；3) 最后一句提醒这只是数据对比、要再看公司基本面，不构成买卖建议。"
-              "只用提供的数字，不要编造新闻或事件。不要用 Markdown。")
+              f"今天是 {date.today():%Y年%m月%d日}。「最近新闻」是最新消息，有重要的要提到；你记得的公司近况可能已经过时，以提供的资料为准。"
+              "只用提供的数字和新闻，不要编造新闻或事件。不要用 Markdown。")
     return await M.chat(system, json.dumps(brief, ensure_ascii=False, default=str), 700)
 
 

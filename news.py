@@ -323,7 +323,13 @@ def mentions(item: dict, c: dict) -> bool:
     return False
 
 
-def gather(c: dict, seen: dict) -> list[dict]:
+def recent(ticker: str, days: int = 14, limit: int = 10) -> list[dict]:
+    """一家公司最近 N 天的新闻（Google 新闻 + Yahoo，确认有提到这家公司），新的在前。个股分析用。"""
+    c = make_company(ticker, ticker)
+    return gather(c, {}, max_hours=days * 24, when=f"{days}d")[:limit]
+
+
+def gather(c: dict, seen: dict, max_hours: int | None = None, when: str = "2d") -> list[dict]:
     """一家公司的新新闻（还没看过、48 小时内、标题提到这家公司）。"""
     is_zh = lambda k: re.search(r"[\u4e00-\u9fff]", k) is not None
     strong = [k for k in c.get("strong", []) if not is_zh(k)]
@@ -338,12 +344,12 @@ def gather(c: dict, seen: dict) -> list[dict]:
     items = []
     for q in queries:
         for hl, gl, ceid in REGION[c["market"]]:
-            items += google_news(q, hl, gl, ceid)
+            items += google_news(q, hl, gl, ceid, when)
     zh = [k for k in c["keywords"] if re.search(r"[一-鿿]", k)]
     if zh:                                          # 有写中文关键字：也看中文新闻（星洲、南洋…）
-        items += google_news(" OR ".join(f'"{k}"' for k in zh), *ZH_REGION[c["market"]])
+        items += google_news(" OR ".join(f'"{k}"' for k in zh), *ZH_REGION[c["market"]], when)
     items += yahoo_news(c["ticker"])
-    cutoff = (datetime.now(timezone.utc) - timedelta(hours=MAX_AGE_HOURS)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    cutoff = (datetime.now(timezone.utc) - timedelta(hours=max_hours or MAX_AGE_HOURS)).strftime("%Y-%m-%dT%H:%M:%SZ")
     out, here = [], set()
     for it in sorted(items, key=lambda x: x["published"], reverse=True):
         h = _hash(it["title"])

@@ -332,7 +332,14 @@ def fundamental_summary(ticker: str, info: dict, price: float) -> dict:
 _vader = SentimentIntensityAnalyzer()
 
 
-def news_sentiment(ticker: str, limit: int = 8) -> dict:
+def news_sentiment(ticker: str, limit: int = 8, recent_items: list[dict] | None = None) -> dict:
+    """最近的新闻 + 情绪分。recent_items：recent.news_items() 抓好的（Google + Yahoo，附日期），没有就只用 Yahoo。"""
+    if recent_items:
+        items = [{"title": i["title"], "link": i.get("link"), "source": i.get("source"), "published": i.get("published"),
+                  "score": _vader.polarity_scores(i["title"])["compound"]} for i in recent_items[:limit]]
+        avg = sum(i["score"] for i in items) / len(items)
+        mood = "正面" if avg > 0.15 else "负面" if avg < -0.15 else "中性 / 好坏参半"
+        return {"items": items, "avg": avg, "mood": mood}
     try:
         raw = yf.Ticker(ticker).news or []
     except Exception:
@@ -442,13 +449,20 @@ def format_fundamental(f):
 
 def format_news(n):
     if not n["items"]:
-        return "<b>📰 新闻</b>\n没有找到近期新闻（大马/印尼中小型股常见）。"
+        return "<b>📰 新闻</b>\n最近 14 天没有找到新闻（大马/印尼中小型股常见）。"
     lines = [f"<b>📰 新闻情绪：{n['mood']}</b>（平均 {n['avg']:+.2f}）"]
     for i in n["items"]:
         icon = "🟢" if i["score"] > 0.15 else "🔴" if i["score"] < -0.15 else "⚪"
         title = _esc(i["title"])
-        lines.append(f"{icon} <a href=\"{i['link']}\">{title}</a>" if i["link"]
-                     else f"{icon} {title}")
+        when = ""
+        if i.get("published"):
+            try:
+                d = datetime.fromisoformat(str(i["published"]).replace("Z", "+00:00")).astimezone(timezone(timedelta(hours=8)))
+                when = f"{d.month}/{d.day} "
+            except Exception:
+                pass
+        lines.append(f"{icon} {when}<a href=\"{i['link']}\">{title}</a>" if i["link"]
+                     else f"{icon} {when}{title}")
     return "\n".join(lines)
 
 
@@ -481,6 +495,7 @@ def build_snapshot(ticker, tech, fund, news) -> dict:
             "标题(情绪分 -1~+1)": [f"{i['title']} ({i['score']:+.2f})" for i in news["items"]],
         },
     }
+    # 「近期动态」（最近新闻附日期、最新季报、公告日历…）由 analyze_raw 加上
 
 
 def analyze_raw(text: str) -> dict:
@@ -490,9 +505,20 @@ def analyze_raw(text: str) -> dict:
     info = get_info(ticker)
     tech = technical_summary(df)
     fund = fundamental_summary(ticker, info, tech["price"])
-    news = news_sentiment(ticker)
-    return {"ticker": ticker, "df": df, "tech": tech, "fund": fund, "news": news,
-            "snapshot": build_snapshot(ticker, tech, fund, news)}
+    try:
+        import recent
+        items = recent.news_items(ticker)
+    except Exception:
+        recent, items = None, []
+    news = news_sentiment(ticker, recent_items=items)
+    snap = build_snapshot(ticker, tech, fund, news)
+    if recent is not None:
+        try:
+            snap["近期动态"] = recent.context(ticker, df, items)
+            snap["新闻"] = {"整体情绪": news["mood"]}          # 标题已经在「近期动态」里（附日期），不重复
+        except Exception as e:
+            print("近期动态失败：", e)
+    return {"ticker": ticker, "df": df, "tech": tech, "fund": fund, "news": news, "snapshot": snap}
 
 
 def full_report(text: str) -> tuple[str, str, pd.DataFrame, dict]:
