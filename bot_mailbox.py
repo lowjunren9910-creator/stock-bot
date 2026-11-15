@@ -46,6 +46,7 @@ HELP = f"""<b>📊 股票分析机器人（信箱模式）</b>
 /sector [bursa|idx|us] - 板块轮动；/sector 手套、/sector REIT、/sector us AI - 看某个板块或主题
 /compare 代码 代码 [代码] - 对比 2 到 3 只股票，例如 <code>/compare MAYBANK PBBANK CIMB</code>
 /quarter 代码 - 最新季报快速分析
+/calendar [本周|下周|本月|代码] - 公告日历（业绩日、除权日）
 /news 代码 - 最新新闻 + AI 分析（短期 / 长期影响）。自选股的重要新闻会自动推送
 /ipo - 马股 IPO 追踪（招股中、认购结果、最近上市表现）；/ipo 公司名 看详细 + 自动分析
 /ipopdf 链接 - 分析招股书（也可以直接把招股书 PDF 传给我）
@@ -237,6 +238,9 @@ def handle(chat, text: str):
         return do_compare(chat, arg)
     if cmd == "/quarter":
         return do_quarter(chat, arg)
+    if cmd in ("/calendar", "/cal"):
+        import announce
+        return send(chat, announce.to_telegram_html(arg))
     if cmd == "/watch":
         import json
         p = SC.S.REPORT_DIR / "watchlist.json"

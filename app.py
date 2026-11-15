@@ -8,6 +8,7 @@ app.py - 网页版股票分析（Streamlit）
 import asyncio
 import hmac
 import io
+import html
 import json
 import os
 from datetime import date, datetime, timedelta, timezone
@@ -1563,6 +1564,134 @@ def page_news():
 
 
 # ---------------------------------------------------------------------------
+# 页面：公告日历（业绩日、除权日）
+# ---------------------------------------------------------------------------
+
+CAL_CSS = """
+<style>
+.cal{background:#fff;color:#141414;border-radius:14px;padding:6px 0 10px;font-family:"Noto Sans SC",system-ui,sans-serif}
+.cal-weeks{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:2px 0 4px}
+.cal-wk{background:#f3f4f7;border:1px solid #e3e5ea;border-radius:12px;padding:12px 14px;color:#141414}
+.cal-wk.now{background:#fff;border-color:#3b5bdb;box-shadow:0 0 0 1px #3b5bdb inset}
+.cal-wk small{display:block;font-size:.72rem;color:#777;font-weight:600}.cal-wk.now small{color:#3b5bdb}
+.cal-wk b{display:block;font-size:1.08rem;margin:2px 0}.cal-wk span{font-size:.78rem;color:#555}
+.cal-grp{display:flex;justify-content:space-between;align-items:center;background:#f6f7f9;border-top:1px solid #e6e6e6;
+ border-bottom:1px solid #e6e6e6;padding:12px 18px;margin-top:6px}
+.cal-grp b{font-size:1rem}.cal-grp small{display:block;color:#777;font-size:.75rem}
+.cal-grp .cnt{border:1px solid #ddd;border-radius:99px;padding:3px 12px;font-size:.78rem;font-weight:700;background:#fff}
+.cal-row{display:grid;grid-template-columns:2.2fr 2.6fr 1.7fr .8fr 1fr;align-items:center;gap:12px;padding:11px 18px;border-bottom:1px solid #eee}
+.cal-row:hover{background:#fafafa}
+.cal-co{display:flex;gap:10px;align-items:center;min-width:0}
+.cal-av{width:34px;min-width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:.8rem}
+.cal-co b{display:block;font-size:.92rem}.cal-co small,.cal-ev small,.cal-dt small{display:block;color:#777;font-size:.75rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cal-ev b,.cal-dt b{font-size:.88rem;font-weight:700}
+.cal-tag{justify-self:start;font-size:.74rem;font-weight:700;padding:3px 10px;border-radius:99px}
+.cal-tag.div{background:#efe7fb;color:#6b3fb8}.cal-tag.ern{background:#e6effc;color:#1f5bb5}
+.cal-st{font-size:.82rem;color:#555}.cal-st.soon{color:#0a7d4f;font-weight:700}.cal-st.est{color:#b26a00}
+.cal-star{color:#d4a017;margin-left:4px}
+.cal-empty{padding:26px;text-align:center;color:#777}
+@media(max-width:900px){.cal-row{grid-template-columns:1fr 1fr;row-gap:4px}.cal-tag,.cal-st{display:none}}
+</style>
+"""
+AV_COLORS = ["#2b4c7e", "#a0522d", "#2f6b3b", "#6b3fb8", "#b42318", "#1f7a74", "#8a6d1d", "#4a5a8a", "#c2410c", "#334155"]
+
+
+def cal_row(e: dict) -> str:
+    import announce as AN
+    import zlib
+    x = html.escape
+    code = e["ticker"].split(".")[0]
+    bursa = code[:1].isdigit()                       # 大马股票代码是数字：名字放大，代码放小
+    short, longname = ((e["name"] or code), e["ticker"]) if bursa else (code, e["name"] or "")
+    av = AV_COLORS[zlib.crc32(e["ticker"].encode()) % len(AV_COLORS)]
+    init = short[:2].upper()
+    stt = e["status"]
+    cls = "soon" if stt in ("即将公布", "即将除权") else "est" if stt == "预计" else ""
+    star = "<span class='cal-star'>★</span>" if e.get("mine") else ""
+    tag = "<span class='cal-tag div'>股息</span>" if e["type"] == "股息" else "<span class='cal-tag ern'>业绩</span>"
+    return (f"<div class='cal-row'><div class='cal-co'><div class='cal-av' style='background:{av}'>{x(init)}</div>"
+            f"<div style='min-width:0'><b>{x(short)}{star}</b><small>{x(longname)}</small></div></div>"
+            f"<div class='cal-ev'><b>{x(e['title'])}</b><small>{x(e['sub'])}</small></div>"
+            f"<div class='cal-dt'><b>{AN.day_label(e['date'])}</b><small>{AN.countdown(e['date'])}</small></div>"
+            f"{tag}<div class='cal-st {cls}'>{x(stt)}</div></div>")
+
+
+def cal_group(title: str, sub: str, evs: list[dict], limit: int | None = None) -> str:
+    rows = "".join(cal_row(e) for e in (evs[:limit] if limit else evs))
+    more = f"<div class='cal-empty'>还有 {len(evs) - limit} 项，打开上面的「显示全部」</div>" if limit and len(evs) > limit else ""
+    return (f"<div class='cal-grp'><div><b>{html.escape(title)}</b><small>{html.escape(sub)}</small></div>"
+            f"<span class='cnt'>{len(evs)} 项</span></div>{rows}{more}")
+
+
+def goto_quarter(t: str):
+    st.session_state.quarter_query = t
+    st.session_state.nav = "📑 季度报告"
+
+
+def page_calendar():
+    import announce as AN
+    st.title("📅 公告日历")
+    st.caption("股票池约 500 只股票（加上你关注的公司）的业绩公布日和派息除权日。每个交易日收市后更新；"
+               "⭐ = 你关注的公司，明天除权、今天 / 明天公布业绩会发 Telegram 提醒。Telegram 也可以发 /calendar 查。")
+    data = read_json(S.REPORT_DIR / "calendar" / "events.json")
+    if not data or not data.get("events"):
+        st.info("还没有公告日历资料。下一次收市后的「市场报告」自动任务跑完就会有（也可以去 Actions 手动跑一次）。")
+        return
+    today = AN.today_myt()
+    c1, c2 = st.columns([3, 2], vertical_alignment="bottom")
+    with c1:
+        per = st.segmented_control("时间", AN.PERIODS, default="本月", key="cal_per", label_visibility="collapsed") or "本月"
+    with c2:
+        q = st.text_input("搜索", placeholder="🔍 搜索股票代码、简称、名称", key="cal_q", label_visibility="collapsed")
+    s, e = AN.period_range(per, today)
+    f1, f2, f3, f4 = st.columns([1.2, 1.2, 1.6, 2], vertical_alignment="center")
+    mk = f1.selectbox("市场", ["全部市场", "马股", "美股", "印尼股"], key="cal_mk", label_visibility="collapsed")
+    kind = f2.selectbox("类型", ["业绩 + 股息", "业绩", "股息"], key="cal_kind", label_visibility="collapsed")
+    mine = f3.toggle("只看我关注的公司", key="cal_mine")
+    market = {"马股": "bursa", "美股": "us", "印尼股": "idx"}.get(mk)
+    evs = AN.select(data["events"], s, e, market, None if kind == "业绩 + 股息" else kind, mine, q or "")
+    upcoming = [x for x in evs if x["date"] >= str(today)]
+    f4.markdown(f"<div style='text-align:right;font-weight:700'>{len(upcoming)} 项即将公布 / 除权</div>", unsafe_allow_html=True)
+
+    # 每周小卡
+    cards = []
+    for ws, we in AN.buckets(per, s, e):
+        n = [x for x in evs if str(ws) <= x["date"] <= str(we)]
+        done = sum(x["status"] in ("已公布", "已除权") for x in n)
+        now = ws <= today <= we
+        lab = "本周" if now else f"{ws.month}月{ws.day}日 当周"
+        info = f"{done} 项已公布 · {len(n) - done} 项待公布" if done and len(n) - done else (f"{done} 项已公布" if done else f"{len(n)} 项")
+        cards.append(f"<div class='cal-wk{' now' if now else ''}'><small>{lab}</small>"
+                     f"<b>{ws.month}月{ws.day}日 – {we.month}月{we.day}日</b><span>{info}</span></div>")
+    st.html(CAL_CSS + "<div class='cal-weeks'>" + "".join(cards) + "</div>")
+
+    show_all = st.toggle("显示全部（不然每组只显示前 15 项）", key="cal_all")
+    lim = None if show_all else 15
+    parts = []
+    recent = [x for x in AN.select(data["events"], today - timedelta(days=7), today - timedelta(days=1), market,
+                                   None if kind == "业绩 + 股息" else kind, mine, q or "")]
+    if per in ("本周", "本月", "上月") and recent:
+        parts.append(cal_group("最近公布 / 除权", "过去 7 天", sorted(recent, key=lambda x: (bool(x.get("mine")), x["date"]), reverse=True), 5 if lim else None))
+    for ws, we in AN.buckets(per, s, e):
+        n = [x for x in evs if str(ws) <= x["date"] <= str(we)]
+        if not n:
+            continue
+        n.sort(key=lambda x: (x["date"], not x.get("mine"), x["type"]))
+        parts.append(cal_group(f"{ws.month}月{ws.day}日 – {we.month}月{we.day}日", "本周" if ws <= today <= we else
+                               ("已过" if we < today else "即将到来"), n, lim))
+    st.html(CAL_CSS + "<div class='cal'>" + ("".join(parts) or "<div class='cal-empty'>这段时间没有符合条件的业绩或派息。</div>") + "</div>")
+    st.caption(f"更新：{data.get('updated')}　·　日期来自 Yahoo Finance；「预计」= 公司还没正式宣布"
+               "（大马股票按 Bursa 规定：季度结束后 2 个月内一定要公布，所以显示最迟日期）。派息金额以公司公告为准。")
+
+    opts = sorted({x["ticker"]: x["name"] for x in evs}.items(), key=lambda kv: kv[1] or "")
+    if opts:
+        g1, g2, g3 = st.columns([3, 1, 1], vertical_alignment="bottom")
+        t = g1.selectbox("想深入看哪一家？", [k for k, _ in opts], format_func=lambda k: f"{dict(opts)[k]}（{k}）", key="cal_pick")
+        g2.button("📑 季度报告", width="stretch", on_click=goto_quarter, args=(t,))
+        g3.button("🏢 认识公司", width="stretch", on_click=goto_company, args=(t,))
+
+
+# ---------------------------------------------------------------------------
 # 页面：自选股
 # ---------------------------------------------------------------------------
 
@@ -1689,7 +1818,7 @@ def page_health():
 # ---------------------------------------------------------------------------
 
 PAGES = {  # 顺序要跟 ui.NAV_GROUPS 的分组对应
-    "📅 每日焦点": page_focus, "🧩 板块": page_sectors, "🔍 选股雷达": page_radar, "🏆 KLCI 50 观察": page_klci, "🆕 IPO 追踪": page_ipo,
+    "📅 每日焦点": page_focus, "🧩 板块": page_sectors, "🔍 选股雷达": page_radar, "🏆 KLCI 50 观察": page_klci, "🆕 IPO 追踪": page_ipo, "📅 公告日历": page_calendar,
     "📊 个股分析": page_analysis, "🏢 认识公司": page_company, "⚖️ 股票对比": page_compare, "📑 季度报告": page_quarterly,
     "⭐ 自选股": page_watchlist, "🗞️ 新闻追踪": page_news, "💼 投资组合": page_portfolio, "📈 成绩单": page_track, "📰 周报": page_weekly,
     "🩺 系统状态": page_health}
@@ -1716,11 +1845,12 @@ if check_password():
         elif qp.get("analyze"):
             st.session_state.query = qp["analyze"]
             st.session_state.nav = "📊 个股分析"
-        elif qp.get("page") in ("focus", "radar", "klci", "sectors", "track", "weekly", "watch", "quarterly", "compare", "news", "ipo"):
+        elif qp.get("page") in ("focus", "radar", "klci", "sectors", "track", "weekly", "watch", "quarterly", "compare", "news", "ipo", "calendar"):
             st.session_state.nav = {"focus": "📅 每日焦点", "radar": "🔍 选股雷达", "klci": "🏆 KLCI 50 观察",
                                     "sectors": "🧩 板块", "track": "📈 成绩单", "weekly": "📰 周报",
                                     "watch": "⭐ 自选股", "quarterly": "📑 季度报告",
-                                    "compare": "⚖️ 股票对比", "news": "🗞️ 新闻追踪", "ipo": "🆕 IPO 追踪"}[qp["page"]]
+                                    "compare": "⚖️ 股票对比", "news": "🗞️ 新闻追踪", "ipo": "🆕 IPO 追踪",
+                                    "calendar": "📅 公告日历"}[qp["page"]]
         st.session_state._qp_done = True
     ui.sidebar_brand()
     page = st.sidebar.radio("功能", list(PAGES), key="nav")

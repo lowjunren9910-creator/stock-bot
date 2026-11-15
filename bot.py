@@ -45,6 +45,7 @@ HELP = f"""<b>📊 股票分析机器人</b>
 /sector [bursa|idx|us] [板块] - 板块轮动；例如 /sector 手套、/sector us AI
 /compare 代码 代码 [代码] - 对比 2 到 3 只股票
 /quarter 代码 - 最新季报快速分析
+/calendar [本周|下周|本月|代码] - 公告日历（业绩日、除权日）
 /ipo [公司名] - 马股 IPO 追踪；/ipopdf 链接 - 分析招股书
 /news 代码 - 最新新闻 + AI 分析（短期 / 长期影响）
 /quick 代码 - 只看数据报告（不开圆桌，更快）
@@ -222,6 +223,11 @@ async def compare_cmd(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
     await do_compare(update, " ".join(ctx.args))
 
 
+async def calendar_cmd(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
+    import announce
+    await send(update, announce.to_telegram_html(" ".join(ctx.args)))
+
+
 async def quarter_cmd(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
     import quarterly
     t = need_ticker(ctx)
@@ -378,6 +384,7 @@ def main():
     app.add_handler(CommandHandler("ipo", ipo_cmd))
     app.add_handler(CommandHandler("ipopdf", ipopdf_cmd))
     app.add_handler(CommandHandler("quarter", quarter_cmd))
+    app.add_handler(CommandHandler(["calendar", "cal"], calendar_cmd))
     app.add_handler(CommandHandler("analyze", analyze))
     app.add_handler(CommandHandler("quick", quick))
     app.add_handler(CommandHandler("panel", panel))

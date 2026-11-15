@@ -484,6 +484,7 @@ def run_daily_extras(market: str, with_ai: bool = True, push: bool = True):
     if market == "bursa":
         _run_klci(with_ai, push)
     for name, fn in (("板块指数", lambda: _run_sectors(market)), ("季报追踪", lambda: _run_quarterly(market, with_ai, push)),
+                     ("公告日历", lambda: _run_calendar(market, push)),
                      ("成绩单", lambda: _run_track(market)), ("每日圆桌", lambda: _run_panels(market))):
         try:
             print(f"→ {name} {market} …")
@@ -508,6 +509,11 @@ def _run_sectors(market):
 def _run_quarterly(market, with_ai, push):
     import quarterly
     quarterly.run(market, push=push, with_ai=with_ai)
+
+
+def _run_calendar(market, push):
+    import announce
+    announce.run(market, push=push)
 
 
 def _run_track(market):

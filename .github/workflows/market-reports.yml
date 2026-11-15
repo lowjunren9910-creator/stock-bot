@@ -51,6 +51,7 @@ jobs:
           SCAN_MARKETS: ${{ vars.SCAN_MARKETS || 'bursa,idx,us' }}
           PANEL_DAILY: ${{ vars.PANEL_DAILY || 'bursa:3,idx:1,us:1' }}
           UNIVERSE_SIZE: ${{ vars.UNIVERSE_SIZE || 'bursa:250,idx:100,us:150' }}
+          CALENDAR_DAYS: ${{ vars.CALENDAR_DAYS || '2' }}
           QUARTERLY_AI: ${{ vars.QUARTERLY_AI || '3' }}
         run: |
           if [ -n "${{ github.event.inputs.market }}" ]; then

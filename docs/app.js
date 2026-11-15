@@ -707,6 +707,55 @@ function newsLead(evs) {
     ${rest.length ? `<h2 class="nsec">更多新闻</h2><div class="nlist">${rest.slice(0, 50).map(newsCard).join("")}</div>` : ""}`;
 }
 
+// ---------------------------------------------------------------------------
+// 公告日历
+// ---------------------------------------------------------------------------
+const iso = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+const addDays = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
+function calRange(per) {
+  const t = new Date(); t.setHours(0, 0, 0, 0);
+  const mon = addDays(t, -((t.getDay() + 6) % 7));
+  if (per === "本周") return [mon, addDays(mon, 6)];
+  if (per === "下周") return [addDays(mon, 7), addDays(mon, 13)];
+  if (per === "未来 3 个月") return [t, addDays(t, 92)];
+  return [new Date(t.getFullYear(), t.getMonth(), 1), new Date(t.getFullYear(), t.getMonth() + 1, 0)];   // 本月
+}
+function calCount(d) {
+  const t = new Date(); t.setHours(0, 0, 0, 0);
+  const n = Math.round((new Date(d + "T00:00:00") - t) / 864e5);
+  return n === 0 ? "今天" : n === 1 ? "明天" : n === -1 ? "昨天" : n > 0 ? `还有 ${n} 天` : `${-n} 天前`;
+}
+const WK = "日一二三四五六";
+async function renderCalendar() {
+  const r = await getJSON("calendar/events.json").catch(() => null);
+  setBand("公告日历", r ? `<div class="stamp">业绩日 · 除权日　更新 ${esc(r.updated)}</div>` : "", false);
+  const back = `<button class="back" data-sub="">‹ 更多</button>`;
+  if (!r) return back + emptyView("还没有公告日历", "收市后的自动任务跑过一次就会有。");
+  const per = state.calPer || "本周", kind = state.calKind || "", mine = !!state.calMine;
+  const [s, e] = calRange(per);
+  const evs = r.events.filter(x => x.date >= iso(s) && x.date <= iso(e) && (!kind || x.type === kind) && (!mine || x.mine))
+    .sort((a, b) => a.date.localeCompare(b.date) || (b.mine === true) - (a.mine === true));
+  const days = {};
+  evs.forEach(x => (days[x.date] = days[x.date] || []).push(x));
+  const row = x => `<div class="row cal-row">
+      <span class="cal-tag ${x.type === "股息" ? "div" : "ern"}">${x.type === "股息" ? "息" : "绩"}</span>
+      <span class="name">${esc(x.name)}${x.mine ? " ⭐" : ""}<small>${esc(x.ticker)}　${esc(x.title)}</small></span>
+      <span class="cal-st${x.status === "预计" ? " est" : ""}">${esc(x.status)}</span></div>`;
+  const body = Object.keys(days).slice(0, 60).map(d => {
+    const dt = new Date(d + "T00:00:00");
+    return `<h3 class="cal-day">${dt.getMonth() + 1}月${dt.getDate()}日 周${WK[dt.getDay()]}<small>${calCount(d)} · ${days[d].length} 项</small></h3>
+      <div class="list">${days[d].slice(0, 40).map(row).join("")}</div>`;
+  }).join("");
+  const sw = (attr, val, cur, label) => `<button data-${attr}="${val}" aria-selected="${cur === val}">${label}</button>`;
+  return `${back}
+    <div class="switch" style="margin-top:12px">${["本周", "下周", "本月", "未来 3 个月"].map(p => sw("calper", p, per, p)).join("")}</div>
+    <div class="switch" style="margin-top:8px">${sw("calkind", "", kind, "全部")}${sw("calkind", "业绩", kind, "业绩")}${sw("calkind", "股息", kind, "股息")}
+      <button data-act="calmine" aria-selected="${mine}">⭐ 只看我关注的</button></div>
+    <p class="lede">${evs.length} 项：业绩 ${evs.filter(x => x.type === "业绩").length}、派息 ${evs.filter(x => x.type === "股息").length}</p>
+    ${body || `<p class="muted">这段时间没有符合的业绩或派息。</p>`}
+    <p class="foot">日期来自 Yahoo；「预计」= 还没正式宣布（马股按 Bursa 规定显示最迟日期）。<br>你关注的公司明天除权、今天 / 明天公布业绩，会发 Telegram 提醒。Telegram 发 /calendar 也可以查。</p>`;
+}
+
 async function renderNews() {
   const r = await getJSON("news/feed.json").catch(() => null);
   setBand("新闻追踪", r ? `<div class="stamp">追踪 ${r.companies.length} 家公司　更新 ${esc(r.updated)}</div>` : "", false);
@@ -793,6 +842,7 @@ async function renderMine() {
 const SUBS = {
   ipo: ["IPO 追踪", "马股新股：招股资料、认购倍数、上市表现"],
   news: ["新闻追踪", "感兴趣公司的新闻 + AI 分析短期 / 长期影响"],
+  calendar: ["公告日历", "业绩公布日、派息除权日（约 500 只股票）"],
   compare: ["股票对比", "2–3 只股票放在一起比"],
   quarterly: ["季度报告", "最近公布的季报 + 快速结论"],
   klci: ["KLCI 50 观察", "哪些马股最有机会进入 KLCI 50"],
@@ -866,6 +916,7 @@ async function renderMoreRouter() {
   switch (state.sub) {
     case "ipo": return await renderIpo();
     case "news": return await renderNews();
+    case "calendar": return await renderCalendar();
     case "compare": return await renderCompare();
     case "quarterly": return await renderQuarterly();
     case "klci": return back + await renderKlci();
@@ -931,6 +982,9 @@ document.addEventListener("click", e => {
   else if (t.dataset.gocmp) { state.tab = "more"; state.sub = "compare"; store.set("tab", "more"); window.scrollTo(0, 0); render(); }
   else if (t.dataset.ipotab) { state.ipoTab = t.dataset.ipotab; render(); }
   else if (t.dataset.npick !== undefined) { state.newsPick = t.dataset.npick; render(); }
+  else if (t.dataset.calper) { state.calPer = t.dataset.calper; render(); }
+  else if (t.dataset.calkind !== undefined) { state.calKind = t.dataset.calkind; render(); }
+  else if (t.dataset.act === "calmine") { state.calMine = !state.calMine; render(); }
   else if (t.dataset.act === "newsall") { state.newsAll = !state.newsAll; render(); }
   else if (t.dataset.gosub) { state.tab = "more"; state.sub = t.dataset.gosub; store.set("tab", "more"); window.scrollTo(0, 0); render(); }
   else if (t.dataset.qf) { state.qf = t.dataset.qf; render(); }
