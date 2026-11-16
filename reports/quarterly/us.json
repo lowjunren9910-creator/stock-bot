@@ -2,13 +2,11 @@
  "market": "us",
  "market_name": "🇺🇸 美股",
  "currency": "USD",
- "date": "2026-11-13",
- "generated_at": "2026-11-13 16:31 EST",
- "tracked": 173,
+ "date": "2026-11-16",
+ "generated_at": "2026-11-16 16:31 EST",
+ "tracked": 172,
  "universe_size": 179,
- "new_today": [
-  "SMCI"
- ],
+ "new_today": [],
  "recent": [
   "SMCI",
   "NET",
@@ -45,7 +43,6 @@
   "PSA",
   "RIVN",
   "RTX",
-  "SNDK",
   "SO",
   "SPGI",
   "SPOT",
@@ -69,7 +66,8 @@
   "CAT",
   "CVX",
   "DHR",
-  "DLR"
+  "DLR",
+  "EOG"
  ],
  "items": {
   "AAPL": {
@@ -2409,57 +2407,6 @@
    ],
    "ticker": "SKHY",
    "name": "SK hynix",
-   "currency": "USD",
-   "watch": false,
-   "found": null
-  },
-  "SNDK": {
-   "period": "2026-09-30",
-   "prev_period": "2026-06-30",
-   "yoy_period": "2025-09-30",
-   "revenue": 11031000000.0,
-   "net": 8101000000.0,
-   "eps": 52.6,
-   "rev_yoy": 377.9,
-   "net_yoy": 7133.0,
-   "rev_qoq": 23.0,
-   "net_qoq": 17.4,
-   "net_margin": 73.4,
-   "net_margin_yoy": 4.9,
-   "gross_margin": 85.0,
-   "trend": {
-    "periods": [
-     "2025-09-30",
-     "2025-12-31",
-     "2026-03-31",
-     "2026-06-30",
-     "2026-09-30"
-    ],
-    "revenue": [
-     2308000000.0,
-     3025000000.0,
-     5950000000.0,
-     8965000000.0,
-     11031000000.0
-    ],
-    "net": [
-     112000000.0,
-     803000000.0,
-     3615000000.0,
-     6903000000.0,
-     8101000000.0
-    ]
-   },
-   "score": 5,
-   "verdict": "亮眼",
-   "icon": "🌟",
-   "reasons": [
-    "营收按年 +377.9%",
-    "净利按年 +7133.0%",
-    "净利率升到 73.4%（去年 4.9%）"
-   ],
-   "ticker": "SNDK",
-   "name": "Sandisk",
    "currency": "USD",
    "watch": false,
    "found": null
@@ -7848,108 +7795,6 @@
    "watch": false,
    "found": null
   },
-  "PBR": {
-   "period": "2026-06-30",
-   "prev_period": "2026-03-31",
-   "yoy_period": "2025-06-30",
-   "revenue": 33607000000.0,
-   "net": 10428000000.0,
-   "eps": 1.6182,
-   "rev_yoy": 59.8,
-   "net_yoy": 120.3,
-   "rev_qoq": 43.1,
-   "net_qoq": 68.2,
-   "net_margin": 31.0,
-   "net_margin_yoy": 22.5,
-   "gross_margin": 58.0,
-   "trend": {
-    "periods": [
-     "2025-06-30",
-     "2025-09-30",
-     "2025-12-31",
-     "2026-03-31",
-     "2026-06-30"
-    ],
-    "revenue": [
-     21037000000.0,
-     23477000000.0,
-     23608000000.0,
-     23483197266.0,
-     33607000000.0
-    ],
-    "net": [
-     4734000000.0,
-     6027000000.0,
-     2899000000.0,
-     6201442947.0,
-     10428000000.0
-    ]
-   },
-   "score": 5,
-   "verdict": "亮眼",
-   "icon": "🌟",
-   "reasons": [
-    "营收按年 +59.8%",
-    "净利按年 +120.3%",
-    "净利率升到 31.0%（去年 22.5%）"
-   ],
-   "ticker": "PBR",
-   "name": "Petroleo Brasileiro S.A. Petrob",
-   "currency": "USD",
-   "watch": false,
-   "found": null
-  },
-  "PDD": {
-   "period": "2026-06-30",
-   "prev_period": "2026-03-31",
-   "yoy_period": "2025-06-30",
-   "revenue": 112358000000.0,
-   "net": 27182000000.0,
-   "eps": 18.44,
-   "rev_yoy": 8.1,
-   "net_yoy": -11.6,
-   "rev_qoq": 5.8,
-   "net_qoq": 116.6,
-   "net_margin": 24.2,
-   "net_margin_yoy": 29.6,
-   "gross_margin": 57.3,
-   "trend": {
-    "periods": [
-     "2025-06-30",
-     "2025-09-30",
-     "2025-12-31",
-     "2026-03-31",
-     "2026-06-30"
-    ],
-    "revenue": [
-     103985000000.0,
-     108276512000.0,
-     123912194000.0,
-     106229000000.0,
-     112358000000.0
-    ],
-    "net": [
-     30754000000.0,
-     29328184000.0,
-     23019069000.0,
-     12547000000.0,
-     27182000000.0
-    ]
-   },
-   "score": -1,
-   "verdict": "偏弱",
-   "icon": "👎",
-   "reasons": [
-    "营收按年 +8.1%",
-    "净利按年 -11.6%",
-    "净利率降到 24.2%（去年 29.6%）"
-   ],
-   "ticker": "PDD",
-   "name": "PDD Holdings",
-   "currency": "USD",
-   "watch": false,
-   "found": null
-  },
   "PEP": {
    "period": "2026-09-30",
    "prev_period": "2026-06-30",
@@ -8859,6 +8704,108 @@
    ],
    "ticker": "WFC",
    "name": "Wells Fargo",
+   "currency": "USD",
+   "watch": false,
+   "found": null
+  },
+  "SNY": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": "2025-09-30",
+   "revenue": 15233000000.0,
+   "net": 3021000000.0,
+   "eps": 1.26,
+   "rev_yoy": 15.7,
+   "net_yoy": 7.8,
+   "rev_qoq": 23.8,
+   "net_qoq": 780.8,
+   "net_margin": 19.8,
+   "net_margin_yoy": 21.3,
+   "gross_margin": 76.2,
+   "trend": {
+    "periods": [
+     "2025-09-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     13170000000.0,
+     12205000000.0,
+     11244000000.0,
+     12300000000.0,
+     15233000000.0
+    ],
+    "net": [
+     2802000000.0,
+     -801000000.0,
+     1614000000.0,
+     343000000.0,
+     3021000000.0
+    ]
+   },
+   "score": 2,
+   "verdict": "稳健",
+   "icon": "👍",
+   "reasons": [
+    "营收按年 +15.7%",
+    "净利按年 +7.8%",
+    "净利率降到 19.8%（去年 21.3%）"
+   ],
+   "ticker": "SNY",
+   "name": "Sanofi",
+   "currency": "USD",
+   "watch": false,
+   "found": null
+  },
+  "WFC-PL": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": "2025-09-30",
+   "revenue": 21870000000.0,
+   "net": 5703000000.0,
+   "eps": null,
+   "rev_yoy": 2.0,
+   "net_yoy": 6.8,
+   "rev_qoq": -3.3,
+   "net_qoq": -7.4,
+   "net_margin": 26.1,
+   "net_margin_yoy": 24.9,
+   "gross_margin": null,
+   "trend": {
+    "periods": [
+     "2025-09-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     21436000000.0,
+     21292000000.0,
+     21446000000.0,
+     22622000000.0,
+     21870000000.0
+    ],
+    "net": [
+     5341000000.0,
+     5114000000.0,
+     5000000000.0,
+     6160000000.0,
+     5703000000.0
+    ]
+   },
+   "score": 3,
+   "verdict": "稳健",
+   "icon": "👍",
+   "reasons": [
+    "营收按年 +2.0%",
+    "净利按年 +6.8%",
+    "净利率升到 26.1%（去年 24.9%）"
+   ],
+   "ticker": "WFC-PL",
+   "name": "Wells Fargo & Company 7.50% Non",
    "currency": "USD",
    "watch": false,
    "found": null
