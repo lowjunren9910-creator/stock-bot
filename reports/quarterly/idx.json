@@ -2,9 +2,9 @@
  "market": "idx",
  "market_name": "🇮🇩 印尼股市 IDX",
  "currency": "IDR",
- "date": "2026-11-16",
- "generated_at": "2026-11-16 16:31 WIB",
- "tracked": 105,
+ "date": "2026-11-17",
+ "generated_at": "2026-11-17 16:31 WIB",
+ "tracked": 106,
  "universe_size": 109,
  "new_today": [],
  "recent": [
@@ -5327,6 +5327,56 @@
    ],
    "ticker": "VKTR.JK",
    "name": "VKTR Teknologi Mobilitas",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "NSSS.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 692227000000.0,
+   "net": 166733000000.0,
+   "eps": null,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": 29.8,
+   "net_qoq": -13.5,
+   "net_margin": 24.1,
+   "net_margin_yoy": null,
+   "gross_margin": 35.4,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     470201254369.0,
+     522279837570.0,
+     517129000000.0,
+     533265000000.0,
+     692227000000.0
+    ],
+    "net": [
+     152100811983.0,
+     93695562387.0,
+     141777000000.0,
+     192788000000.0,
+     166733000000.0
+    ]
+   },
+   "score": 0,
+   "verdict": "一般",
+   "icon": "😐",
+   "reasons": [
+    "营收按季 +29.8%",
+    "净利按季 -13.5%"
+   ],
+   "ticker": "NSSS.JK",
+   "name": "Nusantara Sawit Sejahtera",
    "currency": "IDR",
    "watch": false,
    "found": null
