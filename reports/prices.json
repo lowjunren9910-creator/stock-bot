@@ -1,363 +1,363 @@
 {
  "AAPL": {
   "name": "Apple",
-  "price": 352.78,
-  "chg_1d": -0.98,
+  "price": 351.91,
+  "chg_1d": -0.25,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "NVDA": {
   "name": "NVIDIA",
-  "price": 156.14,
-  "chg_1d": -4.12,
+  "price": 155.46,
+  "chg_1d": -0.44,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "MSFT": {
   "name": "Microsoft",
-  "price": 517.99,
-  "chg_1d": -1.12,
+  "price": 506.24,
+  "chg_1d": -2.27,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "TSM": {
   "name": "TSMC",
-  "price": 373.45,
-  "chg_1d": -6.34,
+  "price": 359.69,
+  "chg_1d": -3.68,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "AVGO": {
   "name": "Broadcom",
-  "price": 333.4,
-  "chg_1d": -3.92,
+  "price": 341.6,
+  "chg_1d": 2.46,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "MU": {
   "name": "Micron",
-  "price": 719.02,
-  "chg_1d": -7.62,
+  "price": 712.42,
+  "chg_1d": -0.92,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "AMD": {
   "name": "AMD",
-  "price": 504.28,
-  "chg_1d": -5.58,
+  "price": 503.41,
+  "chg_1d": -0.17,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "CSCO": {
   "name": "Cisco",
-  "price": 94.52,
-  "chg_1d": -1.17,
+  "price": 95.11,
+  "chg_1d": 0.62,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "PLTR": {
   "name": "Palantir",
-  "price": 160.39,
-  "chg_1d": -4.52,
+  "price": 156.56,
+  "chg_1d": -2.39,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "ORCL": {
   "name": "Oracle",
-  "price": 119.09,
-  "chg_1d": -4.99,
+  "price": 115.0,
+  "chg_1d": -3.43,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "INTC": {
   "name": "Intel",
-  "price": 55.47,
-  "chg_1d": -7.02,
+  "price": 55.17,
+  "chg_1d": -0.54,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "CRM": {
   "name": "Salesforce",
-  "price": 214.83,
-  "chg_1d": -1.38,
+  "price": 194.52,
+  "chg_1d": -9.45,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "QCOM": {
   "name": "Qualcomm",
-  "price": 168.52,
-  "chg_1d": -2.29,
+  "price": 166.67,
+  "chg_1d": -1.1,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "ADBE": {
   "name": "Adobe",
-  "price": 246.0,
-  "chg_1d": 1.2,
+  "price": 235.55,
+  "chg_1d": -4.25,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "AMZN": {
   "name": "Amazon",
-  "price": 257.75,
-  "chg_1d": -3.34,
+  "price": 257.89,
+  "chg_1d": 0.05,
   "currency": "USD",
   "market": "us",
   "sector": "非必需消费",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "TSLA": {
   "name": "Tesla",
-  "price": 379.74,
-  "chg_1d": -2.69,
+  "price": 380.11,
+  "chg_1d": 0.1,
   "currency": "USD",
   "market": "us",
   "sector": "非必需消费",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "HD": {
   "name": "Home Depot",
-  "price": 347.51,
-  "chg_1d": -0.34,
+  "price": 339.01,
+  "chg_1d": -2.45,
   "currency": "USD",
   "market": "us",
   "sector": "非必需消费",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "NKE": {
   "name": "Nike",
-  "price": 38.26,
-  "chg_1d": 0.71,
+  "price": 35.85,
+  "chg_1d": -6.3,
   "currency": "USD",
   "market": "us",
   "sector": "非必需消费",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "GOOGL": {
   "name": "Alphabet",
-  "price": 283.72,
-  "chg_1d": -4.07,
+  "price": 280.2,
+  "chg_1d": -1.24,
   "currency": "USD",
   "market": "us",
   "sector": "电讯媒体",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "META": {
   "name": "Meta",
-  "price": 626.41,
-  "chg_1d": -2.38,
+  "price": 618.87,
+  "chg_1d": -1.2,
   "currency": "USD",
   "market": "us",
   "sector": "电讯媒体",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "NFLX": {
   "name": "Netflix",
-  "price": 60.75,
-  "chg_1d": -2.25,
+  "price": 59.68,
+  "chg_1d": -1.76,
   "currency": "USD",
   "market": "us",
   "sector": "电讯媒体",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "DIS": {
   "name": "Disney",
-  "price": 118.7,
-  "chg_1d": -0.23,
+  "price": 116.94,
+  "chg_1d": -1.48,
   "currency": "USD",
   "market": "us",
   "sector": "电讯媒体",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "JPM": {
   "name": "JPMorgan",
-  "price": 338.21,
-  "chg_1d": -2.31,
+  "price": 329.96,
+  "chg_1d": -2.44,
   "currency": "USD",
   "market": "us",
   "sector": "金融",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "BRK-B": {
   "name": "Berkshire",
-  "price": 592.85,
-  "chg_1d": -0.02,
+  "price": 586.76,
+  "chg_1d": -1.03,
   "currency": "USD",
   "market": "us",
   "sector": "金融",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "V": {
   "name": "Visa",
-  "price": 426.46,
-  "chg_1d": 0.16,
+  "price": 416.77,
+  "chg_1d": -2.27,
   "currency": "USD",
   "market": "us",
   "sector": "金融",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "MA": {
   "name": "Mastercard",
-  "price": 661.71,
-  "chg_1d": 0.08,
+  "price": 645.73,
+  "chg_1d": -2.41,
   "currency": "USD",
   "market": "us",
   "sector": "金融",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "BAC": {
   "name": "Bank of America",
-  "price": 50.08,
-  "chg_1d": -1.84,
+  "price": 49.44,
+  "chg_1d": -1.28,
   "currency": "USD",
   "market": "us",
   "sector": "金融",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "LLY": {
   "name": "Eli Lilly",
-  "price": 1431.67,
-  "chg_1d": -0.82,
+  "price": 1415.55,
+  "chg_1d": -1.13,
   "currency": "USD",
   "market": "us",
   "sector": "医疗保健",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "JNJ": {
   "name": "J&J",
-  "price": 282.55,
-  "chg_1d": -1.12,
+  "price": 278.7,
+  "chg_1d": -1.36,
   "currency": "USD",
   "market": "us",
   "sector": "医疗保健",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "ABBV": {
   "name": "AbbVie",
-  "price": 294.55,
-  "chg_1d": -0.16,
+  "price": 292.82,
+  "chg_1d": -0.59,
   "currency": "USD",
   "market": "us",
   "sector": "医疗保健",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "MRK": {
   "name": "Merck",
-  "price": 144.46,
-  "chg_1d": -2.23,
+  "price": 143.37,
+  "chg_1d": -0.75,
   "currency": "USD",
   "market": "us",
   "sector": "医疗保健",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "UNH": {
   "name": "UnitedHealth",
-  "price": 412.02,
-  "chg_1d": 1.12,
+  "price": 389.68,
+  "chg_1d": -5.42,
   "currency": "USD",
   "market": "us",
   "sector": "医疗保健",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "WMT": {
   "name": "Walmart",
-  "price": 128.41,
-  "chg_1d": 0.25,
+  "price": 127.52,
+  "chg_1d": -0.69,
   "currency": "USD",
   "market": "us",
   "sector": "必需消费",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "COST": {
   "name": "Costco",
-  "price": 1113.74,
-  "chg_1d": 0.68,
+  "price": 1110.08,
+  "chg_1d": -0.33,
   "currency": "USD",
   "market": "us",
   "sector": "必需消费",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "KO": {
   "name": "Coca-Cola",
-  "price": 99.48,
-  "chg_1d": 0.23,
+  "price": 98.79,
+  "chg_1d": -0.69,
   "currency": "USD",
   "market": "us",
   "sector": "必需消费",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "PG": {
   "name": "P&G",
-  "price": 173.02,
-  "chg_1d": 1.9,
+  "price": 171.72,
+  "chg_1d": -0.75,
   "currency": "USD",
   "market": "us",
   "sector": "必需消费",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "PEP": {
   "name": "PepsiCo",
-  "price": 146.43,
-  "chg_1d": 0.68,
+  "price": 142.02,
+  "chg_1d": -3.01,
   "currency": "USD",
   "market": "us",
   "sector": "必需消费",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "XOM": {
   "name": "Exxon",
-  "price": 166.87,
-  "chg_1d": -2.18,
+  "price": 167.21,
+  "chg_1d": 0.2,
   "currency": "USD",
   "market": "us",
   "sector": "能源",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "CVX": {
   "name": "Chevron",
-  "price": 217.14,
-  "chg_1d": -1.25,
+  "price": 216.13,
+  "chg_1d": -0.47,
   "currency": "USD",
   "market": "us",
   "sector": "能源",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "BA": {
   "name": "Boeing",
-  "price": 165.22,
-  "chg_1d": -3.66,
+  "price": 163.91,
+  "chg_1d": -0.79,
   "currency": "USD",
   "market": "us",
   "sector": "工业",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "1155.KL": {
   "name": "Maybank",
@@ -3736,183 +3736,183 @@
  },
  "SKHY": {
   "name": "SK hynix",
-  "price": 122.18,
-  "chg_1d": -7.29,
+  "price": 122.61,
+  "chg_1d": 0.35,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "ASML": {
   "name": "ASML",
-  "price": 1406.785,
-  "chg_1d": -5.91,
+  "price": 1383.11,
+  "chg_1d": -1.68,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "SAP": {
   "name": "Sap  Se",
-  "price": 233.83,
-  "chg_1d": -0.46,
+  "price": 222.51,
+  "chg_1d": -4.84,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "AMAT": {
   "name": "Applied Materials",
-  "price": 350.25,
-  "chg_1d": -5.47,
+  "price": 349.23,
+  "chg_1d": -0.29,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "PANW": {
   "name": "Palo Alto Networks",
-  "price": 316.09,
-  "chg_1d": -1.91,
+  "price": 309.29,
+  "chg_1d": -2.15,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "TXN": {
   "name": "Texas Instruments",
-  "price": 294.21,
-  "chg_1d": -3.09,
+  "price": 295.86,
+  "chg_1d": 0.56,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "LRCX": {
   "name": "Lam Research",
-  "price": 210.83,
-  "chg_1d": -6.68,
+  "price": 210.69,
+  "chg_1d": -0.07,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "IBM": {
   "name": "International Business Machines",
-  "price": 242.51,
-  "chg_1d": -1.87,
+  "price": 231.09,
+  "chg_1d": -4.71,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "CRWD": {
   "name": "CrowdStrike",
-  "price": 223.21,
-  "chg_1d": -1.5,
+  "price": 219.58,
+  "chg_1d": -1.63,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "ANET": {
   "name": "Arista Networks",
-  "price": 187.02,
-  "chg_1d": -5.21,
+  "price": 186.42,
+  "chg_1d": -0.32,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "ARM": {
   "name": "Arm Holdings",
-  "price": 175.05,
-  "chg_1d": -8.12,
+  "price": 183.39,
+  "chg_1d": 4.76,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "APH": {
   "name": "Amphenol",
-  "price": 75.43,
-  "chg_1d": -3.58,
+  "price": 76.36,
+  "chg_1d": 1.23,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "KLAC": {
   "name": "KLA",
-  "price": 143.96,
-  "chg_1d": -5.49,
+  "price": 144.56,
+  "chg_1d": 0.42,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "SHOP": {
   "name": "Shopify",
-  "price": 147.81,
-  "chg_1d": 0.49,
+  "price": 141.9,
+  "chg_1d": -4.0,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "ADI": {
   "name": "Analog Devices,",
-  "price": 383.17,
-  "chg_1d": -3.72,
+  "price": 383.67,
+  "chg_1d": 0.13,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "SONY": {
   "name": "Sony Group",
-  "price": 27.04,
-  "chg_1d": -0.11,
+  "price": 26.68,
+  "chg_1d": -1.33,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "ACN": {
   "name": "Accenture plc",
-  "price": 247.7,
-  "chg_1d": -1.11,
+  "price": 239.28,
+  "chg_1d": -3.4,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "UBER": {
   "name": "Uber Technologies,",
-  "price": 69.99,
-  "chg_1d": 0.43,
+  "price": 68.81,
+  "chg_1d": -1.69,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "MRVL": {
   "name": "Marvell",
-  "price": 145.36,
-  "chg_1d": -7.27,
+  "price": 148.74,
+  "chg_1d": 2.33,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "ADP": {
   "name": "Automatic Data Processing,",
-  "price": 313.43,
-  "chg_1d": 1.13,
+  "price": 308.29,
+  "chg_1d": -1.64,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "SNDK": {
   "name": "Sandisk",
@@ -3925,444 +3925,444 @@
  },
  "NOW": {
   "name": "ServiceNow",
-  "price": 99.37,
-  "chg_1d": -2.82,
+  "price": 92.9,
+  "chg_1d": -6.51,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "DELL": {
   "name": "Dell",
-  "price": 320.55,
-  "chg_1d": -6.96,
+  "price": 322.79,
+  "chg_1d": 0.7,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "FTNT": {
   "name": "Fortinet",
-  "price": 123.27,
-  "chg_1d": -3.1,
+  "price": 124.5,
+  "chg_1d": 1.0,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "NET": {
   "name": "Cloudflare",
-  "price": 293.59,
-  "chg_1d": -4.0,
+  "price": 284.8,
+  "chg_1d": -2.99,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "ZS": {
   "name": "Zscaler",
-  "price": 190.84,
-  "chg_1d": -0.85,
+  "price": 185.19,
+  "chg_1d": -2.96,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "OKTA": {
   "name": "Okta",
-  "price": 178.22,
-  "chg_1d": -2.54,
+  "price": 174.54,
+  "chg_1d": -2.06,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "FSLR": {
   "name": "First Solar",
-  "price": 162.45,
-  "chg_1d": -5.22,
+  "price": 152.97,
+  "chg_1d": -5.84,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "SMCI": {
   "name": "Super Micro",
-  "price": 25.025,
-  "chg_1d": -6.87,
+  "price": 24.14,
+  "chg_1d": -3.56,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "ENPH": {
   "name": "Enphase",
-  "price": 24.95,
-  "chg_1d": -4.3,
+  "price": 23.06,
+  "chg_1d": -7.58,
   "currency": "USD",
   "market": "us",
   "sector": "科技",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "BRK-A": {
   "name": "Berkshire Hathaway",
-  "price": 887540.0,
-  "chg_1d": -0.25,
+  "price": 878512.0,
+  "chg_1d": -1.02,
   "currency": "USD",
   "market": "us",
   "sector": "金融",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "HSBC": {
   "name": "HSBC Holdings, plc.",
-  "price": 88.15,
-  "chg_1d": -1.64,
+  "price": 87.28,
+  "chg_1d": -0.99,
   "currency": "USD",
   "market": "us",
   "sector": "金融",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "MS": {
   "name": "Morgan Stanley",
-  "price": 185.57,
-  "chg_1d": -2.66,
+  "price": 183.53,
+  "chg_1d": -1.1,
   "currency": "USD",
   "market": "us",
   "sector": "金融",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "RY": {
   "name": "Royal Bank Of Canada",
-  "price": 199.61,
-  "chg_1d": -1.33,
+  "price": 196.49,
+  "chg_1d": -1.56,
   "currency": "USD",
   "market": "us",
   "sector": "金融",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "WFC": {
   "name": "Wells Fargo",
-  "price": 84.84,
-  "chg_1d": -1.41,
+  "price": 82.69,
+  "chg_1d": -2.53,
   "currency": "USD",
   "market": "us",
   "sector": "金融",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "GS": {
   "name": "Goldman Sachs",
-  "price": 891.54,
-  "chg_1d": -2.73,
+  "price": 877.52,
+  "chg_1d": -1.57,
   "currency": "USD",
   "market": "us",
   "sector": "金融",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "MUFG": {
   "name": "Mitsubishi UFJ Financial Group,",
-  "price": 21.2,
-  "chg_1d": -2.89,
+  "price": 20.47,
+  "chg_1d": -3.44,
   "currency": "USD",
   "market": "us",
   "sector": "金融",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "AXP": {
   "name": "American Express Company",
-  "price": 319.05,
-  "chg_1d": -0.48,
+  "price": 315.78,
+  "chg_1d": -1.02,
   "currency": "USD",
   "market": "us",
   "sector": "金融",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "BAC-PB": {
   "name": "Bank of America Corporation Dep",
-  "price": 20.93,
-  "chg_1d": 0.14,
+  "price": 21.03,
+  "chg_1d": 0.48,
   "currency": "USD",
   "market": "us",
   "sector": "金融",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "BAC-PK": {
   "name": "Bank of America Corporation Dep",
-  "price": 20.49,
+  "price": 20.72,
+  "chg_1d": 1.12,
+  "currency": "USD",
+  "market": "us",
+  "sector": "金融",
+  "date": "2026-11-17"
+ },
+ "TD": {
+  "name": "Toronto Dominion Bank (The)",
+  "price": 119.68,
+  "chg_1d": -1.71,
+  "currency": "USD",
+  "market": "us",
+  "sector": "金融",
+  "date": "2026-11-17"
+ },
+ "C": {
+  "name": "Citigroup",
+  "price": 119.94,
+  "chg_1d": -1.14,
+  "currency": "USD",
+  "market": "us",
+  "sector": "金融",
+  "date": "2026-11-17"
+ },
+ "BML-PJ": {
+  "name": "Bank of America Corporation Dep",
+  "price": 18.68,
+  "chg_1d": -0.43,
+  "currency": "USD",
+  "market": "us",
+  "sector": "金融",
+  "date": "2026-11-17"
+ },
+ "BLK": {
+  "name": "BlackRock,",
+  "price": 1180.67,
+  "chg_1d": -1.44,
+  "currency": "USD",
+  "market": "us",
+  "sector": "金融",
+  "date": "2026-11-17"
+ },
+ "BML-PL": {
+  "name": "Bank of America Corporation Dep",
+  "price": 17.54,
+  "chg_1d": -0.62,
+  "currency": "USD",
+  "market": "us",
+  "sector": "金融",
+  "date": "2026-11-17"
+ },
+ "BML-PG": {
+  "name": "Bank of America Corporation Dep",
+  "price": 17.84,
+  "chg_1d": 0.96,
+  "currency": "USD",
+  "market": "us",
+  "sector": "金融",
+  "date": "2026-11-17"
+ },
+ "BML-PH": {
+  "name": "Bank of America Corporation Dep",
+  "price": 17.18,
   "chg_1d": -0.15,
   "currency": "USD",
   "market": "us",
   "sector": "金融",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
- "TD": {
-  "name": "Toronto Dominion Bank (The)",
-  "price": 121.76,
-  "chg_1d": -1.62,
-  "currency": "USD",
-  "market": "us",
-  "sector": "金融",
-  "date": "2026-11-16"
- },
- "C": {
-  "name": "Citigroup",
-  "price": 121.32,
-  "chg_1d": -2.17,
-  "currency": "USD",
-  "market": "us",
-  "sector": "金融",
-  "date": "2026-11-16"
- },
- "BML-PJ": {
+ "BAC-PE": {
   "name": "Bank of America Corporation Dep",
-  "price": 18.76,
+  "price": 16.98,
+  "chg_1d": 0.18,
+  "currency": "USD",
+  "market": "us",
+  "sector": "金融",
+  "date": "2026-11-17"
+ },
+ "SAN": {
+  "name": "Banco Santander, S.A. Sponsored",
+  "price": 11.85,
+  "chg_1d": -1.09,
+  "currency": "USD",
+  "market": "us",
+  "sector": "金融",
+  "date": "2026-11-17"
+ },
+ "SCHW": {
+  "name": "Charles Schwab Corporation (The",
+  "price": 91.84,
+  "chg_1d": -1.18,
+  "currency": "USD",
+  "market": "us",
+  "sector": "金融",
+  "date": "2026-11-17"
+ },
+ "SMFG": {
+  "name": "Sumitomo Mitsui Financial Group",
+  "price": 23.35,
+  "chg_1d": -3.43,
+  "currency": "USD",
+  "market": "us",
+  "sector": "金融",
+  "date": "2026-11-17"
+ },
+ "UBS": {
+  "name": "UBS Group AG Registered",
+  "price": 46.56,
+  "chg_1d": -2.21,
+  "currency": "USD",
+  "market": "us",
+  "sector": "金融",
+  "date": "2026-11-17"
+ },
+ "CB": {
+  "name": "Chubb Limited",
+  "price": 375.64,
+  "chg_1d": -1.48,
+  "currency": "USD",
+  "market": "us",
+  "sector": "金融",
+  "date": "2026-11-17"
+ },
+ "BBVA": {
+  "name": "Banco Bilbao Vizcaya Argentaria",
+  "price": 25.53,
+  "chg_1d": -0.62,
+  "currency": "USD",
+  "market": "us",
+  "sector": "金融",
+  "date": "2026-11-17"
+ },
+ "SPGI": {
+  "name": "S&P Global",
+  "price": 452.35,
+  "chg_1d": -4.08,
+  "currency": "USD",
+  "market": "us",
+  "sector": "金融",
+  "date": "2026-11-17"
+ },
+ "PGR": {
+  "name": "Progressive Corporation (The)",
+  "price": 234.67,
+  "chg_1d": -1.12,
+  "currency": "USD",
+  "market": "us",
+  "sector": "金融",
+  "date": "2026-11-17"
+ },
+ "HDB": {
+  "name": "HDFC Bank Limited",
+  "price": 26.26,
   "chg_1d": -0.11,
   "currency": "USD",
   "market": "us",
   "sector": "金融",
-  "date": "2026-11-16"
- },
- "BLK": {
-  "name": "BlackRock,",
-  "price": 1197.97,
-  "chg_1d": -2.04,
-  "currency": "USD",
-  "market": "us",
-  "sector": "金融",
-  "date": "2026-11-16"
- },
- "BML-PL": {
-  "name": "Bank of America Corporation Dep",
-  "price": 17.65,
-  "chg_1d": -1.01,
-  "currency": "USD",
-  "market": "us",
-  "sector": "金融",
-  "date": "2026-11-16"
- },
- "BML-PG": {
-  "name": "Bank of America Corporation Dep",
-  "price": 17.67,
-  "chg_1d": 0.34,
-  "currency": "USD",
-  "market": "us",
-  "sector": "金融",
-  "date": "2026-11-16"
- },
- "BML-PH": {
-  "name": "Bank of America Corporation Dep",
-  "price": 17.205,
-  "chg_1d": -0.95,
-  "currency": "USD",
-  "market": "us",
-  "sector": "金融",
-  "date": "2026-11-16"
- },
- "BAC-PE": {
-  "name": "Bank of America Corporation Dep",
-  "price": 16.95,
-  "chg_1d": -0.53,
-  "currency": "USD",
-  "market": "us",
-  "sector": "金融",
-  "date": "2026-11-16"
- },
- "SAN": {
-  "name": "Banco Santander, S.A. Sponsored",
-  "price": 11.98,
-  "chg_1d": -1.88,
-  "currency": "USD",
-  "market": "us",
-  "sector": "金融",
-  "date": "2026-11-16"
- },
- "SCHW": {
-  "name": "Charles Schwab Corporation (The",
-  "price": 92.94,
-  "chg_1d": -0.04,
-  "currency": "USD",
-  "market": "us",
-  "sector": "金融",
-  "date": "2026-11-16"
- },
- "SMFG": {
-  "name": "Sumitomo Mitsui Financial Group",
-  "price": 24.18,
-  "chg_1d": -2.26,
-  "currency": "USD",
-  "market": "us",
-  "sector": "金融",
-  "date": "2026-11-16"
- },
- "UBS": {
-  "name": "UBS Group AG Registered",
-  "price": 47.61,
-  "chg_1d": -1.45,
-  "currency": "USD",
-  "market": "us",
-  "sector": "金融",
-  "date": "2026-11-16"
- },
- "CB": {
-  "name": "Chubb Limited",
-  "price": 381.28,
-  "chg_1d": 1.47,
-  "currency": "USD",
-  "market": "us",
-  "sector": "金融",
-  "date": "2026-11-16"
- },
- "BBVA": {
-  "name": "Banco Bilbao Vizcaya Argentaria",
-  "price": 25.69,
-  "chg_1d": -0.89,
-  "currency": "USD",
-  "market": "us",
-  "sector": "金融",
-  "date": "2026-11-16"
- },
- "SPGI": {
-  "name": "S&P Global",
-  "price": 471.59,
-  "chg_1d": -0.42,
-  "currency": "USD",
-  "market": "us",
-  "sector": "金融",
-  "date": "2026-11-16"
- },
- "PGR": {
-  "name": "Progressive Corporation (The)",
-  "price": 237.33,
-  "chg_1d": 0.66,
-  "currency": "USD",
-  "market": "us",
-  "sector": "金融",
-  "date": "2026-11-16"
- },
- "HDB": {
-  "name": "HDFC Bank Limited",
-  "price": 26.29,
-  "chg_1d": 1.78,
-  "currency": "USD",
-  "market": "us",
-  "sector": "金融",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "IBN": {
   "name": "ICICI Bank Limited",
-  "price": 34.42,
-  "chg_1d": -0.29,
+  "price": 34.8,
+  "chg_1d": 1.1,
   "currency": "USD",
   "market": "us",
   "sector": "金融",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "COF": {
   "name": "Capital One Financial Corporati",
-  "price": 193.22,
-  "chg_1d": -0.95,
+  "price": 186.78,
+  "chg_1d": -3.33,
   "currency": "USD",
   "market": "us",
   "sector": "金融",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "BMO": {
   "name": "Bank Of Montreal",
-  "price": 169.74,
-  "chg_1d": -2.02,
+  "price": 166.3,
+  "chg_1d": -2.03,
   "currency": "USD",
   "market": "us",
   "sector": "金融",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "WFC-PY": {
   "name": "Wells Fargo & Company Depositar",
   "price": 20.03,
-  "chg_1d": -0.3,
+  "chg_1d": 0.0,
   "currency": "USD",
   "market": "us",
   "sector": "金融",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "JPM-PC": {
   "name": "J P Morgan Chase & Co Depositar",
-  "price": 22.14,
-  "chg_1d": 0.09,
+  "price": 22.12,
+  "chg_1d": -0.09,
   "currency": "USD",
   "market": "us",
   "sector": "金融",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "JPM-PD": {
   "name": "J P Morgan Chase & Co Depositar",
-  "price": 20.76,
-  "chg_1d": -0.24,
+  "price": 20.69,
+  "chg_1d": -0.34,
   "currency": "USD",
   "market": "us",
   "sector": "金融",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "BABA": {
   "name": "Alibaba Group Holding Limited",
-  "price": 90.62,
-  "chg_1d": -3.98,
+  "price": 86.65,
+  "chg_1d": -4.38,
   "currency": "USD",
   "market": "us",
   "sector": "非必需消费",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "TM": {
   "name": "Toyota Motor",
-  "price": 213.85,
-  "chg_1d": 0.67,
+  "price": 213.12,
+  "chg_1d": -0.34,
   "currency": "USD",
   "market": "us",
   "sector": "非必需消费",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "MCD": {
   "name": "McDonald's",
-  "price": 274.67,
-  "chg_1d": 0.99,
+  "price": 275.82,
+  "chg_1d": 0.42,
   "currency": "USD",
   "market": "us",
   "sector": "非必需消费",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "TJX": {
   "name": "TJX Companies, Inc. (The)",
-  "price": 131.09,
-  "chg_1d": -2.44,
+  "price": 129.85,
+  "chg_1d": -0.95,
   "currency": "USD",
   "market": "us",
   "sector": "非必需消费",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "LOW": {
   "name": "Lowe's Companies,",
-  "price": 224.93,
-  "chg_1d": -1.23,
+  "price": 220.46,
+  "chg_1d": -1.99,
   "currency": "USD",
   "market": "us",
   "sector": "非必需消费",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "SBUX": {
   "name": "Starbucks",
-  "price": 108.72,
-  "chg_1d": 2.14,
+  "price": 107.49,
+  "chg_1d": -1.13,
   "currency": "USD",
   "market": "us",
   "sector": "非必需消费",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "BKNG": {
   "name": "Booking Holdings Inc. Common St",
-  "price": 157.53,
-  "chg_1d": -1.28,
+  "price": 154.46,
+  "chg_1d": -1.95,
   "currency": "USD",
   "market": "us",
   "sector": "非必需消费",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "PDD": {
   "name": "PDD Holdings",
@@ -4375,399 +4375,399 @@
  },
  "RIVN": {
   "name": "Rivian",
-  "price": 12.1,
-  "chg_1d": -0.66,
-  "currency": "USD",
-  "market": "us",
-  "sector": "非必需消费",
-  "date": "2026-11-16"
- },
- "NVS": {
-  "name": "Novartis AG",
-  "price": 160.2,
-  "chg_1d": -0.19,
-  "currency": "USD",
-  "market": "us",
-  "sector": "医疗保健",
-  "date": "2026-11-16"
- },
- "AZN": {
-  "name": "AstraZeneca PLC",
-  "price": 184.02,
-  "chg_1d": -0.23,
-  "currency": "USD",
-  "market": "us",
-  "sector": "医疗保健",
-  "date": "2026-11-16"
- },
- "TMO": {
-  "name": "Thermo Fisher Scientific Inc",
-  "price": 691.33,
-  "chg_1d": -1.27,
-  "currency": "USD",
-  "market": "us",
-  "sector": "医疗保健",
-  "date": "2026-11-16"
- },
- "AMGN": {
-  "name": "Amgen",
-  "price": 462.32,
-  "chg_1d": -0.72,
-  "currency": "USD",
-  "market": "us",
-  "sector": "医疗保健",
-  "date": "2026-11-16"
- },
- "GILD": {
-  "name": "Gilead Sciences,",
-  "price": 167.58,
-  "chg_1d": -0.3,
-  "currency": "USD",
-  "market": "us",
-  "sector": "医疗保健",
-  "date": "2026-11-16"
- },
- "ABT": {
-  "name": "Abbott Laboratories",
-  "price": 107.45,
-  "chg_1d": -0.99,
-  "currency": "USD",
-  "market": "us",
-  "sector": "医疗保健",
-  "date": "2026-11-16"
- },
- "PFE": {
-  "name": "Pfizer",
-  "price": 28.86,
-  "chg_1d": -0.1,
-  "currency": "USD",
-  "market": "us",
-  "sector": "医疗保健",
-  "date": "2026-11-16"
- },
- "DHR": {
-  "name": "Danaher",
-  "price": 229.91,
-  "chg_1d": -1.33,
-  "currency": "USD",
-  "market": "us",
-  "sector": "医疗保健",
-  "date": "2026-11-16"
- },
- "ISRG": {
-  "name": "Intuitive Surgical,",
-  "price": 437.75,
-  "chg_1d": -1.32,
-  "currency": "USD",
-  "market": "us",
-  "sector": "医疗保健",
-  "date": "2026-11-16"
- },
- "VRTX": {
-  "name": "Vertex Pharmaceuticals Incorpor",
-  "price": 537.79,
-  "chg_1d": -0.15,
-  "currency": "USD",
-  "market": "us",
-  "sector": "医疗保健",
-  "date": "2026-11-16"
- },
- "NVO": {
-  "name": "Novo Nordisk",
-  "price": 41.6,
-  "chg_1d": -0.07,
-  "currency": "USD",
-  "market": "us",
-  "sector": "医疗保健",
-  "date": "2026-11-16"
- },
- "MDT": {
-  "name": "Medtronic plc.",
-  "price": 102.88,
-  "chg_1d": 0.02,
-  "currency": "USD",
-  "market": "us",
-  "sector": "医疗保健",
-  "date": "2026-11-16"
- },
- "BMY": {
-  "name": "Bristol-Myers Squibb Company",
-  "price": 62.93,
-  "chg_1d": -0.79,
-  "currency": "USD",
-  "market": "us",
-  "sector": "医疗保健",
-  "date": "2026-11-16"
- },
- "SYK": {
-  "name": "Stryker",
-  "price": 310.72,
-  "chg_1d": 0.35,
-  "currency": "USD",
-  "market": "us",
-  "sector": "医疗保健",
-  "date": "2026-11-16"
- },
- "MCK": {
-  "name": "McKesson",
-  "price": 1105.04,
-  "chg_1d": 0.2,
-  "currency": "USD",
-  "market": "us",
-  "sector": "医疗保健",
-  "date": "2026-11-16"
- },
- "GOOG": {
-  "name": "Alphabet",
-  "price": 281.26,
-  "chg_1d": -3.85,
-  "currency": "USD",
-  "market": "us",
-  "sector": "电讯媒体",
-  "date": "2026-11-16"
- },
- "VZ": {
-  "name": "Verizon Communications",
-  "price": 46.34,
-  "chg_1d": -0.04,
-  "currency": "USD",
-  "market": "us",
-  "sector": "电讯媒体",
-  "date": "2026-11-16"
- },
- "TMUS": {
-  "name": "T-Mobile US,",
-  "price": 170.01,
-  "chg_1d": 0.04,
-  "currency": "USD",
-  "market": "us",
-  "sector": "电讯媒体",
-  "date": "2026-11-16"
- },
- "T": {
-  "name": "At&T",
-  "price": 22.36,
-  "chg_1d": 0.81,
-  "currency": "USD",
-  "market": "us",
-  "sector": "电讯媒体",
-  "date": "2026-11-16"
- },
- "SPOT": {
-  "name": "Spotify Technology S.A.",
-  "price": 611.73,
-  "chg_1d": -0.15,
-  "currency": "USD",
-  "market": "us",
-  "sector": "电讯媒体",
-  "date": "2026-11-16"
- },
- "APP": {
-  "name": "Applovin",
-  "price": 415.22,
-  "chg_1d": 1.5,
-  "currency": "USD",
-  "market": "us",
-  "sector": "电讯媒体",
-  "date": "2026-11-16"
- },
- "PM": {
-  "name": "Philip Morris International Inc",
-  "price": 196.04,
-  "chg_1d": -1.47,
-  "currency": "USD",
-  "market": "us",
-  "sector": "必需消费",
-  "date": "2026-11-16"
- },
- "BUD": {
-  "name": "Anheuser-Busch Inbev SA Sponsor",
-  "price": 84.36,
-  "chg_1d": -0.53,
-  "currency": "USD",
-  "market": "us",
-  "sector": "必需消费",
-  "date": "2026-11-16"
- },
- "UL": {
-  "name": "Unilever PLC",
-  "price": 66.81,
-  "chg_1d": 0.91,
-  "currency": "USD",
-  "market": "us",
-  "sector": "必需消费",
-  "date": "2026-11-16"
- },
- "BTI": {
-  "name": "British American Tobacco  Indus",
-  "price": 62.11,
-  "chg_1d": 0.36,
-  "currency": "USD",
-  "market": "us",
-  "sector": "必需消费",
-  "date": "2026-11-16"
- },
- "MO": {
-  "name": "Altria Group,",
-  "price": 78.9,
-  "chg_1d": 0.33,
-  "currency": "USD",
-  "market": "us",
-  "sector": "必需消费",
-  "date": "2026-11-16"
- },
- "SPCX": {
-  "name": "Space Exploration Technologies",
-  "price": 137.36,
-  "chg_1d": -1.26,
-  "currency": "USD",
-  "market": "us",
-  "sector": "工业",
-  "date": "2026-11-16"
- },
- "GE": {
-  "name": "GE Aerospace",
-  "price": 325.18,
-  "chg_1d": -2.0,
-  "currency": "USD",
-  "market": "us",
-  "sector": "工业",
-  "date": "2026-11-16"
- },
- "RTX": {
-  "name": "Rtx",
-  "price": 194.89,
-  "chg_1d": -1.86,
-  "currency": "USD",
-  "market": "us",
-  "sector": "工业",
-  "date": "2026-11-16"
- },
- "CAT": {
-  "name": "Caterpillar,",
-  "price": 570.49,
-  "chg_1d": -4.95,
-  "currency": "USD",
-  "market": "us",
-  "sector": "工业",
-  "date": "2026-11-16"
- },
- "GEV": {
-  "name": "GE Vernova",
-  "price": 763.57,
-  "chg_1d": -4.93,
-  "currency": "USD",
-  "market": "us",
-  "sector": "工业",
-  "date": "2026-11-16"
- },
- "DE": {
-  "name": "Deere & Company",
-  "price": 653.99,
-  "chg_1d": -2.9,
-  "currency": "USD",
-  "market": "us",
-  "sector": "工业",
-  "date": "2026-11-16"
- },
- "UNP": {
-  "name": "Union Pacific",
-  "price": 303.71,
-  "chg_1d": 0.42,
-  "currency": "USD",
-  "market": "us",
-  "sector": "工业",
-  "date": "2026-11-16"
- },
- "ETN": {
-  "name": "Eaton",
-  "price": 336.88,
-  "chg_1d": -4.56,
-  "currency": "USD",
-  "market": "us",
-  "sector": "工业",
-  "date": "2026-11-16"
- },
- "LMT": {
-  "name": "Lockheed Martin",
-  "price": 585.21,
+  "price": 11.88,
   "chg_1d": -1.82,
   "currency": "USD",
   "market": "us",
-  "sector": "工业",
-  "date": "2026-11-16"
+  "sector": "非必需消费",
+  "date": "2026-11-17"
  },
- "PH": {
-  "name": "Parker-Hannifin",
-  "price": 934.8,
-  "chg_1d": -2.18,
+ "NVS": {
+  "name": "Novartis AG",
+  "price": 159.13,
+  "chg_1d": -0.67,
   "currency": "USD",
   "market": "us",
-  "sector": "工业",
-  "date": "2026-11-16"
+  "sector": "医疗保健",
+  "date": "2026-11-17"
  },
- "VRT": {
-  "name": "Vertiv",
-  "price": 188.67,
-  "chg_1d": -6.63,
+ "AZN": {
+  "name": "AstraZeneca PLC",
+  "price": 182.27,
+  "chg_1d": -0.95,
   "currency": "USD",
   "market": "us",
-  "sector": "工业",
-  "date": "2026-11-16"
+  "sector": "医疗保健",
+  "date": "2026-11-17"
  },
- "SHEL": {
-  "name": "Shell PLC",
-  "price": 97.71,
-  "chg_1d": -1.38,
+ "TMO": {
+  "name": "Thermo Fisher Scientific Inc",
+  "price": 686.79,
+  "chg_1d": -0.66,
   "currency": "USD",
   "market": "us",
-  "sector": "能源",
-  "date": "2026-11-16"
+  "sector": "医疗保健",
+  "date": "2026-11-17"
  },
- "TTE": {
-  "name": "TotalEnergies SE",
-  "price": 89.94,
-  "chg_1d": -0.88,
+ "AMGN": {
+  "name": "Amgen",
+  "price": 457.93,
+  "chg_1d": -0.95,
   "currency": "USD",
   "market": "us",
-  "sector": "能源",
-  "date": "2026-11-16"
+  "sector": "医疗保健",
+  "date": "2026-11-17"
  },
- "COP": {
-  "name": "ConocoPhillips",
-  "price": 140.52,
-  "chg_1d": -1.24,
+ "GILD": {
+  "name": "Gilead Sciences,",
+  "price": 170.26,
+  "chg_1d": 1.6,
   "currency": "USD",
   "market": "us",
-  "sector": "能源",
-  "date": "2026-11-16"
+  "sector": "医疗保健",
+  "date": "2026-11-17"
  },
- "BP": {
-  "name": "BP p.l.c.",
-  "price": 44.92,
-  "chg_1d": -1.71,
+ "ABT": {
+  "name": "Abbott Laboratories",
+  "price": 104.71,
+  "chg_1d": -2.55,
   "currency": "USD",
   "market": "us",
-  "sector": "能源",
-  "date": "2026-11-16"
+  "sector": "医疗保健",
+  "date": "2026-11-17"
  },
- "EOG": {
-  "name": "EOG Resources",
-  "price": 155.47,
+ "PFE": {
+  "name": "Pfizer",
+  "price": 28.47,
+  "chg_1d": -1.35,
+  "currency": "USD",
+  "market": "us",
+  "sector": "医疗保健",
+  "date": "2026-11-17"
+ },
+ "DHR": {
+  "name": "Danaher",
+  "price": 225.77,
   "chg_1d": -1.8,
   "currency": "USD",
   "market": "us",
-  "sector": "能源",
-  "date": "2026-11-16"
+  "sector": "医疗保健",
+  "date": "2026-11-17"
  },
- "SLB": {
-  "name": "SLB",
-  "price": 50.08,
-  "chg_1d": -3.08,
+ "ISRG": {
+  "name": "Intuitive Surgical,",
+  "price": 430.53,
+  "chg_1d": -1.65,
+  "currency": "USD",
+  "market": "us",
+  "sector": "医疗保健",
+  "date": "2026-11-17"
+ },
+ "VRTX": {
+  "name": "Vertex Pharmaceuticals Incorpor",
+  "price": 534.2,
+  "chg_1d": -0.67,
+  "currency": "USD",
+  "market": "us",
+  "sector": "医疗保健",
+  "date": "2026-11-17"
+ },
+ "NVO": {
+  "name": "Novo Nordisk",
+  "price": 40.7,
+  "chg_1d": -2.16,
+  "currency": "USD",
+  "market": "us",
+  "sector": "医疗保健",
+  "date": "2026-11-17"
+ },
+ "MDT": {
+  "name": "Medtronic plc.",
+  "price": 102.32,
+  "chg_1d": -0.54,
+  "currency": "USD",
+  "market": "us",
+  "sector": "医疗保健",
+  "date": "2026-11-17"
+ },
+ "BMY": {
+  "name": "Bristol-Myers Squibb Company",
+  "price": 61.35,
+  "chg_1d": -2.51,
+  "currency": "USD",
+  "market": "us",
+  "sector": "医疗保健",
+  "date": "2026-11-17"
+ },
+ "SYK": {
+  "name": "Stryker",
+  "price": 317.54,
+  "chg_1d": 2.19,
+  "currency": "USD",
+  "market": "us",
+  "sector": "医疗保健",
+  "date": "2026-11-17"
+ },
+ "MCK": {
+  "name": "McKesson",
+  "price": 1091.67,
+  "chg_1d": -1.21,
+  "currency": "USD",
+  "market": "us",
+  "sector": "医疗保健",
+  "date": "2026-11-17"
+ },
+ "GOOG": {
+  "name": "Alphabet",
+  "price": 277.6,
+  "chg_1d": -1.3,
+  "currency": "USD",
+  "market": "us",
+  "sector": "电讯媒体",
+  "date": "2026-11-17"
+ },
+ "VZ": {
+  "name": "Verizon Communications",
+  "price": 45.93,
+  "chg_1d": -0.88,
+  "currency": "USD",
+  "market": "us",
+  "sector": "电讯媒体",
+  "date": "2026-11-17"
+ },
+ "TMUS": {
+  "name": "T-Mobile US,",
+  "price": 167.9,
+  "chg_1d": -1.24,
+  "currency": "USD",
+  "market": "us",
+  "sector": "电讯媒体",
+  "date": "2026-11-17"
+ },
+ "T": {
+  "name": "At&T",
+  "price": 22.29,
+  "chg_1d": -0.31,
+  "currency": "USD",
+  "market": "us",
+  "sector": "电讯媒体",
+  "date": "2026-11-17"
+ },
+ "SPOT": {
+  "name": "Spotify Technology S.A.",
+  "price": 602.01,
+  "chg_1d": -1.59,
+  "currency": "USD",
+  "market": "us",
+  "sector": "电讯媒体",
+  "date": "2026-11-17"
+ },
+ "APP": {
+  "name": "Applovin",
+  "price": 398.94,
+  "chg_1d": -3.92,
+  "currency": "USD",
+  "market": "us",
+  "sector": "电讯媒体",
+  "date": "2026-11-17"
+ },
+ "PM": {
+  "name": "Philip Morris International Inc",
+  "price": 194.38,
+  "chg_1d": -0.85,
+  "currency": "USD",
+  "market": "us",
+  "sector": "必需消费",
+  "date": "2026-11-17"
+ },
+ "BUD": {
+  "name": "Anheuser-Busch Inbev SA Sponsor",
+  "price": 83.46,
+  "chg_1d": -1.07,
+  "currency": "USD",
+  "market": "us",
+  "sector": "必需消费",
+  "date": "2026-11-17"
+ },
+ "UL": {
+  "name": "Unilever PLC",
+  "price": 65.31,
+  "chg_1d": -2.25,
+  "currency": "USD",
+  "market": "us",
+  "sector": "必需消费",
+  "date": "2026-11-17"
+ },
+ "BTI": {
+  "name": "British American Tobacco  Indus",
+  "price": 59.16,
+  "chg_1d": -4.75,
+  "currency": "USD",
+  "market": "us",
+  "sector": "必需消费",
+  "date": "2026-11-17"
+ },
+ "MO": {
+  "name": "Altria Group,",
+  "price": 77.46,
+  "chg_1d": -1.83,
+  "currency": "USD",
+  "market": "us",
+  "sector": "必需消费",
+  "date": "2026-11-17"
+ },
+ "SPCX": {
+  "name": "Space Exploration Technologies",
+  "price": 141.7,
+  "chg_1d": 3.16,
+  "currency": "USD",
+  "market": "us",
+  "sector": "工业",
+  "date": "2026-11-17"
+ },
+ "GE": {
+  "name": "GE Aerospace",
+  "price": 326.4,
+  "chg_1d": 0.38,
+  "currency": "USD",
+  "market": "us",
+  "sector": "工业",
+  "date": "2026-11-17"
+ },
+ "RTX": {
+  "name": "Rtx",
+  "price": 198.0,
+  "chg_1d": 1.6,
+  "currency": "USD",
+  "market": "us",
+  "sector": "工业",
+  "date": "2026-11-17"
+ },
+ "CAT": {
+  "name": "Caterpillar,",
+  "price": 570.79,
+  "chg_1d": 0.05,
+  "currency": "USD",
+  "market": "us",
+  "sector": "工业",
+  "date": "2026-11-17"
+ },
+ "GEV": {
+  "name": "GE Vernova",
+  "price": 779.91,
+  "chg_1d": 2.14,
+  "currency": "USD",
+  "market": "us",
+  "sector": "工业",
+  "date": "2026-11-17"
+ },
+ "DE": {
+  "name": "Deere & Company",
+  "price": 649.23,
+  "chg_1d": -0.73,
+  "currency": "USD",
+  "market": "us",
+  "sector": "工业",
+  "date": "2026-11-17"
+ },
+ "UNP": {
+  "name": "Union Pacific",
+  "price": 297.03,
+  "chg_1d": -2.2,
+  "currency": "USD",
+  "market": "us",
+  "sector": "工业",
+  "date": "2026-11-17"
+ },
+ "ETN": {
+  "name": "Eaton",
+  "price": 337.11,
+  "chg_1d": 0.07,
+  "currency": "USD",
+  "market": "us",
+  "sector": "工业",
+  "date": "2026-11-17"
+ },
+ "LMT": {
+  "name": "Lockheed Martin",
+  "price": 590.34,
+  "chg_1d": 0.88,
+  "currency": "USD",
+  "market": "us",
+  "sector": "工业",
+  "date": "2026-11-17"
+ },
+ "PH": {
+  "name": "Parker-Hannifin",
+  "price": 920.84,
+  "chg_1d": -1.49,
+  "currency": "USD",
+  "market": "us",
+  "sector": "工业",
+  "date": "2026-11-17"
+ },
+ "VRT": {
+  "name": "Vertiv",
+  "price": 190.37,
+  "chg_1d": 0.9,
+  "currency": "USD",
+  "market": "us",
+  "sector": "工业",
+  "date": "2026-11-17"
+ },
+ "SHEL": {
+  "name": "Shell PLC",
+  "price": 97.24,
+  "chg_1d": -0.48,
   "currency": "USD",
   "market": "us",
   "sector": "能源",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
+ },
+ "TTE": {
+  "name": "TotalEnergies SE",
+  "price": 90.4,
+  "chg_1d": 0.51,
+  "currency": "USD",
+  "market": "us",
+  "sector": "能源",
+  "date": "2026-11-17"
+ },
+ "COP": {
+  "name": "ConocoPhillips",
+  "price": 139.48,
+  "chg_1d": -0.74,
+  "currency": "USD",
+  "market": "us",
+  "sector": "能源",
+  "date": "2026-11-17"
+ },
+ "BP": {
+  "name": "BP p.l.c.",
+  "price": 44.85,
+  "chg_1d": -0.16,
+  "currency": "USD",
+  "market": "us",
+  "sector": "能源",
+  "date": "2026-11-17"
+ },
+ "EOG": {
+  "name": "EOG Resources",
+  "price": 154.91,
+  "chg_1d": -0.36,
+  "currency": "USD",
+  "market": "us",
+  "sector": "能源",
+  "date": "2026-11-17"
+ },
+ "SLB": {
+  "name": "SLB",
+  "price": 48.95,
+  "chg_1d": -2.26,
+  "currency": "USD",
+  "market": "us",
+  "sector": "能源",
+  "date": "2026-11-17"
  },
  "PBR": {
   "name": "Petroleo Brasileiro S.A. Petrob",
@@ -4780,210 +4780,210 @@
  },
  "OXY": {
   "name": "Occidental",
-  "price": 57.36,
-  "chg_1d": -2.37,
+  "price": 56.52,
+  "chg_1d": -1.46,
   "currency": "USD",
   "market": "us",
   "sector": "能源",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "LIN": {
   "name": "Linde plc",
-  "price": 523.46,
-  "chg_1d": -0.49,
+  "price": 515.11,
+  "chg_1d": -1.6,
   "currency": "USD",
   "market": "us",
   "sector": "原材料",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "BHP": {
   "name": "BHP Group Limited",
-  "price": 75.55,
-  "chg_1d": -4.96,
+  "price": 73.9,
+  "chg_1d": -2.18,
   "currency": "USD",
   "market": "us",
   "sector": "原材料",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "SCCO": {
   "name": "Southern Copper",
-  "price": 153.87,
-  "chg_1d": -6.22,
+  "price": 155.42,
+  "chg_1d": 1.01,
   "currency": "USD",
   "market": "us",
   "sector": "原材料",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "NEM": {
   "name": "Newmont",
-  "price": 110.31,
-  "chg_1d": -2.5,
+  "price": 111.26,
+  "chg_1d": 0.86,
   "currency": "USD",
   "market": "us",
   "sector": "原材料",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "RIO": {
   "name": "Rio Tinto Plc",
-  "price": 80.05,
-  "chg_1d": -3.5,
+  "price": 79.47,
+  "chg_1d": -0.72,
   "currency": "USD",
   "market": "us",
   "sector": "原材料",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "ALB": {
   "name": "Albemarle",
-  "price": 88.16,
-  "chg_1d": -5.74,
+  "price": 87.67,
+  "chg_1d": -0.56,
   "currency": "USD",
   "market": "us",
   "sector": "原材料",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "WELL": {
   "name": "Welltower",
-  "price": 244.65,
-  "chg_1d": 0.08,
+  "price": 245.76,
+  "chg_1d": 0.45,
   "currency": "USD",
   "market": "us",
   "sector": "房地产",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "PLD": {
   "name": "Prologis",
-  "price": 127.6,
-  "chg_1d": -0.83,
+  "price": 125.56,
+  "chg_1d": -1.6,
   "currency": "USD",
   "market": "us",
   "sector": "房地产",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "EQIX": {
   "name": "Equinix",
-  "price": 1043.06,
-  "chg_1d": -1.02,
+  "price": 1034.83,
+  "chg_1d": -0.79,
   "currency": "USD",
   "market": "us",
   "sector": "房地产",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "AMT": {
   "name": "American Tower",
-  "price": 190.74,
-  "chg_1d": -0.47,
+  "price": 183.18,
+  "chg_1d": -3.96,
   "currency": "USD",
   "market": "us",
   "sector": "房地产",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "SPG": {
   "name": "Simon Property",
-  "price": 232.78,
-  "chg_1d": -0.08,
+  "price": 230.24,
+  "chg_1d": -1.09,
   "currency": "USD",
   "market": "us",
   "sector": "房地产",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "DLR": {
   "name": "Digital Realty",
-  "price": 178.77,
-  "chg_1d": -0.68,
+  "price": 176.53,
+  "chg_1d": -1.25,
   "currency": "USD",
   "market": "us",
   "sector": "房地产",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "PSA": {
   "name": "Public Storage",
-  "price": 333.71,
-  "chg_1d": 0.34,
+  "price": 330.18,
+  "chg_1d": -1.06,
   "currency": "USD",
   "market": "us",
   "sector": "房地产",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "O": {
   "name": "Realty Income",
-  "price": 58.55,
-  "chg_1d": -0.46,
+  "price": 58.04,
+  "chg_1d": -0.87,
   "currency": "USD",
   "market": "us",
   "sector": "房地产",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "VICI": {
   "name": "VICI Properties",
-  "price": 24.85,
-  "chg_1d": -0.64,
+  "price": 24.51,
+  "chg_1d": -1.37,
   "currency": "USD",
   "market": "us",
   "sector": "房地产",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "NEE": {
   "name": "NextEra Energy",
-  "price": 85.34,
-  "chg_1d": 0.26,
+  "price": 84.42,
+  "chg_1d": -1.08,
   "currency": "USD",
   "market": "us",
   "sector": "公用事业",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "SO": {
   "name": "Southern Co",
-  "price": 94.64,
-  "chg_1d": 1.12,
+  "price": 93.6,
+  "chg_1d": -1.1,
   "currency": "USD",
   "market": "us",
   "sector": "公用事业",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "DUK": {
   "name": "Duke Energy",
-  "price": 130.59,
-  "chg_1d": 1.11,
+  "price": 129.84,
+  "chg_1d": -0.57,
   "currency": "USD",
   "market": "us",
   "sector": "公用事业",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "CEG": {
   "name": "Constellation Energy",
-  "price": 277.82,
-  "chg_1d": -0.85,
+  "price": 268.07,
+  "chg_1d": -3.51,
   "currency": "USD",
   "market": "us",
   "sector": "公用事业",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "VST": {
   "name": "Vistra",
-  "price": 130.16,
-  "chg_1d": -2.14,
+  "price": 127.15,
+  "chg_1d": -2.31,
   "currency": "USD",
   "market": "us",
   "sector": "公用事业",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "NRG": {
   "name": "NRG Energy",
-  "price": 93.99,
-  "chg_1d": -3.2,
+  "price": 91.76,
+  "chg_1d": -2.37,
   "currency": "USD",
   "market": "us",
   "sector": "公用事业",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "TLN": {
   "name": "Talen Energy",
-  "price": 359.74,
-  "chg_1d": -4.33,
+  "price": 354.71,
+  "chg_1d": -1.4,
   "currency": "USD",
   "market": "us",
   "sector": "公用事业",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "6139.KL": {
   "name": "Takaful",
@@ -5041,29 +5041,29 @@
  },
  "WFC-PL": {
   "name": "Wells Fargo & Company 7.50% Non",
-  "price": 1049.37,
-  "chg_1d": 0.18,
+  "price": 1045.33,
+  "chg_1d": -0.38,
   "currency": "USD",
   "market": "us",
   "sector": "金融",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "MFG": {
   "name": "Mizuho Financial Group, Inc. Sp",
-  "price": 10.25,
-  "chg_1d": -0.87,
+  "price": 9.83,
+  "chg_1d": -4.1,
   "currency": "USD",
   "market": "us",
   "sector": "金融",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  },
  "SNY": {
   "name": "Sanofi",
-  "price": 48.39,
-  "chg_1d": 0.04,
+  "price": 47.53,
+  "chg_1d": -1.78,
   "currency": "USD",
   "market": "us",
   "sector": "医疗保健",
-  "date": "2026-11-16"
+  "date": "2026-11-17"
  }
 }
