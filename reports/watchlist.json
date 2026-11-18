@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-18 03:45 UTC",
+ "updated": "2026-11-18 04:01 UTC",
  "stocks": [
   {
    "ticker": "1155.KL",
@@ -13,11 +13,11 @@
     "rsi_below": 30
    },
    "triggered": [],
-   "price": 9.93,
-   "change_pct": -0.4,
-   "rsi": 44.4,
+   "price": 9.92,
+   "change_pct": -0.5,
+   "rsi": 43.9,
    "date": "2026-11-18",
-   "chg_1m": 0.3,
+   "chg_1m": 0.2,
    "high_6m": 11.38,
    "low_6m": 9.78
   },
