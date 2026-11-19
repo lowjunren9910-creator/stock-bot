@@ -2,14 +2,15 @@
  "market": "us",
  "market_name": "🇺🇸 美股",
  "currency": "USD",
- "date": "2026-11-18",
- "generated_at": "2026-11-18 16:31 EST",
+ "date": "2026-11-19",
+ "generated_at": "2026-11-19 16:32 EST",
  "tracked": 173,
  "universe_size": 179,
  "new_today": [
-  "SKHY"
+  "SMFG"
  ],
  "recent": [
+  "SMFG",
   "SKHY",
   "MUFG",
   "SBUX",
@@ -68,8 +69,7 @@
   "BLK",
   "BML-PL",
   "BRK-A",
-  "CAT",
-  "CVX"
+  "CAT"
  ],
  "items": {
   "AAPL": {
@@ -4903,55 +4903,56 @@
    "ai": null
   },
   "SMFG": {
-   "period": "2026-06-30",
-   "prev_period": "2026-03-31",
-   "yoy_period": "2025-06-30",
-   "revenue": 1577367000000.0,
-   "net": 501372000000.0,
-   "eps": 78.954,
-   "rev_yoy": 28.5,
-   "net_yoy": 33.0,
-   "rev_qoq": 0.6,
-   "net_qoq": 166.4,
-   "net_margin": 31.8,
-   "net_margin_yoy": 30.7,
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": "2025-09-30",
+   "revenue": 1662758000000.0,
+   "net": 501783000000.0,
+   "eps": null,
+   "rev_yoy": 10.1,
+   "net_yoy": -9.8,
+   "rev_qoq": 5.4,
+   "net_qoq": 0.1,
+   "net_margin": 30.2,
+   "net_margin_yoy": 36.9,
    "gross_margin": null,
    "trend": {
     "periods": [
-     "2025-06-30",
      "2025-09-30",
      "2025-12-31",
      "2026-03-31",
-     "2026-06-30"
+     "2026-06-30",
+     "2026-09-30"
     ],
     "revenue": [
-     1227814000000.0,
      1509972000000.0,
      1485221000000.0,
      1568561000000.0,
-     1577367000000.0
+     1577367000000.0,
+     1662758000000.0
     ],
     "net": [
-     376898000000.0,
      556607000000.0,
      461263000000.0,
      188205000000.0,
-     501372000000.0
+     501372000000.0,
+     501783000000.0
     ]
    },
-   "score": 5,
-   "verdict": "亮眼",
-   "icon": "🌟",
+   "score": 0,
+   "verdict": "一般",
+   "icon": "😐",
    "reasons": [
-    "营收按年 +28.5%",
-    "净利按年 +33.0%",
-    "净利率升到 31.8%（去年 30.7%）"
+    "营收按年 +10.1%",
+    "净利按年 -9.8%",
+    "净利率降到 30.2%（去年 36.9%）"
    ],
    "ticker": "SMFG",
    "name": "Sumitomo Mitsui Financial Group",
    "currency": "USD",
    "watch": false,
-   "found": null
+   "found": "2026-11-19",
+   "ai": null
   },
   "SPG": {
    "period": "2026-09-30",
