@@ -63,7 +63,23 @@
    "ipo_price": 0.56,
    "issuing_house": "Malaysian Issuing House",
    "updated": "2026-11-18"
+  },
+  "sca-solutions": {
+   "name": "Sca Solutions Berhad",
+   "slug": "sca-solutions",
+   "first_seen": "2026-11-19",
+   "stage": "招股中",
+   "articles": [],
+   "history": [
+    {
+     "date": "2026-11-19",
+     "stage": "招股中"
+    }
+   ],
+   "ipo_price": 0.28,
+   "issuing_house": "Malaysian Issuing House",
+   "updated": "2026-11-19"
   }
  },
- "updated": "2026-11-18 22:21 UTC"
+ "updated": "2026-11-19 13:54 UTC"
 }
