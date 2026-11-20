@@ -1,0 +1,38 @@
+{
+ "date": "2026-11-20",
+ "market": "idx",
+ "panels": [
+  {
+   "ticker": "INDY.JK",
+   "name": "PT. Indika Energy Tbk",
+   "price": 1490.0,
+   "opinions": [
+    {
+     "id": "value",
+     "name": "老陈",
+     "rating": null
+    },
+    {
+     "id": "growth",
+     "name": "Kelly",
+     "rating": null
+    },
+    {
+     "id": "technical",
+     "name": "阿杰",
+     "rating": null
+    },
+    {
+     "id": "dividend",
+     "name": "Auntie Lim",
+     "rating": null
+    },
+    {
+     "id": "bear",
+     "name": "冷面周",
+     "rating": null
+    }
+   ]
+  }
+ ]
+}

@@ -2,7 +2,7 @@
  "market": "idx",
  "market_name": "🇮🇩 印尼股市 IDX",
  "benchmark": "雅加达综合指数",
- "updated": "2026-11-19 09:31 UTC",
+ "updated": "2026-11-20 09:31 UTC",
  "horizons": {
   "1w": "1 周",
   "1m": "1 个月",
@@ -12,11 +12,11 @@
  "summary": {
   "focus": {
    "name": "每日焦点",
-   "picks": 55,
+   "picks": 60,
    "1w": {
-    "n": 30,
-    "avg_ret": -0.98,
-    "avg_excess": -4.33,
+    "n": 35,
+    "avg_ret": -2.67,
+    "avg_excess": -5.01,
     "hit_rate": 20
    },
    "1m": {
@@ -32,20 +32,20 @@
     "hit_rate": null
    },
    "now": {
-    "n": 50,
-    "avg_ret": -6.47,
-    "avg_excess": -6.66,
-    "hit_rate": 14
+    "n": 55,
+    "avg_ret": -7.68,
+    "avg_excess": -6.94,
+    "hit_rate": 20
    }
   },
   "oversold": {
    "name": "错杀股",
-   "picks": 55,
+   "picks": 60,
    "1w": {
-    "n": 30,
-    "avg_ret": 1.09,
-    "avg_excess": -2.26,
-    "hit_rate": 20
+    "n": 35,
+    "avg_ret": -0.98,
+    "avg_excess": -3.32,
+    "hit_rate": 17
    },
    "1m": {
     "n": 0,
@@ -60,20 +60,20 @@
     "hit_rate": null
    },
    "now": {
-    "n": 50,
-    "avg_ret": -5.07,
-    "avg_excess": -5.27,
-    "hit_rate": 12
+    "n": 55,
+    "avg_ret": -5.7,
+    "avg_excess": -4.95,
+    "hit_rate": 16
    }
   },
   "growth": {
    "name": "成长股",
-   "picks": 55,
+   "picks": 60,
    "1w": {
-    "n": 30,
-    "avg_ret": -2.76,
-    "avg_excess": -6.1,
-    "hit_rate": 13
+    "n": 35,
+    "avg_ret": -4.28,
+    "avg_excess": -6.62,
+    "hit_rate": 11
    },
    "1m": {
     "n": 0,
@@ -88,19 +88,19 @@
     "hit_rate": null
    },
    "now": {
-    "n": 50,
-    "avg_ret": -8.17,
-    "avg_excess": -8.37,
-    "hit_rate": 8
+    "n": 55,
+    "avg_ret": -7.95,
+    "avg_excess": -7.21,
+    "hit_rate": 11
    }
   },
   "double_kill": {
    "name": "双杀股",
-   "picks": 54,
+   "picks": 59,
    "1w": {
-    "n": 29,
-    "avg_ret": -0.93,
-    "avg_excess": -4.25,
+    "n": 34,
+    "avg_ret": -2.43,
+    "avg_excess": -4.72,
     "hit_rate": 76
    },
    "1m": {
@@ -116,16 +116,16 @@
     "hit_rate": null
    },
    "now": {
-    "n": 49,
-    "avg_ret": -6.73,
-    "avg_excess": -6.87,
-    "hit_rate": 92
+    "n": 54,
+    "avg_ret": -8.57,
+    "avg_excess": -7.77,
+    "hit_rate": 91
    }
   }
  },
  "picks": [
   {
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "strategy": "focus",
    "ticker": "INDY.JK",
    "name": "Indika Energy",
@@ -140,10 +140,10 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "strategy": "focus",
-   "ticker": "ISAT.JK",
-   "name": "Indosat",
+   "ticker": "BREN.JK",
+   "name": "Barito Renewables",
    "ret_1w": null,
    "ex_1w": null,
    "ret_1m": null,
@@ -155,7 +155,37 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-19",
+   "date": "2026-11-20",
+   "strategy": "focus",
+   "ticker": "MDKA.JK",
+   "name": "Merdeka Copper",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-20",
+   "strategy": "focus",
+   "ticker": "NCKL.JK",
+   "name": "Trimegah Bangun (Harita Nickel)",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-20",
    "strategy": "focus",
    "ticker": "BRPT.JK",
    "name": "Barito Pacific",
@@ -170,37 +200,7 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-19",
-   "strategy": "focus",
-   "ticker": "TINS.JK",
-   "name": "TIMAH (Persero)",
-   "ret_1w": null,
-   "ex_1w": null,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": null,
-   "ex_now": null,
-   "days": 0.0
-  },
-  {
-   "date": "2026-11-19",
-   "strategy": "focus",
-   "ticker": "INCO.JK",
-   "name": "Vale Indonesia",
-   "ret_1w": null,
-   "ex_1w": null,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": null,
-   "ex_now": null,
-   "days": 0.0
-  },
-  {
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "strategy": "oversold",
    "ticker": "MEDC.JK",
    "name": "Medco",
@@ -215,7 +215,7 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "strategy": "oversold",
    "ticker": "DSSA.JK",
    "name": "Dian Swastatika Sentosa",
@@ -230,7 +230,7 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "strategy": "oversold",
    "ticker": "TINS.JK",
    "name": "TIMAH (Persero)",
@@ -245,7 +245,7 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "strategy": "oversold",
    "ticker": "PTRO.JK",
    "name": "Petrosea",
@@ -260,7 +260,7 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "strategy": "oversold",
    "ticker": "ARCI.JK",
    "name": "Archi Indonesia",
@@ -275,7 +275,7 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "strategy": "growth",
    "ticker": "TINS.JK",
    "name": "TIMAH (Persero)",
@@ -290,7 +290,7 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "strategy": "growth",
    "ticker": "ARCI.JK",
    "name": "Archi Indonesia",
@@ -305,7 +305,7 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "strategy": "growth",
    "ticker": "ADMR.JK",
    "name": "Alamtri Minerals Indonesia",
@@ -320,7 +320,7 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "strategy": "growth",
    "ticker": "DSSA.JK",
    "name": "Dian Swastatika Sentosa",
@@ -335,7 +335,7 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "strategy": "growth",
    "ticker": "ANTM.JK",
    "name": "Aneka Tambang",
@@ -350,7 +350,7 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "strategy": "double_kill",
    "ticker": "BRPT.JK",
    "name": "Barito Pacific",
@@ -365,22 +365,7 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-19",
-   "strategy": "double_kill",
-   "ticker": "ISAT.JK",
-   "name": "Indosat",
-   "ret_1w": null,
-   "ex_1w": null,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": null,
-   "ex_now": null,
-   "days": 0.0
-  },
-  {
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "strategy": "double_kill",
    "ticker": "JPFA.JK",
    "name": "Japfa Comfeed Indonesia",
@@ -395,7 +380,22 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-19",
+   "date": "2026-11-20",
+   "strategy": "double_kill",
+   "ticker": "ISAT.JK",
+   "name": "Indosat",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-20",
    "strategy": "double_kill",
    "ticker": "TLKM.JK",
    "name": "Telkom",
@@ -410,7 +410,7 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "strategy": "double_kill",
    "ticker": "AMRT.JK",
    "name": "Alfamart",
@@ -425,6 +425,306 @@
    "days": 0.0
   },
   {
+   "date": "2026-11-19",
+   "strategy": "focus",
+   "ticker": "INDY.JK",
+   "name": "Indika Energy",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -5.7,
+   "ex_now": -4.78,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "focus",
+   "ticker": "ISAT.JK",
+   "name": "Indosat",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -1.08,
+   "ex_now": -0.15,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "focus",
+   "ticker": "BRPT.JK",
+   "name": "Barito Pacific",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -4.58,
+   "ex_now": -3.66,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "focus",
+   "ticker": "TINS.JK",
+   "name": "TIMAH (Persero)",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": 2.95,
+   "ex_now": 3.87,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "focus",
+   "ticker": "INCO.JK",
+   "name": "Vale Indonesia",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": 1.25,
+   "ex_now": 2.17,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "oversold",
+   "ticker": "MEDC.JK",
+   "name": "Medco",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": 0.43,
+   "ex_now": 1.36,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "oversold",
+   "ticker": "DSSA.JK",
+   "name": "Dian Swastatika Sentosa",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -6.57,
+   "ex_now": -5.65,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "oversold",
+   "ticker": "TINS.JK",
+   "name": "TIMAH (Persero)",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": 2.95,
+   "ex_now": 3.87,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "oversold",
+   "ticker": "PTRO.JK",
+   "name": "Petrosea",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -1.79,
+   "ex_now": -0.87,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "oversold",
+   "ticker": "ARCI.JK",
+   "name": "Archi Indonesia",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -1.26,
+   "ex_now": -0.34,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "growth",
+   "ticker": "TINS.JK",
+   "name": "TIMAH (Persero)",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": 2.95,
+   "ex_now": 3.87,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "growth",
+   "ticker": "ARCI.JK",
+   "name": "Archi Indonesia",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -1.26,
+   "ex_now": -0.34,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "growth",
+   "ticker": "ADMR.JK",
+   "name": "Alamtri Minerals Indonesia",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": 2.2,
+   "ex_now": 3.12,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "growth",
+   "ticker": "DSSA.JK",
+   "name": "Dian Swastatika Sentosa",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -6.57,
+   "ex_now": -5.65,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "growth",
+   "ticker": "ANTM.JK",
+   "name": "Aneka Tambang",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": 0.0,
+   "ex_now": 0.92,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "double_kill",
+   "ticker": "BRPT.JK",
+   "name": "Barito Pacific",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -4.58,
+   "ex_now": -3.66,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "double_kill",
+   "ticker": "ISAT.JK",
+   "name": "Indosat",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -1.08,
+   "ex_now": -0.15,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "double_kill",
+   "ticker": "JPFA.JK",
+   "name": "Japfa Comfeed Indonesia",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -1.03,
+   "ex_now": -0.11,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "double_kill",
+   "ticker": "TLKM.JK",
+   "name": "Telkom",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -2.36,
+   "ex_now": -1.44,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "double_kill",
+   "ticker": "AMRT.JK",
+   "name": "Alfamart",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": 0.0,
+   "ex_now": 0.92,
+   "days": 1.0
+  },
+  {
    "date": "2026-11-18",
    "strategy": "focus",
    "ticker": "EXCL.JK",
@@ -435,9 +735,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -3.5,
-   "ex_now": -2.47,
-   "days": 1.0
+   "ret_now": 0.58,
+   "ex_now": 2.52,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -450,9 +750,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -6.78,
-   "ex_now": -5.76,
-   "days": 1.0
+   "ret_now": -12.09,
+   "ex_now": -10.16,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -465,9 +765,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -5.28,
-   "ex_now": -4.26,
-   "days": 1.0
+   "ret_now": -2.48,
+   "ex_now": -0.55,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -480,9 +780,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -2.96,
-   "ex_now": -1.94,
-   "days": 1.0
+   "ret_now": -7.41,
+   "ex_now": -5.47,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -495,9 +795,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -2.45,
-   "ex_now": -1.43,
-   "days": 1.0
+   "ret_now": -3.68,
+   "ex_now": -1.75,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -510,9 +810,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -1.29,
-   "ex_now": -0.26,
-   "days": 1.0
+   "ret_now": -0.86,
+   "ex_now": 1.08,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -525,9 +825,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -0.72,
-   "ex_now": 0.3,
-   "days": 1.0
+   "ret_now": -7.25,
+   "ex_now": -5.31,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -540,9 +840,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -5.28,
-   "ex_now": -4.26,
-   "days": 1.0
+   "ret_now": -2.48,
+   "ex_now": -0.55,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -555,9 +855,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -2.19,
-   "ex_now": -1.17,
-   "days": 1.0
+   "ret_now": -3.95,
+   "ex_now": -2.01,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -570,9 +870,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -2.45,
-   "ex_now": -1.43,
-   "days": 1.0
+   "ret_now": -3.68,
+   "ex_now": -1.75,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -585,9 +885,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -5.28,
-   "ex_now": -4.26,
-   "days": 1.0
+   "ret_now": -2.48,
+   "ex_now": -0.55,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -600,9 +900,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -2.45,
-   "ex_now": -1.43,
-   "days": 1.0
+   "ret_now": -3.68,
+   "ex_now": -1.75,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -615,9 +915,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -4.62,
-   "ex_now": -3.6,
-   "days": 1.0
+   "ret_now": -2.52,
+   "ex_now": -0.59,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -630,9 +930,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -0.72,
-   "ex_now": 0.3,
-   "days": 1.0
+   "ret_now": -7.25,
+   "ex_now": -5.31,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -646,8 +946,8 @@
    "ret_3m": null,
    "ex_3m": null,
    "ret_now": -0.76,
-   "ex_now": 0.26,
-   "days": 1.0
+   "ex_now": 1.17,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -660,9 +960,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -2.96,
-   "ex_now": -1.94,
-   "days": 1.0
+   "ret_now": -7.41,
+   "ex_now": -5.47,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -675,9 +975,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -6.69,
-   "ex_now": -5.66,
-   "days": 1.0
+   "ret_now": -7.69,
+   "ex_now": -5.76,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -690,9 +990,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -6.78,
-   "ex_now": -5.76,
-   "days": 1.0
+   "ret_now": -12.09,
+   "ex_now": -10.16,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -705,9 +1005,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -2.67,
-   "ex_now": -1.64,
-   "days": 1.0
+   "ret_now": -3.67,
+   "ex_now": -1.73,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -720,9 +1020,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -1.4,
-   "ex_now": -0.37,
-   "days": 1.0
+   "ret_now": -3.72,
+   "ex_now": -1.79,
+   "days": 2.0
   },
   {
    "date": "2026-11-17",
@@ -735,9 +1035,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -4.08,
-   "ex_now": -2.0,
-   "days": 2.0
+   "ret_now": -5.31,
+   "ex_now": -2.32,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -750,9 +1050,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -7.75,
-   "ex_now": -5.66,
-   "days": 2.0
+   "ret_now": -11.97,
+   "ex_now": -8.99,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -765,9 +1065,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -4.24,
-   "ex_now": -2.15,
-   "days": 2.0
+   "ret_now": -9.32,
+   "ex_now": -6.34,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -780,9 +1080,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -2.38,
-   "ex_now": -0.3,
-   "days": 2.0
+   "ret_now": -4.29,
+   "ex_now": -1.3,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -796,8 +1096,8 @@
    "ret_3m": null,
    "ex_3m": null,
    "ret_now": -3.87,
-   "ex_now": -1.79,
-   "days": 2.0
+   "ex_now": -0.88,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -810,9 +1110,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -4.56,
-   "ex_now": -2.48,
-   "days": 2.0
+   "ret_now": -4.15,
+   "ex_now": -1.16,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -825,9 +1125,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -4.2,
-   "ex_now": -2.11,
-   "days": 2.0
+   "ret_now": -10.49,
+   "ex_now": -7.5,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -840,9 +1140,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -11.85,
-   "ex_now": -9.76,
-   "days": 2.0
+   "ret_now": -9.25,
+   "ex_now": -6.26,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -855,9 +1155,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -5.91,
-   "ex_now": -3.82,
-   "days": 2.0
+   "ret_now": -7.59,
+   "ex_now": -4.61,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -870,9 +1170,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -8.62,
-   "ex_now": -6.54,
-   "days": 2.0
+   "ret_now": -9.77,
+   "ex_now": -6.78,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -885,9 +1185,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -11.85,
-   "ex_now": -9.76,
-   "days": 2.0
+   "ret_now": -9.25,
+   "ex_now": -6.26,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -900,9 +1200,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -8.62,
-   "ex_now": -6.54,
-   "days": 2.0
+   "ret_now": -9.77,
+   "ex_now": -6.78,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -915,9 +1215,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -9.2,
-   "ex_now": -7.11,
-   "days": 2.0
+   "ret_now": -7.2,
+   "ex_now": -4.21,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -930,9 +1230,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -4.2,
-   "ex_now": -2.11,
-   "days": 2.0
+   "ret_now": -10.49,
+   "ex_now": -7.5,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -946,8 +1246,8 @@
    "ret_3m": null,
    "ex_3m": null,
    "ret_now": -4.4,
-   "ex_now": -2.31,
-   "days": 2.0
+   "ex_now": -1.41,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -960,9 +1260,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -7.75,
-   "ex_now": -5.66,
-   "days": 2.0
+   "ret_now": -11.97,
+   "ex_now": -8.99,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -975,9 +1275,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -7.0,
-   "ex_now": -4.91,
-   "days": 2.0
+   "ret_now": -8.0,
+   "ex_now": -5.01,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -990,9 +1290,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -13.19,
-   "ex_now": -11.1,
-   "days": 2.0
+   "ret_now": -18.13,
+   "ex_now": -15.15,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -1005,9 +1305,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -3.95,
-   "ex_now": -1.86,
-   "days": 2.0
+   "ret_now": -4.93,
+   "ex_now": -1.95,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -1020,9 +1320,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -2.75,
-   "ex_now": -0.67,
-   "days": 2.0
+   "ret_now": -5.05,
+   "ex_now": -2.06,
+   "days": 3.0
   },
   {
    "date": "2026-11-16",
@@ -1035,9 +1335,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -7.08,
-   "ex_now": -4.7,
-   "days": 3.0
+   "ret_now": -8.75,
+   "ex_now": -5.47,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1050,9 +1350,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -12.67,
-   "ex_now": -10.28,
-   "days": 3.0
+   "ret_now": -16.67,
+   "ex_now": -13.38,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1065,9 +1365,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -10.67,
-   "ex_now": -8.29,
-   "days": 3.0
+   "ret_now": -11.8,
+   "ex_now": -8.52,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1080,9 +1380,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": 1.49,
-   "ex_now": 3.88,
-   "days": 3.0
+   "ret_now": 8.96,
+   "ex_now": 12.24,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1095,9 +1395,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -10.82,
-   "ex_now": -8.43,
-   "days": 3.0
+   "ret_now": -8.19,
+   "ex_now": -4.9,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1110,9 +1410,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -4.96,
-   "ex_now": -2.57,
-   "days": 3.0
+   "ret_now": -4.55,
+   "ex_now": -1.26,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1125,9 +1425,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -4.86,
-   "ex_now": -2.48,
-   "days": 3.0
+   "ret_now": -11.11,
+   "ex_now": -7.83,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1140,9 +1440,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -10.82,
-   "ex_now": -8.43,
-   "days": 3.0
+   "ret_now": -8.19,
+   "ex_now": -4.9,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1155,9 +1455,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -7.08,
-   "ex_now": -4.7,
-   "days": 3.0
+   "ret_now": -8.75,
+   "ex_now": -5.47,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1170,9 +1470,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -10.67,
-   "ex_now": -8.29,
-   "days": 3.0
+   "ret_now": -11.8,
+   "ex_now": -8.52,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1185,9 +1485,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -10.82,
-   "ex_now": -8.43,
-   "days": 3.0
+   "ret_now": -8.19,
+   "ex_now": -4.9,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1200,9 +1500,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -10.67,
-   "ex_now": -8.29,
-   "days": 3.0
+   "ret_now": -11.8,
+   "ex_now": -8.52,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1215,9 +1515,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -9.2,
-   "ex_now": -6.82,
-   "days": 3.0
+   "ret_now": -7.2,
+   "ex_now": -3.92,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1230,9 +1530,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -4.86,
-   "ex_now": -2.48,
-   "days": 3.0
+   "ret_now": -11.11,
+   "ex_now": -7.83,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1246,8 +1546,8 @@
    "ret_3m": null,
    "ex_3m": null,
    "ret_now": -2.25,
-   "ex_now": 0.14,
-   "days": 3.0
+   "ex_now": 1.04,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1260,9 +1560,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -12.67,
-   "ex_now": -10.28,
-   "days": 3.0
+   "ret_now": -16.67,
+   "ex_now": -13.38,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1275,9 +1575,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -7.31,
-   "ex_now": -4.93,
-   "days": 3.0
+   "ret_now": -8.31,
+   "ex_now": -5.02,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1290,9 +1590,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -15.05,
-   "ex_now": -12.67,
-   "days": 3.0
+   "ret_now": -19.89,
+   "ex_now": -16.61,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1305,9 +1605,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -3.63,
-   "ex_now": -1.25,
-   "days": 3.0
+   "ret_now": -4.62,
+   "ex_now": -1.34,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1320,608 +1620,308 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -2.75,
-   "ex_now": -0.37,
-   "days": 3.0
+   "ret_now": -5.05,
+   "ex_now": -1.76,
+   "days": 4.0
   },
   {
    "date": "2026-11-13",
    "strategy": "focus",
    "ticker": "BRPT.JK",
    "name": "Barito Pacific",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -22.36,
+   "ex_1w": -18.65,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -18.63,
-   "ex_now": -15.82,
-   "days": 4.0
+   "ret_now": -22.36,
+   "ex_now": -18.65,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "focus",
    "ticker": "ENRG.JK",
    "name": "Energi Mega Persada",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -20.15,
+   "ex_1w": -16.44,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -15.67,
-   "ex_now": -12.86,
-   "days": 4.0
+   "ret_now": -20.15,
+   "ex_now": -16.44,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "focus",
    "ticker": "INKP.JK",
    "name": "Indah Kiat",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -5.07,
+   "ex_1w": -1.37,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -3.99,
-   "ex_now": -1.17,
-   "days": 4.0
+   "ret_now": -5.07,
+   "ex_now": -1.37,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "focus",
    "ticker": "MDKA.JK",
    "name": "Merdeka Copper",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -17.79,
+   "ex_1w": -14.08,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -13.46,
-   "ex_now": -10.65,
-   "days": 4.0
+   "ret_now": -17.79,
+   "ex_now": -14.08,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "focus",
    "ticker": "BREN.JK",
    "name": "Barito Renewables",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": 1.39,
+   "ex_1w": 5.1,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -5.56,
-   "ex_now": -2.74,
-   "days": 4.0
+   "ret_now": 1.39,
+   "ex_now": 5.1,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "oversold",
    "ticker": "MEDC.JK",
    "name": "Medco",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -6.1,
+   "ex_1w": -2.39,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -6.5,
-   "ex_now": -3.69,
-   "days": 4.0
+   "ret_now": -6.1,
+   "ex_now": -2.39,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "oversold",
    "ticker": "DSSA.JK",
    "name": "Dian Swastatika Sentosa",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -15.23,
+   "ex_1w": -11.53,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -9.27,
-   "ex_now": -6.46,
-   "days": 4.0
+   "ret_now": -15.23,
+   "ex_now": -11.53,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "oversold",
    "ticker": "TINS.JK",
    "name": "TIMAH (Persero)",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -13.97,
+   "ex_1w": -10.27,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -16.44,
-   "ex_now": -13.63,
-   "days": 4.0
+   "ret_now": -13.97,
+   "ex_now": -10.27,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "oversold",
    "ticker": "PTRO.JK",
    "name": "Petrosea",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -13.78,
+   "ex_1w": -10.07,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -12.2,
-   "ex_now": -9.39,
-   "days": 4.0
+   "ret_now": -13.78,
+   "ex_now": -10.07,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "oversold",
    "ticker": "ARCI.JK",
    "name": "Archi Indonesia",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -17.8,
+   "ex_1w": -14.09,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -16.75,
-   "ex_now": -13.94,
-   "days": 4.0
+   "ret_now": -17.8,
+   "ex_now": -14.09,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "growth",
    "ticker": "TINS.JK",
    "name": "TIMAH (Persero)",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -13.97,
+   "ex_1w": -10.27,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -16.44,
-   "ex_now": -13.63,
-   "days": 4.0
+   "ret_now": -13.97,
+   "ex_now": -10.27,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "growth",
    "ticker": "ARCI.JK",
    "name": "Archi Indonesia",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -17.8,
+   "ex_1w": -14.09,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -16.75,
-   "ex_now": -13.94,
-   "days": 4.0
+   "ret_now": -17.8,
+   "ex_now": -14.09,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "growth",
    "ticker": "ADMR.JK",
    "name": "Alamtri Minerals Indonesia",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -13.11,
+   "ex_1w": -9.4,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -14.98,
-   "ex_now": -12.17,
-   "days": 4.0
+   "ret_now": -13.11,
+   "ex_now": -9.4,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "growth",
    "ticker": "DSSA.JK",
    "name": "Dian Swastatika Sentosa",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -15.23,
+   "ex_1w": -11.53,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -9.27,
-   "ex_now": -6.46,
-   "days": 4.0
+   "ret_now": -15.23,
+   "ex_now": -11.53,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "growth",
    "ticker": "ANTM.JK",
    "name": "Aneka Tambang",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -7.12,
+   "ex_1w": -3.41,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
    "ret_now": -7.12,
-   "ex_now": -4.31,
-   "days": 4.0
+   "ex_now": -3.41,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "double_kill",
    "ticker": "BRPT.JK",
    "name": "Barito Pacific",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -22.36,
+   "ex_1w": -18.65,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -18.63,
-   "ex_now": -15.82,
-   "days": 4.0
+   "ret_now": -22.36,
+   "ex_now": -18.65,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "double_kill",
    "ticker": "ISAT.JK",
    "name": "Indosat",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -8.0,
+   "ex_1w": -4.29,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -7.0,
-   "ex_now": -4.19,
-   "days": 4.0
+   "ret_now": -8.0,
+   "ex_now": -4.29,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "double_kill",
    "ticker": "INDY.JK",
    "name": "Indika Energy",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -22.4,
+   "ex_1w": -18.69,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -17.71,
-   "ex_now": -14.9,
-   "days": 4.0
+   "ret_now": -22.4,
+   "ex_now": -18.69,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "double_kill",
    "ticker": "JPFA.JK",
    "name": "Japfa Comfeed Indonesia",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -6.77,
+   "ex_1w": -3.07,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -5.81,
-   "ex_now": -2.99,
-   "days": 4.0
+   "ret_now": -6.77,
+   "ex_now": -3.07,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "double_kill",
    "ticker": "AMRT.JK",
    "name": "Alfamart",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": 3.83,
+   "ex_1w": 7.53,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
    "ret_now": 3.83,
-   "ex_now": 6.64,
-   "days": 4.0
-  },
-  {
-   "date": "2026-11-12",
-   "strategy": "focus",
-   "ticker": "BRPT.JK",
-   "name": "Barito Pacific",
-   "ret_1w": -12.67,
-   "ex_1w": -11.59,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -12.67,
-   "ex_now": -11.59,
-   "days": 5.0
-  },
-  {
-   "date": "2026-11-12",
-   "strategy": "focus",
-   "ticker": "BREN.JK",
-   "name": "Barito Renewables",
-   "ret_1w": -9.33,
-   "ex_1w": -8.25,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -9.33,
-   "ex_now": -8.25,
-   "days": 5.0
-  },
-  {
-   "date": "2026-11-12",
-   "strategy": "focus",
-   "ticker": "PTRO.JK",
-   "name": "Petrosea",
-   "ret_1w": -8.23,
-   "ex_1w": -7.15,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -8.23,
-   "ex_now": -7.15,
-   "days": 5.0
-  },
-  {
-   "date": "2026-11-12",
-   "strategy": "focus",
-   "ticker": "EXCL.JK",
-   "name": "XL Axiata",
-   "ret_1w": 13.36,
-   "ex_1w": 14.44,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": 13.36,
-   "ex_now": 14.44,
-   "days": 5.0
-  },
-  {
-   "date": "2026-11-12",
-   "strategy": "focus",
-   "ticker": "PTBA.JK",
-   "name": "Bukit Asam",
-   "ret_1w": -6.29,
-   "ex_1w": -5.21,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -6.29,
-   "ex_now": -5.21,
-   "days": 5.0
-  },
-  {
-   "date": "2026-11-12",
-   "strategy": "oversold",
-   "ticker": "MEDC.JK",
-   "name": "Medco",
-   "ret_1w": -4.96,
-   "ex_1w": -3.88,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -4.96,
-   "ex_now": -3.88,
-   "days": 5.0
-  },
-  {
-   "date": "2026-11-12",
-   "strategy": "oversold",
-   "ticker": "DSSA.JK",
-   "name": "Dian Swastatika Sentosa",
-   "ret_1w": -8.05,
-   "ex_1w": -6.97,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -8.05,
-   "ex_now": -6.97,
-   "days": 5.0
-  },
-  {
-   "date": "2026-11-12",
-   "strategy": "oversold",
-   "ticker": "TINS.JK",
-   "name": "TIMAH (Persero)",
-   "ret_1w": -15.98,
-   "ex_1w": -14.9,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -15.98,
-   "ex_now": -14.9,
-   "days": 5.0
-  },
-  {
-   "date": "2026-11-12",
-   "strategy": "oversold",
-   "ticker": "PTRO.JK",
-   "name": "Petrosea",
-   "ret_1w": -8.23,
-   "ex_1w": -7.15,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -8.23,
-   "ex_now": -7.15,
-   "days": 5.0
-  },
-  {
-   "date": "2026-11-12",
-   "strategy": "oversold",
-   "ticker": "ARCI.JK",
-   "name": "Archi Indonesia",
-   "ret_1w": -15.43,
-   "ex_1w": -14.34,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -15.43,
-   "ex_now": -14.34,
-   "days": 5.0
-  },
-  {
-   "date": "2026-11-12",
-   "strategy": "growth",
-   "ticker": "TINS.JK",
-   "name": "TIMAH (Persero)",
-   "ret_1w": -15.98,
-   "ex_1w": -14.9,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -15.98,
-   "ex_now": -14.9,
-   "days": 5.0
-  },
-  {
-   "date": "2026-11-12",
-   "strategy": "growth",
-   "ticker": "ARCI.JK",
-   "name": "Archi Indonesia",
-   "ret_1w": -15.43,
-   "ex_1w": -14.34,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -15.43,
-   "ex_now": -14.34,
-   "days": 5.0
-  },
-  {
-   "date": "2026-11-12",
-   "strategy": "growth",
-   "ticker": "ADMR.JK",
-   "name": "Alamtri Minerals Indonesia",
-   "ret_1w": -13.03,
-   "ex_1w": -11.95,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -13.03,
-   "ex_now": -11.95,
-   "days": 5.0
-  },
-  {
-   "date": "2026-11-12",
-   "strategy": "growth",
-   "ticker": "DSSA.JK",
-   "name": "Dian Swastatika Sentosa",
-   "ret_1w": -8.05,
-   "ex_1w": -6.97,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -8.05,
-   "ex_now": -6.97,
-   "days": 5.0
-  },
-  {
-   "date": "2026-11-12",
-   "strategy": "growth",
-   "ticker": "ANTM.JK",
-   "name": "Aneka Tambang",
-   "ret_1w": -6.79,
-   "ex_1w": -5.7,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -6.79,
-   "ex_now": -5.7,
-   "days": 5.0
-  },
-  {
-   "date": "2026-11-12",
-   "strategy": "double_kill",
-   "ticker": "BRPT.JK",
-   "name": "Barito Pacific",
-   "ret_1w": -12.67,
-   "ex_1w": -11.59,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -12.67,
-   "ex_now": -11.59,
-   "days": 5.0
-  },
-  {
-   "date": "2026-11-12",
-   "strategy": "double_kill",
-   "ticker": "ISAT.JK",
-   "name": "Indosat",
-   "ret_1w": -2.79,
-   "ex_1w": -1.71,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -2.79,
-   "ex_now": -1.71,
-   "days": 5.0
-  },
-  {
-   "date": "2026-11-12",
-   "strategy": "double_kill",
-   "ticker": "INDY.JK",
-   "name": "Indika Energy",
-   "ret_1w": -15.05,
-   "ex_1w": -13.97,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -15.05,
-   "ex_now": -13.97,
-   "days": 5.0
-  },
-  {
-   "date": "2026-11-12",
-   "strategy": "double_kill",
-   "ticker": "JPFA.JK",
-   "name": "Japfa Comfeed Indonesia",
-   "ret_1w": -2.34,
-   "ex_1w": -1.26,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -2.34,
-   "ex_now": -1.26,
-   "days": 5.0
-  },
-  {
-   "date": "2026-11-12",
-   "strategy": "double_kill",
-   "ticker": "AMRT.JK",
-   "name": "Alfamart",
-   "ret_1w": 8.5,
-   "ex_1w": 9.58,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": 8.5,
-   "ex_now": 9.58,
+   "ex_now": 7.53,
    "days": 5.0
   }
  ],
@@ -1979,6 +1979,20 @@
  ],
  "panels": [
   {
+   "date": "2026-11-19",
+   "ticker": "INDY.JK",
+   "name": "PT. Indika Energy Tbk",
+   "ratings": {
+    "value": null,
+    "growth": null,
+    "technical": null,
+    "dividend": null,
+    "bear": null
+   },
+   "ex_now": -4.78,
+   "days": 1.0
+  },
+  {
    "date": "2026-11-18",
    "ticker": "EXCL.JK",
    "name": "PT XLSMART Telecom Sejahtera Tbk",
@@ -1989,8 +2003,8 @@
     "dividend": null,
     "bear": null
    },
-   "ex_now": -2.47,
-   "days": 1.0
+   "ex_now": 2.52,
+   "days": 2.0
   },
   {
    "date": "2026-11-17",
@@ -2003,8 +2017,8 @@
     "dividend": null,
     "bear": null
    },
-   "ex_now": -2.0,
-   "days": 2.0
+   "ex_now": -2.32,
+   "days": 3.0
   },
   {
    "date": "2026-11-16",
@@ -2017,8 +2031,8 @@
     "dividend": null,
     "bear": null
    },
-   "ex_now": -4.7,
-   "days": 3.0
+   "ex_now": -5.47,
+   "days": 4.0
   },
   {
    "date": "2026-11-13",
@@ -2031,8 +2045,8 @@
     "dividend": null,
     "bear": null
    },
-   "ex_now": -15.82,
-   "days": 4.0
+   "ex_now": -18.65,
+   "days": 5.0
   },
   {
    "date": "2026-11-12",
@@ -2045,8 +2059,8 @@
     "dividend": null,
     "bear": null
    },
-   "ex_now": -11.59,
-   "days": 5.0
+   "ex_now": -14.68,
+   "days": 6.0
   },
   {
    "date": "2026-11-11",
@@ -2059,8 +2073,8 @@
     "dividend": null,
     "bear": null
    },
-   "ex_now": -9.68,
-   "days": 6.0
+   "ex_now": -13.62,
+   "days": 7.0
   },
   {
    "date": "2026-11-10",
@@ -2073,8 +2087,8 @@
     "dividend": null,
     "bear": null
    },
-   "ex_now": -8.8,
-   "days": 7.0
+   "ex_now": -9.53,
+   "days": 8.0
   },
   {
    "date": "2026-11-09",
@@ -2087,8 +2101,8 @@
     "dividend": null,
     "bear": null
    },
-   "ex_now": -5.21,
-   "days": 8.0
+   "ex_now": -10.65,
+   "days": 9.0
   }
  ]
 }

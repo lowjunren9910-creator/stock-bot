@@ -2,12 +2,15 @@
  "market": "idx",
  "market_name": "🇮🇩 印尼股市 IDX",
  "currency": "IDR",
- "date": "2026-11-19",
- "generated_at": "2026-11-19 16:31 WIB",
+ "date": "2026-11-20",
+ "generated_at": "2026-11-20 16:31 WIB",
  "tracked": 107,
  "universe_size": 109,
- "new_today": [],
+ "new_today": [
+  "EXCL.JK"
+ ],
  "recent": [
+  "EXCL.JK",
   "ITMG.JK",
   "ADMR.JK",
   "AMMN.JK",
@@ -66,8 +69,7 @@
   "POWR.JK",
   "SIDO.JK",
   "SRTG.JK",
-  "TINS.JK",
-  "TKIM.JK"
+  "TINS.JK"
  ],
  "items": {
   "ADMR.JK": {
@@ -4178,55 +4180,56 @@
    "found": null
   },
   "EXCL.JK": {
-   "period": "2026-06-30",
-   "prev_period": "2026-03-31",
-   "yoy_period": "2025-06-30",
-   "revenue": 12173264000000.0,
-   "net": -277220000000.0,
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": "2025-09-30",
+   "revenue": 11744869000000.0,
+   "net": -606713000000.0,
    "eps": null,
-   "rev_yoy": 16.0,
+   "rev_yoy": 2.6,
    "net_yoy": null,
-   "rev_qoq": 3.0,
+   "rev_qoq": -3.5,
    "net_qoq": null,
-   "net_margin": -2.3,
-   "net_margin_yoy": -15.3,
-   "gross_margin": 59.7,
+   "net_margin": -5.2,
+   "net_margin_yoy": -12.0,
+   "gross_margin": 61.3,
    "trend": {
     "periods": [
-     "2025-06-30",
      "2025-09-30",
      "2025-12-31",
      "2026-03-31",
-     "2026-06-30"
+     "2026-06-30",
+     "2026-09-30"
     ],
     "revenue": [
-     10493717000000.0,
      11452569000000.0,
      11898497000000.0,
      11819341000000.0,
-     12173264000000.0
+     12173264000000.0,
+     11744869000000.0
     ],
     "net": [
-     -1608086000000.0,
      -1379561000000.0,
      -1823536000000.0,
      -716930000000.0,
-     -277220000000.0
+     -277220000000.0,
+     -606713000000.0
     ]
    },
-   "score": 2,
+   "score": 1,
    "verdict": "亏损收窄",
    "icon": "🩹",
    "reasons": [
-    "营收按年 +16.0%",
+    "营收按年 +2.6%",
     "仍然亏损，但亏损比去年同期收窄",
-    "净利率升到 -2.3%（去年 -15.3%）"
+    "净利率升到 -5.2%（去年 -12.0%）"
    ],
    "ticker": "EXCL.JK",
    "name": "XL Axiata",
    "currency": "IDR",
    "watch": false,
-   "found": null
+   "found": "2026-11-20",
+   "ai": null
   },
   "GEMS.JK": {
    "period": "2026-06-30",
