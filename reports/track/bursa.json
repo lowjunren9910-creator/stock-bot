@@ -2,7 +2,7 @@
  "market": "bursa",
  "market_name": "🇲🇾 大马股市 Bursa",
  "benchmark": "FBM KLCI",
- "updated": "2026-11-19 09:16 UTC",
+ "updated": "2026-11-20 09:16 UTC",
  "horizons": {
   "1w": "1 周",
   "1m": "1 个月",
@@ -12,12 +12,12 @@
  "summary": {
   "focus": {
    "name": "每日焦点",
-   "picks": 60,
+   "picks": 65,
    "1w": {
-    "n": 35,
-    "avg_ret": -2.91,
-    "avg_excess": -1.0,
-    "hit_rate": 37
+    "n": 40,
+    "avg_ret": -3.44,
+    "avg_excess": -1.55,
+    "hit_rate": 35
    },
    "1m": {
     "n": 0,
@@ -32,20 +32,20 @@
     "hit_rate": null
    },
    "now": {
-    "n": 55,
-    "avg_ret": -2.96,
-    "avg_excess": -0.92,
-    "hit_rate": 45
+    "n": 60,
+    "avg_ret": -6.06,
+    "avg_excess": -3.59,
+    "hit_rate": 35
    }
   },
   "oversold": {
    "name": "错杀股",
-   "picks": 60,
+   "picks": 65,
    "1w": {
-    "n": 35,
-    "avg_ret": -1.27,
-    "avg_excess": 0.64,
-    "hit_rate": 69
+    "n": 40,
+    "avg_ret": -1.66,
+    "avg_excess": 0.21,
+    "hit_rate": 62
    },
    "1m": {
     "n": 0,
@@ -60,20 +60,20 @@
     "hit_rate": null
    },
    "now": {
-    "n": 55,
-    "avg_ret": -3.07,
-    "avg_excess": -1.03,
-    "hit_rate": 36
+    "n": 60,
+    "avg_ret": -4.76,
+    "avg_excess": -2.29,
+    "hit_rate": 28
    }
   },
   "growth": {
    "name": "成长股",
-   "picks": 60,
+   "picks": 65,
    "1w": {
-    "n": 35,
-    "avg_ret": -6.89,
-    "avg_excess": -4.98,
-    "hit_rate": 23
+    "n": 40,
+    "avg_ret": -7.23,
+    "avg_excess": -5.35,
+    "hit_rate": 20
    },
    "1m": {
     "n": 0,
@@ -88,20 +88,20 @@
     "hit_rate": null
    },
    "now": {
-    "n": 55,
-    "avg_ret": -6.24,
-    "avg_excess": -4.2,
-    "hit_rate": 29
+    "n": 60,
+    "avg_ret": -10.12,
+    "avg_excess": -7.65,
+    "hit_rate": 5
    }
   },
   "double_kill": {
    "name": "双杀股",
-   "picks": 42,
+   "picks": 44,
    "1w": {
-    "n": 27,
-    "avg_ret": -3.06,
-    "avg_excess": -1.14,
-    "hit_rate": 56
+    "n": 30,
+    "avg_ret": -3.23,
+    "avg_excess": -1.34,
+    "hit_rate": 60
    },
    "1m": {
     "n": 0,
@@ -116,31 +116,16 @@
     "hit_rate": null
    },
    "now": {
-    "n": 39,
-    "avg_ret": -4.32,
-    "avg_excess": -2.18,
-    "hit_rate": 69
+    "n": 42,
+    "avg_ret": -5.93,
+    "avg_excess": -3.34,
+    "hit_rate": 90
    }
   }
  },
  "picks": [
   {
-   "date": "2026-11-19",
-   "strategy": "focus",
-   "ticker": "5357.KL",
-   "name": "Skyechip",
-   "ret_1w": null,
-   "ex_1w": null,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": null,
-   "ex_now": null,
-   "days": 0.0
-  },
-  {
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "strategy": "focus",
    "ticker": "5102.KL",
    "name": "Gcb",
@@ -155,10 +140,10 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "strategy": "focus",
-   "ticker": "5211.KL",
-   "name": "Sunway",
+   "ticker": "8869.KL",
+   "name": "Press Metal",
    "ret_1w": null,
    "ex_1w": null,
    "ret_1m": null,
@@ -170,22 +155,7 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-19",
-   "strategy": "focus",
-   "ticker": "0166.KL",
-   "name": "Inari",
-   "ret_1w": null,
-   "ex_1w": null,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": null,
-   "ex_now": null,
-   "days": 0.0
-  },
-  {
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "strategy": "focus",
    "ticker": "4324.KL",
    "name": "Hengyuan",
@@ -200,7 +170,52 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-19",
+   "date": "2026-11-20",
+   "strategy": "focus",
+   "ticker": "5263.KL",
+   "name": "Sunway Construction",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-20",
+   "strategy": "focus",
+   "ticker": "6947.KL",
+   "name": "CelcomDigi",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-20",
+   "strategy": "oversold",
+   "ticker": "0097.KL",
+   "name": "ViTrox",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-20",
    "strategy": "oversold",
    "ticker": "5199.KL",
    "name": "Hibiscus Petroleum",
@@ -215,7 +230,22 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-19",
+   "date": "2026-11-20",
+   "strategy": "oversold",
+   "ticker": "5292.KL",
+   "name": "UWC",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": null,
+   "ex_now": null,
+   "days": 0.0
+  },
+  {
+   "date": "2026-11-20",
    "strategy": "oversold",
    "ticker": "5211.KL",
    "name": "Sunway",
@@ -230,7 +260,7 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "strategy": "oversold",
    "ticker": "3794.KL",
    "name": "Malayan Cement",
@@ -245,37 +275,7 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-19",
-   "strategy": "oversold",
-   "ticker": "4707.KL",
-   "name": "Nestle",
-   "ret_1w": null,
-   "ex_1w": null,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": null,
-   "ex_now": null,
-   "days": 0.0
-  },
-  {
-   "date": "2026-11-19",
-   "strategy": "oversold",
-   "ticker": "8869.KL",
-   "name": "Press Metal",
-   "ret_1w": null,
-   "ex_1w": null,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": null,
-   "ex_now": null,
-   "days": 0.0
-  },
-  {
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "strategy": "growth",
    "ticker": "0097.KL",
    "name": "ViTrox",
@@ -290,7 +290,7 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "strategy": "growth",
    "ticker": "5292.KL",
    "name": "UWC",
@@ -305,7 +305,7 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "strategy": "growth",
    "ticker": "5199.KL",
    "name": "Hibiscus Petroleum",
@@ -320,7 +320,7 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "strategy": "growth",
    "ticker": "5286.KL",
    "name": "Mi Technovation",
@@ -335,7 +335,7 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "strategy": "growth",
    "ticker": "0245.KL",
    "name": "Mnhldg",
@@ -350,7 +350,7 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "strategy": "double_kill",
    "ticker": "4715.KL",
    "name": "Genting Malaysia",
@@ -365,7 +365,7 @@
    "days": 0.0
   },
   {
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "strategy": "double_kill",
    "ticker": "3255.KL",
    "name": "Heineken Malaysia",
@@ -381,6 +381,261 @@
   },
   {
    "date": "2026-11-19",
+   "strategy": "focus",
+   "ticker": "5357.KL",
+   "name": "Skyechip",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -0.48,
+   "ex_now": 0.14,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "focus",
+   "ticker": "5102.KL",
+   "name": "Gcb",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": 7.75,
+   "ex_now": 8.36,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "focus",
+   "ticker": "5211.KL",
+   "name": "Sunway",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -0.49,
+   "ex_now": 0.12,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "focus",
+   "ticker": "0166.KL",
+   "name": "Inari",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -5.38,
+   "ex_now": -4.77,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "focus",
+   "ticker": "4324.KL",
+   "name": "Hengyuan",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -7.72,
+   "ex_now": -7.1,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "oversold",
+   "ticker": "5199.KL",
+   "name": "Hibiscus Petroleum",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -2.72,
+   "ex_now": -2.1,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "oversold",
+   "ticker": "5211.KL",
+   "name": "Sunway",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -0.49,
+   "ex_now": 0.12,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "oversold",
+   "ticker": "3794.KL",
+   "name": "Malayan Cement",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -1.17,
+   "ex_now": -0.55,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "oversold",
+   "ticker": "4707.KL",
+   "name": "Nestle",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": 0.06,
+   "ex_now": 0.68,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "oversold",
+   "ticker": "8869.KL",
+   "name": "Press Metal",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -6.28,
+   "ex_now": -5.66,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "growth",
+   "ticker": "0097.KL",
+   "name": "ViTrox",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -6.34,
+   "ex_now": -5.72,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "growth",
+   "ticker": "5292.KL",
+   "name": "UWC",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -6.86,
+   "ex_now": -6.24,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "growth",
+   "ticker": "5199.KL",
+   "name": "Hibiscus Petroleum",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -2.72,
+   "ex_now": -2.1,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "growth",
+   "ticker": "5286.KL",
+   "name": "Mi Technovation",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -5.58,
+   "ex_now": -4.97,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "growth",
+   "ticker": "0245.KL",
+   "name": "Mnhldg",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -1.69,
+   "ex_now": -1.07,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "double_kill",
+   "ticker": "4715.KL",
+   "name": "Genting Malaysia",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -2.52,
+   "ex_now": -1.9,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "strategy": "double_kill",
+   "ticker": "3255.KL",
+   "name": "Heineken Malaysia",
+   "ret_1w": null,
+   "ex_1w": null,
+   "ret_1m": null,
+   "ex_1m": null,
+   "ret_3m": null,
+   "ex_3m": null,
+   "ret_now": -0.78,
+   "ex_now": -0.16,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
    "strategy": "double_kill",
    "ticker": "5296.KL",
    "name": "MR DIY",
@@ -390,9 +645,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": null,
-   "ex_now": null,
-   "days": 0.0
+   "ret_now": -2.45,
+   "ex_now": -1.83,
+   "days": 1.0
   },
   {
    "date": "2026-11-18",
@@ -405,9 +660,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": 0.86,
-   "ex_now": 0.9,
-   "days": 1.0
+   "ret_now": -4.31,
+   "ex_now": -3.66,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -420,9 +675,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": 2.78,
-   "ex_now": 2.81,
-   "days": 1.0
+   "ret_now": 1.04,
+   "ex_now": 1.69,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -435,9 +690,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -0.41,
-   "ex_now": -0.38,
-   "days": 1.0
+   "ret_now": -2.48,
+   "ex_now": -1.83,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -451,8 +706,8 @@
    "ret_3m": null,
    "ex_3m": null,
    "ret_now": -2.0,
-   "ex_now": -1.96,
-   "days": 1.0
+   "ex_now": -1.35,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -465,9 +720,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": 3.4,
-   "ex_now": 3.44,
-   "days": 1.0
+   "ret_now": -2.98,
+   "ex_now": -2.33,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -480,9 +735,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -2.13,
-   "ex_now": -2.09,
-   "days": 1.0
+   "ret_now": -4.79,
+   "ex_now": -4.13,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -495,9 +750,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -1.34,
-   "ex_now": -1.3,
-   "days": 1.0
+   "ret_now": -2.49,
+   "ex_now": -1.84,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -510,9 +765,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -5.79,
-   "ex_now": -5.75,
-   "days": 1.0
+   "ret_now": -6.25,
+   "ex_now": -5.6,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -525,9 +780,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": 0.36,
-   "ex_now": 0.4,
-   "days": 1.0
+   "ret_now": 0.42,
+   "ex_now": 1.08,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -540,9 +795,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": 0.6,
-   "ex_now": 0.64,
-   "days": 1.0
+   "ret_now": -5.71,
+   "ex_now": -5.06,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -555,9 +810,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": 1.09,
-   "ex_now": 1.12,
-   "days": 1.0
+   "ret_now": -5.32,
+   "ex_now": -4.67,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -570,9 +825,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -0.51,
-   "ex_now": -0.48,
-   "days": 1.0
+   "ret_now": -7.34,
+   "ex_now": -6.69,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -585,9 +840,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -2.13,
-   "ex_now": -2.09,
-   "days": 1.0
+   "ret_now": -4.79,
+   "ex_now": -4.13,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -600,9 +855,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": 2.25,
-   "ex_now": 2.29,
-   "days": 1.0
+   "ret_now": -3.46,
+   "ex_now": -2.81,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -615,9 +870,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": 2.78,
-   "ex_now": 2.81,
-   "days": 1.0
+   "ret_now": 1.04,
+   "ex_now": 1.69,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -630,9 +885,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -1.65,
-   "ex_now": -1.62,
-   "days": 1.0
+   "ret_now": -4.13,
+   "ex_now": -3.48,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -645,9 +900,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -1.99,
-   "ex_now": -1.95,
-   "days": 1.0
+   "ret_now": -2.75,
+   "ex_now": -2.1,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -660,9 +915,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": 2.0,
-   "ex_now": 2.04,
-   "days": 1.0
+   "ret_now": -0.5,
+   "ex_now": 0.15,
+   "days": 2.0
   },
   {
    "date": "2026-11-17",
@@ -675,9 +930,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": 9.63,
-   "ex_now": 10.2,
-   "days": 2.0
+   "ret_now": 7.78,
+   "ex_now": 8.96,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -690,9 +945,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": 0.74,
-   "ex_now": 1.31,
-   "days": 2.0
+   "ret_now": -4.41,
+   "ex_now": -3.23,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -705,9 +960,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": 7.59,
-   "ex_now": 8.16,
-   "days": 2.0
+   "ret_now": 5.36,
+   "ex_now": 6.54,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -720,9 +975,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": 8.28,
-   "ex_now": 8.85,
-   "days": 2.0
+   "ret_now": 2.07,
+   "ex_now": 3.25,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -735,9 +990,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": 8.84,
-   "ex_now": 9.41,
-   "days": 2.0
+   "ret_now": 3.26,
+   "ex_now": 4.44,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -750,9 +1005,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -2.65,
-   "ex_now": -2.07,
-   "days": 2.0
+   "ret_now": -5.29,
+   "ex_now": -4.11,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -765,9 +1020,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": 0.59,
-   "ex_now": 1.16,
-   "days": 2.0
+   "ret_now": -0.59,
+   "ex_now": 0.6,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -780,9 +1035,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -6.65,
-   "ex_now": -6.08,
-   "days": 2.0
+   "ret_now": -7.11,
+   "ex_now": -5.93,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -795,9 +1050,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -0.65,
-   "ex_now": -0.08,
-   "days": 2.0
+   "ret_now": -0.59,
+   "ex_now": 0.6,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -810,9 +1065,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -2.48,
-   "ex_now": -1.91,
-   "days": 2.0
+   "ret_now": -8.6,
+   "ex_now": -7.42,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -825,9 +1080,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": 3.44,
-   "ex_now": 4.02,
-   "days": 2.0
+   "ret_now": -3.11,
+   "ex_now": -1.93,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -840,9 +1095,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": 4.48,
-   "ex_now": 5.05,
-   "days": 2.0
+   "ret_now": -2.69,
+   "ex_now": -1.5,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -855,9 +1110,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -2.65,
-   "ex_now": -2.07,
-   "days": 2.0
+   "ret_now": -5.29,
+   "ex_now": -4.11,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -870,9 +1125,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": 8.64,
-   "ex_now": 9.21,
-   "days": 2.0
+   "ret_now": 2.57,
+   "ex_now": 3.76,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -885,9 +1140,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -0.7,
-   "ex_now": -0.13,
-   "days": 2.0
+   "ret_now": -2.39,
+   "ex_now": -1.21,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -900,9 +1155,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -1.65,
-   "ex_now": -1.08,
-   "days": 2.0
+   "ret_now": -4.13,
+   "ex_now": -2.95,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -915,9 +1170,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -3.17,
-   "ex_now": -2.6,
-   "days": 2.0
+   "ret_now": -3.93,
+   "ex_now": -2.74,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -930,9 +1185,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -1.92,
-   "ex_now": -1.35,
-   "days": 2.0
+   "ret_now": -4.33,
+   "ex_now": -3.14,
+   "days": 3.0
   },
   {
    "date": "2026-11-16",
@@ -945,9 +1200,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -14.91,
-   "ex_now": -13.53,
-   "days": 3.0
+   "ret_now": -19.25,
+   "ex_now": -17.27,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -960,9 +1215,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -9.57,
-   "ex_now": -8.2,
-   "days": 3.0
+   "ret_now": -13.3,
+   "ex_now": -11.31,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -975,9 +1230,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -11.9,
-   "ex_now": -10.53,
-   "days": 3.0
+   "ret_now": -13.39,
+   "ex_now": -11.41,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -991,8 +1246,8 @@
    "ret_3m": null,
    "ex_3m": null,
    "ret_now": -0.99,
-   "ex_now": 0.39,
-   "days": 3.0
+   "ex_now": 0.99,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1005,9 +1260,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -2.73,
-   "ex_now": -1.36,
-   "days": 3.0
+   "ret_now": -4.69,
+   "ex_now": -2.7,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1020,9 +1275,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -3.66,
-   "ex_now": -2.29,
-   "days": 3.0
+   "ret_now": -6.28,
+   "ex_now": -4.3,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1035,9 +1290,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -2.65,
-   "ex_now": -1.27,
-   "days": 3.0
+   "ret_now": -3.78,
+   "ex_now": -1.8,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1050,9 +1305,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -6.44,
-   "ex_now": -5.06,
-   "days": 3.0
+   "ret_now": -6.9,
+   "ex_now": -4.91,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1065,9 +1320,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": 0.23,
-   "ex_now": 1.61,
-   "days": 3.0
+   "ret_now": 0.3,
+   "ex_now": 2.28,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1080,9 +1335,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -2.62,
-   "ex_now": -1.24,
-   "days": 3.0
+   "ret_now": -8.73,
+   "ex_now": -6.75,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1095,9 +1350,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -3.02,
-   "ex_now": -1.64,
-   "days": 3.0
+   "ret_now": -9.17,
+   "ex_now": -7.18,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1110,9 +1365,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -5.51,
-   "ex_now": -4.13,
-   "days": 3.0
+   "ret_now": -11.99,
+   "ex_now": -10.01,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1125,9 +1380,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -3.66,
-   "ex_now": -2.29,
-   "days": 3.0
+   "ret_now": -6.28,
+   "ex_now": -4.3,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1140,9 +1395,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": 1.37,
-   "ex_now": 2.75,
-   "days": 3.0
+   "ret_now": -4.29,
+   "ex_now": -2.3,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1155,9 +1410,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -11.9,
-   "ex_now": -10.53,
-   "days": 3.0
+   "ret_now": -13.39,
+   "ex_now": -11.41,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1170,9 +1425,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -2.46,
-   "ex_now": -1.08,
-   "days": 3.0
+   "ret_now": -4.92,
+   "ex_now": -2.93,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1185,9 +1440,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -4.9,
-   "ex_now": -3.52,
-   "days": 3.0
+   "ret_now": -5.64,
+   "ex_now": -3.65,
+   "days": 4.0
   },
   {
    "date": "2026-11-16",
@@ -1200,279 +1455,279 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -2.86,
-   "ex_now": -1.48,
-   "days": 3.0
+   "ret_now": -5.24,
+   "ex_now": -3.25,
+   "days": 4.0
   },
   {
    "date": "2026-11-13",
    "strategy": "focus",
    "ticker": "5327.KL",
    "name": "Megafb",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": 4.84,
+   "ex_1w": 6.49,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": 10.48,
-   "ex_now": 11.52,
-   "days": 4.0
+   "ret_now": 4.84,
+   "ex_now": 6.49,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "focus",
    "ticker": "5286.KL",
    "name": "Mi Technovation",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -2.96,
+   "ex_1w": -1.31,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": 2.78,
-   "ex_now": 3.82,
-   "days": 4.0
+   "ret_now": -2.96,
+   "ex_now": -1.31,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "focus",
    "ticker": "0225.KL",
    "name": "Scgbhd",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -8.64,
+   "ex_1w": -6.99,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -3.7,
-   "ex_now": -2.67,
-   "days": 4.0
+   "ret_now": -8.64,
+   "ex_now": -6.99,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "focus",
    "ticker": "0270.KL",
    "name": "NationGate",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -10.3,
+   "ex_1w": -8.66,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -4.85,
-   "ex_now": -3.81,
-   "days": 4.0
+   "ret_now": -10.3,
+   "ex_now": -8.66,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "focus",
    "ticker": "0245.KL",
    "name": "Mnhldg",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -18.49,
+   "ex_1w": -16.84,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -17.09,
-   "ex_now": -16.05,
-   "days": 4.0
+   "ret_now": -18.49,
+   "ex_now": -16.84,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "oversold",
    "ticker": "5199.KL",
    "name": "Hibiscus Petroleum",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -6.28,
+   "ex_1w": -4.63,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -3.66,
-   "ex_now": -2.63,
-   "days": 4.0
+   "ret_now": -6.28,
+   "ex_now": -4.63,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "oversold",
    "ticker": "3794.KL",
    "name": "Malayan Cement",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -3.96,
+   "ex_1w": -2.31,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -2.83,
-   "ex_now": -1.79,
-   "days": 4.0
+   "ret_now": -3.96,
+   "ex_now": -2.31,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "oversold",
    "ticker": "5211.KL",
    "name": "Sunway",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -5.81,
+   "ex_1w": -4.17,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -5.35,
-   "ex_now": -4.31,
-   "days": 4.0
+   "ret_now": -5.81,
+   "ex_now": -4.17,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "oversold",
    "ticker": "4707.KL",
    "name": "Nestle",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": 1.83,
+   "ex_1w": 3.48,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": 1.76,
-   "ex_now": 2.8,
-   "days": 4.0
+   "ret_now": 1.83,
+   "ex_now": 3.48,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "oversold",
    "ticker": "8869.KL",
    "name": "Press Metal",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -7.93,
+   "ex_1w": -6.28,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -1.76,
-   "ex_now": -0.72,
-   "days": 4.0
+   "ret_now": -7.93,
+   "ex_now": -6.28,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "growth",
    "ticker": "0097.KL",
    "name": "ViTrox",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -8.21,
+   "ex_1w": -6.56,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -2.0,
-   "ex_now": -0.96,
-   "days": 4.0
+   "ret_now": -8.21,
+   "ex_now": -6.56,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "growth",
    "ticker": "5292.KL",
    "name": "UWC",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -11.99,
+   "ex_1w": -10.35,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -5.51,
-   "ex_now": -4.47,
-   "days": 4.0
+   "ret_now": -11.99,
+   "ex_now": -10.35,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "growth",
    "ticker": "5199.KL",
    "name": "Hibiscus Petroleum",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -6.28,
+   "ex_1w": -4.63,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -3.66,
-   "ex_now": -2.63,
-   "days": 4.0
+   "ret_now": -6.28,
+   "ex_now": -4.63,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "growth",
    "ticker": "5286.KL",
    "name": "Mi Technovation",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -2.96,
+   "ex_1w": -1.31,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": 2.78,
-   "ex_now": 3.82,
-   "days": 4.0
+   "ret_now": -2.96,
+   "ex_now": -1.31,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "growth",
    "ticker": "0245.KL",
    "name": "Mnhldg",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -18.49,
+   "ex_1w": -16.84,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -17.09,
-   "ex_now": -16.05,
-   "days": 4.0
+   "ret_now": -18.49,
+   "ex_now": -16.84,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "double_kill",
    "ticker": "4715.KL",
    "name": "Genting Malaysia",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -4.92,
+   "ex_1w": -3.27,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -2.46,
-   "ex_now": -1.42,
-   "days": 4.0
+   "ret_now": -4.92,
+   "ex_now": -3.27,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "double_kill",
    "ticker": "3255.KL",
    "name": "Heineken Malaysia",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -6.06,
+   "ex_1w": -4.41,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -5.32,
-   "ex_now": -4.28,
-   "days": 4.0
+   "ret_now": -6.06,
+   "ex_now": -4.41,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
    "strategy": "double_kill",
    "ticker": "5296.KL",
    "name": "MR DIY",
-   "ret_1w": null,
-   "ex_1w": null,
+   "ret_1w": -3.4,
+   "ex_1w": -1.75,
    "ret_1m": null,
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -0.97,
-   "ex_now": 0.07,
-   "days": 4.0
+   "ret_now": -3.4,
+   "ex_now": -1.75,
+   "days": 5.0
   },
   {
    "date": "2026-11-12",
@@ -1485,9 +1740,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": 35.64,
-   "ex_now": 36.89,
-   "days": 5.0
+   "ret_now": 28.71,
+   "ex_now": 30.57,
+   "days": 6.0
   },
   {
    "date": "2026-11-12",
@@ -1500,9 +1755,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": 2.83,
-   "ex_now": 4.08,
-   "days": 5.0
+   "ret_now": -0.94,
+   "ex_now": 0.91,
+   "days": 6.0
   },
   {
    "date": "2026-11-12",
@@ -1515,9 +1770,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -9.09,
-   "ex_now": -7.84,
-   "days": 5.0
+   "ret_now": -10.23,
+   "ex_now": -8.37,
+   "days": 6.0
   },
   {
    "date": "2026-11-12",
@@ -1530,9 +1785,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -9.3,
-   "ex_now": -8.05,
-   "days": 5.0
+   "ret_now": -13.95,
+   "ex_now": -12.1,
+   "days": 6.0
   },
   {
    "date": "2026-11-12",
@@ -1545,9 +1800,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -21.28,
-   "ex_now": -20.03,
-   "days": 5.0
+   "ret_now": -22.61,
+   "ex_now": -20.75,
+   "days": 6.0
   },
   {
    "date": "2026-11-12",
@@ -1560,9 +1815,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -3.16,
-   "ex_now": -1.91,
-   "days": 5.0
+   "ret_now": -5.79,
+   "ex_now": -3.93,
+   "days": 6.0
   },
   {
    "date": "2026-11-12",
@@ -1575,9 +1830,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -4.28,
-   "ex_now": -3.03,
-   "days": 5.0
+   "ret_now": -5.39,
+   "ex_now": -3.53,
+   "days": 6.0
   },
   {
    "date": "2026-11-12",
@@ -1590,9 +1845,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -6.44,
-   "ex_now": -5.19,
-   "days": 5.0
+   "ret_now": -6.9,
+   "ex_now": -5.04,
+   "days": 6.0
   },
   {
    "date": "2026-11-12",
@@ -1605,9 +1860,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -0.32,
-   "ex_now": 0.93,
-   "days": 5.0
+   "ret_now": -0.25,
+   "ex_now": 1.6,
+   "days": 6.0
   },
   {
    "date": "2026-11-12",
@@ -1620,9 +1875,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -3.04,
-   "ex_now": -1.8,
-   "days": 5.0
+   "ret_now": -9.13,
+   "ex_now": -7.27,
+   "days": 6.0
   },
   {
    "date": "2026-11-12",
@@ -1635,9 +1890,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -7.82,
-   "ex_now": -6.57,
-   "days": 5.0
+   "ret_now": -13.66,
+   "ex_now": -11.81,
+   "days": 6.0
   },
   {
    "date": "2026-11-12",
@@ -1650,9 +1905,9 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -8.48,
-   "ex_now": -7.23,
-   "days": 5.0
+   "ret_now": -14.76,
+   "ex_now": -12.9,
+   "days": 6.0
   },
   {
    "date": "2026-11-12",
@@ -1665,263 +1920,8 @@
    "ex_1m": null,
    "ret_3m": null,
    "ex_3m": null,
-   "ret_now": -3.16,
-   "ex_now": -1.91,
-   "days": 5.0
-  },
-  {
-   "date": "2026-11-12",
-   "strategy": "growth",
-   "ticker": "5286.KL",
-   "name": "Mi Technovation",
-   "ret_1w": -5.44,
-   "ex_1w": -4.19,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -5.44,
-   "ex_now": -4.19,
-   "days": 5.0
-  },
-  {
-   "date": "2026-11-12",
-   "strategy": "growth",
-   "ticker": "0245.KL",
-   "name": "Mnhldg",
-   "ret_1w": -21.28,
-   "ex_1w": -20.03,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -21.28,
-   "ex_now": -20.03,
-   "days": 5.0
-  },
-  {
-   "date": "2026-11-12",
-   "strategy": "double_kill",
-   "ticker": "4715.KL",
-   "name": "Genting Malaysia",
-   "ret_1w": -4.8,
-   "ex_1w": -3.55,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -4.8,
-   "ex_now": -3.55,
-   "days": 5.0
-  },
-  {
-   "date": "2026-11-12",
-   "strategy": "double_kill",
-   "ticker": "3255.KL",
-   "name": "Heineken Malaysia",
-   "ret_1w": -7.64,
-   "ex_1w": -6.39,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -7.64,
-   "ex_now": -6.39,
-   "days": 5.0
-  },
-  {
-   "date": "2026-11-12",
-   "strategy": "double_kill",
-   "ticker": "5296.KL",
-   "name": "MR DIY",
-   "ret_1w": -2.86,
-   "ex_1w": -1.61,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -2.86,
-   "ex_now": -1.61,
-   "days": 5.0
-  },
-  {
-   "date": "2026-11-12",
-   "strategy": "double_kill",
-   "ticker": "5176.KL",
-   "name": "Sunway REIT",
-   "ret_1w": -1.49,
-   "ex_1w": -0.24,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -1.49,
-   "ex_now": -0.24,
-   "days": 5.0
-  },
-  {
-   "date": "2026-11-11",
-   "strategy": "focus",
-   "ticker": "5327.KL",
-   "name": "Megafb",
-   "ret_1w": 17.24,
-   "ex_1w": 19.03,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": 18.1,
-   "ex_now": 19.92,
-   "days": 6.0
-  },
-  {
-   "date": "2026-11-11",
-   "strategy": "focus",
-   "ticker": "5292.KL",
-   "name": "UWC",
-   "ret_1w": -12.28,
-   "ex_1w": -10.49,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -12.72,
-   "ex_now": -10.9,
-   "days": 6.0
-  },
-  {
-   "date": "2026-11-11",
-   "strategy": "focus",
-   "ticker": "5286.KL",
-   "name": "Mi Technovation",
-   "ret_1w": -8.98,
-   "ex_1w": -7.19,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -6.93,
-   "ex_now": -5.11,
-   "days": 6.0
-  },
-  {
-   "date": "2026-11-11",
-   "strategy": "focus",
-   "ticker": "0223.KL",
-   "name": "Samaiden",
-   "ret_1w": -12.06,
-   "ex_1w": -10.28,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -13.33,
-   "ex_now": -11.51,
-   "days": 6.0
-  },
-  {
-   "date": "2026-11-11",
-   "strategy": "focus",
-   "ticker": "0245.KL",
-   "name": "Mnhldg",
-   "ret_1w": -27.64,
-   "ex_1w": -25.85,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -25.63,
-   "ex_now": -23.81,
-   "days": 6.0
-  },
-  {
-   "date": "2026-11-11",
-   "strategy": "oversold",
-   "ticker": "5199.KL",
-   "name": "Hibiscus Petroleum",
-   "ret_1w": 0.0,
-   "ex_1w": 1.78,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -2.13,
-   "ex_now": -0.31,
-   "days": 6.0
-  },
-  {
-   "date": "2026-11-11",
-   "strategy": "oversold",
-   "ticker": "3794.KL",
-   "name": "Malayan Cement",
-   "ret_1w": -3.51,
-   "ex_1w": -1.73,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -4.81,
-   "ex_now": -2.99,
-   "days": 6.0
-  },
-  {
-   "date": "2026-11-11",
-   "strategy": "oversold",
-   "ticker": "5211.KL",
-   "name": "Sunway",
-   "ret_1w": -2.04,
-   "ex_1w": -0.26,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -7.71,
-   "ex_now": -5.89,
-   "days": 6.0
-  },
-  {
-   "date": "2026-11-11",
-   "strategy": "oversold",
-   "ticker": "4707.KL",
-   "name": "Nestle",
-   "ret_1w": -1.3,
-   "ex_1w": 0.49,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -0.94,
-   "ex_now": 0.88,
-   "days": 6.0
-  },
-  {
-   "date": "2026-11-11",
-   "strategy": "oversold",
-   "ticker": "8869.KL",
-   "name": "Press Metal",
-   "ret_1w": -3.48,
-   "ex_1w": -1.7,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -2.9,
-   "ex_now": -1.08,
-   "days": 6.0
-  },
-  {
-   "date": "2026-11-11",
-   "strategy": "growth",
-   "ticker": "0097.KL",
-   "name": "ViTrox",
-   "ret_1w": -8.45,
-   "ex_1w": -6.67,
-   "ret_1m": null,
-   "ex_1m": null,
-   "ret_3m": null,
-   "ex_3m": null,
-   "ret_now": -7.46,
-   "ex_now": -5.64,
+   "ret_now": -5.79,
+   "ex_now": -3.93,
    "days": 6.0
   }
  ],
@@ -1979,6 +1979,48 @@
  ],
  "panels": [
   {
+   "date": "2026-11-19",
+   "ticker": "1155.KL",
+   "name": "Malayan Banking Berhad",
+   "ratings": {
+    "value": null,
+    "growth": null,
+    "technical": null,
+    "dividend": null,
+    "bear": null
+   },
+   "ex_now": 0.01,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "ticker": "5347.KL",
+   "name": "Tenaga Nasional Berhad",
+   "ratings": {
+    "value": null,
+    "growth": null,
+    "technical": null,
+    "dividend": null,
+    "bear": null
+   },
+   "ex_now": 1.25,
+   "days": 1.0
+  },
+  {
+   "date": "2026-11-19",
+   "ticker": "4065.KL",
+   "name": "PPB Group Berhad",
+   "ratings": {
+    "value": null,
+    "growth": null,
+    "technical": null,
+    "dividend": null,
+    "bear": null
+   },
+   "ex_now": -0.55,
+   "days": 1.0
+  },
+  {
    "date": "2026-11-18",
    "ticker": "1155.KL",
    "name": "Malayan Banking Berhad",
@@ -1989,8 +2031,8 @@
     "dividend": null,
     "bear": null
    },
-   "ex_now": 0.14,
-   "days": 1.0
+   "ex_now": 0.15,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -2003,8 +2045,8 @@
     "dividend": null,
     "bear": null
    },
-   "ex_now": 0.2,
-   "days": 1.0
+   "ex_now": 1.45,
+   "days": 2.0
   },
   {
    "date": "2026-11-18",
@@ -2017,8 +2059,8 @@
     "dividend": null,
     "bear": null
    },
-   "ex_now": -0.2,
-   "days": 1.0
+   "ex_now": -0.75,
+   "days": 2.0
   },
   {
    "date": "2026-11-17",
@@ -2031,8 +2073,8 @@
     "dividend": null,
     "bear": null
    },
-   "ex_now": 0.17,
-   "days": 2.0
+   "ex_now": 0.18,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -2045,8 +2087,8 @@
     "dividend": null,
     "bear": null
    },
-   "ex_now": 0.73,
-   "days": 2.0
+   "ex_now": 1.98,
+   "days": 3.0
   },
   {
    "date": "2026-11-17",
@@ -2059,8 +2101,8 @@
     "dividend": null,
     "bear": null
    },
-   "ex_now": -0.13,
-   "days": 2.0
+   "ex_now": -0.68,
+   "days": 3.0
   },
   {
    "date": "2026-11-16",
@@ -2074,7 +2116,7 @@
     "bear": null
    },
    "ex_now": 0.88,
-   "days": 3.0
+   "days": 4.0
   },
   {
    "date": "2026-11-13",
@@ -2088,7 +2130,7 @@
     "bear": null
    },
    "ex_now": 0.94,
-   "days": 4.0
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
@@ -2101,8 +2143,8 @@
     "dividend": null,
     "bear": null
    },
-   "ex_now": -0.22,
-   "days": 4.0
+   "ex_now": 1.02,
+   "days": 5.0
   },
   {
    "date": "2026-11-13",
@@ -2115,8 +2157,8 @@
     "dividend": null,
     "bear": null
    },
-   "ex_now": 0.23,
-   "days": 4.0
+   "ex_now": -0.33,
+   "days": 5.0
   },
   {
    "date": "2026-11-12",
@@ -2130,7 +2172,7 @@
     "bear": null
    },
    "ex_now": 1.45,
-   "days": 5.0
+   "days": 6.0
   },
   {
    "date": "2026-11-12",
@@ -2143,8 +2185,8 @@
     "dividend": null,
     "bear": null
    },
-   "ex_now": -0.31,
-   "days": 5.0
+   "ex_now": 0.92,
+   "days": 6.0
   },
   {
    "date": "2026-11-12",
@@ -2157,8 +2199,8 @@
     "dividend": null,
     "bear": null
    },
-   "ex_now": -0.02,
-   "days": 5.0
+   "ex_now": -0.57,
+   "days": 6.0
   },
   {
    "date": "2026-11-11",
@@ -2172,7 +2214,7 @@
     "bear": null
    },
    "ex_now": 1.62,
-   "days": 6.0
+   "days": 7.0
   },
   {
    "date": "2026-11-11",
@@ -2185,8 +2227,8 @@
     "dividend": null,
     "bear": null
    },
-   "ex_now": -0.96,
-   "days": 6.0
+   "ex_now": 0.26,
+   "days": 7.0
   },
   {
    "date": "2026-11-11",
@@ -2199,8 +2241,8 @@
     "dividend": null,
     "bear": null
    },
-   "ex_now": 1.35,
-   "days": 6.0
+   "ex_now": 0.79,
+   "days": 7.0
   },
   {
    "date": "2026-11-10",
@@ -2213,8 +2255,8 @@
     "dividend": null,
     "bear": null
    },
-   "ex_now": 1.07,
-   "days": 7.0
+   "ex_now": 1.08,
+   "days": 8.0
   },
   {
    "date": "2026-11-10",
@@ -2227,8 +2269,8 @@
     "dividend": null,
     "bear": null
    },
-   "ex_now": -2.04,
-   "days": 7.0
+   "ex_now": -0.83,
+   "days": 8.0
   },
   {
    "date": "2026-11-10",
@@ -2241,8 +2283,8 @@
     "dividend": null,
     "bear": null
    },
-   "ex_now": 1.55,
-   "days": 7.0
+   "ex_now": 0.99,
+   "days": 8.0
   }
  ]
 }
