@@ -132,115 +132,332 @@ def fmt(x, nd=2, suffix=""):
 # 页面：个股分析
 # ---------------------------------------------------------------------------
 
-def page_analysis():
-    st.title("📊 AI 股票分析室")
-    st.caption("支持 🇲🇾 大马（MAYBANK / 1155）· 🇺🇸 美股（AAPL）· 🇮🇩 印尼（BBCA）")
+STOCK_SECS = ["📈 概览", "🎙 AI 分析", "🏢 认识公司", "📰 新闻公告", "📋 技术面"]
+CHART_PERIODS = {"1个月": 22, "3个月": 66, "6个月": 130, "1年": 260, "3年": "3y", "5年": "5y"}
 
+
+@st.cache_data(ttl=3600, show_spinner=False)
+def cached_history(ticker: str, period: str) -> pd.DataFrame:
+    return A.get_history(ticker, period)
+
+
+def line_chart(df: pd.DataFrame, cur: str, height: int = 380):
+    c = df["Close"].dropna()
+    up = len(c) > 1 and c.iloc[-1] >= c.iloc[0]
+    color = "#22c55e" if up else "#ef4444"
+    fill = "rgba(34,197,94,.12)" if up else "rgba(239,68,68,.12)"
+    lo, hi = float(c.min()), float(c.max())
+    pad = (hi - lo) * 0.08 or hi * 0.02
+    fig = go.Figure(go.Scatter(x=c.index, y=c, mode="lines", line=dict(color=color, width=2.2),
+                               fill="tozeroy", fillcolor=fill, name="收盘价",
+                               hovertemplate=f"%{{x|%Y-%m-%d}}<br>{cur} %{{y:,.3f}}<extra></extra>"))
+    fig.add_hline(y=float(c.iloc[0]), line_dash="dot", line_color="rgba(148,163,184,.5)")
+    fig.update_layout(height=height, margin=dict(l=6, r=6, t=8, b=6), showlegend=False,
+                      hovermode="x unified", yaxis=dict(range=[lo - pad, hi + pad], side="right"),
+                      xaxis=dict(showgrid=False))
+    return fig
+
+
+def fact_grid(items: list[tuple[str, str]]) -> str:
+    cells = "".join(f"<div style='background:rgba(148,163,184,.08);border:1px solid rgba(148,163,184,.18);"
+                    f"border-radius:10px;padding:9px 12px'><div style='font-size:.74rem;opacity:.65'>{html.escape(k)}</div>"
+                    f"<div style='font-weight:700;font-size:1.02rem;margin-top:2px'>{html.escape(str(v))}</div></div>"
+                    for k, v in items)
+    return f"<div style='display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px'>{cells}</div>"
+
+
+def goto_analysis(ticker: str, sec: str = "📈 概览"):
+    """任何地方点股票 → 个股页面（走势、资料、AI 分析、认识公司、新闻公告、技术面）。"""
+    st.session_state.query = ticker
+    st.session_state.stock_sec = sec
+    st.session_state.nav = "📊 个股分析"
+
+
+def goto_company(ticker: str):
+    goto_analysis(ticker, "🏢 认识公司")
+
+
+def picked_row(key: str):
+    """表格：点一整行或点任何一格都算选了那一行。"""
+    try:
+        sel = st.session_state[key].selection
+    except Exception:
+        return None
+    rows = list(sel.get("rows") or [])
+    cells = list(sel.get("cells") or [])
+    return rows[0] if rows else (cells[0][0] if cells else None)
+
+
+def stock_button(ticker: str, key: str, label: str = "📈 看这只股票的全部资料", primary: bool = True, target=None):
+    (target or st).button(label, key=key, on_click=goto_analysis, args=(ticker,), width="stretch",
+                          type="primary" if primary else "secondary")
+
+
+def set_sec(sec: str):
+    st.session_state.stock_sec = sec
+
+
+def run_panel(ticker: str, snapshot: dict):
+    opinions, summary = cached_panel(ticker, str(date.today()), snapshot)
+    st.session_state[f"panel_done_{ticker}"] = True
+    return opinions, summary
+
+
+def show_votes(opinions):
+    votes = pd.Series([o["rating"] or "未表态" for o in opinions]).value_counts()
+    pills = "".join(f"<span style='background:{RATING_COLOR.get(k, '#94a3b8')};color:white;padding:3px 12px;"
+                    f"border-radius:999px;font-weight:700;margin:0 6px 4px 0;display:inline-block'>{k} × {v}</span>"
+                    for k, v in votes.items())
+    st.markdown(f"<div style='margin:4px 0 8px'>🗳 {pills}</div>", unsafe_allow_html=True)
+
+
+def page_analysis():
+    st.title("📊 个股分析")
     with st.form("search"):
         c1, c2 = st.columns([4, 1])
-        text = c1.text_input("股票代码或名称", placeholder="例如 MAYBANK、NVDA、BBCA",
+        text = c1.text_input("股票代码或名称", placeholder="输入股票：MAYBANK、1155、NVDA、BBCA…（在任何页面点股票也会来这里）",
                              label_visibility="collapsed")
-        go_btn = c2.form_submit_button("分析", width="stretch", type="primary")
+        go_btn = c2.form_submit_button("查看", width="stretch", type="primary")
     if go_btn and text.strip():
         st.session_state.query = text.strip()
+        st.session_state.stock_sec = "📈 概览"
     query = st.session_state.get("query")
     if not query:
-        st.info("输入股票代码开始分析。常用名称：MAYBANK、CIMB、TENAGA、IHH、BBCA、TLKM、AAPL、NVDA")
+        st.info("输入股票代码，或在「每日焦点」「选股雷达」「板块」等页面直接点任何一只股票。"
+                "常用：MAYBANK、CIMB、TENAGA、IHH、GAMUDA、BBCA、TLKM、AAPL、NVDA")
         return
 
-    with st.spinner(f"正在抓取 {query.upper()} 的数据…"):
+    with st.spinner(f"正在抓取 {query.upper()} 的股价、财务、新闻…"):
         try:
             r = cached_analysis(query)
         except Exception as e:
             st.error(f"❌ {e}")
             return
-    ticker, tech, fund, news = r["ticker"], r["tech"], r["fund"], r["news"]
+    ticker, tech, fund, news, snap = r["ticker"], r["tech"], r["fund"], r["news"], r["snapshot"]
     cur = fund["currency"]
+    recent = snap.get("近期动态") or {}
 
-    st.subheader(f"{fund['name']}（{ticker} · {A.market_of(ticker)}）")
-    st.button("🏢 认识这家公司（业务、成绩、管理层、评级）", on_click=goto_company, args=(ticker,))
-    m = st.columns(5)
-    m[0].metric("股价", f"{cur} {fmt(tech['price'])}", f"{tech['change_1d']:+.2f}% 今日")
-    m[1].metric("1 年涨跌", fmt(tech["change_1y"], 1, "%"))
-    m[2].metric("本益比 P/E", fmt(fund["pe"], 1))
-    m[3].metric("股息率", fmt(fund["dividend_yield"], 2, "%"))
-    m[4].metric("技术面", tech["verdict"], f"分数 {tech['score']:+d}", delta_color="off")
+    # --- 标题列 ---
+    chg = tech["change_1d"]
+    color = "#22c55e" if chg >= 0 else "#ef4444"
+    meta = " · ".join(x for x in (ticker, A.market_of(ticker), fund["sector"], fund["industry"]) if x)
+    st.markdown(
+        f"<div style='display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:8px;margin-top:-6px'>"
+        f"<div><div style='font-size:1.7rem;font-weight:800;line-height:1.2'>{html.escape(fund['name'])}</div>"
+        f"<div style='opacity:.65;font-size:.88rem'>{html.escape(meta)}</div></div>"
+        f"<div style='text-align:right'><span style='font-size:1.9rem;font-weight:800'>{cur} {fmt(tech['price'], 3)}</span> "
+        f"<span style='color:{color};font-weight:700;font-size:1.1rem'>{chg:+.2f}% 今日</span>"
+        f"<div style='opacity:.6;font-size:.78rem'>技术面：{tech['verdict']}（{tech['score']:+d}）</div></div></div>",
+        unsafe_allow_html=True)
 
-    tab_panel, tab_chart, tab_detail, tab_news = st.tabs(
-        ["🎙 基金经理圆桌", "📈 走势图", "📋 技术 & 基本面", "📰 新闻"])
+    if st.session_state.get("stock_sec") not in STOCK_SECS:
+        st.session_state.stock_sec = "📈 概览"
+    sec = st.segmented_control("看什么", STOCK_SECS, key="stock_sec", label_visibility="collapsed") or "📈 概览"
 
-    with tab_chart:
-        st.plotly_chart(price_chart(r["df"], ticker), width="stretch")
+    if sec == "📈 概览":
+        stock_overview(r, ticker, tech, fund, news, recent, cur)
+    elif sec == "🎙 AI 分析":
+        stock_ai(ticker, snap)
+    elif sec == "🏢 认识公司":
+        stock_company(ticker)
+    elif sec == "📰 新闻公告":
+        stock_news(ticker, news, recent)
+    else:
+        stock_tech(r, ticker, tech, fund, cur)
+    st.caption("以上为数据整理和 AI 模拟观点，仅供学习参考，不构成投资建议。")
 
-    with tab_detail:
-        c1, c2 = st.columns(2)
-        with c1:
-            st.markdown("#### 📈 技术面")
-            st.write(f"52 周区间：{fmt(tech['low_52w'])} – {fmt(tech['high_52w'])}")
-            st.write(f"50 日均线：{fmt(tech['sma50'])}　200 日均线：{fmt(tech['sma200'])}")
-            for s in tech["signals"]:
+
+def stock_overview(r, ticker, tech, fund, news, recent, cur):
+    per = st.pills("区间", list(CHART_PERIODS), default="6个月", key=f"per_{ticker}", label_visibility="collapsed") or "6个月"
+    n = CHART_PERIODS[per]
+    try:
+        df = r["df"].tail(n) if isinstance(n, int) else cached_history(ticker, n)
+    except Exception:
+        df = r["df"]
+    c = df["Close"].dropna()
+    if len(c) > 1:
+        ch = (c.iloc[-1] / c.iloc[0] - 1) * 100
+        st.caption(f"{per}涨跌：**{ch:+.1f}%**　（{c.index[0]:%Y-%m-%d} → {c.index[-1]:%Y-%m-%d}，"
+                   f"最高 {c.max():,.3f} · 最低 {c.min():,.3f}）")
+        st.plotly_chart(line_chart(df, cur), width="stretch", key=f"line_{ticker}_{per}")
+
+    pm = fund.get("profit_margin")
+    rec = A.REC_ZH.get(fund["analyst_rec"], fund["analyst_rec"]) if fund.get("analyst_rec") else None
+    st.markdown(fact_grid([
+        ("1 个月", fmt(tech["change_1m"], 1, "%")), ("1 年", fmt(tech["change_1y"], 1, "%")),
+        ("52 周区间", f"{fmt(tech['low_52w'])} – {fmt(tech['high_52w'])}"),
+        ("市值", f"{cur} {A._big(fund['market_cap'])}"), ("本益比 P/E", fmt(fund["pe"], 1)),
+        ("预期 P/E", fmt(fund["forward_pe"], 1)), ("股价/净值 P/B", fmt(fund["pb"], 2)),
+        ("股息率", fmt(fund["dividend_yield"], 2, "%")),
+        ("净利率", fmt(pm * 100 if pm is not None and abs(pm) < 1.5 else pm, 1, "%")),
+        ("分析师目标价", f"{fmt(fund['target_price'])}（{rec}）" if fund.get("target_price") else "—"),
+    ]), unsafe_allow_html=True)
+    st.write("")
+
+    left, right = st.columns([1.35, 1])
+    with left.container(border=True):
+        st.markdown("#### 🎙 AI 分析")
+        err = M.check_setup()
+        if err:
+            st.warning(err)
+        else:
+            with st.spinner("5 位 AI 基金经理正在分析（第一次约 20-40 秒，之后当天都很快）…"):
+                try:
+                    opinions, summary = run_panel(ticker, r["snapshot"])
+                except Exception as e:
+                    opinions, summary = None, None
+                    st.warning(f"AI 暂时无法分析：{e}")
+            if opinions:
+                show_votes(opinions)
+                body = summary.split("\n\n", 1)[1] if summary.startswith("🗳") else summary
+                st.markdown(f"<div style='line-height:1.75'>{sections_html(body)}</div>", unsafe_allow_html=True)
+                st.button("看 5 位经理各自的详细看法 →", on_click=set_sec, args=("🎙 AI 分析",), key="ov_ai")
+    with right:
+        with st.container(border=True):
+            st.markdown("#### 🧭 近期动态")
+            q = recent.get("最新一季业绩")
+            if q:
+                yo = lambda v: "—" if v is None else f"{v:+.1f}%"
+                st.markdown(f"**最新季报**（截至 {q['季度结束日']}）：{q.get('结论') or ''}　"
+                            f"营收按年 {yo(q.get('营收按年%'))} · 净利按年 {yo(q.get('净利按年%'))}")
+            for x in recent.get("公告日历", [])[:3]:
+                st.markdown(f"📅 {html.escape(x)}")
+            for x in recent.get("新闻追踪的重大事件", [])[:2]:
+                st.markdown(f"⭐ {md(x)}")
+            for x in recent.get("牵连这家公司的宏观事件", [])[:2]:
+                st.markdown(f"🌐 {md(x)}")
+            items = news.get("items") or []
+            for i in items[:5]:
+                d = ""
+                if i.get("published"):
+                    try:
+                        dd = datetime.fromisoformat(str(i["published"]).replace("Z", "+00:00"))
+                        d = f"{dd.month}/{dd.day} "
+                    except Exception:
+                        pass
+                t = i["title"].replace("[", "(").replace("]", ")").replace("$", "\\$")
+                st.markdown(f"📰 {d}[{t}]({i['link']})" if i.get("link") else f"📰 {d}{t}")
+            if not (q or items or recent.get("公告日历")):
+                st.write("最近 14 天没有新闻或公告。")
+            st.button("全部新闻和公告 →", on_click=set_sec, args=("📰 新闻公告",), key="ov_news")
+        with st.container(border=True):
+            st.markdown("#### 🏢 这家公司")
+            st.write(" · ".join(x for x in (fund["sector"], fund["industry"]) if x) or "—")
+            for s in (fund.get("flags") or [])[:3]:
                 st.write(s)
-        with c2:
-            st.markdown("#### 🏢 基本面")
-            st.write(" · ".join(x for x in (fund["sector"], fund["industry"]) if x) or "行业：无数据")
-            st.write(f"市值：{cur} {A._big(fund['market_cap'])}")
-            st.write(f"预期 P/E：{fmt(fund['forward_pe'])}　P/B：{fmt(fund['pb'])}")
-            if fund["target_price"]:
-                rec = A.REC_ZH.get(fund["analyst_rec"], fund["analyst_rec"] or "无")
-                st.write(f"分析师目标价：{fmt(fund['target_price'])}（{rec}）")
-            for s in fund["flags"]:
-                st.write(s)
+            b1, b2 = st.columns(2)
+            b1.button("🏢 认识公司", on_click=set_sec, args=("🏢 认识公司",), width="stretch", key="ov_co")
+            b2.button("⚖️ 拿去跟别家对比", on_click=goto_compare, args=([ticker],), width="stretch", key="ov_cmp")
 
-    with tab_news:
+
+def stock_ai(ticker, snapshot):
+    err = M.check_setup()
+    if err:
+        st.error(err)
+        return
+    with st.spinner("5 位不同风格的 AI 基金经理正在独立分析…（约 20-40 秒）"):
+        try:
+            opinions, summary = run_panel(ticker, snapshot)
+        except Exception as e:
+            st.error(f"AI 暂时无法分析：{e}")
+            return
+    show_votes(opinions)
+    with st.container(border=True):
+        st.markdown("### 👔 投资委员会主席总结")
+        summary_body = summary.split("\n\n", 1)[1] if summary.startswith("🗳") else summary
+        st.markdown(f"<div style='line-height:1.8'>{sections_html(summary_body)}</div>", unsafe_allow_html=True)
+    for start in range(0, len(opinions), 3):  # 每行 3 张卡片
+        cols = st.columns(3)
+        for col, o in zip(cols, opinions[start:start + 3]):
+            with col.container(border=True):
+                color = RATING_COLOR.get(o["rating"], "#94a3b8")
+                body = (o["text"].split("\n", 1)[1] if o["text"].startswith("【评级】")
+                        and "\n" in o["text"] else o["text"])
+                st.markdown(
+                    f"<div style='font-size:1.2rem;font-weight:700'>{o['emoji']} {o['name']}</div>"
+                    f"<div style='opacity:.65;font-size:.85rem;margin-bottom:6px'>{o['title']}</div>"
+                    f"<span style='background:{color};color:white;padding:2px 12px;"
+                    f"border-radius:999px;font-weight:600'>{o['rating'] or '未表态'}</span>"
+                    f"<div style='margin-top:10px;line-height:1.7'>{sections_html(body)}</div>",
+                    unsafe_allow_html=True)
+    st.caption(f"AI 供应商：{M.PROVIDER} · {M.MODEL}。AI 会参考最近 14 天新闻、最新季报和公告日历。"
+               "每只股票每天只分析一次以节省额度。")
+
+
+def stock_company(ticker):
+    with st.spinner("正在收集公司资料和财报…"):
+        try:
+            p = cached_company(ticker)
+        except Exception as e:
+            st.error(f"❌ {e}")
+            return
+    show_company(p)
+
+
+def stock_news(ticker, news, recent):
+    c1, c2 = st.columns([1.4, 1])
+    with c1:
+        st.markdown("#### 📰 最近 14 天新闻")
         if not news["items"]:
             st.write("没有找到近期新闻（大马/印尼中小型股常见）。")
         else:
-            st.write(f"**整体情绪：{news['mood']}**（平均 {news['avg']:+.2f}）")
+            st.caption(f"整体情绪：{news['mood']}（平均 {news['avg']:+.2f}）")
             for i in news["items"]:
                 icon = "🟢" if i["score"] > 0.15 else "🔴" if i["score"] < -0.15 else "⚪"
-                st.markdown(f"{icon} [{i['title']}]({i['link']})" if i["link"]
-                            else f"{icon} {i['title']}")
+                d = ""
+                if i.get("published"):
+                    try:
+                        dd = datetime.fromisoformat(str(i["published"]).replace("Z", "+00:00"))
+                        d = f"{dd.month}/{dd.day} "
+                    except Exception:
+                        pass
+                t = i["title"].replace("[", "(").replace("]", ")").replace("$", "\\$")
+                src = f" — {i['source']}" if i.get("source") else ""
+                st.markdown(f"{icon} {d}[{t}]({i['link']}){src}" if i.get("link") else f"{icon} {d}{t}{src}")
+        b1, b2 = st.columns(2)
+        b1.button("🗞️ 让 AI 分析这些新闻的影响", on_click=goto_news, args=(ticker,), width="stretch")
+    with c2:
+        for title, k in (("⭐ 新闻追踪的重大事件", "新闻追踪的重大事件"), ("🌐 牵连的宏观事件", "牵连这家公司的宏观事件")):
+            if recent.get(k):
+                st.markdown(f"#### {title}")
+                for x in recent[k]:
+                    st.markdown("- " + md(x))
+        st.markdown("#### 📅 公告日历")
+        cal = recent.get("公告日历") or []
+        st.markdown("\n".join("- " + html.escape(x) for x in cal) if cal else "最近 / 未来 45 天没有业绩或派息日期。")
+        q = recent.get("最新一季业绩")
+        if q:
+            st.markdown("#### 📑 最新季报")
+            st.markdown(f"截至 {q['季度结束日']}：**{q.get('结论') or ''}**")
+            for x in q.get("重点", []):
+                st.markdown("- " + md(x))
+            st.button("看季报详情 →", on_click=goto_quarter, args=(ticker,))
 
-    with tab_panel:
-        err = M.check_setup()
-        if err:
-            st.error(err)
-            return
-        key = f"panel_{ticker}"
-        if not st.session_state.get(key):
-            st.write("5 位不同风格的 AI 基金经理会根据上面的数据，各自给出评级、看法和前景。")
-            if st.button("🎙 开始圆桌讨论", type="primary"):
-                st.session_state[key] = True
-                st.rerun()
-            return
-        with st.spinner("5 位基金经理正在独立分析…（约 10-30 秒）"):
-            opinions, summary = cached_panel(ticker, str(date.today()), r["snapshot"])
 
-        votes = pd.Series([o["rating"] or "未表态" for o in opinions]).value_counts()
-        st.markdown("**🗳 投票：** " + "　".join(f"{k} × {v}" for k, v in votes.items()))
+def goto_news(ticker: str):
+    st.session_state.news_query = ticker
+    st.session_state.nav = "🗞️ 新闻追踪"
 
-        for start in range(0, len(opinions), 3):  # 每行 3 张卡片
-            cols = st.columns(3)
-            for col, o in zip(cols, opinions[start:start + 3]):
-                with col.container(border=True):
-                    color = RATING_COLOR.get(o["rating"], "#94a3b8")
-                    body = (o["text"].split("\n", 1)[1] if o["text"].startswith("【评级】")
-                            and "\n" in o["text"] else o["text"])
-                    st.markdown(
-                        f"<div style='font-size:1.25rem;font-weight:700'>{o['emoji']} {o['name']}</div>"
-                        f"<div style='opacity:.65;font-size:.85rem;margin-bottom:6px'>{o['title']}</div>"
-                        f"<span style='background:{color};color:white;padding:2px 12px;"
-                        f"border-radius:999px;font-weight:600'>{o['rating'] or '未表态'}</span>"
-                        f"<div style='margin-top:10px;line-height:1.7'>{sections_html(body)}</div>",
-                        unsafe_allow_html=True)
 
-        with st.container(border=True):
-            st.markdown("### 👔 投资委员会主席总结")
-            summary_body = summary.split("\n\n", 1)[1] if summary.startswith("🗳") else summary
-            st.markdown(f"<div style='line-height:1.8'>{sections_html(summary_body)}</div>",
-                        unsafe_allow_html=True)
-        st.caption(f"AI 供应商：{M.PROVIDER} · {M.MODEL}。圆桌结果每只股票每天只生成一次以节省额度。"
-                   "以上为 AI 模拟观点，仅供学习参考，不构成投资建议。")
+def stock_tech(r, ticker, tech, fund, cur):
+    st.plotly_chart(price_chart(r["df"], ticker), width="stretch")
+    c1, c2 = st.columns(2)
+    with c1:
+        st.markdown("#### 📈 技术面")
+        st.write(f"52 周区间：{fmt(tech['low_52w'])} – {fmt(tech['high_52w'])}")
+        st.write(f"50 日均线：{fmt(tech['sma50'])}　200 日均线：{fmt(tech['sma200'])}")
+        for s in tech["signals"]:
+            st.write(s)
+    with c2:
+        st.markdown("#### 🏢 基本面")
+        st.write(" · ".join(x for x in (fund["sector"], fund["industry"]) if x) or "行业：无数据")
+        st.write(f"市值：{cur} {A._big(fund['market_cap'])}")
+        st.write(f"预期 P/E：{fmt(fund['forward_pe'])}　P/B：{fmt(fund['pb'])}")
+        if fund["target_price"]:
+            rec = A.REC_ZH.get(fund["analyst_rec"], fund["analyst_rec"] or "无")
+            st.write(f"分析师目标价：{fmt(fund['target_price'])}（{rec}）")
+        for s in fund["flags"]:
+            st.write(s)
 
 
 # ---------------------------------------------------------------------------
@@ -314,16 +531,6 @@ def live_scan(market: str, session: str):
     return S.scan(market, session, with_ai=True)
 
 
-def goto_analysis(ticker: str):
-    st.session_state.query = ticker
-    st.session_state.nav = "📊 个股分析"
-
-
-def goto_company(ticker: str):
-    st.session_state.company_query = ticker
-    st.session_state.nav = "🏢 认识公司"
-
-
 def show_report(r: dict, prefix: str = "saved"):
     kp = f"{prefix}_{r['market']}_{r['date']}_{r['session']}"
     cur, b = r["currency"], r["breadth"]
@@ -363,11 +570,7 @@ def show_report(r: dict, prefix: str = "saved"):
                     f"<div style='font-size:.85rem;opacity:.8'>成交量 {w['vol_ratio']:.1f} 倍 · "
                     f"波幅 {w['range_pct']:.1f}% · RSI {w['rsi']:.0f}</div>"
                     f"<div style='margin-top:6px'>{tags}</div>", unsafe_allow_html=True)
-                b1, b2 = st.columns(2)
-                b1.button("🏢 认识公司", key=f"{kp}_co_{w['ticker']}", on_click=goto_company,
-                          args=(w["ticker"],), width="stretch")
-                b2.button("📊 深入分析", key=f"{kp}_go_{w['ticker']}", on_click=goto_analysis,
-                          args=(w["ticker"],), width="stretch")
+                stock_button(w["ticker"], f"{kp}_go_{w['ticker']}", "📈 走势 · 资料 · AI 分析 →")
 
     def table(rows, title):
         df = pd.DataFrame(rows)[["name", "ticker", "price", "change_pct", "vol_ratio", "turnover"]]
@@ -375,18 +578,18 @@ def show_report(r: dict, prefix: str = "saved"):
         st.markdown(f"**{title}**")
         key = f"{kp}_tbl_{title}"
 
-        def on_pick():  # 点表格某一行 → 跳到「认识公司」
-            sel = st.session_state[key].selection.rows
-            if sel:
-                goto_company(rows[sel[0]]["ticker"])
+        def on_pick():  # 点表格任何一格 → 跳到那只股票的页面
+            i = picked_row(key)
+            if i is not None:
+                goto_analysis(rows[i]["ticker"])
 
         st.dataframe(df.style.format({"股价": "{:,.2f}", "涨跌%": "{:+.2f}", "成交量倍数": "{:.1f}",
                                       f"成交额 ({cur})": "{:,.0f}"}).map(
             lambda v: f"color:{'#16a34a' if v > 0 else '#dc2626'}", subset=["涨跌%"]),
             hide_index=True, width="stretch", key=key,
-            on_select=on_pick, selection_mode="single-row")
+            on_select=on_pick, selection_mode=["single-row", "single-cell"])
 
-    st.caption("👆 点表格里任何一行，就能认识那家公司")
+    st.caption("👆 点表格里任何一只股票，就会打开它的页面（走势、资料、AI 分析、新闻）")
     c1, c2 = st.columns(2)
     with c1:
         table(r["gainers"], "📈 涨幅最大")
@@ -501,29 +704,7 @@ def fin_table(p: dict) -> pd.DataFrame:
     return pd.DataFrame(out, index=[str(y) for y in fin.index]).T
 
 
-def page_company():
-    st.title("🏢 认识公司")
-    st.caption("输入或点击任何股票代码，AI 研究员会整理这家公司的业务、营业模式、近几年成绩和管理层，"
-               "并给出 弱 → 强 五级评级。")
-    with st.form("company_search"):
-        c1, c2 = st.columns([4, 1])
-        text = c1.text_input("代码", placeholder="例如 MAYBANK、TENAGA、NVDA、BBCA",
-                             label_visibility="collapsed")
-        btn = c2.form_submit_button("认识它", type="primary", width="stretch")
-    if btn and text.strip():
-        st.session_state.company_query = text.strip()
-    q = st.session_state.get("company_query")
-    if not q:
-        st.info("试试看：MAYBANK、PBBANK、TENAGA、IHH、BBCA、TLKM、AAPL、COST")
-        return
-
-    with st.spinner(f"正在收集 {q.upper()} 的公司资料和财报…"):
-        try:
-            p = cached_company(q)
-        except Exception as e:
-            st.error(f"❌ {e}")
-            return
-
+def show_company(p: dict):
     ai, ai_err = None, None
     if M.check_setup():
         ai_err = "还没设置 AI key，下面只显示财务体检（数字评分）。"
@@ -538,7 +719,6 @@ def page_company():
     sc = p["scores"]
 
     # --- 标题 ---
-    st.subheader(f"{p['name']}（{p['ticker']} · {p['market']}）")
     facts = [x for x in (p["sector"], p["industry"], p["country"]) if x]
     if p["employees"]:
         facts.append(f"员工 {p['employees']:,} 人")
@@ -628,7 +808,6 @@ def page_company():
             if p["website"]:
                 st.markdown(f"官网：{p['website']}")
 
-    st.button("📊 看这只股票的走势 + 基金经理圆桌 →", on_click=goto_analysis, args=(p["ticker"],))
     st.caption(f"财报数据来自 Yahoo Finance（年度）；AI 供应商：{M.PROVIDER} · {M.MODEL}。"
                "AI 对公司和管理层的描述来自它的训练知识，可能不是最新，重要决定请查公司年报。"
                "结果保存 7 天。仅供学习参考，不构成投资建议。")
@@ -673,11 +852,7 @@ def radar_card(x: dict, kp: str, accent: str):
             f"P/E {fnum(x.get('pe'), 1, '', False)}"
             f"{' (历史 ' + fnum(x.get('pe_avg'), 1, '', False) + ')' if x.get('pe_avg') else ''}</div>"
             f"<div>{''.join(chip(t) for t in x['reasons'])}</div>", unsafe_allow_html=True)
-        b1, b2 = st.columns(2)
-        b1.button("🏢 认识公司", key=f"{kp}_co_{x['ticker']}", on_click=goto_company,
-                  args=(x["ticker"],), width="stretch")
-        b2.button("📊 深入分析", key=f"{kp}_an_{x['ticker']}", on_click=goto_analysis,
-                  args=(x["ticker"],), width="stretch")
+        stock_button(x["ticker"], f"{kp}_an_{x['ticker']}", "📈 走势 · 资料 · AI 分析 →")
 
 
 def show_screen(r: dict, prefix: str):
@@ -812,9 +987,7 @@ def show_klci(r: dict, files: list[str]):
                         index=None, placeholder="选择公司…", key="klci_pick")
     if pick:
         t = pick.split("（")[-1].rstrip("）")
-        b1, b2 = st.columns(2)
-        b1.button("🏢 认识公司", on_click=goto_company, args=(t,), width="stretch", key="klci_co")
-        b2.button("📊 深入分析", on_click=goto_analysis, args=(t,), width="stretch", key="klci_an")
+        stock_button(t, "klci_an")
 
     if len(files) >= 2:
         st.markdown("#### 📈 几率变化（最近 30 天）")
@@ -995,23 +1168,22 @@ def page_sectors():
             tkey = f"members_{key}_{g['name']}"
 
             def on_pick(rows=g["members"], tkey=tkey):
-                sel = st.session_state[tkey].selection.rows
-                if sel:
-                    goto_company(rows[sel[0]]["ticker"])
+                i = picked_row(tkey)
+                if i is not None:
+                    goto_analysis(rows[i]["ticker"])
 
             st.dataframe(show.style.format({"股价": "{:,.2f}", "权重%": "{:.1f}", "1 日%": "{:+.2f}", "1 个月%": "{:+.1f}",
                                             "1 年%": "{:+.1f}", "P/E": "{:.1f}", "股息率%": "{:.1f}", "ROE%": "{:.1f}"},
                                            na_rep="—").map(
                 lambda v: f"color:{'#16a34a' if v > 0 else '#dc2626'}" if isinstance(v, (int, float)) and v == v else "",
                 subset=["1 日%", "1 个月%", "1 年%"]),
-                hide_index=True, width="stretch", key=tkey, on_select=on_pick, selection_mode="single-row")
+                hide_index=True, width="stretch", key=tkey, on_select=on_pick, selection_mode=["single-row", "single-cell"])
             st.caption("👆 点任何一行就能认识那家公司。" + sec["note"])
 
             opts = {f"{m['name']}（{m['ticker']}）": m["ticker"] for m in g["members"]}
             chosen = st.multiselect("⚖️ 勾选 2–3 家来对比", list(opts), max_selections=3, key=f"cmp_{key}_{g['name']}")
-            if st.button("对比这几家", key=f"cmpbtn_{key}_{g['name']}", disabled=len(chosen) < 2, type="primary"):
-                goto_compare([opts[c] for c in chosen])
-                st.rerun()
+            st.button("对比这几家", key=f"cmpbtn_{key}_{g['name']}", disabled=len(chosen) < 2, type="primary",
+                      on_click=goto_compare, args=([opts[c] for c in chosen],))
 
 
 # ---------------------------------------------------------------------------
@@ -1072,9 +1244,7 @@ def page_compare():
             if lvl:
                 st.markdown(f"公司体检：<b style='color:{C.LEVEL_COLOR.get(lvl, '#555')}'>{lvl}</b>", unsafe_allow_html=True)
             st.caption(f"胜出 {d['wins'][x['ticker']]} 项")
-            if st.button("认识公司", key=f"cmpco_{x['ticker']}"):
-                goto_company(x["ticker"])
-                st.rerun()
+            st.button("📈 看这只股票", key=f"cmpco_{x['ticker']}", on_click=goto_analysis, args=(x["ticker"],))
     if d["mixed_currency"]:
         st.warning("这几只股票的货币不同，股价和市值不能直接比，看比例类的数字（P/E、ROE、增长率）就好。")
 
@@ -1141,12 +1311,8 @@ def show_quarter(x: dict, key: str):
     if x.get("ai"):
         st.info("🧠 " + x["ai"])
     b1, b2 = st.columns(2)
-    if b1.button("认识这家公司", key=f"qco_{key}"):
-        goto_company(x["ticker"])
-        st.rerun()
-    if b2.button("跟别家对比", key=f"qcmp_{key}"):
-        goto_compare([x["ticker"]])
-        st.rerun()
+    b1.button("📈 看这只股票的全部资料", key=f"qco_{key}", on_click=goto_analysis, args=(x["ticker"],))
+    b2.button("跟别家对比", key=f"qcmp_{key}", on_click=goto_compare, args=([x["ticker"]],))
 
 
 @st.cache_data(ttl=3600, show_spinner=False)
@@ -1317,9 +1483,8 @@ def ipo_card(r: dict, key: str):
                     live = st.session_state[f"ipo_live_{r['slug']}"]
                 except Exception as e:
                     st.error(f"❌ {e}")
-        if r.get("ticker") and b[1].button("认识这家公司", key=f"ipoco_{key}"):
-            goto_company(r["ticker"])
-            st.rerun()
+        if r.get("ticker"):
+            b[1].button("📈 看这只股票", key=f"ipoco_{key}", on_click=goto_analysis, args=(r["ticker"],))
         if live or saved:
             show_ipo_analysis(live or saved, key)
 
@@ -1483,13 +1648,7 @@ def news_card(e: dict, key: str):
         st.caption("　·　".join(meta))
         for a in e["articles"][:3]:
             st.markdown(f"🔗 [{a['title']}]({a['link']}) — {a.get('source') or ''}，{N._ago(a['published'])}")
-        b1, b2 = st.columns(2)
-        if b1.button("认识这家公司", key=f"nco_{key}"):
-            goto_company(e["ticker"])
-            st.rerun()
-        if b2.button("看走势和圆桌", key=f"nan_{key}"):
-            goto_analysis(e["ticker"])
-            st.rerun()
+        st.button("📈 看这只股票的全部资料", key=f"nan_{key}", on_click=goto_analysis, args=(e["ticker"],))
 
 
 @st.cache_data(ttl=1800, show_spinner=False)
@@ -1558,9 +1717,7 @@ def page_news():
                 st.info("最近 48 小时没有找到这家公司的新闻。")
             else:
                 st.html(NP.page(found, "最新", lang, "最重要", title=q.upper()))
-                b1, b2 = st.columns(2)
-                b1.button("🏢 认识这家公司", key="nq_co", on_click=goto_company, args=(found[0]["ticker"],))
-                b2.button("📊 看走势和圆桌", key="nq_an", on_click=goto_analysis, args=(found[0]["ticker"],))
+                st.button("📈 看这只股票的全部资料", key="nq_an", on_click=goto_analysis, args=(found[0]["ticker"],))
 
 
 # ---------------------------------------------------------------------------
@@ -1688,7 +1845,7 @@ def page_calendar():
         g1, g2, g3 = st.columns([3, 1, 1], vertical_alignment="bottom")
         t = g1.selectbox("想深入看哪一家？", [k for k, _ in opts], format_func=lambda k: f"{dict(opts)[k]}（{k}）", key="cal_pick")
         g2.button("📑 季度报告", width="stretch", on_click=goto_quarter, args=(t,))
-        g3.button("🏢 认识公司", width="stretch", on_click=goto_company, args=(t,))
+        g3.button("📈 个股页面", width="stretch", on_click=goto_analysis, args=(t,))
 
 
 # ---------------------------------------------------------------------------
@@ -1719,9 +1876,7 @@ def page_watchlist():
                 labels = {"below": "跌破", "above": "升破", "change_pct": "单日 ±", "rsi_below": "RSI <", "rsi_above": "RSI >"}
                 chips = "　".join(("🔔 " if k in x["triggered"] else "") + f"{labels.get(k, k)} {v}" for k, v in al.items())
                 c1.caption("提醒：" + chips)
-            b1, b2 = c1.columns(2)
-            b1.button("🏢 认识公司", key=f"wl_co_{x['ticker']}", on_click=goto_company, args=(x["ticker"],))
-            b2.button("📊 深入分析", key=f"wl_an_{x['ticker']}", on_click=goto_analysis, args=(x["ticker"],))
+            c1.button("📈 走势 · 资料 · AI 分析 →", key=f"wl_an_{x['ticker']}", on_click=goto_analysis, args=(x["ticker"],))
 
 
 # ---------------------------------------------------------------------------
@@ -1819,7 +1974,7 @@ def page_health():
 
 PAGES = {  # 顺序要跟 ui.NAV_GROUPS 的分组对应
     "📅 每日焦点": page_focus, "🧩 板块": page_sectors, "🔍 选股雷达": page_radar, "🏆 KLCI 50 观察": page_klci, "🆕 IPO 追踪": page_ipo, "📅 公告日历": page_calendar,
-    "📊 个股分析": page_analysis, "🏢 认识公司": page_company, "⚖️ 股票对比": page_compare, "📑 季度报告": page_quarterly,
+    "📊 个股分析": page_analysis, "⚖️ 股票对比": page_compare, "📑 季度报告": page_quarterly,
     "⭐ 自选股": page_watchlist, "🗞️ 新闻追踪": page_news, "💼 投资组合": page_portfolio, "📈 成绩单": page_track, "📰 周报": page_weekly,
     "🩺 系统状态": page_health}
 
@@ -1828,8 +1983,7 @@ if check_password():
     qp = st.query_params
     if not st.session_state.get("_qp_done"):
         if qp.get("company"):
-            st.session_state.company_query = qp["company"]
-            st.session_state.nav = "🏢 认识公司"
+            goto_analysis(qp["company"], "🏢 认识公司")
         elif qp.get("compare"):
             st.session_state.compare_query = [t for t in qp["compare"].split(",") if t][:3]
             st.session_state.nav = "⚖️ 股票对比"
@@ -1842,9 +1996,8 @@ if check_password():
         elif qp.get("news"):
             st.session_state.news_query = qp["news"]
             st.session_state.nav = "🗞️ 新闻追踪"
-        elif qp.get("analyze"):
-            st.session_state.query = qp["analyze"]
-            st.session_state.nav = "📊 个股分析"
+        elif qp.get("analyze") or qp.get("stock"):
+            goto_analysis(qp.get("stock") or qp["analyze"])
         elif qp.get("page") in ("focus", "radar", "klci", "sectors", "track", "weekly", "watch", "quarterly", "compare", "news", "ipo", "calendar"):
             st.session_state.nav = {"focus": "📅 每日焦点", "radar": "🔍 选股雷达", "klci": "🏆 KLCI 50 观察",
                                     "sectors": "🧩 板块", "track": "📈 成绩单", "weekly": "📰 周报",

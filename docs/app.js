@@ -74,12 +74,11 @@ function cmpButton(ticker) {
 }
 
 function actionButtons(ticker) {
-  const co = webLink("company", ticker), an = webLink("analyze", ticker);
-  if (!co) return `<div class="actions">${cmpButton(ticker)}</div>
-    <p class="muted">在「更多 → 设定」填上网站网址，就能从这里打开认识公司和基金经理圆桌。</p>`;
+  const st = webLink("stock", ticker);
+  if (!st) return `<div class="actions">${cmpButton(ticker)}</div>
+    <p class="muted">在「更多 → 设定」填上网站网址，就能从这里打开这只股票的完整页面（走势、资料、AI 分析、新闻）。</p>`;
   return `<div class="actions wrap">
-    <a class="btn" href="${co}" target="_blank" rel="noopener">认识公司</a>
-    <a class="btn ghost" href="${an}" target="_blank" rel="noopener">走势和圆桌</a>
+    <a class="btn" href="${st}" target="_blank" rel="noopener">📈 走势 · 资料 · AI 分析</a>
     ${cmpButton(ticker)}</div>`;
 }
 
@@ -656,7 +655,7 @@ function ipoCard(r) {
       ${a && a.summary ? `<p class="note"><small>${a.basis === "news" ? "新闻分析" : "招股书分析"}（${esc(a.level || "")}）</small>${esc(a.summary)}</p>` : ""}
       ${(r.articles || []).slice(0, 3).map(x => `<a class="nlink" href="${esc(x.link)}" target="_blank" rel="noopener">${esc(x.title)}<small>${esc(x.source || "")}　${esc((x.published || "").slice(0, 10))}</small></a>`).join("")}
       <div class="actions wrap" style="margin-top:8px">
-        ${r.ticker ? `<a class="btn" href="${webLink("company", r.ticker) || "#"}" target="_blank" rel="noopener">认识公司</a>` : ""}
+        ${r.ticker ? `<a class="btn" href="${webLink("stock", r.ticker) || "#"}" target="_blank" rel="noopener">📈 看这只股票</a>` : ""}
         ${web ? `<a class="btn" href="${web}" target="_blank" rel="noopener">🔍 ${a ? "看完整分析" : "分析这家公司"}</a>` : ""}
       </div>
     </div></details>`;
