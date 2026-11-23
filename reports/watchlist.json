@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23 21:14 UTC",
+ "updated": "2026-11-23 21:45 UTC",
  "stocks": [
   {
    "ticker": "1155.KL",
@@ -13,10 +13,10 @@
     "rsi_below": 30
    },
    "triggered": [],
-   "price": 9.87,
-   "change_pct": -0.6,
-   "rsi": 41.2,
-   "date": "2026-11-20",
+   "price": 9.89,
+   "change_pct": 0.2,
+   "rsi": 42.8,
+   "date": "2026-11-23",
    "chg_1m": -0.8,
    "high_6m": 11.38,
    "low_6m": 9.78
@@ -31,13 +31,13 @@
     "change_pct": 4
    },
    "triggered": [],
-   "price": 12.68,
-   "change_pct": 0.63,
-   "rsi": 35.5,
-   "date": "2026-11-20",
-   "chg_1m": -2.31,
+   "price": 12.46,
+   "change_pct": -1.74,
+   "rsi": 29.0,
+   "date": "2026-11-23",
+   "chg_1m": -5.89,
    "high_6m": 14.8,
-   "low_6m": 12.5
+   "low_6m": 12.4
   },
   {
    "ticker": "4065.KL",
@@ -47,13 +47,13 @@
    "market": "bursa",
    "alerts": {},
    "triggered": [],
-   "price": 8.44,
-   "change_pct": -1.17,
-   "rsi": 32.0,
-   "date": "2026-11-20",
-   "chg_1m": -1.86,
+   "price": 8.32,
+   "change_pct": -1.42,
+   "rsi": 28.4,
+   "date": "2026-11-23",
+   "chg_1m": -4.81,
    "high_6m": 10.28,
-   "low_6m": 8.4
+   "low_6m": 8.23
   },
   {
    "ticker": "NVDA",
