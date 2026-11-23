@@ -2,17 +2,19 @@
  "market": "idx",
  "market_name": "🇮🇩 印尼股市 IDX",
  "currency": "IDR",
- "date": "2026-11-13",
- "generated_at": "2026-11-13 16:31 WIB",
+ "date": "2026-11-20",
+ "generated_at": "2026-11-20 16:31 WIB",
  "tracked": 107,
  "universe_size": 109,
- "new_today": [],
+ "new_today": [
+  "EXCL.JK"
+ ],
  "recent": [
+  "EXCL.JK",
   "ITMG.JK",
   "ADMR.JK",
   "AMMN.JK",
   "AMRT.JK",
-  "AUTO.JK",
   "BBCA.JK",
   "BBNI.JK",
   "BINA.JK",
@@ -267,56 +269,6 @@
    ],
    "ticker": "ANTM.JK",
    "name": "Aneka Tambang",
-   "currency": "IDR",
-   "watch": false,
-   "found": null
-  },
-  "AUTO.JK": {
-   "period": "2026-09-30",
-   "prev_period": "2026-06-30",
-   "yoy_period": null,
-   "revenue": 6169151000000.0,
-   "net": 648460000000.0,
-   "eps": null,
-   "rev_yoy": null,
-   "net_yoy": null,
-   "rev_qoq": 10.2,
-   "net_qoq": 9.4,
-   "net_margin": 10.5,
-   "net_margin_yoy": null,
-   "gross_margin": 15.6,
-   "trend": {
-    "periods": [
-     "2025-06-30",
-     "2025-12-31",
-     "2026-03-31",
-     "2026-06-30",
-     "2026-09-30"
-    ],
-    "revenue": [
-     4688897000000.0,
-     5099474000000.0,
-     5256848000000.0,
-     5595855000000.0,
-     6169151000000.0
-    ],
-    "net": [
-     433393000000.0,
-     636455000000.0,
-     558949000000.0,
-     592486000000.0,
-     648460000000.0
-    ]
-   },
-   "score": 1,
-   "verdict": "一般",
-   "icon": "😐",
-   "reasons": [
-    "营收按季 +10.2%",
-    "净利按季 +9.4%"
-   ],
-   "ticker": "AUTO.JK",
-   "name": "Astra Otoparts",
    "currency": "IDR",
    "watch": false,
    "found": null
@@ -4228,55 +4180,56 @@
    "found": null
   },
   "EXCL.JK": {
-   "period": "2026-06-30",
-   "prev_period": "2026-03-31",
-   "yoy_period": "2025-06-30",
-   "revenue": 12173264000000.0,
-   "net": -277220000000.0,
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": "2025-09-30",
+   "revenue": 11744869000000.0,
+   "net": -606713000000.0,
    "eps": null,
-   "rev_yoy": 16.0,
+   "rev_yoy": 2.6,
    "net_yoy": null,
-   "rev_qoq": 3.0,
+   "rev_qoq": -3.5,
    "net_qoq": null,
-   "net_margin": -2.3,
-   "net_margin_yoy": -15.3,
-   "gross_margin": 59.7,
+   "net_margin": -5.2,
+   "net_margin_yoy": -12.0,
+   "gross_margin": 61.3,
    "trend": {
     "periods": [
-     "2025-06-30",
      "2025-09-30",
      "2025-12-31",
      "2026-03-31",
-     "2026-06-30"
+     "2026-06-30",
+     "2026-09-30"
     ],
     "revenue": [
-     10493717000000.0,
      11452569000000.0,
      11898497000000.0,
      11819341000000.0,
-     12173264000000.0
+     12173264000000.0,
+     11744869000000.0
     ],
     "net": [
-     -1608086000000.0,
      -1379561000000.0,
      -1823536000000.0,
      -716930000000.0,
-     -277220000000.0
+     -277220000000.0,
+     -606713000000.0
     ]
    },
-   "score": 2,
+   "score": 1,
    "verdict": "亏损收窄",
    "icon": "🩹",
    "reasons": [
-    "营收按年 +16.0%",
+    "营收按年 +2.6%",
     "仍然亏损，但亏损比去年同期收窄",
-    "净利率升到 -2.3%（去年 -15.3%）"
+    "净利率升到 -5.2%（去年 -12.0%）"
    ],
    "ticker": "EXCL.JK",
    "name": "XL Axiata",
    "currency": "IDR",
    "watch": false,
-   "found": null
+   "found": "2026-11-20",
+   "ai": null
   },
   "GEMS.JK": {
    "period": "2026-06-30",
@@ -4529,57 +4482,6 @@
    "watch": false,
    "found": null
   },
-  "JRPT.JK": {
-   "period": "2026-09-30",
-   "prev_period": "2026-06-30",
-   "yoy_period": "2025-09-30",
-   "revenue": 874591436000.0,
-   "net": 342205147000.0,
-   "eps": null,
-   "rev_yoy": 10.3,
-   "net_yoy": 7.5,
-   "rev_qoq": -6.1,
-   "net_qoq": -10.3,
-   "net_margin": 39.1,
-   "net_margin_yoy": 40.1,
-   "gross_margin": 54.1,
-   "trend": {
-    "periods": [
-     "2025-09-30",
-     "2025-12-31",
-     "2026-03-31",
-     "2026-06-30",
-     "2026-09-30"
-    ],
-    "revenue": [
-     792981643000.0,
-     1010204267000.0,
-     733724631000.0,
-     931743945000.0,
-     874591436000.0
-    ],
-    "net": [
-     318196768000.0,
-     400055436000.0,
-     285343795000.0,
-     381594052000.0,
-     342205147000.0
-    ]
-   },
-   "score": 2,
-   "verdict": "稳健",
-   "icon": "👍",
-   "reasons": [
-    "营收按年 +10.3%",
-    "净利按年 +7.5%",
-    "净利率降到 39.1%（去年 40.1%）"
-   ],
-   "ticker": "JRPT.JK",
-   "name": "Jaya Real Property",
-   "currency": "IDR",
-   "watch": false,
-   "found": null
-  },
   "KLBF.JK": {
    "period": "2026-09-30",
    "prev_period": "2026-06-30",
@@ -4827,56 +4729,6 @@
    ],
    "ticker": "MIKA.JK",
    "name": "Mitra Keluarga Karyasehat",
-   "currency": "IDR",
-   "watch": false,
-   "found": null
-  },
-  "MPRO.JK": {
-   "period": "2026-09-30",
-   "prev_period": "2026-06-30",
-   "yoy_period": null,
-   "revenue": 482087000.0,
-   "net": -16850148000.0,
-   "eps": null,
-   "rev_yoy": null,
-   "net_yoy": null,
-   "rev_qoq": -76.6,
-   "net_qoq": null,
-   "net_margin": -3495.3,
-   "net_margin_yoy": null,
-   "gross_margin": 11.0,
-   "trend": {
-    "periods": [
-     "2025-06-30",
-     "2025-12-31",
-     "2026-03-31",
-     "2026-06-30",
-     "2026-09-30"
-    ],
-    "revenue": [
-     1579911000.0,
-     1038393000.0,
-     1097934000.0,
-     2055958000.0,
-     482087000.0
-    ],
-    "net": [
-     -9102938000.0,
-     -7085654000.0,
-     -8716541000.0,
-     -7493865000.0,
-     -16850148000.0
-    ]
-   },
-   "score": -3,
-   "verdict": "亏损",
-   "icon": "🔻",
-   "reasons": [
-    "营收按季 -76.6%",
-    "这一季亏损"
-   ],
-   "ticker": "MPRO.JK",
-   "name": "Maha Properti Indonesia",
    "currency": "IDR",
    "watch": false,
    "found": null
@@ -5429,6 +5281,155 @@
    ],
    "ticker": "UNTR.JK",
    "name": "United Tractors",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "VKTR.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 418357000000.0,
+   "net": 401000000.0,
+   "eps": null,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": 38.7,
+   "net_qoq": null,
+   "net_margin": 0.1,
+   "net_margin_yoy": null,
+   "gross_margin": 13.5,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     195958000000.0,
+     372328000000.0,
+     344996000000.0,
+     301627000000.0,
+     418357000000.0
+    ],
+    "net": [
+     1427000000.0,
+     -12541000000.0,
+     3467000000.0,
+     -2342000000.0,
+     401000000.0
+    ]
+   },
+   "score": 1,
+   "verdict": "一般",
+   "icon": "😐",
+   "reasons": [
+    "营收按季 +38.7%"
+   ],
+   "ticker": "VKTR.JK",
+   "name": "VKTR Teknologi Mobilitas",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "NSSS.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 692227000000.0,
+   "net": 166733000000.0,
+   "eps": null,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": 29.8,
+   "net_qoq": -13.5,
+   "net_margin": 24.1,
+   "net_margin_yoy": null,
+   "gross_margin": 35.4,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     470201254369.0,
+     522279837570.0,
+     517129000000.0,
+     533265000000.0,
+     692227000000.0
+    ],
+    "net": [
+     152100811983.0,
+     93695562387.0,
+     141777000000.0,
+     192788000000.0,
+     166733000000.0
+    ]
+   },
+   "score": 0,
+   "verdict": "一般",
+   "icon": "😐",
+   "reasons": [
+    "营收按季 +29.8%",
+    "净利按季 -13.5%"
+   ],
+   "ticker": "NSSS.JK",
+   "name": "Nusantara Sawit Sejahtera",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "BSIM.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 752427000000.0,
+   "net": 105415000000.0,
+   "eps": null,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": 14.6,
+   "net_qoq": 37.8,
+   "net_margin": 14.0,
+   "net_margin_yoy": null,
+   "gross_margin": null,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     754351000000.0,
+     838393000000.0,
+     605983000000.0,
+     656347000000.0,
+     752427000000.0
+    ],
+    "net": [
+     93654000000.0,
+     35547000000.0,
+     48141000000.0,
+     76471000000.0,
+     105415000000.0
+    ]
+   },
+   "score": 2,
+   "verdict": "稳健",
+   "icon": "👍",
+   "reasons": [
+    "营收按季 +14.6%",
+    "净利按季 +37.8%"
+   ],
+   "ticker": "BSIM.JK",
+   "name": "Bank Sinarmas",
    "currency": "IDR",
    "watch": false,
    "found": null
