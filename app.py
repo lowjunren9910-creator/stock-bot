@@ -634,15 +634,20 @@ def cached_company(text: str) -> dict:
     return C.fetch(text)
 
 
-async def _company_ai(p: dict):
+async def _company_ai(p: dict, report: str | None):
     M.reset_clients()
-    return await C.ai_profile(p)
+    return await C.ai_profile(p, report)
 
 
 @st.cache_data(ttl=7 * 86400, show_spinner=False)
-def cached_company_ai(ticker: str, _p: dict):
-    # 出错会 raise → 不会被缓存，下次可以重试
-    return asyncio.run(_company_ai(_p))
+def cached_company_ai(ticker: str, report_key: str, _p: dict, _report: str | None = None):
+    # 出错会 raise → 不会被缓存，下次可以重试。report_key：有上传年报时是文件指纹（换年报就重写）
+    return asyncio.run(_company_ai(_p, _report))
+
+
+@st.cache_data(ttl=30 * 86400, show_spinner=False)
+def cached_report_excerpt(digest: str, _data: bytes) -> str:
+    return C.report_excerpt(_data)
 
 
 def md(text: str) -> str:
@@ -705,13 +710,35 @@ def fin_table(p: dict) -> pd.DataFrame:
 
 
 def show_company(p: dict):
+    import hashlib
+    rk = f"annual_{p['ticker']}"
+    with st.expander("📄 上传年报 / 季报 PDF（可选：AI 会读公司自己写的业务分部、产品、展望，分析更仔细）",
+                     expanded=False):
+        up = st.file_uploader("年报或季报 PDF（Bursa、公司官网下载的都可以）", type=["pdf"], key=f"up_{p['ticker']}")
+        if up is not None:
+            data = up.getvalue()
+            dg = hashlib.sha1(data).hexdigest()[:16]
+            with st.spinner("正在找年报里讲业务、分部、展望的页…"):
+                try:
+                    st.session_state[rk] = (dg, cached_report_excerpt(dg, data), up.name)
+                except Exception as e:
+                    st.error(f"读不到这个 PDF：{e}")
+        if st.session_state.get(rk):
+            dg, ex, nm = st.session_state[rk]
+            st.success(f"已读取「{nm}」：挑出 {len(ex):,} 字讲业务的内容。下面的分析已经根据它重写。" if ex
+                       else f"「{nm}」里找不到讲业务的文字（可能是扫描图片版的 PDF）。")
+            if st.button("不用这份年报", key=f"rm_{p['ticker']}"):
+                st.session_state.pop(rk, None)
+                st.rerun()
+    dg, report = (st.session_state[rk][0], st.session_state[rk][1] or None) if st.session_state.get(rk) else ("", None)
+
     ai, ai_err = None, None
     if M.check_setup():
         ai_err = "还没设置 AI key，下面只显示财务体检（数字评分）。"
     else:
-        with st.spinner("AI 研究员正在阅读资料、写报告…（约 20-40 秒）"):
+        with st.spinner("AI 分析员正在仔细阅读资料、分两段写业务报告…（第一次约 40-90 秒，之后 7 天内都很快）"):
             try:
-                ai = cached_company_ai(p["ticker"], p)
+                ai = cached_company_ai(p["ticker"], dg, p, report)
             except Exception as e:
                 ai_err = f"AI 研究员暂时无法工作：{e}"
     sec = ai["sections"] if ai else {}
@@ -744,15 +771,28 @@ def show_company(p: dict):
         if sec.get("一句话认识"):
             st.info("💡 " + sec["一句话认识"].replace("$", "\\$"))
 
-    # --- 业务 & 模式 ---
+    # --- 业务详解（像投行报告的业务部分）---
     if sec:
-        c1, c2 = st.columns(2)
-        with c1.container(border=True):
-            st.markdown("#### 🏭 主要业务")
-            st.markdown(md(sec.get("主要业务", "—")))
-        with c2.container(border=True):
-            st.markdown("#### 💰 营业模式")
-            st.markdown(md(sec.get("营业模式", "—")))
+        with st.container(border=True):
+            st.markdown("#### 🏭 业务详解" + ("　<span style='font-size:.8rem;opacity:.7'>（已参考你上传的年报）</span>"
+                                             if ai.get("with_report") else ""), unsafe_allow_html=True)
+            names = [("🏭 主要业务", "主要业务"), ("🧩 业务分部", "业务分部"), ("💰 营业模式", "营业模式"),
+                     ("🏁 行业与竞争", "行业与竞争"), ("🚀 增长动力", "增长动力"), ("🎯 关键指标", "关键指标")]
+            tabs = st.tabs([n for n, k in names])
+            for tab, (n, k) in zip(tabs, names):
+                with tab:
+                    txt = sec.get(k)
+                    st.markdown(md_list(txt) if txt else "—（AI 这次没有写这一部分，可以稍后重新整理页面再试）")
+                    if k == "行业与竞争" and p.get("peers"):
+                        st.caption("同一板块的同行（板块报告数据）")
+                        st.dataframe(pd.DataFrame(p["peers"]), hide_index=True, width="stretch")
+                    if k == "营业模式" and not p["fin"].empty:
+                        cols = [c for c in ("毛利率%", "营业利润率%", "净利率%", "ROE%") if c in p["fin"]]
+                        if cols:
+                            m = p["fin"][cols].dropna(how="all")
+                            m.index = [str(y) for y in m.index]
+                            st.caption("利润率走势（%）")
+                            st.line_chart(m, height=220)
 
     # --- 近几年成绩 ---
     with st.container(border=True):

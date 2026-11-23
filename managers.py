@@ -154,7 +154,9 @@ async def chat(system: str, user: str, max_tokens: int = 700) -> str:
             except Exception as e:
                 msg = str(e).lower()
                 gone = getattr(e, "status_code", None) in (400, 404) and "model" in msg
-                if gone and (provider, model) != MODELS[-1]:
+                # 一次要求太大（超过这个模型每分钟的额度上限）：等也没用，直接换下一个模型
+                big = getattr(e, "status_code", None) == 413 or "too large" in msg or "reduce your message" in msg
+                if (gone or big) and (provider, model) != MODELS[-1]:
                     last = e
                     continue  # 这个模型被下架了，换下一个
                 if provider != PROVIDER and (provider, model) == MODELS[-1] and not _is_rate_limit(e):

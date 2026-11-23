@@ -90,11 +90,13 @@ def _row(df, *names) -> pd.Series | None:
 # 财报项目：中文名 → (哪张表, Yahoo 上可能的英文名)
 ROWS = {
     "营收": ("income_stmt", ["Total Revenue", "Operating Revenue"]),
+    "毛利": ("income_stmt", ["Gross Profit"]),
     "营业利润": ("income_stmt", ["Operating Income"]),
     "净利润": ("income_stmt", ["Net Income", "Net Income Common Stockholders"]),
     "每股盈利": ("income_stmt", ["Diluted EPS", "Basic EPS"]),
     "营运现金流": ("cashflow", ["Operating Cash Flow"]),
     "自由现金流": ("cashflow", ["Free Cash Flow"]),
+    "资本开支": ("cashflow", ["Capital Expenditure"]),
     "总负债": ("balance_sheet", ["Total Debt"]),
     "股东权益": ("balance_sheet", ["Stockholders Equity", "Common Stock Equity"]),
 }
@@ -122,6 +124,10 @@ def fetch(text: str) -> dict:
         fin["净利率%"] = fin["净利润"] / fin["营收"] * 100
     if "净利润" in fin and "股东权益" in fin:
         fin["ROE%"] = fin["净利润"] / fin["股东权益"] * 100
+    if "营收" in fin:
+        for k, lab in (("毛利", "毛利率%"), ("营业利润", "营业利润率%")):
+            if k in fin:
+                fin[lab] = fin[k] / fin["营收"] * 100
 
     divs = _safe(t, "dividends")
     this_year = date.today().year
@@ -148,9 +154,87 @@ def fetch(text: str) -> dict:
         "officers": officers,
         "fin": fin,
         "dividends": div_years,
+        "quarters": _quarters(t),
+        "ratios": {k: info.get(v) for k, v in (("毛利率", "grossMargins"), ("营业利润率", "operatingMargins"),
+                                              ("净利率", "profitMargins"), ("营收按年增长", "revenueGrowth"),
+                                              ("盈利按年增长", "earningsGrowth"), ("ROE", "returnOnEquity"),
+                                              ("负债/股东权益%", "debtToEquity"), ("流动比率", "currentRatio"))
+                   if info.get(v) is not None},
+        "peers": peers_of(ticker),
     }
     p["scores"] = scorecard(p)
     return p
+
+
+def _quarters(t) -> dict:
+    """最近 5 季营收、净利（看最新趋势）。"""
+    q = _safe(t, "quarterly_income_stmt")
+    out = {}
+    if q is None or getattr(q, "empty", True):
+        return out
+    for lab, names in (("营收", ["Total Revenue", "Operating Revenue"]), ("净利润", ["Net Income", "Net Income Common Stockholders"])):
+        for n in names:
+            if n in q.index:
+                r = pd.to_numeric(q.loc[n], errors="coerce").dropna().sort_index().tail(5)
+                for d, v in r.items():
+                    out.setdefault(str(pd.Timestamp(d).date()), {})[lab] = big(v)
+                break
+    return out
+
+
+def peers_of(ticker: str, limit: int = 6) -> list[dict]:
+    """同一个板块的其他公司（来自板块报告），给 AI 当竞争对手 / 同行参考。"""
+    try:
+        import sectors as SE
+        import universe
+        r = SE.latest(universe.market_of(ticker))
+    except Exception:
+        return []
+    if not r:
+        return []
+    for g in r.get("sectors", []):
+        if any(m["ticker"] == ticker for m in g["members"]):
+            rows = [m for m in g["members"] if m["ticker"] != ticker][:limit]
+            pc = lambda v: None if v is None else round(v, 1)
+            return [{"公司": m["name"], "代码": m["ticker"], "板块": g["name"], "市值": big(m.get("mcap")),
+                     "P/E": pc(m.get("pe")), "ROE%": pc(m.get("roe")), "净利率%": pc(m.get("margin")),
+                     "营收增长%": pc(m.get("rev_growth"))} for m in rows]
+    return []
+
+
+# ---------------------------------------------------------------------------
+# 1b. 年报 / 季报 PDF（可选，自己上传）：挑出讲业务的段落
+# ---------------------------------------------------------------------------
+
+BIZ_WORDS = ["segment", "business review", "management discussion", "md&a", "operations review",
+             "revenue by", "our business", "principal activities", "outlook", "prospects", "market share",
+             "customers", "products", "brands", "stores", "capacity", "order book", "业务", "分部", "展望"]
+
+
+def report_excerpt(data: bytes, limit: int = 6000) -> str:
+    """从年报 PDF 挑出讲业务、分部、展望的页（英文 6000 字大约 1500 个 token，免费额度放得下）。"""
+    import io
+    from pypdf import PdfReader
+    rd = PdfReader(io.BytesIO(data))
+    pages = []
+    for i, pg in enumerate(rd.pages[:260]):
+        try:
+            t = re.sub(r"[ \t]+", " ", pg.extract_text() or "")
+        except Exception:
+            continue
+        low = t.lower()
+        hit = sum(low.count(w) for w in BIZ_WORDS)
+        if hit and len(t) > 300:
+            pages.append((hit, i, t))
+    pages.sort(key=lambda x: -x[0])
+    out, n = [], 0
+    for hit, i, t in sorted(pages[:8], key=lambda x: x[1]):
+        chunk = re.sub(r"\n{2,}", "\n", t).strip()[:2200]
+        out.append(f"[第 {i + 1} 页] {chunk}")
+        n += len(chunk)
+        if n >= limit:
+            break
+    return "\n".join(out)[:limit]
 
 
 # ---------------------------------------------------------------------------
@@ -265,56 +349,70 @@ def scorecard(p: dict) -> dict:
 # 3. AI 研究员
 # ---------------------------------------------------------------------------
 
-SECTIONS = ["一句话认识", "主要业务", "营业模式", "近几年成绩", "管理层",
-            "优势", "风险", "业务实力评级", "管理层评级", "综合评级"]
+SECTIONS = ["一句话认识", "主要业务", "业务分部", "营业模式", "行业与竞争", "增长动力", "关键指标",
+            "近几年成绩", "管理层", "优势", "风险", "业务实力评级", "管理层评级", "综合评级"]
+BIZ_SECTIONS = SECTIONS[:7]
 
 
-def _system() -> str:
-    return f"""你是一位资深股票研究员，要帮一位投资新手"认识一家公司"。今天是 {date.today():%Y年%m月%d日}。
-你会收到：公司资料、近几年财务数据、高管名单，以及一份规则计算的财务体检分数。
+def _rules() -> str:
+    return f"""今天是 {date.today():%Y年%m月%d日}。
+资料规则（很重要）：
+- 数字只能用提供的资料（年度 / 季度财报、比率、同行表、年报摘录、近期动态），不要自己编数字；资料没有就写「资料未提供」
+- 「年报摘录」是公司自己写的，最可靠：有提供的话，业务分部、产品、市场、展望要优先根据它，并写出里面的数字（例如分部营收占比、店数、产能、订单）
+- 你的知识有截止日期：讲「最近」「现在」只能根据近期动态；用自己的知识补充（例如行业常识、知名竞争对手）时要写「据我所知」
+- 绝对不要编造人名、合约、事件；不确定就说不确定
+- 用简体中文，像投资银行研究报告一样仔细、具体，但要让投资新手看得懂：专业名词第一次出现时用括号简单解释
+- 不要用 Markdown 符号（不要 **、#），列点用「1. 2. 3.」或「- 」"""
 
-写作要求：
-- 用简体中文，口语化、易懂；专业名词第一次出现时用括号简单解释
-- 「近几年成绩」必须引用提供的数字（例如营收从多少增长到多少）
-- 「管理层」只根据提供的高管名单、持股比例、治理分数，加上你确定知道的公开信息来写；不确定就说"资料不足"，绝对不要编造人名、经历或事件
-- 「近期动态」是截至今天的最新资料（最近新闻附日期、重大事件、最新一季业绩、即将到来的业绩日 / 除权日）。
-  你的知识有截止日期，记得的公司近况可能已经过时：讲「最近」「现在」只能根据近期动态，跟记忆冲突时以近期动态为准；
-  「近几年成绩」最后一句要提最新一季业绩（如果有提供）；【风险】或【优势】里要反映近期动态中重要的事（如果有）。
-  用你自己的知识补充背景时要说"据我所知"
-- 不要用 Markdown 符号（不要 **、#）
 
-严格按下面格式输出，每个标题都要有，总字数 600-900 字：
-【一句话认识】一句话说清楚这家公司是做什么的
-【主要业务】3-4 句：卖什么产品/服务、客户是谁、主要市场在哪
-【营业模式】3-4 句：靠什么赚钱、主要收入来源、成本结构、有没有护城河（难以被抄袭的竞争优势）
-【近几年成绩】3-5 句：营收、利润、利润率、现金流的趋势，亮点和问题
-【管理层】2-4 句：主要领导人、内部人持股、公司治理
-【优势】2-3 点，用 1. 2. 3. 编号
-【风险】2-3 点，用 1. 2. 3. 编号
+def _system_business() -> str:
+    return f"""你是投资银行的资深股票分析员，专门写「公司业务」研究，要把一家公司的生意讲得非常清楚、仔细。
+{_rules()}
+
+严格按下面格式输出，每个标题都要有（总共约 1500-2000 字）：
+【一句话认识】一句话：这家公司靠什么赚钱、在行业里是什么角色
+【主要业务】5-7 句：卖什么产品 / 服务（举出具体产品、品牌或服务名称）、客户是谁（个人 / 企业 / 政府）、主要市场和地区、规模（员工、门店、产能、客户数等，有资料才写）
+【业务分部】列出每个业务分部，每个一段：做什么、主要产品、营收或利润占比和趋势（有资料才写数字）、这个分部的前景。资料没有分部数字就根据业务简介分类，并注明「占比资料未提供」
+【营业模式】分 4 点写：1. 收入怎么来（卖一次 / 经常性收入？靠量还是靠价？有没有季节性）2. 成本结构（毛利率、营业利润率的数字和这几年的变化，主要成本是什么）3. 要花多少钱维持和扩张（资本开支占营收多少、营运现金流跟净利比较，赚的是不是真金白银）4. 定价能力和护城河（难以被抄袭的竞争优势是什么，有多强）
+【行业与竞争】4-6 句：行业现在的情况和周期（景气 / 低迷 / 受什么影响）、主要竞争对手（优先用提供的同行表，跟这家公司比 P/E、ROE、利润率、增长）、这家公司的市场地位
+【增长动力】3-4 点，每点说明：是什么、有多大影响、什么时候会看到（尽量引用年报摘录或近期动态的具体事件和日期）
+【关键指标】3-4 个这个行业最值得追踪的数字（例如零售看同店销售和开店数、银行看贷款增长和净利息收益率、建筑看订单），每个一句话说明为什么重要、现在的情况（有资料才写）"""
+
+
+def _system_rest() -> str:
+    return f"""你是投资银行的资深股票分析员。你已经写好了这家公司的业务分析（会附上），现在要写成绩、管理层、优势、风险和评级。
+{_rules()}
+
+严格按下面格式输出，每个标题都要有（总共约 800-1100 字）：
+【近几年成绩】5-7 句：营收、毛利率、营业利润、净利、现金流的趋势（必须引用年度财报的数字，例如营收从多少增长到多少），最近几季的变化，亮点和问题；最后一句提最新一季业绩（如果有提供）
+【管理层】3-4 句：主要领导人、内部人持股、机构持股、公司治理；只根据提供的资料和你确定知道的公开信息，不确定就说「资料不足」
+【优势】3 点，用 1. 2. 3. 编号，每点要有根据（数字或事实）
+【风险】3-4 点，用 1. 2. 3. 编号，每点说明会怎样影响盈利；要反映近期动态里的重要事情（如果有）
 【业务实力评级】从 弱 / 偏弱 / 中等 / 偏强 / 强 选一个，接着一句话理由
 【管理层评级】同上
 【综合评级】同上（综合业务、财务和管理层；可参考财务体检，但可以有自己的判断）"""
 
 
-def _brief(p: dict) -> str:
+def _data(p: dict, report_text: str | None = None) -> dict:
     table = {}
     for y, row in p["fin"].iterrows():
         table[str(y)] = {k: (f"{v:.1f}%" if k.endswith("%") else big(v))
                          for k, v in row.dropna().items()}
+    r = p.get("ratios") or {}
+    ratios = {k: (f"{v * 100:.1f}%" if k not in ("负债/股东权益%", "流动比率") else round(v, 2)) for k, v in r.items()}
     data = {
         "公司": p["name"], "代码": p["ticker"], "市场": p["market"],
-        "行业": f"{p['sector'] or ''} / {p['industry'] or ''}", "国家": p["country"],
+        "行业": f"{p['sector'] or ''} / {p['industry'] or ''}", "国家": p["country"], "网站": p.get("website"),
         "员工人数": p["employees"], "市值": big(p["market_cap"]), "财报货币": p["currency"],
-        "英文业务简介": p["summary"][:2000],
+        "英文业务简介": p["summary"][:3000],
         "近几年财务（年度）": table,
+        "最近几季（季度）": p.get("quarters") or {},
+        "最新比率": ratios,
+        "同行（同一板块）": p.get("peers") or [],
         "每年股息（每股）": p["dividends"],
-        "高管名单": p["officers"],
-        "内部人持股%": round(p["insider_pct"] * 100, 1) if p["insider_pct"] else None,
-        "机构持股%": round(p["institution_pct"] * 100, 1) if p["institution_pct"] else None,
-        "ISS治理风险分(1好-10差)": p["governance_risk"],
-        "财务体检": [{k: it[k] for k in ("name", "level", "reason")} for it in p["scores"]["items"]],
-        "财务体检总评": p["scores"]["level"],
     }
+    if report_text:
+        data["年报摘录（公司自己写的，英文原文）"] = report_text
     try:                                   # 最新资料：最近 14 天新闻、重大事件、最新季报、公告日历
         import recent
         ctx = recent.context(p["ticker"])
@@ -322,7 +420,27 @@ def _brief(p: dict) -> str:
         data["近期动态"] = ctx
     except Exception as e:
         print("近期动态失败：", e)
-    return json.dumps(data, ensure_ascii=False, default=str, indent=1)
+    return data
+
+
+def _brief(p: dict, report_text: str | None = None) -> str:
+    return json.dumps(_data(p, report_text), ensure_ascii=False, default=str, separators=(",", ":"))
+
+
+def _brief_rest(p: dict, business: str) -> str:
+    d = _data(p)
+    for k in ("英文业务简介", "同行（同一板块）"):
+        d.pop(k, None)
+    d.update({
+        "高管名单": p["officers"],
+        "内部人持股%": round(p["insider_pct"] * 100, 1) if p["insider_pct"] else None,
+        "机构持股%": round(p["institution_pct"] * 100, 1) if p["institution_pct"] else None,
+        "ISS治理风险分(1好-10差)": p["governance_risk"],
+        "财务体检": [{k: it[k] for k in ("name", "level", "reason")} for it in p["scores"]["items"]],
+        "财务体检总评": p["scores"]["level"],
+        "你写好的业务分析（摘要）": business[:2500],
+    })
+    return json.dumps(d, ensure_ascii=False, default=str, separators=(",", ":"))
 
 
 def parse_sections(text: str) -> dict:
@@ -330,16 +448,19 @@ def parse_sections(text: str) -> dict:
     return {parts[i].strip(): parts[i + 1].strip() for i in range(1, len(parts) - 1, 2)}
 
 
-async def ai_profile(p: dict) -> dict | None:
-    """返回 AI 报告；没设置 AI key 返回 None；API 出错会 raise（让调用方处理）。"""
+async def ai_profile(p: dict, report_text: str | None = None) -> dict | None:
+    """返回 AI 报告（分两次写：先写业务，再写成绩 / 风险 / 评级，每次不超过免费额度的上限）。
+    没设置 AI key 返回 None；API 出错会 raise（让调用方处理）。report_text：年报摘录（可选）。"""
     import managers as M
     if M.check_setup():
         return None
-    text = await M.chat(_system(), f"请帮我认识这家公司：\n{_brief(p)}", max_tokens=1800)
+    biz = await M.chat(_system_business(), f"请仔细分析这家公司的业务：\n{_brief(p, report_text)}", max_tokens=3200 if report_text else 3600)
+    rest = await M.chat(_system_rest(), f"请写成绩、管理层、优势、风险和评级：\n{_brief_rest(p, biz)}", max_tokens=2200)
+    text = biz.strip() + "\n" + rest.strip()
     sec = parse_sections(text)
     if not sec:  # 模型没按格式写，至少把全文显示出来
         sec = {"一句话认识": text}
-    return {"sections": sec, "raw": text,
+    return {"sections": sec, "raw": text, "with_report": bool(report_text),
             "levels": {k: parse_level(sec.get(k, ""))
                        for k in ("业务实力评级", "管理层评级", "综合评级")}}
 
@@ -358,7 +479,8 @@ def to_telegram_html(p: dict, ai: dict | None) -> str:
         lines += ["", f"<b>⭐ 综合评级：{lv.get('综合评级') or '无'}</b>",
                   f"业务实力 {lv.get('业务实力评级') or '无'}｜管理层 {lv.get('管理层评级') or '无'}"
                   f"｜财务体检 {sc['level'] or '无'}"]
-        for k, icon in [("一句话认识", "💡"), ("主要业务", "🏭"), ("营业模式", "💰"),
+        for k, icon in [("一句话认识", "💡"), ("主要业务", "🏭"), ("业务分部", "🧩"), ("营业模式", "💰"),
+                        ("行业与竞争", "🏁"), ("增长动力", "🚀"), ("关键指标", "🎯"),
                         ("近几年成绩", "📈"), ("管理层", "👔"), ("优势", "✅"),
                         ("风险", "⚠️"), ("综合评级", "⭐")]:
             if ai["sections"].get(k):
