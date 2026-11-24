@@ -1843,6 +1843,8 @@ def page_news():
     evs = [e for e in events if e.get("importance", 1) >= min_imp and e.get("published", "") >= cut
            and (not pick or set(tick(e)) & set(pick))]
 
+    if r and r.get("ai_error"):
+        st.error("⚠️ " + r["ai_error"])
     if not r:
         st.info("还没有新闻记录。新闻追踪每小时自动跑一次（GitHub Actions 的「新闻追踪」），第一次运行后这里就会有内容。")
     else:

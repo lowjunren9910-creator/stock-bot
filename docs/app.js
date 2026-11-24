@@ -770,6 +770,7 @@ async function renderNews() {
   const evs = r.events.filter(e => (!pick || (pick === "macro" ? e.type === "macro" : (e.tickers || [e.ticker]).includes(pick)))
                                    && e.importance >= (state.newsAll ? 1 : 3));
   return `${back}
+    ${r.ai_error ? `<p class="lede" style="color:#ef4444">⚠️ ${esc(r.ai_error)}</p>` : ""}
     <div class="switch" style="margin-top:12px"><button data-npick="" aria-selected="${!pick}">全部</button>
       <button data-npick="macro" aria-selected="${pick === "macro"}">🌏 宏观</button>
       ${r.companies.map(c => `<button data-npick="${esc(c.ticker)}" aria-selected="${pick === c.ticker}">${esc(c.name)}</button>`).join("")}</div>
@@ -1062,7 +1063,7 @@ document.addEventListener("visibilitychange", () => {
 });
 
 // App 版本：每次更新功能都会改这个号码（「更多 → 设定」看得到）
-const APP_VERSION = "v11 · 2026-11-24";
+const APP_VERSION = "v12 · 2026-11-24";
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).then(reg => {
     // 每次回到 app 都检查有没有新版本

@@ -30,7 +30,7 @@ import requests
 ROOT = Path(__file__).parent
 DIR = ROOT / "reports" / "news"
 FEED = DIR / "feed.json"
-SEEN = DIR / "seen.json"
+SEEN = DIR / "seen_v2.json"      # v2：以前 AI key 没设好时，新闻被标成「看过」但没分析，换新文件重新来
 
 MAX_AGE_HOURS = 48          # 只看最近 48 小时的新闻
 FEED_KEEP_DAYS = 30
@@ -411,8 +411,9 @@ def price_context(ticker: str) -> dict:
 def analyze(c: dict, items: list[dict], px: dict | None = None) -> list[dict]:
     import asyncio
     import managers as M
-    if M.check_setup():
-        return []
+    err = M.check_setup()
+    if err:                                  # 没有 AI key：当作失败，新闻不标记为看过（设好 key 之后会重新分析）
+        raise RuntimeError(err)
     px = px if px is not None else price_context(c["ticker"])
     brief = {"公司": f"{c.get('long_name') or c['name']} ({c['ticker']})", "公司资料": c.get("about") or {},
              "股价近况": px,
@@ -635,8 +636,13 @@ def run(push: bool = True) -> dict:
     max_ai = int(os.getenv("NEWS_AI_MAX") or 8)        # 每次最多几次 AI（控制额度）
     print(f"新闻追踪：{len(comps)} 家公司" + ("（第一次运行：先分析存起来，不推送）" if first_run else ""))
 
+    import managers as M
+    ai_err = M.check_setup()
+    if ai_err:
+        print("❌❌ AI 没有设置好，这次不分析新闻：", ai_err)
+        print("   → 到 GitHub 仓库 Settings → Secrets and variables → Actions，确认有 GROQ_API_KEY（和 AI_PROVIDER）")
     new_events, ai_used = [], 0
-    for c in comps:
+    for c in (comps if not ai_err else []):
         items = gather(c, seen)
         if not items:
             continue
@@ -657,7 +663,7 @@ def run(push: bool = True) -> dict:
     # 宏观新闻：默认每 2 小时一次（一次 AI 看完全部标题），有牵连到你的公司才留下
     every = float(os.getenv("NEWS_MACRO_EVERY") or 2)
     now = datetime.now(timezone.utc)
-    if every > 0 and comps and macro_due(every, now):
+    if every > 0 and comps and not ai_err and macro_due(every, now):
         heads = macro_headlines({c["market"] for c in comps}, seen)
         print(f"  宏观新闻：{len(heads)} 条新标题")
         if heads:
@@ -692,7 +698,9 @@ def run(push: bool = True) -> dict:
            "companies": [{k: c[k] for k in ("ticker", "name", "market", "keywords")} for c in comps],
            "followed": load_follow(),
            "events": events[:300],
-           "note": "AI 只看了新闻标题和摘要，重要新闻请点链接看原文。影响判断仅供参考，不构成投资建议。"}
+           "note": "AI 只看了新闻标题和摘要，重要新闻请点链接看原文。影响判断仅供参考，不构成投资建议。",
+           "ai_error": (f"GitHub 自动任务没有 AI key，新闻没有被分析：{ai_err} 请到 GitHub 仓库 Settings → Secrets and variables → "
+                        "Actions 加上 GROQ_API_KEY（和网站用的同一把）。") if ai_err else None}
     try:                                             # 每则新闻配一张图（手机 App 直接用）
         import themes
         for e in out["events"]:
