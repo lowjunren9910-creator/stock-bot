@@ -492,10 +492,20 @@ def page_portfolio():
         st.session_state.pf = pd.DataFrame(
             {"代码": ["1155.KL"], "数量": [1000.0], "平均成本": [9.80]})
 
-    up = st.file_uploader("上传之前下载的 CSV", type="csv")
+    up = st.file_uploader("上传之前下载的 CSV（栏位：代码、数量、平均成本；英文 ticker / qty / cost 也可以）", type="csv")
     if up is not None and st.session_state.get("pf_loaded") != up.name:
-        st.session_state.pf = pd.read_csv(up)
-        st.session_state.pf_loaded = up.name
+        try:
+            st.session_state.pf = PC.normalize(pd.read_csv(up, encoding="utf-8-sig"))
+            st.session_state.pf_loaded = up.name
+            st.session_state.pf_editor_v = st.session_state.get("pf_editor_v", 0) + 1
+        except Exception as e:
+            st.error(f"❌ 读不懂这个 CSV：{e}")
+            st.session_state.pf_loaded = up.name
+    try:                                   # 表格万一栏名不对（旧资料、奇怪的 CSV）：修正，修不了就重来
+        st.session_state.pf = PC.normalize(st.session_state.pf)
+    except Exception:
+        st.warning("投资组合表格的栏位不对，已经重设。请重新输入或上传。")
+        st.session_state.pf = pd.DataFrame({"代码": ["1155.KL"], "数量": [1000.0], "平均成本": [9.80]})
         st.session_state.pf_editor_v = st.session_state.get("pf_editor_v", 0) + 1
 
     pf = st.data_editor(st.session_state.pf, num_rows="dynamic", width="stretch",
@@ -503,8 +513,12 @@ def page_portfolio():
                         column_config={"数量": st.column_config.NumberColumn(min_value=0),
                                        "平均成本": st.column_config.NumberColumn(format="%.4f")})
     st.session_state.pf = pf
+    try:
+        clean = PC.normalize(pf).dropna()
+    except Exception:
+        clean = pd.DataFrame(columns=["代码", "数量", "平均成本"])
     holdings = [{"代码": str(r["代码"]), "数量": float(r["数量"]), "平均成本": float(r["平均成本"])}
-                for _, r in pf.dropna().iterrows() if str(r["代码"]).strip() and float(r["数量"]) > 0]
+                for _, r in clean.iterrows() if str(r["代码"]).strip() not in ("", "nan") and float(r["数量"]) > 0]
 
     st.download_button("⬇️ 下载 CSV", pf.to_csv(index=False).encode("utf-8-sig"),
                        "my_portfolio.csv", "text/csv")

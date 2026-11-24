@@ -40,6 +40,34 @@ def parse_link(s: str) -> list[dict]:
     return out
 
 
+ALIASES = {
+    "代码": ["代码", "股票", "股票代码", "ticker", "symbol", "code", "stock", "股票名称", "名称", "name"],
+    "数量": ["数量", "股数", "qty", "quantity", "shares", "units", "持股", "持仓", "holding"],
+    "平均成本": ["平均成本", "成本", "成本价", "均价", "cost", "avg cost", "average cost", "avg price", "average price", "price", "买入价"],
+}
+
+
+def normalize(df: pd.DataFrame) -> pd.DataFrame:
+    """把各种栏名（BOM、英文、券商导出的格式）统一成：代码 / 数量 / 平均成本。找不到就 raise ValueError。"""
+    clean = {c: str(c).replace("\ufeff", "").strip() for c in df.columns}
+    df = df.rename(columns=clean)
+    low = {c.lower(): c for c in df.columns}
+    rename, missing = {}, []
+    for std, names in ALIASES.items():
+        hit = next((low[n] for n in names if n in low), None)
+        if hit is None:
+            missing.append(std)
+        else:
+            rename[hit] = std
+    if missing:
+        raise ValueError(f"找不到这些栏：{'、'.join(missing)}（现在的栏是：{'、'.join(map(str, df.columns))}）")
+    out = df.rename(columns=rename)[["代码", "数量", "平均成本"]].copy()
+    out["代码"] = out["代码"].astype(str).str.strip()
+    for c in ("数量", "平均成本"):
+        out[c] = pd.to_numeric(out[c].astype(str).str.replace(",", "").str.replace("RM", "").str.strip(), errors="coerce")
+    return out
+
+
 def fx_rates(curs: set[str]) -> tuple[dict, bool]:
     """各货币 → 令吉的汇率。取不到用约值（会注明）。"""
     rates, approx = {"MYR": 1.0}, False
