@@ -303,6 +303,12 @@ function renderSettings() {
         <div class="actions" style="margin-top:14px"><button class="btn">保存设定</button></div>
         <p id="saved" class="muted" hidden>已保存。</p>
       </form>
+    </section>
+    <section>
+      <h3>App 版本</h3>
+      <p class="lede">现在用的是 <b>${APP_VERSION}</b>。有网络时 app 会自动用最新版；如果新功能没出现，按下面的按钮。</p>
+      <div class="actions"><button class="btn ghost" data-act="forceupdate">🔄 强制更新到最新版</button></div>
+      <p class="muted">个股页面（走势、AI 分析、认识公司）、上传年报这些功能在网站上；app 里按「📈 走势 · 资料 · AI 分析」会打开网站。记得在上面填好网站网址。</p>
     </section>`;
 }
 
@@ -983,6 +989,7 @@ document.addEventListener("click", e => {
   else if (t.dataset.npick !== undefined) { state.newsPick = t.dataset.npick; render(); }
   else if (t.dataset.calper) { state.calPer = t.dataset.calper; render(); }
   else if (t.dataset.calkind !== undefined) { state.calKind = t.dataset.calkind; render(); }
+  else if (t.dataset.act === "forceupdate") { t.textContent = "更新中…"; forceUpdate(); }
   else if (t.dataset.act === "calmine") { state.calMine = !state.calMine; render(); }
   else if (t.dataset.act === "newsall") { state.newsAll = !state.newsAll; render(); }
   else if (t.dataset.gosub) { state.tab = "more"; state.sub = t.dataset.gosub; store.set("tab", "more"); window.scrollTo(0, 0); render(); }
@@ -1050,5 +1057,26 @@ document.addEventListener("visibilitychange", () => {
   if (document.visibilityState === "visible" && Date.now() - state.loadedAt > 10 * 60 * 1000 && state.tab !== "search") render(true);
 });
 
-if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
+// App 版本：每次更新功能都会改这个号码（「更多 → 设定」看得到）
+const APP_VERSION = "v10 · 2026-11-24";
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).then(reg => {
+    // 每次回到 app 都检查有没有新版本
+    document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") reg.update().catch(() => {}); });
+  }).catch(() => {});
+  // 新版本装好了 → 自动重新载入一次，马上用到新功能
+  let reloaded = false;
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    if (!reloaded && navigator.serviceWorker.controller) { reloaded = true; location.reload(); }
+  });
+}
+async function forceUpdate() {
+  try {
+    const regs = await navigator.serviceWorker?.getRegistrations?.() || [];
+    await Promise.all(regs.map(r => r.unregister()));
+    const keys = await caches.keys();
+    await Promise.all(keys.filter(k => k.startsWith("shell-")).map(k => caches.delete(k)));
+  } catch (e) {}
+  location.reload();
+}
 render();
