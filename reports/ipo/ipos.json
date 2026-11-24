@@ -14,7 +14,7 @@
    ],
    "ipo_price": 0.18,
    "issuing_house": "Malaysian Issuing House",
-   "updated": "2026-11-22"
+   "updated": "2026-11-24"
   },
   "ioipg-malaysia-real-estate-investment-trust": {
    "name": "Ioipg Malaysia Real Estate Investment Trust",
@@ -30,7 +30,7 @@
    ],
    "ipo_price": 0.96,
    "issuing_house": "Malaysian Issuing House",
-   "updated": "2026-11-22"
+   "updated": "2026-11-24"
   },
   "big-caring": {
    "name": "Big Caring Group Bhd",
@@ -78,8 +78,24 @@
    ],
    "ipo_price": 0.28,
    "issuing_house": "Malaysian Issuing House",
-   "updated": "2026-11-22"
+   "updated": "2026-11-24"
+  },
+  "empg": {
+   "name": "Empg Group Berhad",
+   "slug": "empg",
+   "first_seen": "2026-11-23",
+   "stage": "招股中",
+   "articles": [],
+   "history": [
+    {
+     "date": "2026-11-23",
+     "stage": "招股中"
+    }
+   ],
+   "ipo_price": 0.28,
+   "issuing_house": "Malaysian Issuing House",
+   "updated": "2026-11-24"
   }
  },
- "updated": "2026-11-21 19:48 UTC"
+ "updated": "2026-11-23 22:56 UTC"
 }
