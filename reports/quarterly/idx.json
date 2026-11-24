@@ -2,12 +2,15 @@
  "market": "idx",
  "market_name": "🇮🇩 印尼股市 IDX",
  "currency": "IDR",
- "date": "2026-11-23",
- "generated_at": "2026-11-23 16:31 WIB",
+ "date": "2026-11-24",
+ "generated_at": "2026-11-24 16:31 WIB",
  "tracked": 107,
  "universe_size": 109,
- "new_today": [],
+ "new_today": [
+  "EMAS.JK"
+ ],
  "recent": [
+  "EMAS.JK",
   "EXCL.JK",
   "ITMG.JK",
   "ADMR.JK",
@@ -66,8 +69,7 @@
   "PGUN.JK",
   "POWR.JK",
   "SIDO.JK",
-  "SRTG.JK",
-  "TINS.JK"
+  "SRTG.JK"
  ],
  "items": {
   "ADMR.JK": {
@@ -723,55 +725,56 @@
    "found": null
   },
   "EMAS.JK": {
-   "period": "2026-06-30",
-   "prev_period": "2026-03-31",
-   "yoy_period": "2025-06-30",
-   "revenue": 28212306.0,
-   "net": -3946652.0,
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": "2025-09-30",
+   "revenue": 39522173.0,
+   "net": -4105386.0,
    "eps": null,
-   "rev_yoy": 33486.1,
+   "rev_yoy": 134160.2,
    "net_yoy": null,
-   "rev_qoq": 966.8,
+   "rev_qoq": 40.1,
    "net_qoq": null,
-   "net_margin": -14.0,
-   "net_margin_yoy": -8140.6,
-   "gross_margin": 46.1,
+   "net_margin": -10.4,
+   "net_margin_yoy": -21160.8,
+   "gross_margin": 50.1,
    "trend": {
     "periods": [
-     "2025-06-30",
      "2025-09-30",
      "2025-12-31",
      "2026-03-31",
-     "2026-06-30"
+     "2026-06-30",
+     "2026-09-30"
     ],
     "revenue": [
-     84000.0,
      29437.0,
      18527.0,
      2644694.0,
-     28212306.0
+     28212306.0,
+     39522173.0
     ],
     "net": [
-     -6838144.0,
      -6229104.0,
      -5213206.0,
      -10930348.0,
-     -3946652.0
+     -3946652.0,
+     -4105386.0
     ]
    },
    "score": 2,
    "verdict": "亏损收窄",
    "icon": "🩹",
    "reasons": [
-    "营收按年 +33486.1%",
+    "营收按年 +134160.2%",
     "仍然亏损，但亏损比去年同期收窄",
-    "净利率升到 -14.0%（去年 -8140.6%）"
+    "净利率升到 -10.4%（去年 -21160.8%）"
    ],
    "ticker": "EMAS.JK",
    "name": "Merdeka Gold Resources",
    "currency": "IDR",
    "watch": false,
-   "found": null
+   "found": "2026-11-24",
+   "ai": null
   },
   "ENRG.JK": {
    "period": "2026-09-30",
@@ -4077,56 +4080,6 @@
    "watch": false,
    "found": null
   },
-  "CBDK.JK": {
-   "period": "2026-09-30",
-   "prev_period": "2026-06-30",
-   "yoy_period": null,
-   "revenue": 355848321000.0,
-   "net": 141110611000.0,
-   "eps": null,
-   "rev_yoy": null,
-   "net_yoy": null,
-   "rev_qoq": -75.6,
-   "net_qoq": -87.6,
-   "net_margin": 39.7,
-   "net_margin_yoy": null,
-   "gross_margin": 53.1,
-   "trend": {
-    "periods": [
-     "2025-06-30",
-     "2025-12-31",
-     "2026-03-31",
-     "2026-06-30",
-     "2026-09-30"
-    ],
-    "revenue": [
-     769126979000.0,
-     205498122000.0,
-     742591511000.0,
-     1459236083000.0,
-     355848321000.0
-    ],
-    "net": [
-     387050165000.0,
-     52706998000.0,
-     541437397000.0,
-     1141362256000.0,
-     141110611000.0
-    ]
-   },
-   "score": -2,
-   "verdict": "偏弱",
-   "icon": "👎",
-   "reasons": [
-    "营收按季 -75.6%",
-    "净利按季 -87.6%"
-   ],
-   "ticker": "CBDK.JK",
-   "name": "Bangun Kosambi Sukses",
-   "currency": "IDR",
-   "watch": false,
-   "found": null
-  },
   "CPIN.JK": {
    "period": "2026-09-30",
    "prev_period": "2026-06-30",
@@ -5428,6 +5381,56 @@
    ],
    "ticker": "BSIM.JK",
    "name": "Bank Sinarmas",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "BBHI.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 579149924251.0,
+   "net": 104428200151.0,
+   "eps": null,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": 7.5,
+   "net_qoq": -19.4,
+   "net_margin": 18.0,
+   "net_margin_yoy": null,
+   "gross_margin": null,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     442674964547.0,
+     606651449379.0,
+     489837216380.0,
+     538542256348.0,
+     579149924251.0
+    ],
+    "net": [
+     114531866393.0,
+     194383599090.0,
+     104062237589.0,
+     129611651392.0,
+     104428200151.0
+    ]
+   },
+   "score": 0,
+   "verdict": "一般",
+   "icon": "😐",
+   "reasons": [
+    "营收按季 +7.5%",
+    "净利按季 -19.4%"
+   ],
+   "ticker": "BBHI.JK",
+   "name": "Allo Bank Indonesia",
    "currency": "IDR",
    "watch": false,
    "found": null
