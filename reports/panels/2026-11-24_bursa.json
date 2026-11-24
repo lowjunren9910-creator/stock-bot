@@ -1,0 +1,102 @@
+{
+ "date": "2026-11-24",
+ "market": "bursa",
+ "panels": [
+  {
+   "ticker": "1155.KL",
+   "name": "1155.KL",
+   "price": 10.140000343322754,
+   "opinions": [
+    {
+     "id": "value",
+     "name": "老陈",
+     "rating": null
+    },
+    {
+     "id": "growth",
+     "name": "Kelly",
+     "rating": null
+    },
+    {
+     "id": "technical",
+     "name": "阿杰",
+     "rating": null
+    },
+    {
+     "id": "dividend",
+     "name": "Auntie Lim",
+     "rating": null
+    },
+    {
+     "id": "bear",
+     "name": "冷面周",
+     "rating": null
+    }
+   ]
+  },
+  {
+   "ticker": "5347.KL",
+   "name": "5347.KL",
+   "price": 12.4399995803833,
+   "opinions": [
+    {
+     "id": "value",
+     "name": "老陈",
+     "rating": null
+    },
+    {
+     "id": "growth",
+     "name": "Kelly",
+     "rating": null
+    },
+    {
+     "id": "technical",
+     "name": "阿杰",
+     "rating": null
+    },
+    {
+     "id": "dividend",
+     "name": "Auntie Lim",
+     "rating": null
+    },
+    {
+     "id": "bear",
+     "name": "冷面周",
+     "rating": null
+    }
+   ]
+  },
+  {
+   "ticker": "4065.KL",
+   "name": "4065.KL",
+   "price": 8.359999656677246,
+   "opinions": [
+    {
+     "id": "value",
+     "name": "老陈",
+     "rating": null
+    },
+    {
+     "id": "growth",
+     "name": "Kelly",
+     "rating": null
+    },
+    {
+     "id": "technical",
+     "name": "阿杰",
+     "rating": null
+    },
+    {
+     "id": "dividend",
+     "name": "Auntie Lim",
+     "rating": null
+    },
+    {
+     "id": "bear",
+     "name": "冷面周",
+     "rating": null
+    }
+   ]
+  }
+ ]
+}
