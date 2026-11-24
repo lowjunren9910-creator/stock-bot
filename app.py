@@ -464,10 +464,30 @@ def stock_tech(r, ticker, tech, fund, cur):
 # 页面：投资组合（存在浏览器 session，可下载/上传 CSV 保存）
 # ---------------------------------------------------------------------------
 
-def page_portfolio():
-    st.title("💼 我的投资组合")
-    st.caption("网站不会帮你永久保存资料：用完记得按「下载」存成 CSV，下次再上传。")
+async def _pf_ai(pdata, goal, horizon, dd):
+    M.reset_clients()
+    import pfcheck as PC
+    return await PC.ai_report(pdata, goal, horizon, dd)
 
+
+@st.cache_data(ttl=3600, show_spinner=False)
+def cached_pf_ai(key: str, _pdata: dict, goal: str, horizon: str, dd: str) -> str:
+    return asyncio.run(_pf_ai(_pdata, goal, horizon, dd))
+
+
+def page_portfolio():
+    import hashlib
+    import pfcheck as PC
+    st.title("💼 我的投资组合")
+    st.caption("网站不会帮你永久保存资料：用完记得按「下载」存成 CSV，下次再上传。手机 App 的投资组合按「🩺 AI 组合体检」会自动带过来。")
+
+    link = st.query_params.get("pf")
+    if link and st.session_state.get("pf_link") != link:          # 从手机 App 带来的持股
+        rows = PC.parse_link(link)
+        if rows:
+            st.session_state.pf = pd.DataFrame(rows)
+            st.session_state.pf_link = link
+            st.session_state.pf_editor_v = st.session_state.get("pf_editor_v", 0) + 1
     if "pf" not in st.session_state:
         st.session_state.pf = pd.DataFrame(
             {"代码": ["1155.KL"], "数量": [1000.0], "平均成本": [9.80]})
@@ -476,39 +496,121 @@ def page_portfolio():
     if up is not None and st.session_state.get("pf_loaded") != up.name:
         st.session_state.pf = pd.read_csv(up)
         st.session_state.pf_loaded = up.name
+        st.session_state.pf_editor_v = st.session_state.get("pf_editor_v", 0) + 1
 
     pf = st.data_editor(st.session_state.pf, num_rows="dynamic", width="stretch",
+                        key=f"pf_editor_{st.session_state.get('pf_editor_v', 0)}",
                         column_config={"数量": st.column_config.NumberColumn(min_value=0),
                                        "平均成本": st.column_config.NumberColumn(format="%.4f")})
     st.session_state.pf = pf
+    holdings = [{"代码": str(r["代码"]), "数量": float(r["数量"]), "平均成本": float(r["平均成本"])}
+                for _, r in pf.dropna().iterrows() if str(r["代码"]).strip() and float(r["数量"]) > 0]
 
-    c1, c2 = st.columns(2)
-    c1.download_button("⬇️ 下载 CSV", pf.to_csv(index=False).encode("utf-8-sig"),
-                       "my_portfolio.csv", "text/csv", width="stretch")
-    if not c2.button("🔄 计算实时盈亏", type="primary", width="stretch"):
+    st.download_button("⬇️ 下载 CSV", pf.to_csv(index=False).encode("utf-8-sig"),
+                       "my_portfolio.csv", "text/csv")
+
+    # ---------------- AI 组合体检 ----------------
+    with st.container(border=True):
+        st.markdown("### 🩺 AI 组合体检")
+        st.caption("程序先算比重、板块 / 市场 / 货币分布、股息率、过去 1 年波动和最大回撤、股票之间的相关性，"
+                   "再请 AI 对照你的目标写体检报告。持股不会被保存，但会传给 AI 服务商做这次分析。")
+        c1, c2, c3 = st.columns(3)
+        goal = c1.selectbox("投资目标", PC.GOALS, key="pf_goal")
+        horizon = c2.selectbox("打算持有多久", PC.HORIZONS, index=2, key="pf_hz")
+        dd = c3.selectbox("能接受的下跌", PC.DRAWDOWNS, index=1, key="pf_dd")
+        go_ = st.button("🩺 开始体检", type="primary", width="stretch", disabled=not holdings)
+    if go_:
+        st.session_state.pf_run = json.dumps(holdings, sort_keys=True)
+    if st.session_state.get("pf_run") and st.session_state.pf_run == json.dumps(holdings, sort_keys=True):
+        show_pf_check(holdings, goal, horizon, dd)
+
+
+def show_pf_check(holdings, goal, horizon, dd):
+    import pfcheck as PC
+    bar = st.progress(0.0, text="正在收集每只股票的股价、财务、季报和新闻…")
+    done = {"n": 0}
+
+    def get_raw(t):
+        r = cached_analysis(t)
+        done["n"] += 1
+        bar.progress(done["n"] / len(holdings), text=f"已收集 {done['n']}/{len(holdings)}：{r['fund']['name']}")
+        return r
+
+    p = PC.build(holdings, get_raw)
+    bar.empty()
+    for e in p["errors"]:
+        st.warning(f"找不到：{e}")
+    if not p["rows"]:
         return
+    rows, risk = p["rows"], p["risk"]
 
-    rows = []
-    with st.spinner("正在获取最新股价…"):
-        for _, row in pf.dropna().iterrows():
-            t = A.normalize_ticker(str(row["代码"]))
-            try:
-                price = float(A.get_history(t, "5d")["Close"].iloc[-1])
-            except Exception:
-                price = None
-            qty, cost = float(row["数量"]), float(row["平均成本"])
-            value = qty * price if price else None
-            rows.append({"代码": t, "货币": {"KL": "MYR", "JK": "IDR"}.get(t[-2:], "USD"),
-                         "数量": qty, "成本": cost, "现价": price,
-                         "市值": value, "盈亏": value - qty * cost if price else None,
-                         "盈亏%": (price / cost - 1) * 100 if price and cost else None})
-    res = pd.DataFrame(rows)
-    st.dataframe(res.style.format(precision=2, na_rep="无").map(
-        lambda v: f"color: {'#16a34a' if v > 0 else '#dc2626'}" if isinstance(v, float) and v == v else "",
-        subset=["盈亏", "盈亏%"]), width="stretch", hide_index=True)
-    for cur, g in res.dropna().groupby("货币"):
-        inv, val = (g["数量"] * g["成本"]).sum(), g["市值"].sum()
-        st.metric(f"{cur} 合计市值", f"{val:,.2f}", f"{val - inv:+,.2f}（{(val / inv - 1) * 100:+.1f}%）")
+    # --- 数字 ---
+    pl_pct = (p["total_myr"] / p["cost_myr"] - 1) * 100 if p["cost_myr"] else 0
+    c = st.columns([1.6, 1, 1, 1, 1])
+    c[0].metric("总市值（折算令吉）", f"RM {p['total_myr']:,.0f}", f"{p['pl_myr']:+,.0f}（{pl_pct:+.1f}%）")
+    c[1].metric("加权股息率", fmt(p["div_yield"], 2, "%"))
+    c[2].metric("最大一只占", f"{p['top_weight']:.0f}%", help="一般建议单一股票不超过 15–20%")
+    c[3].metric("过去 1 年波动", fmt(risk.get("vol"), 1, "%"), help="年化波动率：数字越大，涨跌越剧烈")
+    c[4].metric("过去 1 年最大回撤", fmt(risk.get("max_dd"), 1, "%"), help="按现在的比重回看，从最高点最多跌了多少")
+    if p["fx_approx"]:
+        st.caption("⚠️ 汇率暂时取不到，用约值折算令吉。")
+    else:
+        st.caption("汇率：" + "　".join(f"1 {k} = RM {v:.4g}" for k, v in p["fx"].items() if k != "MYR"))
+
+    # --- 分布 ---
+    pie = lambda d, title: go.Figure(go.Pie(labels=list(d), values=list(d.values()), hole=.55, sort=False,
+                                            textinfo="label+percent")).update_layout(
+        title=title, height=290, margin=dict(l=10, r=10, t=40, b=10), showlegend=False)
+    a, b, cc = st.columns(3)
+    a.plotly_chart(pie({x["name"]: x["weight"] for x in rows}, "个股比重"), width="stretch")
+    b.plotly_chart(pie(p["by_sector"], "板块"), width="stretch")
+    cc.plotly_chart(pie(p["by_market"], "市场"), width="stretch")
+
+    # --- 规则检查 ---
+    if p["flags"]:
+        with st.container(border=True):
+            st.markdown("#### 🔎 规则检查发现")
+            for f in p["flags"]:
+                st.markdown(md(f))
+
+    # --- 每只股票 ---
+    df = pd.DataFrame([{"股票": x["name"], "代码": x["ticker"], "比重%": x["weight"], "盈亏%": x["pl_pct"],
+                        "1年%": x["chg_1y"], "本益比": x["pe"], "股息率%": x["div_yield"], "技术面": x["tech"],
+                        "最新季报": x["quarter"] or "—", "板块": x["sector"]} for x in rows])
+    st.dataframe(df, hide_index=True, width="stretch",
+                 column_config={k: st.column_config.NumberColumn(format="%.1f") for k in ("比重%", "盈亏%", "1年%", "本益比")}
+                 | {"股息率%": st.column_config.NumberColumn(format="%.2f")})
+
+    if risk.get("curve") is not None:
+        l, r_ = st.columns([3, 2])
+        cv = risk["curve"] * 100
+        l.plotly_chart(go.Figure(go.Scatter(x=cv.index, y=cv, mode="lines", line=dict(color="#C8A23A", width=2)))
+                       .update_layout(title="按现在比重回看过去 1 年（起点 = 100）", height=300,
+                                      margin=dict(l=10, r=10, t=40, b=10)), width="stretch")
+        if risk.get("corr") is not None and len(rows) > 1:
+            r_.plotly_chart(go.Figure(go.Heatmap(z=risk["corr"].values, x=list(risk["corr"].columns),
+                                                 y=list(risk["corr"].index), zmin=-1, zmax=1, colorscale="RdBu_r",
+                                                 text=risk["corr"].round(2).values, texttemplate="%{text}"))
+                            .update_layout(title="相关性（越接近 1 越常一起涨跌）", height=300,
+                                           margin=dict(l=10, r=10, t=40, b=10)), width="stretch")
+
+    # --- AI 报告 ---
+    err = M.check_setup()
+    if err:
+        st.warning(err)
+        return
+    import hashlib
+    key = hashlib.sha1((json.dumps(holdings, sort_keys=True) + goal + horizon + dd + str(date.today())).encode()).hexdigest()
+    with st.spinner("AI 分析员正在写体检报告…（约 20-40 秒）"):
+        try:
+            text = cached_pf_ai(key, p, goal, horizon, dd)
+        except Exception as e:
+            st.error(f"AI 暂时无法分析：{e}")
+            return
+    with st.container(border=True):
+        st.markdown("### 🩺 AI 体检报告")
+        st.markdown(f"<div style='line-height:1.8'>{sections_html(text)}</div>", unsafe_allow_html=True)
+    st.caption("AI 根据上面的数字、最新季报和近期新闻分析；不是持牌投资建议，最后由你自己决定。")
 
 
 # ---------------------------------------------------------------------------
@@ -2038,12 +2140,12 @@ if check_password():
             st.session_state.nav = "🗞️ 新闻追踪"
         elif qp.get("analyze") or qp.get("stock"):
             goto_analysis(qp.get("stock") or qp["analyze"])
-        elif qp.get("page") in ("focus", "radar", "klci", "sectors", "track", "weekly", "watch", "quarterly", "compare", "news", "ipo", "calendar"):
+        elif qp.get("page") in ("focus", "radar", "klci", "sectors", "track", "weekly", "watch", "quarterly", "compare", "news", "ipo", "calendar", "portfolio"):
             st.session_state.nav = {"focus": "📅 每日焦点", "radar": "🔍 选股雷达", "klci": "🏆 KLCI 50 观察",
                                     "sectors": "🧩 板块", "track": "📈 成绩单", "weekly": "📰 周报",
                                     "watch": "⭐ 自选股", "quarterly": "📑 季度报告",
                                     "compare": "⚖️ 股票对比", "news": "🗞️ 新闻追踪", "ipo": "🆕 IPO 追踪",
-                                    "calendar": "📅 公告日历"}[qp["page"]]
+                                    "calendar": "📅 公告日历", "portfolio": "💼 投资组合"}[qp["page"]]
         st.session_state._qp_done = True
     ui.sidebar_brand()
     page = st.sidebar.radio("功能", list(PAGES), key="nav")

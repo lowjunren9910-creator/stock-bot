@@ -836,6 +836,10 @@ async function renderMine() {
         <input name="c" type="number" inputmode="decimal" step="any" min="0" placeholder="平均成本" aria-label="平均成本" required>
         <button class="btn">加入</button>
       </form>
+      ${pf.length ? (CFG.web
+        ? `<div class="actions" style="margin-top:12px"><a class="btn" href="${CFG.web.replace(/\/$/, "")}/?page=portfolio&pf=${encodeURIComponent(pf.map(h => `${h.ticker}:${h.qty}:${h.cost}`).join(","))}" target="_blank" rel="noopener">🩺 AI 组合体检</a></div>
+           <p class="foot">在网站分析：比重、板块分布、股息率、波动、相关性 + AI 体检报告。持股只用这一次，不会被保存。</p>`
+        : `<p class="muted">想做 AI 组合体检：先到「更多 → 设定」填网站网址。</p>`) : ""}
       <p class="foot">价格用每天收市后的最新价，只有系统追踪的约 500 只大中型股有价格。
         <button class="linkbtn" data-act="export">备份</button>　<button class="linkbtn" data-act="import">还原</button></p>
     </section>`;
@@ -1058,7 +1062,7 @@ document.addEventListener("visibilitychange", () => {
 });
 
 // App 版本：每次更新功能都会改这个号码（「更多 → 设定」看得到）
-const APP_VERSION = "v10 · 2026-11-24";
+const APP_VERSION = "v11 · 2026-11-24";
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).then(reg => {
     // 每次回到 app 都检查有没有新版本
