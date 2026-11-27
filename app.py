@@ -2075,11 +2075,12 @@ def show_planner(ok, ev, cfg):
     import pfcheck as PC
     import planner as PL
     import strategy as SG
-    st.caption("先回答几个关于你的问题，再输入资金，系统按「我的策略」算出适合你的分配。"
-               "答案和资金只在这次计算用，不会被保存。都是简化的估计和假设，不是投资建议。")
-    ans = {}
-    with st.container(border=True):
-        st.markdown("#### 🧭 第 1 步：先认识你")
+    st.caption("填好下面关于你的资料，按「🔍 开始分析」，系统就会分析你的状况，按「我的策略」算出适合你的投资组合。"
+               "资料只在这次分析用，不会被保存。都是简化的估计和假设，不是投资建议。")
+    names = list(PL.PROFILES)
+    with st.form("pl_form", border=True):
+        st.markdown("#### 🧭 第 1 步：关于你")
+        ans = {}
         cols = st.columns(3)
         for col, (title, keys) in zip(cols, PL.QUIZ_GROUPS):
             with col:
@@ -2099,31 +2100,40 @@ def show_planner(ok, ev, cfg):
                 if title.startswith("🧠"):
                     secs = sorted(ev["板块"].dropna().unique().tolist()) if "板块" in ev else []
                     avoid = st.multiselect("不想投资的板块（例如烟酒、博彩）", secs, key="pl_avoid", placeholder="不选 = 都可以")
-        score, why = PL.risk_score(ans)
-        guess = PL.profile_from_score(score)
+        st.divider()
+        st.markdown("#### 💵 第 2 步：资金和期望")
+        c1, c2, c3 = st.columns(3)
+        capital = c1.number_input("💵 投资资金（RM）", 1000.0, 100_000_000.0, 20000.0, 1000.0, key="pl_cap", format="%.0f")
+        monthly = c1.number_input("每月再投入（RM，可填 0）", 0.0, 1_000_000.0, 500.0, 100.0, key="pl_mon", format="%.0f")
+        prof_pick = c2.selectbox("投资者类型", ["🤖 按我的资料自动判断"] + names, key="pl_prof")
+        dd_pick = c2.selectbox("🛡️ 最坏的一年，最多能接受跌多少", ["🤖 按投资者类型自动", 10, 15, 20, 25, 30, 40], key="pl_dd",
+                               format_func=lambda v: v if isinstance(v, str) else f"{v}%")
+        target = c3.select_slider("📈 期望每年回报", [4, 6, 8, 10, 12, 15, 20], value=8, key="pl_tg",
+                                  format_func=lambda v: f"{v}%")
+        go_btn = st.form_submit_button("🔍 开始分析", type="primary", width="stretch")
+    if go_btn:
+        st.session_state.pl_done = True
+    if not st.session_state.get("pl_done"):
+        st.info("👆 填好资料后按「🔍 开始分析」。")
+        return
+
+    score, why = PL.risk_score(ans)
+    guess = PL.profile_from_score(score)
+    profile = guess if prof_pick not in names else prof_pick
+    max_drop = {"保守型": 10, "稳健型": 20, "积极型": 30}[profile] if isinstance(dd_pick, str) else dd_pick
+
+    st.markdown("### 📋 你的分析结果")
+    with st.container(border=True):
         r1, r2 = st.columns([1, 2.2])
         r1.metric("你的风险承受分", f"{score} / 100", f"建议：{guess}", delta_color="off", delta_arrow="off",
                   help="按年龄、收入、应急钱、债务、这笔钱占存款多少、跌时反应、经验计算")
         r1.progress(score / 100)
         with r2:
-            st.markdown(f"**为什么是{guess}**：{PL.PROFILES[guess]['desc']}")
+            st.markdown(f"**你是{profile}**：{PL.PROFILES[profile]['desc']}"
+                        + ("" if profile == guess else f"（你自己选的；按资料建议是{guess}）"))
+            st.markdown(f"能接受的最大跌幅：**{max_drop}%**　·　{years} 年后要用这笔钱　·　期望每年 {target}%")
             for w_ in why:
                 st.markdown(f"- {w_}")
-
-    with st.container(border=True):
-        st.markdown("#### 💵 第 2 步：资金和期望")
-        c1, c2, c3 = st.columns(3)
-        capital = c1.number_input("💵 投资资金（RM）", 1000.0, 100_000_000.0, 20000.0, 1000.0, key="pl_cap", format="%.0f")
-        monthly = c1.number_input("每月再投入（RM，可填 0）", 0.0, 1_000_000.0, 500.0, 100.0, key="pl_mon", format="%.0f")
-        names = list(PL.PROFILES)
-        profile = c2.radio("投资者类型（已按问卷建议，可以自己改）", names, index=names.index(guess), key=f"pl_prof_{guess}",
-                           horizontal=True)
-        c2.caption(PL.PROFILES[profile]["desc"])
-        dd_default = {"保守型": 10, "稳健型": 20, "积极型": 30}[profile]
-        max_drop = c3.select_slider("🛡️ 最坏的一年，最多能接受跌多少", [10, 15, 20, 25, 30, 40], value=dd_default,
-                                    key=f"pl_dd_{profile}", format_func=lambda v: f"{v}%")
-        target = c3.select_slider("📈 期望每年回报", [4, 6, 8, 10, 12, 15, 20], value=8, key="pl_tg",
-                                  format_func=lambda v: f"{v}%")
 
     fx, approx = PC.fx_rates({"USD", "IDR"})
     keep = lambda d: d[d["市场"].isin(mk or ["马股", "美股", "印尼股"]) & ~d["板块"].isin(avoid)]
@@ -2134,6 +2144,8 @@ def show_planner(ok, ev, cfg):
     pl = PL.plan(capital, monthly, profile, max_drop, target, years, growth, inc, fx, cfg, answers=ans, expense=expense)
     inv = pl["capital_invest"]
 
+    if pl["notes"]:
+        st.markdown("#### 🩺 系统看到的状况")
     for n in pl["notes"]:
         st.markdown(md(n))
     aw = pl["weights_actual"]
@@ -2203,16 +2215,14 @@ def show_planner(ok, ev, cfg):
     if not M.check_setup():
         data = PL.brief(pl, capital, monthly, target, max_drop)
         key = hashlib.sha1(json.dumps(data, ensure_ascii=False, default=str, sort_keys=True).encode()).hexdigest()
-        if st.button("🤖 请 AI 解释这个规划", key="pl_ai"):
-            st.session_state.pl_ai_key = key
-        if st.session_state.get("pl_ai_key") == key:
-            with st.spinner("AI 正在看你的规划…"):
-                try:
-                    text = cached_plan_ai(key, data, M.LANG)
-                    with st.container(border=True):
-                        st.markdown(f"<div style='line-height:1.8'>{sections_html(text)}</div>", unsafe_allow_html=True)
-                except Exception as e:
-                    st.warning(f"AI 暂时无法解释：{e}")
+        st.markdown("#### 🤖 AI 理财规划师的分析")
+        with st.spinner("AI 正在分析你的状况…"):
+            try:
+                text = cached_plan_ai(key, data, M.LANG)
+                with st.container(border=True):
+                    st.markdown(f"<div style='line-height:1.8'>{sections_html(text)}</div>", unsafe_allow_html=True)
+            except Exception as e:
+                st.warning(f"AI 暂时无法分析：{e}")
 
 
 def page_strategy():
