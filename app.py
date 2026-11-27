@@ -38,6 +38,24 @@ import managers as M  # noqa: E402
 import ui  # noqa: E402
 import i18n  # noqa: E402
 
+
+def _fresh_modules():
+    """Streamlit Cloud 更新代码后，有时还在用旧版的模块（缺新函数就会 AttributeError）。
+    检查每个模块有没有新版本才有的东西，没有就重新载入。"""
+    import importlib
+    import sys
+    need = [("dataset", "VERSION"), ("strategy", "normalize"), ("planner", "AGE_MID"), ("pfcheck", "fx_rates")]
+    for name, attr in need:
+        try:
+            mod = sys.modules.get(name) or importlib.import_module(name)
+            if not hasattr(mod, attr):
+                importlib.reload(mod)
+        except Exception:
+            pass
+
+
+_fresh_modules()
+
 i18n.install()                       # 中 / EN 切换：把网站上显示的中文换成英文
 if "lang" not in st.session_state:   # 网址带 ?lang=en 就直接用英文（重新整理也记得）
     st.session_state.lang = "EN" if st.query_params.get("lang", "").lower() == "en" else "中文"
