@@ -58,6 +58,10 @@ section[data-testid="stSidebar"] .stRadio, section[data-testid="stSidebar"] [dat
 section[data-testid="stSidebar"] [role="radiogroup"] {{ gap: 2px; display: flex; flex-direction: column;
   align-items: stretch !important; width: 100% !important; }}
 section[data-testid="stSidebar"] [role="radiogroup"] > div {{ position: relative; width: 100%; }}
+/* 中 / EN 切换（segmented control 也是 radiogroup，不要套用功能列表的直排样式） */
+section[data-testid="stSidebar"] [data-testid="stButtonGroup"] [role="radiogroup"] {{ flex-direction: row !important;
+  gap: 0 !important; }}
+section[data-testid="stSidebar"] [data-testid="stButtonGroup"] [role="radiogroup"] > button {{ flex: 1; min-height: 32px; }}
 section[data-testid="stSidebar"] [role="radiogroup"] > div > label {{
   display: flex !important; width: 100% !important; max-width: none !important; box-sizing: border-box;
   margin: 0; padding: 9px 14px 9px 16px; border-radius: 12px; transition: background .15s; cursor: pointer;

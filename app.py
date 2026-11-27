@@ -35,7 +35,12 @@ import screener as SC  # noqa: E402
 import scanner as S  # noqa: E402
 import managers as M  # noqa: E402
 import ui  # noqa: E402
+import i18n  # noqa: E402
 
+i18n.install()                       # 中 / EN 切换：把网站上显示的中文换成英文
+if "lang" not in st.session_state:   # 网址带 ?lang=en 就直接用英文（重新整理也记得）
+    st.session_state.lang = "EN" if st.query_params.get("lang", "").lower() == "en" else "中文"
+M.LANG = st.session_state.get("lang") or "中文"   # AI 现场分析跟着换语言
 ui.inject()
 
 RATING_COLOR = {"强烈买入": "#16a34a", "买入": "#4ade80", "持有": "#eab308",
@@ -80,7 +85,7 @@ async def _panel(snapshot: dict):
 
 
 @st.cache_data(ttl=86400, show_spinner=False)
-def cached_panel(ticker: str, day: str, snapshot: dict):
+def cached_panel(ticker: str, day: str, snapshot: dict, lang: str = "中文"):
     return asyncio.run(_panel(snapshot))
 
 
@@ -198,7 +203,7 @@ def set_sec(sec: str):
 
 
 def run_panel(ticker: str, snapshot: dict):
-    opinions, summary = cached_panel(ticker, str(date.today()), snapshot)
+    opinions, summary = cached_panel(ticker, str(date.today()), snapshot, M.LANG)
     st.session_state[f"panel_done_{ticker}"] = True
     return opinions, summary
 
@@ -471,7 +476,7 @@ async def _pf_ai(pdata, goal, horizon, dd):
 
 
 @st.cache_data(ttl=3600, show_spinner=False)
-def cached_pf_ai(key: str, _pdata: dict, goal: str, horizon: str, dd: str) -> str:
+def cached_pf_ai(key: str, _pdata: dict, goal: str, horizon: str, dd: str, lang: str = "中文") -> str:
     return asyncio.run(_pf_ai(_pdata, goal, horizon, dd))
 
 
@@ -617,7 +622,7 @@ def show_pf_check(holdings, goal, horizon, dd):
     key = hashlib.sha1((json.dumps(holdings, sort_keys=True) + goal + horizon + dd + str(date.today())).encode()).hexdigest()
     with st.spinner("AI 分析员正在写体检报告…（约 20-40 秒）"):
         try:
-            text = cached_pf_ai(key, p, goal, horizon, dd)
+            text = cached_pf_ai(key, p, goal, horizon, dd, M.LANG)
         except Exception as e:
             st.error(f"AI 暂时无法分析：{e}")
             return
@@ -756,7 +761,7 @@ async def _company_ai(p: dict, report: str | None):
 
 
 @st.cache_data(ttl=7 * 86400, show_spinner=False)
-def cached_company_ai(ticker: str, report_key: str, _p: dict, _report: str | None = None):
+def cached_company_ai(ticker: str, report_key: str, _p: dict, _report: str | None = None, lang: str = "中文"):
     # 出错会 raise → 不会被缓存，下次可以重试。report_key：有上传年报时是文件指纹（换年报就重写）
     return asyncio.run(_company_ai(_p, _report))
 
@@ -854,7 +859,7 @@ def show_company(p: dict):
     else:
         with st.spinner("AI 分析员正在仔细阅读资料、分两段写业务报告…（第一次约 40-90 秒，之后 7 天内都很快）"):
             try:
-                ai = cached_company_ai(p["ticker"], dg, p, report)
+                ai = cached_company_ai(p["ticker"], dg, p, report, M.LANG)
             except Exception as e:
                 ai_err = f"AI 研究员暂时无法工作：{e}"
     sec = ai["sections"] if ai else {}
@@ -1358,7 +1363,7 @@ def cached_compare(tickers: tuple):
 
 
 @st.cache_data(ttl=3600, show_spinner=False)
-def cached_compare_ai(tickers: tuple):
+def cached_compare_ai(tickers: tuple, lang: str = "中文"):
     import compare
     return asyncio.run(compare.ai_verdict(cached_compare(tickers)))
 
@@ -1426,7 +1431,7 @@ def page_compare():
     st.markdown("##### 🧠 AI 总结")
     with st.spinner("AI 正在比较…"):
         try:
-            ai = cached_compare_ai(tuple(names))
+            ai = cached_compare_ai(tuple(names), M.LANG)
         except Exception as e:
             ai = None
             st.caption(f"AI 暂时不可用：{e}")
@@ -1472,7 +1477,7 @@ def show_quarter(x: dict, key: str):
 
 
 @st.cache_data(ttl=3600, show_spinner=False)
-def cached_quarter(text: str):
+def cached_quarter(text: str, lang: str = "中文"):
     import quarterly
     return quarterly.quick(text, with_ai=True)
 
@@ -1492,7 +1497,7 @@ def page_quarterly():
     if q:
         with st.spinner(f"正在读取 {q.upper()} 的季报…"):
             try:
-                show_quarter(cached_quarter(q), "live")
+                show_quarter(cached_quarter(q, M.LANG), "live")
             except Exception as e:
                 st.error(f"❌ {e}")
         st.markdown("---")
@@ -1635,7 +1640,7 @@ def ipo_card(r: dict, key: str):
             st.session_state.ipo_auto = None
             with st.spinner(f"正在找 {r['name']} 的招股书并分析（约 1–2 分钟）…"):
                 try:
-                    st.session_state[f"ipo_live_{r['slug']}"] = cached_ipo_analysis(r["slug"], json.dumps(r, ensure_ascii=False))
+                    st.session_state[f"ipo_live_{r['slug']}"] = cached_ipo_analysis(r["slug"], json.dumps(r, ensure_ascii=False), M.LANG)
                     live = st.session_state[f"ipo_live_{r['slug']}"]
                 except Exception as e:
                     st.error(f"❌ {e}")
@@ -1646,7 +1651,7 @@ def ipo_card(r: dict, key: str):
 
 
 @st.cache_data(ttl=6 * 3600, show_spinner=False)
-def cached_ipo_analysis(slug: str, rec_json: str):
+def cached_ipo_analysis(slug: str, rec_json: str, lang: str = "中文"):
     import ipo
     return ipo.analyze_ipo(json.loads(rec_json))
 
@@ -1659,7 +1664,7 @@ def live_ipo_list():
 
 
 @st.cache_data(ttl=3600, show_spinner=False)
-def cached_ipo_pdf(data: bytes, source: str):
+def cached_ipo_pdf(data: bytes, source: str, lang: str = "中文"):
     import ipo
     return ipo.analyze_pdf(data, source)
 
@@ -1679,7 +1684,7 @@ def page_ipo():
             with st.spinner("正在读招股书的重点段落并分析（约 1–2 分钟）…"):
                 try:
                     data = up.getvalue() if up else ipo.fetch_pdf(url.strip())
-                    st.session_state.ipo_result = cached_ipo_pdf(data, up.name if up else url.strip())
+                    st.session_state.ipo_result = cached_ipo_pdf(data, up.name if up else url.strip(), M.LANG)
                 except Exception as e:
                     st.error(f"❌ {e}")
         if st.session_state.get("ipo_result"):
@@ -1808,7 +1813,7 @@ def news_card(e: dict, key: str):
 
 
 @st.cache_data(ttl=1800, show_spinner=False)
-def cached_news(text: str):
+def cached_news(text: str, lang: str = "中文"):
     import news as N
     return N.quick(text)
 
@@ -1866,7 +1871,7 @@ def page_news():
         if q:
             with st.spinner(f"正在找 {q.upper()} 的新闻并请 AI 分析（约 20-40 秒）…"):
                 try:
-                    found = cached_news(q)
+                    found = cached_news(q, M.LANG)
                 except Exception as e:
                     found = None
                     st.error(f"❌ {e}")
@@ -2164,6 +2169,11 @@ if check_password():
                                     "calendar": "📅 公告日历", "portfolio": "💼 投资组合"}[qp["page"]]
         st.session_state._qp_done = True
     ui.sidebar_brand()
+
+    def _lang_changed():
+        st.query_params["lang"] = "en" if st.session_state.lang == "EN" else "zh"
+    st.sidebar.segmented_control("🌐 语言", ["中文", "EN"], key="lang", on_change=_lang_changed,
+                                 label_visibility="collapsed", width="stretch")
     page = st.sidebar.radio("功能", list(PAGES), key="nav")
     ui.sidebar_footer(M.MANAGERS)
     PAGES[page]()

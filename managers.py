@@ -139,9 +139,24 @@ async def _chat_once(provider: str, model: str, system: str, user: str, max_toke
     return resp.choices[0].message.content or ""
 
 
+LANG = "中文"      # 网站切到 EN 时由 app.py 设成 "EN"：AI 现场分析改用英文写
+EN_NOTE = """
+
+LANGUAGE (very important): write ALL free text in clear, simple English for a beginner investor.
+BUT keep these exactly as specified in Chinese, because the program reads them:
+- every section header in 【】 (e.g. 【评级】, 【主要业务】) — copy them exactly
+- rating / level words that the format asks for (e.g. 强烈买入 / 买入 / 持有 / 减持 / 卖出, 弱 / 偏弱 / 中等 / 偏强 / 强,
+  健康 / 尚可 / 需要调整 / 风险偏高)
+- JSON keys and fixed enum values (e.g. 利好 / 利空 / 中性, 高 / 中 / 低, stage names)
+Everything else (sentences, explanations, headlines, reasons) must be in English."""
+
+
 async def chat(system: str, user: str, max_tokens: int = 700) -> str:
     """统一的 AI 调用：不管用哪家，都是丢 system + user，拿回文字。
     遇到额度限制（429）会自动换模型；全部都满了就等一下再试（最多 3 轮）。"""
+    if LANG == "EN":
+        system = system + EN_NOTE
+        max_tokens = int(max_tokens * 1.25)      # 英文比中文多用一些 token
     last = None
     for attempt in range(3):
         wait = 0.0
