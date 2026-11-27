@@ -16,6 +16,10 @@ import streamlit as st
 # 主题：每套颜色（全部是深色底，图表和表格看起来才一致）
 # ---------------------------------------------------------------------------
 THEMES = {
+    # 迈阿密霓虹日落：粉红 → 橘色日落、紫色夜空、青绿霓虹
+    "vice": {"name": "🌴 霓虹日落", "bg": "#160A22", "side1": "#2A1140", "side2": "#170B25", "panel": "#251236",
+             "line": "#45215F", "ink": "#FFF0F7", "ink2": "#CDA8CF", "accent": "#FF4FA0", "accent2": "#FFAA4C",
+             "soft": "#3EE0E8", "up": "#3EE8B5", "down": "#FF5C6C", "sunset": True},
     "navy": {"name": "🌙 深蓝金", "bg": "#121A2E", "side1": "#1A2547", "side2": "#141C35", "panel": "#1B2540",
              "line": "#2C3756", "ink": "#E6EAF2", "ink2": "#A3ADC2", "accent": "#C8A23A", "accent2": "#E9CF7A",
              "soft": "#8EA2F0", "up": "#2BC48A", "down": "#F06A5D"},
@@ -39,9 +43,9 @@ FONT_SCALE = {"小": 0.92, "标准": 1.0, "大": 1.1, "特大": 1.2}
 DENSITY = {"舒适": 1.0, "紧凑": 0.72}
 RADIUS = {"圆润": 1.0, "方正": 0.35}
 BACKDROPS = ["光晕", "纯色", "渐层"]
-DEFAULTS = {"th": "navy", "ac": "", "fs": "标准", "dn": "舒适", "rd": "圆润", "bd": "光晕", "home": ""}
+DEFAULTS = {"th": "vice", "ac": "", "fs": "标准", "dn": "舒适", "rd": "圆润", "bd": "光晕", "home": ""}
 
-COLORS = dict(THEMES["navy"])     # 其他地方（图表）也会用到：跟着主题变
+COLORS = dict(THEMES["vice"])     # 其他地方（图表）也会用到：跟着主题变
 
 
 def _rgb(hexc: str) -> tuple[int, int, int]:
@@ -66,7 +70,7 @@ def prefs() -> dict:
         qp = st.query_params
         p = {k: qp.get(k, v) for k, v in DEFAULTS.items()}
         if p["th"] not in THEMES:
-            p["th"] = "navy"
+            p["th"] = DEFAULTS["th"]
         if p["ac"] and not p["ac"].startswith("#"):
             p["ac"] = "#" + p["ac"]
         st.session_state.ui_prefs = p
@@ -85,7 +89,7 @@ def save_prefs(p: dict):
 
 def palette(p: dict | None = None) -> dict:
     p = p or prefs()
-    c = dict(THEMES.get(p["th"], THEMES["navy"]))
+    c = dict(THEMES.get(p["th"], THEMES[DEFAULTS["th"]]))
     if p.get("ac"):
         c["accent"] = p["ac"]
     COLORS.clear()
@@ -94,7 +98,7 @@ def palette(p: dict | None = None) -> dict:
 
 
 # 左边功能列表的分组：(第几项开始, 组名)。PAGES 的顺序改了，这里也要跟着改。
-NAV_GROUPS = [(1, "市场"), (7, "研究个股"), (10, "我的"), (15, "系统")]
+NAV_GROUPS = [(1, "市场"), (7, "研究个股"), (10, "我的"), (17, "系统")]
 
 
 def _css() -> str:
@@ -104,7 +108,12 @@ def _css() -> str:
     R = lambda px: f"{max(2, round(px * rd))}px"          # 圆角
     P = lambda rem: f"{rem * dn:.2f}rem"                  # 留白
     acc, acc2, on = c["accent"], c["accent2"], on_color(c["accent"])
-    if p["bd"] == "光晕":
+    if p["bd"] == "光晕" and c.get("sunset"):     # 霓虹日落：下面一道粉橘日落光，上面青绿霓虹
+        backdrop = (f"radial-gradient(1100px 420px at 50% 115%, {rgba(acc2, .22)}, transparent 65%),"
+                    f"radial-gradient(900px 480px at 50% 105%, {rgba(acc, .22)}, transparent 70%),"
+                    f"radial-gradient(700px 400px at 100% -10%, {rgba(c['soft'], .12)}, transparent 60%),"
+                    f"linear-gradient(180deg, {c['bg']} 0%, #1E0D30 100%)")
+    elif p["bd"] == "光晕":
         backdrop = (f"radial-gradient(900px 500px at 85% -10%, {rgba(acc, .16)}, transparent 60%),"
                     f"radial-gradient(700px 500px at -10% 110%, {rgba(c['soft'], .10)}, transparent 60%), {c['bg']}")
     elif p["bd"] == "渐层":
@@ -135,6 +144,7 @@ h1 {{ font-weight: 800 !important; letter-spacing: .5px; font-size: 2.15rem !imp
 h1::after {{ content: ""; display: block; width: 64px; height: 4px; border-radius: 2px;
              background: linear-gradient(90deg, {acc}, {acc2}); margin-top: .55rem; }}
 h2, h3, h4, h5 {{ font-weight: 700 !important; }}
+{"h1 { text-shadow: 0 0 14px " + rgba(acc, .55) + ", 0 0 34px " + rgba(acc2, .25) + "; } .brand-name { background: linear-gradient(90deg, " + acc + ", " + acc2 + "); -webkit-background-clip: text; background-clip: text; color: transparent !important; }" if c.get("sunset") else ""}
 [data-testid="stCaptionContainer"], [data-testid="stCaptionContainer"] p {{ color: {c['ink2']} !important; font-size: .92rem; }}
 
 /* ---------- 左边：品牌 + 大按钮功能列表 ---------- */

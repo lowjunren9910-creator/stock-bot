@@ -2012,6 +2012,428 @@ def page_calendar():
 
 
 # ---------------------------------------------------------------------------
+# 页面：我的仪表板（用自己的规则做图表）
+# ---------------------------------------------------------------------------
+
+@st.cache_data(ttl=3600, show_spinner=False)
+def cached_dataset(mine_key: str):
+    import dataset as D
+    return D.load(set(mine_key.split(",")) if mine_key else set())
+
+
+def all_stocks():
+    try:
+        import announce
+        mine = ",".join(sorted(announce.my_tickers()))
+    except Exception:
+        mine = ""
+    return cached_dataset(mine)
+
+
+async def _ai_spec(text):
+    M.reset_clients()
+    import dashboard as B
+    return await B.spec_from_text(text)
+
+
+def dash_specs() -> list[dict]:
+    import dashboard as B
+    if "dash_specs" not in st.session_state:
+        st.session_state.dash_specs = B.load_specs()
+    return st.session_state.dash_specs
+
+
+def dash_save(specs: list[dict], msg: str):
+    """存仪表板：有 GitHub token 就存进 GitHub（永久），没有就只存在这次打开的网站里。"""
+    import dashboard as B
+    import github_store as G
+    st.session_state.dash_specs = specs
+    if G.ready():
+        try:
+            G.update("my_dashboard.json", lambda old: B.dump_specs(specs), f"仪表板：{msg}", local=str(B.FILE))
+            st.toast(f"✅ 已保存到 GitHub：{msg}")
+        except Exception as e:
+            st.toast(f"⚠️ 存到 GitHub 失败（这次网站里还是有）：{e}")
+    else:
+        st.toast(f"✅ {msg}（还没设 GitHub token：只存在这次打开的网站里）")
+
+
+def render_chart(spec: dict, df, key: str, height: int | None = None):
+    import dashboard as B
+    try:
+        fig, info = B.figure(spec, df)
+    except Exception as e:
+        st.warning(f"这张图画不出来：{e}")
+        return
+    if fig is None:
+        st.info(info)
+        return
+    if isinstance(fig, pd.DataFrame):
+        st.dataframe(fig, hide_index=True, width="stretch", key=f"tbl_{key}")
+    else:
+        if height:
+            fig.update_layout(height=height)
+        fig.update_layout(margin=dict(l=6, r=6, t=10, b=6), legend=dict(orientation="h", y=-0.15))
+        st.plotly_chart(fig, width="stretch", key=f"fig_{key}")
+    st.caption(info + (f"　·　💡 {spec['note']}" if spec.get("note") else ""))
+
+
+def chart_builder(base: dict | None, key: str) -> dict | None:
+    """自己设定图表的表单。回传规格（按了「好了」才回传）。"""
+    import dashboard as B
+    import dataset as D
+    b = dict(base or {"title": "我的图表", "type": "scatter", "markets": [], "rules": []})
+    c1, c2, c3 = st.columns([2, 1.2, 1.5])
+    title = c1.text_input("标题", b.get("title", ""), key=f"{key}_t")
+    types = list(B.TYPES)
+    typ = c2.selectbox("图表种类", types, index=types.index(b.get("type", "scatter")) if b.get("type") in types else 0,
+                       format_func=lambda k: B.TYPES[k], key=f"{key}_ty")
+    markets = c3.multiselect("市场（不选 = 全部）", list(D.MARKET_ZH.values()), default=b.get("markets", []), key=f"{key}_m")
+    st.caption("规则：每一行一个条件，全部都要符合。「介于」的数值写「最小,最大」，例如 0,40；「包含」可以写几个关键字，用逗号分开。")
+    rules_df = pd.DataFrame(b.get("rules") or [], columns=["栏位", "条件", "数值"])
+    rules_df["数值"] = rules_df["数值"].astype(str).replace("nan", "")
+    ed = st.data_editor(rules_df, num_rows="dynamic", width="stretch", key=f"{key}_r", column_config={
+        "栏位": st.column_config.SelectboxColumn(options=D.ALL_FIELDS, required=True),
+        "条件": st.column_config.SelectboxColumn(options=D.OPS, required=True),
+        "数值": st.column_config.TextColumn()})
+    rules = []
+    for _, r in ed.dropna(subset=["栏位", "条件"]).iterrows():
+        v = str(r["数值"]).strip()
+        if v and v != "nan":
+            try:
+                v = float(v) if r["条件"] in (">", ">=", "<", "<=", "=", "!=") and r["栏位"] in D.NUMERIC else v
+            except ValueError:
+                pass
+            rules.append({"栏位": r["栏位"], "条件": r["条件"], "数值": v})
+    num, cat = D.NUMERIC, D.CATEGORIES
+    pick = lambda label, opts, cur, k, none=True: (lambda v: None if v == "（不用）" else v)(
+        st.selectbox(label, (["（不用）"] if none else []) + opts,
+                     index=((["（不用）"] if none else []) + opts).index(cur) if cur in opts else 0, key=f"{key}_{k}"))
+    s = {"title": title, "type": typ, "markets": markets, "rules": rules, "id": b.get("id")}
+    a1, a2, a3, a4 = st.columns(4)
+    if typ == "scatter":
+        with a1:
+            s["x"] = pick("横轴 X", num, b.get("x", "本益比"), "x", False)
+        with a2:
+            s["y"] = pick("纵轴 Y", num, b.get("y", "股息率%"), "y", False)
+        with a3:
+            s["color"] = pick("颜色", cat + num, b.get("color", "板块"), "c")
+        with a4:
+            s["size"] = pick("点的大小", num, b.get("size", "市值(亿令吉)"), "s")
+    elif typ == "rank":
+        with a1:
+            s["y"] = pick("排名依据", num, b.get("y", "股息率%"), "y", False)
+        with a2:
+            s["desc"] = st.toggle("由大到小", b.get("desc", True), key=f"{key}_d")
+        with a3:
+            s["limit"] = st.number_input("前几名", 3, 50, int(b.get("limit", 15)), key=f"{key}_l")
+        with a4:
+            s["color"] = pick("颜色", cat, b.get("color", "板块"), "c")
+    elif typ in ("group", "box"):
+        with a1:
+            s["group"] = pick("分组", cat, b.get("group", "板块"), "g", False)
+        with a2:
+            s["y"] = pick("数值", num, b.get("y", "1个月涨跌%"), "y", False)
+        with a3:
+            if typ == "group":
+                s["agg"] = st.selectbox("怎么算", list(B.AGGS), format_func=lambda k: B.AGGS[k],
+                                        index=list(B.AGGS).index(b.get("agg", "mean")), key=f"{key}_a")
+        with a4:
+            s["color"] = pick("再按这个分颜色", cat, b.get("color"), "c")
+    elif typ == "hist":
+        with a1:
+            s["x"] = pick("看哪个数字的分布", num, b.get("x", "RSI"), "x", False)
+        with a2:
+            s["color"] = pick("颜色", cat, b.get("color"), "c")
+    elif typ == "treemap":
+        with a1:
+            s["group"] = pick("第一层", cat, b.get("group", "板块"), "g", False)
+        with a2:
+            s["size"] = pick("方块大小", num, b.get("size", "市值(亿令吉)"), "s", False)
+        with a3:
+            s["color"] = pick("颜色", num + cat, b.get("color", "1日涨跌%"), "c", False)
+    else:   # heat / table
+        default_cols = b.get("cols") or (["1日涨跌%", "1周涨跌%", "1个月涨跌%", "3个月涨跌%"] if typ == "heat"
+                                         else ["代码", "名称", "板块", "股价", "本益比", "股息率%", "ROE%"])
+        s["cols"] = st.multiselect("栏位", num if typ == "heat" else D.ALL_FIELDS, default=default_cols, key=f"{key}_cols")
+        with a1:
+            s["sort"] = pick("排序", num, b.get("sort", "1个月涨跌%"), "so")
+        with a2:
+            s["desc"] = st.toggle("由大到小", b.get("desc", True), key=f"{key}_d")
+        with a3:
+            s["limit"] = st.number_input("最多几只", 3, 100, int(b.get("limit", 20)), key=f"{key}_l")
+    s["note"] = st.text_input("备注（怎么看这张图，可不写）", b.get("note", ""), key=f"{key}_n")
+    return B.clean(s)
+
+
+def page_dashboard():
+    import dashboard as B
+    import github_store as G
+    st.title("📐 我的仪表板")
+    st.caption("用自己的规则做图表：选股票范围（规则）、选图表种类、选横轴纵轴颜色大小。约 500 只股票的资料每天收市后更新。"
+               "也可以直接用一句话叫 AI 帮你画。")
+    df = all_stocks()
+    if df.empty:
+        st.info("还没有资料：板块报告每个交易日收市后会自动生成，之后这里就能画图。")
+        return
+    specs = dash_specs()
+    if not G.ready():
+        st.caption("💾 还没设 GitHub token：改动只存在这次打开的网站里（可以下载备份）。想永久保存，看页面最下面的说明。")
+
+    with st.container(border=True):
+        st.markdown("#### 🤖 用一句话画图")
+        with st.form("dash_ai", border=False):
+            f1, f2 = st.columns([5, 1], vertical_alignment="bottom")
+            want = f1.text_input("想看什么", placeholder="例如：马股银行股 股息率 vs 本益比；美股科技股 1 年涨幅前 10 名；各主题 1 个月平均涨跌",
+                                 key="dash_ask", label_visibility="collapsed")
+            go_ai = f2.form_submit_button("画出来", type="primary", width="stretch")
+        if go_ai and want.strip():
+            err = M.check_setup()
+            if err:
+                st.error(err)
+            else:
+                with st.spinner("AI 正在把你的描述变成图表规则…"):
+                    try:
+                        st.session_state.dash_preview = asyncio.run(_ai_spec(want))
+                    except Exception as e:
+                        st.error(f"❌ {e}")
+        pv = st.session_state.get("dash_preview")
+        if pv:
+            st.markdown(f"**{pv['title']}**　<span style='opacity:.6;font-size:.85rem'>{B.TYPES[pv['type']]}</span>",
+                        unsafe_allow_html=True)
+            render_chart(pv, df, "preview")
+            b1, b2, b3 = st.columns(3)
+            if b1.button("📌 加到仪表板", type="primary", width="stretch", key="pv_add"):
+                dash_save(specs + [pv], f"加入「{pv['title']}」")
+                st.session_state.pop("dash_preview")
+                st.rerun()
+            if b2.button("✏️ 先改一改", width="stretch", key="pv_edit"):
+                st.session_state.dash_edit = pv
+                st.session_state.pop("dash_preview")
+                st.rerun()
+            if b3.button("不要", width="stretch", key="pv_no"):
+                st.session_state.pop("dash_preview")
+                st.rerun()
+
+    editing = st.session_state.get("dash_edit")
+    with st.expander("✏️ 修改图表：" + editing["title"] if editing else "➕ 自己设定一张新图表", expanded=bool(editing)):
+        spec = chart_builder(editing, f"bld_{(editing or {}).get('id', 'new')}")
+        st.markdown("**预览**")
+        render_chart(spec, df, "bld_preview")
+        k1, k2 = st.columns(2)
+        if k1.button("💾 保存这张图", type="primary", width="stretch"):
+            ids = [c.get("id") for c in specs]
+            if editing and editing.get("id") in ids:
+                specs = [spec if c.get("id") == editing["id"] else c for c in specs]
+                dash_save(specs, f"修改「{spec['title']}」")
+            else:
+                dash_save(specs + [spec], f"加入「{spec['title']}」")
+            st.session_state.pop("dash_edit", None)
+            st.rerun()
+        if editing and k2.button("取消修改", width="stretch"):
+            st.session_state.pop("dash_edit", None)
+            st.rerun()
+
+    if not specs:
+        st.info("仪表板是空的：用上面的方法加图表，或按下面「放回范例图表」。")
+    per_row = st.segmented_control("每行几张", [1, 2], default=2, key="dash_cols", format_func=lambda n: f"每行 {n} 张") or 2
+    for i in range(0, len(specs), per_row):
+        cols = st.columns(per_row)
+        for j, (col, sp) in enumerate(zip(cols, specs[i:i + per_row])):
+            idx = i + j
+            with col.container(border=True):
+                h1, h2 = st.columns([5, 1], vertical_alignment="center")
+                h1.markdown(f"**{sp['title']}**")
+                with h2.popover("⋯", width="stretch"):
+                    if st.button("✏️ 修改", key=f"e_{sp['id']}", width="stretch"):
+                        st.session_state.dash_edit = sp
+                        st.rerun()
+                    if st.button("⬆️ 往前", key=f"u_{sp['id']}", disabled=idx == 0, width="stretch"):
+                        specs[idx - 1], specs[idx] = specs[idx], specs[idx - 1]
+                        dash_save(specs, "调整顺序")
+                        st.rerun()
+                    if st.button("⬇️ 往后", key=f"d_{sp['id']}", disabled=idx == len(specs) - 1, width="stretch"):
+                        specs[idx + 1], specs[idx] = specs[idx], specs[idx + 1]
+                        dash_save(specs, "调整顺序")
+                        st.rerun()
+                    if st.button("🗑️ 删除", key=f"x_{sp['id']}", width="stretch"):
+                        dash_save([c for c in specs if c.get("id") != sp["id"]], f"删除「{sp['title']}」")
+                        st.rerun()
+                render_chart(sp, df, sp["id"], height=None if per_row == 1 else 380)
+
+    st.divider()
+    z1, z2, z3 = st.columns(3)
+    z1.download_button("⬇️ 下载仪表板设定", B.dump_specs(specs).encode("utf-8"), "my_dashboard.json", "application/json",
+                       width="stretch")
+    upf = z2.file_uploader("上传仪表板设定", type="json", label_visibility="collapsed", key="dash_up")
+    if upf is not None and st.session_state.get("dash_up_done") != upf.name:
+        try:
+            d = json.loads(upf.getvalue().decode("utf-8"))
+            dash_save([B.clean(c) for c in (d.get("charts", []) if isinstance(d, dict) else d)], "上传设定")
+            st.session_state.dash_up_done = upf.name
+            st.rerun()
+        except Exception as e:
+            st.error(f"读不懂这个文件：{e}")
+    if z3.button("↩️ 放回范例图表", width="stretch"):
+        dash_save([dict(p) for p in B.PRESETS] + [c for c in specs if not str(c.get("id", "")).startswith("p")], "放回范例")
+        st.rerun()
+    with st.expander("🔑 想让设定永久保存？（设定 GitHub token，一次就好）"):
+        st.markdown(GITHUB_HELP)
+
+
+GITHUB_HELP = """1. 打开 GitHub → 右上角头像 → **Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token**
+2. **Repository access** 选 *Only select repositories* → 选你的 `stock-bot`
+3. **Permissions → Repository permissions → Contents** 选 **Read and write**，其他不用开
+4. 产生后复制 token（只会显示一次，**不要给任何人、不要截图**）
+5. 到 Streamlit 网站后台 → 你的 app → **Settings → Secrets**，加两行：
+```
+GITHUB_TOKEN = "github_pat_……"
+GITHUB_REPO = "你的GitHub帐号/stock-bot"
+```
+6. 保存后网站会自动重新启动。之后仪表板、AI 助手改的自选股 / 提醒 / 新闻追踪都会直接存进 GitHub。"""
+
+
+# ---------------------------------------------------------------------------
+# 页面：AI 助手（问答 + 改设定）
+# ---------------------------------------------------------------------------
+
+EXAMPLES = ["今天马股有什么值得注意的？", "帮我找马股股息率 5% 以上、ROE 10% 以上的股票",
+            "Maybank 最近怎么样？下次什么时候除权？", "画一张美股科技股 1 年涨幅前 10 名",
+            "把 GAMUDA 加进自选股，跌破 4.2 提醒我", "换成海洋蓝主题，字体大一点"]
+
+
+async def _ask_agent(agent, q, hist):
+    M.reset_clients()
+    return await agent.ask(q, hist)
+
+
+def run_action(msg_i: int, act_i: int):
+    import assistant as AS
+    act = st.session_state.chat[msg_i]["actions"][act_i]
+    if act.get("type") == "theme":
+        p = dict(ui.prefs())
+        for k in ("th", "fs", "dn", "rd", "bd", "ac"):
+            if act.get(k):
+                p[k] = act[k]
+        if p["th"] not in ui.THEMES:
+            p["th"] = ui.DEFAULTS["th"]
+        ui.save_prefs(p)
+        act["result"] = "✅ 外观已经换好"
+        return
+    try:
+        act["result"] = AS.execute(act)
+        if act["type"].startswith("dashboard"):
+            st.session_state.pop("dash_specs", None)
+        cached_dataset.clear()
+    except Exception as e:
+        act["result"] = f"❌ 没改成功：{e}"
+
+
+def page_assistant():
+    import assistant as AS
+    import github_store as G
+    st.title("🤖 AI 助手")
+    st.caption("问什么都可以：它会先查系统里的真实资料（报告、约 500 只股票、新闻、公告日历、IPO、你的组合）再回答，"
+               "也可以帮你画图、改自选股 / 提醒 / 新闻追踪 / 仪表板 / 外观（改之前会先问你）。不会改程序。")
+    if "chat" not in st.session_state:
+        st.session_state.chat = []
+    chat = st.session_state.chat
+    err = M.check_setup()
+    if err:
+        st.error(err)
+        return
+
+    if not chat:
+        st.markdown("**可以这样问：**")
+        cols = st.columns(3)
+        for i, q in enumerate(EXAMPLES):
+            if cols[i % 3].button(q, key=f"ex_{i}", width="stretch"):
+                st.session_state.chat_pending = q
+                st.rerun()
+
+    df = None
+    for mi, msg in enumerate(chat):
+        with st.chat_message(msg["role"], avatar="🧑" if msg["role"] == "user" else "🤖"):
+            st.markdown(md(msg["content"]))
+            if msg.get("steps"):
+                st.caption("🔎 查了：" + "　·　".join(msg["steps"]))
+            if msg.get("chart"):
+                df = df if df is not None else all_stocks()
+                with st.container(border=True):
+                    st.markdown(f"**{msg['chart']['title']}**")
+                    render_chart(msg["chart"], df, f"chat_{mi}")
+                    if not msg.get("chart_saved"):
+                        if st.button("📌 加到我的仪表板", key=f"pin_{mi}"):
+                            dash_save(dash_specs() + [msg["chart"]], f"加入「{msg['chart']['title']}」")
+                            msg["chart_saved"] = True
+                            st.rerun()
+                    else:
+                        st.caption("✅ 已加到「📐 我的仪表板」")
+            for ai, act in enumerate(msg.get("actions") or []):
+                with st.container(border=True):
+                    st.markdown(f"**要改设定：** {AS.describe(act)}")
+                    if act.get("result"):
+                        st.markdown(act["result"])
+                    elif act.get("cancelled"):
+                        st.caption("已取消")
+                    elif act["type"] != "theme" and not G.ready():
+                        st.warning("还没设 GitHub token，网站不能直接改 GitHub 上的设定。设好之后就可以一键确认（说明在「📐 我的仪表板」页面最下面）。")
+                        if act["type"].startswith("watch"):
+                            try:
+                                new, _m = G.edit_watchlist(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                                                             "watchlist.yml"), encoding="utf-8").read(),
+                                                           {"watch_add": "add", "watch_remove": "remove", "watch_alert": "alert",
+                                                            "watch_clear_alerts": "clear_alerts"}[act["type"]],
+                                                           act.get("ticker", ""), act.get("note"), act.get("alerts"))
+                                with st.expander("也可以自己到 GitHub 打开 watchlist.yml，换成这个内容"):
+                                    st.code(new, language="yaml")
+                            except Exception:
+                                pass
+                    else:
+                        c1, c2 = st.columns(2)
+                        c1.button("✅ 确认", key=f"ok_{mi}_{ai}", type="primary", on_click=run_action, args=(mi, ai),
+                                  width="stretch")
+                        if c2.button("取消", key=f"no_{mi}_{ai}", width="stretch"):
+                            act["cancelled"] = True
+                            st.rerun()
+
+    q = st.chat_input("问我任何关于股票、市场、你的组合或网站设定的问题…")
+    q = q or st.session_state.pop("chat_pending", None)
+    if q:
+        chat.append({"role": "user", "content": q})
+        with st.chat_message("user", avatar="🧑"):
+            st.markdown(md(q))
+        with st.chat_message("assistant", avatar="🤖"):
+            with st.spinner("想一想、查资料中…（约 10–40 秒）"):
+                agent = AS.Agent(all_stocks(), cached_analysis,
+                                 holdings=[h for h in json.loads(st.session_state.get("pf_run") or "[]")]
+                                 or _pf_holdings(), prefs=ui.prefs())
+                try:
+                    ans = asyncio.run(_ask_agent(agent, q, chat[:-1]))
+                except Exception as e:
+                    ans = {"answer": f"抱歉，AI 暂时无法回答：{e}", "steps": agent.steps}
+        chat.append({"role": "assistant", "content": ans["answer"], "steps": ans.get("steps"),
+                     "chart": ans.get("chart"), "actions": ans.get("actions")})
+        st.rerun()
+    if chat and st.button("🧹 清除对话"):
+        st.session_state.chat = []
+        st.rerun()
+
+
+def _pf_holdings() -> list[dict]:
+    pf = st.session_state.get("pf")
+    if pf is None:
+        return []
+    try:
+        import pfcheck as PC
+        d = PC.normalize(pf).dropna()
+        return [{"代码": str(r["代码"]), "数量": float(r["数量"]), "平均成本": float(r["平均成本"])}
+                for _, r in d.iterrows() if float(r["数量"]) > 0]
+    except Exception:
+        return []
+
+
+# ---------------------------------------------------------------------------
 # 页面：外观设定（主题颜色、字体大小、留白、圆角、背景、首页）
 # ---------------------------------------------------------------------------
 
@@ -2218,7 +2640,7 @@ def page_health():
 PAGES = {  # 顺序要跟 ui.NAV_GROUPS 的分组对应
     "📅 每日焦点": page_focus, "🧩 板块": page_sectors, "🔍 选股雷达": page_radar, "🏆 KLCI 50 观察": page_klci, "🆕 IPO 追踪": page_ipo, "📅 公告日历": page_calendar,
     "📊 个股分析": page_analysis, "⚖️ 股票对比": page_compare, "📑 季度报告": page_quarterly,
-    "⭐ 自选股": page_watchlist, "🗞️ 新闻追踪": page_news, "💼 投资组合": page_portfolio, "📈 成绩单": page_track, "📰 周报": page_weekly,
+    "🤖 AI 助手": page_assistant, "📐 我的仪表板": page_dashboard, "⭐ 自选股": page_watchlist, "🗞️ 新闻追踪": page_news, "💼 投资组合": page_portfolio, "📈 成绩单": page_track, "📰 周报": page_weekly,
     "🩺 系统状态": page_health, "🎨 外观设定": page_appearance}
 
 if check_password():
@@ -2241,13 +2663,14 @@ if check_password():
             st.session_state.nav = "🗞️ 新闻追踪"
         elif qp.get("analyze") or qp.get("stock"):
             goto_analysis(qp.get("stock") or qp["analyze"])
-        elif qp.get("page") in ("focus", "radar", "klci", "sectors", "track", "weekly", "watch", "quarterly", "compare", "news", "ipo", "calendar", "portfolio", "appearance"):
+        elif qp.get("page") in ("focus", "radar", "klci", "sectors", "track", "weekly", "watch", "quarterly", "compare", "news", "ipo", "calendar", "portfolio", "appearance", "assistant", "dashboard"):
             st.session_state.nav = {"focus": "📅 每日焦点", "radar": "🔍 选股雷达", "klci": "🏆 KLCI 50 观察",
                                     "sectors": "🧩 板块", "track": "📈 成绩单", "weekly": "📰 周报",
                                     "watch": "⭐ 自选股", "quarterly": "📑 季度报告",
                                     "compare": "⚖️ 股票对比", "news": "🗞️ 新闻追踪", "ipo": "🆕 IPO 追踪",
                                     "calendar": "📅 公告日历", "portfolio": "💼 投资组合",
-                                    "appearance": "🎨 外观设定"}[qp["page"]]
+                                    "appearance": "🎨 外观设定", "assistant": "🤖 AI 助手",
+                                    "dashboard": "📐 我的仪表板"}[qp["page"]]
         if "nav" not in st.session_state and ui.prefs().get("home") in PAGES:   # 自己设定的首页
             st.session_state.nav = ui.prefs()["home"]
         st.session_state._qp_done = True

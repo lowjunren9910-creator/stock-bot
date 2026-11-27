@@ -1,10 +1,10 @@
 # 网站外观（Streamlit 会自动读这个文件）
 [theme]
 base = "dark"
-primaryColor = "#C8A23A"
-backgroundColor = "#121A2E"
-secondaryBackgroundColor = "#1B2540"
-textColor = "#E6EAF2"
+primaryColor = "#FF4FA0"
+backgroundColor = "#160A22"
+secondaryBackgroundColor = "#251236"
+textColor = "#FFF0F7"
 font = "sans serif"
 
 [client]

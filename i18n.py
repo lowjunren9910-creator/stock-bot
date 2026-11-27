@@ -99,7 +99,7 @@ TEXT_KW = ("label", "placeholder", "help", "body", "text", "caption", "value_lab
 FIRST_ARG = ["title", "header", "subheader", "markdown", "caption", "text", "info", "warning", "error", "success",
              "button", "download_button", "form_submit_button", "link_button", "expander", "popover", "checkbox",
              "toggle", "text_input", "number_input", "text_area", "file_uploader", "slider", "date_input",
-             "color_picker", "html", "latex", "data_editor", "camera_input", "page_link"]
+             "color_picker", "html", "latex", "data_editor", "camera_input", "page_link", "chat_input"]
 CHOICE = ["radio", "selectbox", "multiselect", "pills", "segmented_control", "select_slider", "feedback"]
 
 
@@ -216,6 +216,13 @@ def _tr_fig(fig):
             a = getattr(lay, ax, None)
             if a is not None and a.title and a.title.text:
                 a.title.text = tr(a.title.text)
+        if lay.legend and lay.legend.title and lay.legend.title.text:
+            lay.legend.title.text = tr(lay.legend.title.text)
+        if lay.coloraxis and lay.coloraxis.colorbar and lay.coloraxis.colorbar.title and lay.coloraxis.colorbar.title.text:
+            lay.coloraxis.colorbar.title.text = tr(lay.coloraxis.colorbar.title.text)
+        for t in fig.data:
+            if getattr(t, "legendgroup", None):
+                t.legendgroup = tr(t.legendgroup)
         for ann in lay.annotations or []:
             if ann.text:
                 ann.text = tr(ann.text)
