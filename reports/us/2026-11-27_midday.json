@@ -1,0 +1,577 @@
+{
+ "market": "us",
+ "market_name": "🇺🇸 美股",
+ "currency": "USD",
+ "session": "midday",
+ "session_name": "盘中报告",
+ "date": "2026-11-27",
+ "generated_at": "2026-11-27 12:30 EST",
+ "partial_day": 0.46,
+ "breadth": {
+  "scanned": 161,
+  "up": 135,
+  "down": 26,
+  "flat": 0,
+  "avg_change": 1.4,
+  "filtered_out": [
+   "JPM-PC",
+   "JPM-PD",
+   "TM",
+   "BML-PG",
+   "BML-PH",
+   "MUFG",
+   "BML-PL",
+   "BAC-PB",
+   "BML-PJ",
+   "BAC-PK",
+   "BAC-PE",
+   "SAN",
+   "WFC-PY",
+   "SMFG",
+   "UBS",
+   "BBVA",
+   "MFG"
+  ]
+ },
+ "watchlist": [
+  {
+   "price": 315.4,
+   "change_pct": 6.17,
+   "gap_pct": 3.35,
+   "range_pct": 6.86,
+   "volume": 7890887.0,
+   "vol_ratio": 1.65,
+   "turnover": 2488785711.64,
+   "avg_turnover": 3458522415.44,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 40.66,
+   "ticker": "DELL",
+   "name": "Dell",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 9.2
+  },
+  {
+   "price": 534.75,
+   "change_pct": -5.21,
+   "gap_pct": -8.29,
+   "range_pct": 5.77,
+   "volume": 1666975.0,
+   "vol_ratio": 2.21,
+   "turnover": 891414881.25,
+   "avg_turnover": 885498499.78,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 49.41,
+   "ticker": "VRTX",
+   "name": "Vertex Pharmaceuticals Incorpor",
+   "tags": [
+    "放量大跌",
+    "跳空低开"
+   ],
+   "score": 8.75
+  },
+  {
+   "price": 638.36,
+   "change_pct": 6.17,
+   "gap_pct": 4.83,
+   "range_pct": 6.65,
+   "volume": 21023573.0,
+   "vol_ratio": 1.22,
+   "turnover": 13420607752.32,
+   "avg_turnover": 26710306409.21,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 39.5,
+   "ticker": "MU",
+   "name": "Micron",
+   "tags": [
+    "跳空高开"
+   ],
+   "score": 8.5
+  },
+  {
+   "price": 174.8,
+   "change_pct": 6.59,
+   "gap_pct": 3.74,
+   "range_pct": 5.02,
+   "volume": 2736674.0,
+   "vol_ratio": 0.61,
+   "turnover": 478370623.55,
+   "avg_turnover": 1724826435.98,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 46.63,
+   "ticker": "ANET",
+   "name": "Arista Networks",
+   "tags": [
+    "跳空高开"
+   ],
+   "score": 8.1
+  },
+  {
+   "price": 177.45,
+   "change_pct": 5.21,
+   "gap_pct": 2.85,
+   "range_pct": 5.95,
+   "volume": 4340790.0,
+   "vol_ratio": 0.6,
+   "turnover": 770273172.25,
+   "avg_turnover": 2589814022.23,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": true,
+   "cross_dn_50": false,
+   "rsi": 55.24,
+   "ticker": "QCOM",
+   "name": "Qualcomm",
+   "tags": [
+    "跳空高开",
+    "突破 50 日均线"
+   ],
+   "score": 8.0
+  }
+ ],
+ "gainers": [
+  {
+   "price": 174.8,
+   "change_pct": 6.59,
+   "gap_pct": 3.74,
+   "range_pct": 5.02,
+   "volume": 2736674.0,
+   "vol_ratio": 0.61,
+   "turnover": 478370623.55,
+   "avg_turnover": 1724826435.98,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 46.63,
+   "ticker": "ANET",
+   "name": "Arista Networks",
+   "tags": [
+    "跳空高开"
+   ],
+   "score": 8.1
+  },
+  {
+   "price": 141.79,
+   "change_pct": 6.29,
+   "gap_pct": 4.23,
+   "range_pct": 2.97,
+   "volume": 4340065.0,
+   "vol_ratio": 1.08,
+   "turnover": 615377787.21,
+   "avg_turnover": 1246534774.02,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 46.8,
+   "ticker": "SHOP",
+   "name": "Shopify",
+   "tags": [
+    "跳空高开"
+   ],
+   "score": 7.3
+  },
+  {
+   "price": 315.4,
+   "change_pct": 6.17,
+   "gap_pct": 3.35,
+   "range_pct": 6.86,
+   "volume": 7890887.0,
+   "vol_ratio": 1.65,
+   "turnover": 2488785711.64,
+   "avg_turnover": 3458522415.44,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 40.66,
+   "ticker": "DELL",
+   "name": "Dell",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 9.2
+  },
+  {
+   "price": 638.36,
+   "change_pct": 6.17,
+   "gap_pct": 4.83,
+   "range_pct": 6.65,
+   "volume": 21023573.0,
+   "vol_ratio": 1.22,
+   "turnover": 13420607752.32,
+   "avg_turnover": 26710306409.21,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 39.5,
+   "ticker": "MU",
+   "name": "Micron",
+   "tags": [
+    "跳空高开"
+   ],
+   "score": 8.5
+  },
+  {
+   "price": 497.38,
+   "change_pct": 5.3,
+   "gap_pct": 4.65,
+   "range_pct": 4.77,
+   "volume": 1314433.0,
+   "vol_ratio": 0.52,
+   "turnover": 653772691.96,
+   "avg_turnover": 2879120985.52,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 41.33,
+   "ticker": "STX",
+   "name": "Seagate Technology Holdings PLC",
+   "tags": [
+    "跳空高开"
+   ],
+   "score": 6.73
+  }
+ ],
+ "losers": [
+  {
+   "price": 534.75,
+   "change_pct": -5.21,
+   "gap_pct": -8.29,
+   "range_pct": 5.77,
+   "volume": 1666975.0,
+   "vol_ratio": 2.21,
+   "turnover": 891414881.25,
+   "avg_turnover": 885498499.78,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 49.41,
+   "ticker": "VRTX",
+   "name": "Vertex Pharmaceuticals Incorpor",
+   "tags": [
+    "放量大跌",
+    "跳空低开"
+   ],
+   "score": 8.75
+  },
+  {
+   "price": 27.92,
+   "change_pct": -2.02,
+   "gap_pct": -2.98,
+   "range_pct": 1.4,
+   "volume": 2833310.0,
+   "vol_ratio": 1.05,
+   "turnover": 79091851.24,
+   "avg_turnover": 156602835.28,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 64.44,
+   "ticker": "SONY",
+   "name": "Sony Group",
+   "tags": [
+    "跳空低开"
+   ],
+   "score": 2.51
+  },
+  {
+   "price": 143.26,
+   "change_pct": -1.94,
+   "gap_pct": -0.56,
+   "range_pct": 2.65,
+   "volume": 2236591.0,
+   "vol_ratio": 0.58,
+   "turnover": 320414014.37,
+   "avg_turnover": 1143168113.62,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 56.01,
+   "ticker": "TJX",
+   "name": "TJX Companies, Inc. (The)",
+   "tags": [],
+   "score": 2.73
+  },
+  {
+   "price": 53.38,
+   "change_pct": -1.86,
+   "gap_pct": -2.46,
+   "range_pct": 1.12,
+   "volume": 4043080.0,
+   "vol_ratio": 1.61,
+   "turnover": 215820015.72,
+   "avg_turnover": 259301665.46,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 74.86,
+   "ticker": "SNY",
+   "name": "Sanofi",
+   "tags": [
+    "跳空低开"
+   ],
+   "score": 3.1
+  },
+  {
+   "price": 78.63,
+   "change_pct": -1.69,
+   "gap_pct": -1.84,
+   "range_pct": 1.09,
+   "volume": 1966195.0,
+   "vol_ratio": 1.66,
+   "turnover": 154601907.45,
+   "avg_turnover": 210851820.39,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 40.2,
+   "ticker": "BUD",
+   "name": "Anheuser-Busch Inbev SA Sponsor",
+   "tags": [
+    "跳空低开"
+   ],
+   "score": 3.01
+  }
+ ],
+ "volume_surge": [
+  {
+   "price": 534.75,
+   "change_pct": -5.21,
+   "gap_pct": -8.29,
+   "range_pct": 5.77,
+   "volume": 1666975.0,
+   "vol_ratio": 2.21,
+   "turnover": 891414881.25,
+   "avg_turnover": 885498499.78,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 49.41,
+   "ticker": "VRTX",
+   "name": "Vertex Pharmaceuticals Incorpor",
+   "tags": [
+    "放量大跌",
+    "跳空低开"
+   ],
+   "score": 8.75
+  },
+  {
+   "price": 659.04,
+   "change_pct": 2.81,
+   "gap_pct": 1.46,
+   "range_pct": 3.23,
+   "volume": 1160455.0,
+   "vol_ratio": 1.8,
+   "turnover": 764786237.7,
+   "avg_turnover": 911218734.28,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 52.16,
+   "ticker": "DE",
+   "name": "Deere & Company",
+   "tags": [
+    "放量大涨"
+   ],
+   "score": 4.97
+  },
+  {
+   "price": 78.63,
+   "change_pct": -1.69,
+   "gap_pct": -1.84,
+   "range_pct": 1.09,
+   "volume": 1966195.0,
+   "vol_ratio": 1.66,
+   "turnover": 154601907.45,
+   "avg_turnover": 210851820.39,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 40.2,
+   "ticker": "BUD",
+   "name": "Anheuser-Busch Inbev SA Sponsor",
+   "tags": [
+    "跳空低开"
+   ],
+   "score": 3.01
+  },
+  {
+   "price": 315.4,
+   "change_pct": 6.17,
+   "gap_pct": 3.35,
+   "range_pct": 6.86,
+   "volume": 7890887.0,
+   "vol_ratio": 1.65,
+   "turnover": 2488785711.64,
+   "avg_turnover": 3458522415.44,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 40.66,
+   "ticker": "DELL",
+   "name": "Dell",
+   "tags": [
+    "放量大涨",
+    "跳空高开"
+   ],
+   "score": 9.2
+  },
+  {
+   "price": 53.38,
+   "change_pct": -1.86,
+   "gap_pct": -2.46,
+   "range_pct": 1.12,
+   "volume": 4043080.0,
+   "vol_ratio": 1.61,
+   "turnover": 215820015.72,
+   "avg_turnover": 259301665.46,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 74.86,
+   "ticker": "SNY",
+   "name": "Sanofi",
+   "tags": [
+    "跳空低开"
+   ],
+   "score": 3.1
+  }
+ ],
+ "turnover_top": [
+  {
+   "price": 149.18,
+   "change_pct": -0.08,
+   "gap_pct": 1.77,
+   "range_pct": 4.41,
+   "volume": 142073049.0,
+   "vol_ratio": 0.87,
+   "turnover": 21194443402.07,
+   "avg_turnover": 57494376349.61,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 37.41,
+   "ticker": "NVDA",
+   "name": "NVIDIA",
+   "tags": [
+    "跳空高开"
+   ],
+   "score": 1.4
+  },
+  {
+   "price": 638.36,
+   "change_pct": 6.17,
+   "gap_pct": 4.83,
+   "range_pct": 6.65,
+   "volume": 21023573.0,
+   "vol_ratio": 1.22,
+   "turnover": 13420607752.32,
+   "avg_turnover": 26710306409.21,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 39.5,
+   "ticker": "MU",
+   "name": "Micron",
+   "tags": [
+    "跳空高开"
+   ],
+   "score": 8.5
+  },
+  {
+   "price": 398.98,
+   "change_pct": 4.96,
+   "gap_pct": 2.94,
+   "range_pct": 4.35,
+   "volume": 19527767.0,
+   "vol_ratio": 1.18,
+   "turnover": 7791188692.2,
+   "avg_turnover": 13479856610.35,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 56.1,
+   "ticker": "TSLA",
+   "name": "Tesla",
+   "tags": [
+    "跳空高开"
+   ],
+   "score": 6.53
+  },
+  {
+   "price": 418.18,
+   "change_pct": 2.99,
+   "gap_pct": 3.38,
+   "range_pct": 5.74,
+   "volume": 16513232.0,
+   "vol_ratio": 0.76,
+   "turnover": 6905503236.81,
+   "avg_turnover": 22747168498.66,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 39.9,
+   "ticker": "AMD",
+   "name": "AMD",
+   "tags": [
+    "跳空高开"
+   ],
+   "score": 4.71
+  },
+  {
+   "price": 131.43,
+   "change_pct": 3.13,
+   "gap_pct": 2.95,
+   "range_pct": 2.49,
+   "volume": 40183751.0,
+   "vol_ratio": 0.82,
+   "turnover": 5281350099.62,
+   "avg_turnover": 14364719016.84,
+   "new_high": false,
+   "new_low": false,
+   "cross_up_50": false,
+   "cross_dn_50": false,
+   "rsi": 44.2,
+   "ticker": "SPCX",
+   "name": "Space Exploration Technologies",
+   "tags": [
+    "跳空高开"
+   ],
+   "score": 3.88
+  }
+ ],
+ "ai_comment": null
+}
