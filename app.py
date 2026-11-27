@@ -2039,12 +2039,24 @@ def strategy_cfg() -> dict:
     import strategy as SG
     if "strategy_cfg" not in st.session_state:
         st.session_state.strategy_cfg = SG.load()
+    st.session_state.strategy_cfg = SG.normalize(st.session_state.strategy_cfg)
     return st.session_state.strategy_cfg
+
+
+def D_FIELDS() -> list[str]:
+    import dataset as D
+    return D.NUMERIC + D.CATEGORIES
+
+
+def SG_OPS() -> list[str]:
+    import dataset as D
+    return D.OPS
 
 
 def strategy_save(cfg: dict):
     import github_store as G
     import strategy as SG
+    cfg = SG.normalize(cfg)
     st.session_state.strategy_cfg = cfg
     if G.ready():
         try:
@@ -2110,6 +2122,10 @@ def show_planner(ok, ev, cfg):
                                format_func=lambda v: v if isinstance(v, str) else f"{v}%")
         target = c3.select_slider("📈 期望每年回报", [4, 6, 8, 10, 12, 15, 20], value=8, key="pl_tg",
                                   format_func=lambda v: f"{v}%")
+        income = c1.number_input("每月收入（RM，可填 0）", 0.0, 10_000_000.0, 0.0, 100.0, key="pl_inc", format="%.0f",
+                                 help="用来检查每月投入合不合理（储蓄法则）")
+        goal_amt = c3.number_input("🎯 目标金额（RM，可填 0）", 0.0, 1_000_000_000.0, 0.0, 1000.0, key="pl_goal", format="%.0f",
+                                   help="例如几年后想要 RM 50,000 买房头期：系统会算每月要投入多少")
         go_btn = st.form_submit_button("🔍 开始分析", type="primary", width="stretch")
     if go_btn:
         st.session_state.pl_done = True
@@ -2141,7 +2157,8 @@ def show_planner(ok, ev, cfg):
     growth = SG.model_portfolio(ok2, cfg) if len(ok2) else ok2
     inc = PL.income_candidates(ev2, mk)
     inc = inc[~inc["代码"].isin(growth["代码"] if len(growth) else [])]
-    pl = PL.plan(capital, monthly, profile, max_drop, target, years, growth, inc, fx, cfg, answers=ans, expense=expense)
+    pl = PL.plan(capital, monthly, profile, max_drop, target, years, growth, inc, fx, cfg, answers=ans, expense=expense,
+                 income=income, goal_amt=goal_amt)
     inv = pl["capital_invest"]
 
     if pl["notes"]:
@@ -2191,7 +2208,8 @@ def show_planner(ok, ev, cfg):
                     f"- 每只跌到止损价就重新检讨；**全部都碰到止损**，大约亏 **RM {pl['stop_loss_total']:,.0f}**"
                     f"（总资金的 {pl['stop_loss_total'] / capital * 100:.1f}%）\n"
                     f"- 现金 RM {pl['cash']:,.0f}：应急用、或等跌的时候加码\n"
-                    "- 建议分 2–3 个月慢慢买入，不要一次全部投入")
+                    "- 建议分 2–3 个月慢慢买入，不要一次全部投入\n"
+                    f"- 再平衡：任何一类比例偏离目标超过 {pl['rebalance_gap']:g}%（例如成长股涨太多），就卖多的、补少的")
 
     sc = pl["scenarios"]
     xs = [f"{i // 12} 年" if i % 12 == 0 else "" for i in range(len(sc["一般"]))]
@@ -2240,36 +2258,87 @@ def page_strategy():
     acc = ui.COLORS["accent"]
     chips = "".join(f"<span style='display:inline-block;margin:0 8px 8px 0;padding:6px 14px;border-radius:999px;"
                     f"border:1px solid {ui.rgba(acc, .5)};background:{ui.rgba(acc, .12)};font-size:.9rem'>"
-                    f"<b style='color:{acc}'>{g}</b>　{t}</span>" for g, t in SG.gate_text(cfg))
+                    f"<b style='color:{acc}'>{g}</b>　{t}</span>" for g, t in SG.chips(cfg))
     st.markdown(f"<div style='margin:4px 0 6px'>{chips}</div>", unsafe_allow_html=True)
 
-    with st.expander("⚙️ 调整我的规则"):
-        c1, c2, c3 = st.columns(3)
-        new = dict(cfg)
-        new["markets"] = c1.multiselect("市场", ["马股", "美股", "印尼股"], default=cfg["markets"], key="sg_m")
-        new["roe_min"] = c1.number_input("质量：ROE 至少（%）", 0.0, 50.0, float(cfg["roe_min"]), 1.0, key="sg_roe")
-        new["growth_min"] = c1.number_input("成长：营收或盈利增长至少（%）", 0.0, 100.0, float(cfg["growth_min"]), 1.0, key="sg_g")
-        new["peg_max"] = c2.number_input("价值：PEG 最多", 0.2, 5.0, float(cfg["peg_max"]), 0.1, key="sg_peg")
-        new["debt_max"] = c2.number_input("安全：负债权益比最多（%）", 0.0, 500.0, float(cfg["debt_max"]), 10.0, key="sg_d")
-        new["debt_exempt"] = c2.toggle("银行、产托不看负债", cfg["debt_exempt"], key="sg_ex")
-        new["trend_ma200"] = c3.toggle("时机：股价要在 200 日均线之上", cfg["trend_ma200"], key="sg_ma")
-        new["n_max"] = c3.number_input("组合最多几只", 3, 30, int(cfg["n_max"]), 1, key="sg_n")
-        new["weight_max"] = c3.number_input("每只最多（%）", 5.0, 50.0, float(cfg["weight_max"]), 1.0, key="sg_w")
-        new["sector_max"] = c3.number_input("同一板块最多（%）", 10.0, 100.0, float(cfg["sector_max"]), 5.0, key="sg_s")
+    with st.expander("⚙️ 调整我的规则（可以自己加规则）"):
+        new = json.loads(json.dumps(cfg))
+        t1, t2, t3, t4 = st.tabs(["🧱 基本关卡", "➕ 更多买入规则", "🔔 卖出 / 风险规则", "💰 资金规划规则"])
+        with t1:
+            c1, c2, c3 = st.columns(3)
+            new["markets"] = c1.multiselect("市场", ["马股", "美股", "印尼股"], default=cfg["markets"], key="sg_m")
+            new["roe_min"] = c1.number_input("质量：ROE 至少（%）", 0.0, 50.0, float(cfg["roe_min"]), 1.0, key="sg_roe")
+            new["growth_min"] = c1.number_input("成长：营收或盈利增长至少（%）", 0.0, 100.0, float(cfg["growth_min"]), 1.0, key="sg_g")
+            new["peg_max"] = c2.number_input("价值：PEG 最多", 0.2, 5.0, float(cfg["peg_max"]), 0.1, key="sg_peg")
+            new["debt_max"] = c2.number_input("安全：负债权益比最多（%）", 0.0, 500.0, float(cfg["debt_max"]), 10.0, key="sg_d")
+            new["debt_exempt"] = c2.toggle("银行、产托不看负债", cfg["debt_exempt"], key="sg_ex")
+            on = c3.multiselect("要用的基本关卡（拿掉 = 不检查这一关）", [g for g, _ in SG.GATES],
+                                default=[g for g, _ in SG.GATES if g not in cfg["gate_off"]], key="sg_on")
+            new["gate_off"] = [g for g, _ in SG.GATES if g not in on]
+            new["trend_ma200"] = "时机" in on
+            new["n_max"] = c3.number_input("组合最多几只", 3, 30, int(cfg["n_max"]), 1, key="sg_n")
+            new["weight_max"] = c3.number_input("每只最多（%）", 5.0, 50.0, float(cfg["weight_max"]), 1.0, key="sg_w")
+            new["sector_max"] = c3.number_input("同一板块最多（%）", 10.0, 100.0, float(cfg["sector_max"]), 5.0, key="sg_s")
+        with t2:
+            st.caption("打勾 = 使用这条规则。可以改数字，也可以在最下面一行加你自己的规则（例如「股息率% >= 4」）。"
+                       "打勾的规则全部要过，才算「自定」这一关通过。")
+            rules_df = pd.DataFrame(cfg["extra_rules"], columns=["开", "名称", "栏位", "条件", "数值"])
+            rules_df["数值"] = rules_df["数值"].map(lambda v: "" if v is None else str(v))
+            ed = st.data_editor(rules_df, num_rows="dynamic", hide_index=True, width="stretch", key="sg_rules",
+                                column_config={"开": st.column_config.CheckboxColumn("用", default=True, width="small"),
+                                               "名称": st.column_config.TextColumn("规则名称"),
+                                               "栏位": st.column_config.SelectboxColumn("看哪一项", options=D_FIELDS(), required=True),
+                                               "条件": st.column_config.SelectboxColumn("条件", options=SG_OPS(), required=True),
+                                               "数值": st.column_config.TextColumn("数值", help="数字；「介于」写 5,10；「包含」写关键字")})
+            rules = []
+            for r in ed.to_dict("records"):
+                if not r.get("栏位") or not r.get("条件") or str(r.get("数值") or "").strip() == "":
+                    continue
+                v = str(r["数值"]).strip()
+                try:
+                    v = float(v) if r["条件"] not in ("介于", "包含", "不包含") else v
+                    v = int(v) if isinstance(v, float) and v.is_integer() else v
+                except ValueError:
+                    pass
+                rules.append({"名称": r.get("名称") or f"{r['栏位']} {r['条件']} {v}", "栏位": r["栏位"], "条件": r["条件"],
+                              "数值": v, "开": bool(r.get("开"))})
+            new["extra_rules"] = rules
+        with t3:
+            st.caption("🔴 = 考虑卖出，🟡 = 考虑减持（卖一部分）。填 0 = 不用这条。")
+            c1, c2, c3 = st.columns(3)
+            new["sell_loss"] = c1.number_input("止损：从买入价跌多少 %", 0.0, 90.0, float(cfg["sell_loss"]), 1.0, key="sg_sl")
+            new["sell_peg"] = c1.number_input("变太贵：PEG 超过", 0.5, 10.0, float(cfg["sell_peg"]), 0.1, key="sg_sp")
+            new["sell_ma_gap"] = c2.number_input("趋势破坏：跌破 200 日均线超过 %", 0.0, 50.0, float(cfg["sell_ma_gap"]), 1.0, key="sg_smg")
+            new["swap_gap"] = c2.number_input("有更好的选择：综合分高出几分", 0.0, 100.0, float(cfg["swap_gap"]), 1.0, key="sg_sw")
+            new["sell_profit"] = c3.number_input("🟡 获利了结：涨了多少 %", 0.0, 1000.0, float(cfg["sell_profit"]), 5.0, key="sg_sprof")
+            new["trim_over"] = c3.number_input("🟡 单只太重：超过每只上限的几倍", 0.0, 5.0, float(cfg["trim_over"]), 0.1, key="sg_trim",
+                                               help="例如 1.3 = 每只上限 15% 时，超过 19.5% 就提醒减持；板块超过上限也会提醒")
+        with t4:
+            st.caption("「💰 资金规划」用的规则。")
+            c1, c2, c3 = st.columns(3)
+            pr = new["plan"]
+            pr["emerg_months"] = c1.number_input("应急钱：几个月生活费", 0, 24, int(cfg["plan"]["emerg_months"]), 1, key="sg_em")
+            pr["emerg_months_unstable"] = c1.number_input("收入不稳定的：几个月", 0, 36, int(cfg["plan"]["emerg_months_unstable"]), 1, key="sg_emu")
+            pr["age_rule"] = c2.toggle("股票比例不超过「110 − 年龄」%", bool(cfg["plan"]["age_rule"]), key="sg_age",
+                                       help="常见的经验法则：30 岁最多 80% 股票，50 岁最多 60%")
+            pr["save_rate"] = c2.number_input("建议每月投入收入的 %（50/30/20 法则）", 0.0, 80.0, float(cfg["plan"]["save_rate"]), 5.0, key="sg_sr")
+            pr["rebalance_gap"] = c3.number_input("再平衡：比例偏离超过几 %", 1.0, 30.0, float(cfg["plan"]["rebalance_gap"]), 1.0, key="sg_rb")
+            pr["min_pos"] = c3.number_input("每只至少买多少（RM）", 100.0, 50000.0, float(cfg["plan"]["min_pos"]), 100.0, key="sg_mp",
+                                            help="太小的话手续费占比太高")
         b1, b2 = st.columns(2)
-        if b1.button("💾 保存规则", type="primary", width="stretch", disabled=new == cfg):
+        if b1.button("💾 保存规则", type="primary", width="stretch", disabled=SG.normalize(new) == cfg):
             strategy_save(new)
             st.rerun()
-        if b2.button("↩️ 回到我原本的规则", width="stretch", disabled=cfg == SG.DEFAULT):
+        if b2.button("↩️ 回到我原本的规则", width="stretch", disabled=cfg == SG.normalize({})):
             for k in [k for k in st.session_state if str(k).startswith("sg_")]:
                 del st.session_state[k]
-            strategy_save(dict(SG.DEFAULT))
+            strategy_save({})
             st.rerun()
 
     ev = SG.evaluate(df, cfg)
     # 旧报告没有 200 日均线：前 4 关都过的那些，网站自己算
     if cfg["trend_ma200"]:
-        need = ev[(ev["过关数"] >= 4) & ev["距200日均线%"].isna()]["代码"].tolist()
+        need = ev[(ev["过关数"] >= ev["关数"] - 1) & ev["距200日均线%"].isna()]["代码"].tolist()
         if need:
             with st.spinner(f"正在算 {len(need)} 只股票的 200 日均线…"):
                 ma = live_ma200(tuple(sorted(need)), str(date.today()))
@@ -2286,7 +2355,7 @@ def page_strategy():
     m[3].metric("平均综合分", f"{ok['综合分'].mean():.0f}" if len(ok) else "—", help="质量、成长、便宜各占 1/3，100 = 最好")
 
     f1, f2 = st.columns([1.2, 1])
-    fn = SG.funnel(ev)
+    fn = SG.funnel(ev, cfg)
     f1.plotly_chart(go.Figure(go.Funnel(y=[x[0] for x in fn], x=[x[1] for x in fn], textinfo="value+percent initial",
                                         marker=dict(color=[ui.COLORS["soft"]] + [ui.COLORS["accent"]] * (len(fn) - 1))))
                     .update_layout(title="一关一关筛下来", height=330, margin=dict(l=10, r=10, t=40, b=10)), width="stretch")
@@ -2339,29 +2408,50 @@ def page_strategy():
         if not hold:
             st.info("还没有持股资料：到「💼 投资组合」输入（或从手机 App 按「🩺 AI 组合体检」带过来），这里就会用你的卖出规则逐只检查。")
         else:
+            import pfcheck as PC
             res = SG.sell_check(hold, SG.evaluate(df, {**cfg, "markets": []}), cfg,
-                                float(ok["综合分"].max()) if len(ok) else None)
+                                float(ok["综合分"].max()) if len(ok) else None, PC.fx_rates({"USD", "IDR"})[0])
             st.dataframe(pd.DataFrame(res), hide_index=True, width="stretch")
-            st.caption(f"卖出规则：买入理由消失（ROE 或成长跌破门槛，连续 2 季）｜PEG > {cfg['sell_peg']:g}｜"
-                       f"从买入价跌 {cfg['sell_loss']:g}%｜有综合分高 {cfg['swap_gap']:g} 分以上的更好选择。")
+            st.caption(f"🔴 卖出规则：买入理由消失（ROE 或成长跌破门槛，连续 2 季）｜PEG > {cfg['sell_peg']:g}｜"
+                       f"从买入价跌 {cfg['sell_loss']:g}%"
+                       + (f"｜跌破 200 日均线超过 {cfg['sell_ma_gap']:g}%" if cfg["sell_ma_gap"] else "")
+                       + f"｜有综合分高 {cfg['swap_gap']:g} 分以上的更好选择。"
+                       + "　🟡 减持规则：" + "｜".join(x for x in [
+                           f"涨了 {cfg['sell_profit']:g}% 以上" if cfg["sell_profit"] else "",
+                           f"单只超过 {cfg['weight_max'] * cfg['trim_over']:.0f}%" if cfg["trim_over"] else "",
+                           f"同一板块超过 {cfg['sector_max']:g}%"] if x) + "。")
     with tabs[4]:
+        off = cfg["gate_off"]
+        base = [(g, t) for g, t in SG.gate_text(cfg) if g not in off]
+        extra = SG.rules_on(cfg)
+        pr = cfg["plan"]
+        buy = "\n".join(f"{i}. {g}：{t}" for i, (g, t) in enumerate(base, 1))
+        buy += "".join(f"\n{len(base) + i}. {r['名称']}：{SG.rule_text(r)}" for i, r in enumerate(extra, 1))
         st.markdown(f"""**{cfg['name']}**　目标：{cfg['goal']}
 
-**买入：5 关全部通过**
-1. 质量：ROE ≥ {cfg['roe_min']:g}%（用股东的钱每年赚多少）
-2. 成长：营收或盈利增长 ≥ {cfg['growth_min']:g}%
-3. 价值：PEG ≤ {cfg['peg_max']:g}（本益比 ÷ 盈利增长率，成长越快可以接受越高的本益比）
-4. 安全：负债权益比 ≤ {cfg['debt_max']:g}%{'（银行、产托例外）' if cfg['debt_exempt'] else ''}
-5. 时机：{'股价在 200 日均线之上（长期趋势向上）' if cfg['trend_ma200'] else '不限'}
+**买入：下面 {len(base) + len(extra)} 条全部通过**{('（关掉了：' + '、'.join(off) + '）') if off else ''}
+{buy}
 
 **挑选**：按综合分（质量、成长、便宜各 1/3）排名
 **组合**：{cfg['n_min']}–{cfg['n_max']} 只，每只 ≤ {cfg['weight_max']:g}%，同一板块 ≤ {cfg['sector_max']:g}%
 
-**卖出：任何一条**
+**🔴 卖出：任何一条**
 1. 买入理由消失：ROE 或成长连续 2 季跌破门槛
 2. 变太贵：PEG > {cfg['sell_peg']:g}
 3. 止损：从买入价跌 {cfg['sell_loss']:g}% 就重新检讨
 4. 有更好的选择：综合分高 {cfg['swap_gap']:g} 分以上的新公司出现，换掉最弱的
+{f"5. 趋势破坏：跌破 200 日均线超过 {cfg['sell_ma_gap']:g}%" if cfg['sell_ma_gap'] else ""}
+
+**🟡 减持（卖一部分）**
+{f"- 获利了结：涨了 {cfg['sell_profit']:g}% 以上，卖 1/3 锁利润" if cfg['sell_profit'] else ""}
+{f"- 单只太重：超过 {cfg['weight_max'] * cfg['trim_over']:.0f}% 就减回 {cfg['weight_max']:g}%" if cfg['trim_over'] else ""}
+- 板块太重：同一板块超过 {cfg['sector_max']:g}%
+
+**💰 资金规划**
+- 应急钱：{pr['emerg_months']} 个月生活费（收入不稳定 {pr['emerg_months_unstable']} 个月），不够就先留
+- {'股票比例不超过「110 − 年龄」%' if pr['age_rule'] else '不按年龄限制股票比例'}；越快要用钱，股票越少
+- 每月建议投入收入的 {pr['save_rate']:g}%；每只至少 RM {pr['min_pos']:,.0f}
+- 再平衡：任何一类比例偏离目标超过 {pr['rebalance_gap']:g}% 就调回来
 
 **检讨**：每月一次 + 公司公布季报后
 

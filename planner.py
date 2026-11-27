@@ -59,6 +59,7 @@ QUESTIONS = {
 QUIZ_GROUPS = [("👤 你的情况", ["age", "job", "emerg", "debt", "share"]),
                ("🎯 你的目标", ["goal", "want"]),
                ("🧠 你的性格", ["drop", "exp", "watch"])]
+AGE_MID = {"25 岁以下": 22, "25–35 岁": 30, "35–50 岁": 42, "50 岁以上": 58}
 EMERG_HAVE = {"有 6 个月生活费以上": 6, "有 3–6 个月": 4.5, "不到 3 个月": 1.5, "没有": 0}
 
 
@@ -115,8 +116,11 @@ def income_candidates(ev: pd.DataFrame, markets: list[str]) -> pd.DataFrame:
 
 def plan(capital: float, monthly: float, profile: str, max_drop: float, target: float, years: int,
          growth_picks: pd.DataFrame, income_picks: pd.DataFrame, fx: dict, cfg: dict,
-         answers: dict | None = None, expense: float = 0.0) -> dict:
+         answers: dict | None = None, expense: float = 0.0, income: float = 0.0, goal_amt: float = 0.0) -> dict:
     a = answers or {}
+    pr = {"emerg_months": 6, "emerg_months_unstable": 9, "age_rule": True, "save_rate": 20.0, "rebalance_gap": 5.0,
+          "min_pos": MIN_POS, **(cfg.get("plan") or {})}
+    min_pos = float(pr["min_pos"])
     p = PROFILES[profile]
     w = {k: p[k] / 100 for k in ("stock", "income", "cash")}
     notes = []
@@ -128,7 +132,8 @@ def plan(capital: float, monthly: float, profile: str, max_drop: float, target: 
                      "最划算的「投资」是先还清它，再开始买股票。下面的规划只给你参考。")
     reserve = 0.0
     if expense > 0 and a.get("emerg") in EMERG_HAVE:
-        need_m = 9 if a.get("job") in ("学生 / 还没固定收入", "自己做生意 / 收入不稳定") else 6
+        need_m = int(pr["emerg_months_unstable"] if a.get("job") in ("学生 / 还没固定收入", "自己做生意 / 收入不稳定")
+                     else pr["emerg_months"])
         short = max(0.0, (need_m - EMERG_HAVE[a["emerg"]]) * expense)
         reserve = min(short, capital * 0.5)
         if reserve > 0:
@@ -149,7 +154,29 @@ def plan(capital: float, monthly: float, profile: str, max_drop: float, target: 
         mv = w["income"] * 0.5
         w["income"] -= mv
         w["stock"] += mv
+    # 收入 → 每月投入多少才合理（50/30/20 法则）
+    if income > 0:
+        sug = income * pr["save_rate"] / 100
+        left = income - expense
+        if expense and monthly > left > 0:
+            notes.append(f"💸 你每月收入 RM {income:,.0f}、开销 RM {expense:,.0f}，只剩 RM {left:,.0f}，"
+                         f"但你打算每月投入 RM {monthly:,.0f}，可能撑不久。建议每月投入不超过 RM {left:,.0f}。")
+        elif expense and left <= 0:
+            notes.append(f"💸 你每月开销（RM {expense:,.0f}）已经超过或等于收入（RM {income:,.0f}）：先把收支平衡，再谈每月投入。")
+        elif monthly < sug * 0.5:
+            notes.append(f"💡 储蓄法则（收入的 {pr['save_rate']:g}% 拿去存 / 投资）：你每月可以考虑投入约 RM {sug:,.0f}，"
+                         f"现在是 RM {monthly:,.0f}。每月多投入，比追高回报更有用。")
+        else:
+            notes.append(f"✅ 每月投入 RM {monthly:,.0f}，约收入的 {monthly / income * 100:.0f}%，符合储蓄法则（{pr['save_rate']:g}%）。")
+
+    # 年龄法则：股票比例 ≤ 110 − 年龄
     cap = years_cap(years)
+    age = AGE_MID.get(a.get("age"))
+    if pr["age_rule"] and age:
+        acap = (110 - age) / 100
+        if acap < cap and w["stock"] + w["income"] > acap + 1e-9:
+            notes.append(f"🎂 年龄法则（股票比例 ≤ 110 − 年龄）：以约 {age} 岁计，股票最多 {acap * 100:.0f}%。")
+        cap = min(cap, acap)
     eq = w["stock"] + w["income"]
     if eq > cap + 1e-9:
         f = cap / eq
@@ -157,8 +184,11 @@ def plan(capital: float, monthly: float, profile: str, max_drop: float, target: 
         w["income"] *= f
         w["cash"] = 1 - w["stock"] - w["income"]
         goal = a.get("goal", "")
-        notes.append(f"⏳ {years} 年内就要用这笔钱{('（' + goal + '）') if goal and goal != '长期增值' else ''}：股票随时可能跌 20–30%，"
-                     f"可能来不及等回来。所以股票从 {eq * 100:.0f}% 降到 {cap * 100:.0f}%，其余放定存 / 货币基金。")
+        if years_cap(years) <= cap + 1e-9:
+            notes.append(f"⏳ {years} 年内就要用这笔钱{('（' + goal + '）') if goal and goal != '长期增值' else ''}：股票随时可能跌 20–30%，"
+                         f"可能来不及等回来。所以股票从 {eq * 100:.0f}% 降到 {cap * 100:.0f}%，其余放定存 / 货币基金。")
+        else:
+            notes.append(f"　→ 股票从 {eq * 100:.0f}% 降到 {cap * 100:.0f}%，其余放定存 / 货币基金。")
 
     # 2. 风险管理：坏年头估计跌幅不能超过你能接受的
     def drop(w):
@@ -193,8 +223,8 @@ def plan(capital: float, monthly: float, profile: str, max_drop: float, target: 
                 notes.append(f"ℹ️ 今天没有符合条件的{TYPE_ZH[kind]}，这部分（RM {budget:,.0f}）先放现金。")
             return
         cap_amt = capital * cfg.get("weight_max", 15) / 100
-        if cap_amt < MIN_POS * 1.5:            # 资金少：每只上限太小会什么都买不了 → 放宽，并提醒
-            cap_amt = MIN_POS * 1.5
+        if cap_amt < min_pos * 1.5:            # 资金少：每只上限太小会什么都买不了 → 放宽，并提醒
+            cap_amt = min_pos * 1.5
             msg = (f"ℹ️ 资金比较少：每只最多 {cfg.get('weight_max', 15):g}% 只有 RM {capital * cfg.get('weight_max', 15) / 100:,.0f}，"
                    f"买不到一手，所以放宽到每只最多约 RM {cap_amt:,.0f}（股票会比较集中，风险较高）。")
             if msg not in notes:
@@ -208,7 +238,7 @@ def plan(capital: float, monthly: float, profile: str, max_drop: float, target: 
                 continue                       # 一手都买不起 / 一手就超过上限：跳过，换下一只
             cand.append((r, lot, lot_cost))
         avg_lot = sum(c[2] for c in cand[:n_cap]) / max(1, len(cand[:n_cap]))
-        n = max(1, min(n_cap, len(cand), int(budget // max(MIN_POS, avg_lot))))
+        n = max(1, min(n_cap, len(cand), int(budget // max(min_pos, avg_lot))))
         cand = cand[:n]
         if not cand:
             cash_left += budget
@@ -263,8 +293,23 @@ def plan(capital: float, monthly: float, profile: str, max_drop: float, target: 
             vals.append(v + reserve * (1 + RETURNS["cash"][1] / 100) ** (mth / 12))
         scen[name] = vals
     put_in = total + monthly * years * 12
+    goal = None
+    if goal_amt > 0:
+        r = sum(aw[k] * RETURNS[k][1] for k in aw) / 100
+        n = years * 12
+        g = (1 + r) ** (1 / 12) - 1
+        fv_now = capital * (1 + g) ** n + reserve * (1 + RETURNS["cash"][1] / 100) ** years
+        factor = ((1 + g) ** n - 1) / g if g else n
+        need_m = max(0.0, (goal_amt - fv_now) / factor)
+        expect = scen["一般"][-1]
+        goal = {"amount": goal_amt, "need_monthly": need_m, "expect": expect, "on_track": expect >= goal_amt}
+        if expect >= goal_amt:
+            notes.append(f"🎯 目标 RM {goal_amt:,.0f}（{years} 年）：照现在的计划，一般情况约 RM {expect:,.0f}，可以达到。")
+        else:
+            notes.append(f"🎯 目标 RM {goal_amt:,.0f}（{years} 年）：照现在的计划一般情况只有约 RM {expect:,.0f}。"
+                         f"要达到，每月要投入约 RM {need_m:,.0f}（现在 RM {monthly:,.0f}），或拉长时间 / 降低目标。")
     div_year = float((pos["金额(RM)"] * pos["股息率%"].fillna(0) / 100).sum()) if len(pos) else 0.0
-    return {"reserve": reserve, "total": total, "dividend_year": div_year, "answers": a, "capital_invest": capital, "weights_target": w, "weights_actual": aw, "positions": pos, "cash": actual["cash"], "invested": invested,
+    return {"reserve": reserve, "total": total, "dividend_year": div_year, "answers": a, "capital_invest": capital, "goal": goal, "rebalance_gap": pr["rebalance_gap"], "weights_target": w, "weights_actual": aw, "positions": pos, "cash": actual["cash"], "invested": invested,
             "exp_return": sum(aw[k] * RETURNS[k][1] for k in aw), "bad_drop": drop(aw), "stop_loss_total": stop_loss_total,
             "scenarios": scen, "put_in": put_in, "notes": notes, "profile": profile, "years": years}
 
