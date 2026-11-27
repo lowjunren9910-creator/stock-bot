@@ -135,6 +135,9 @@ def build(market: str, now: datetime | None = None) -> dict:
                 "industry": mt.get("industry"), "sector": mt.get("sector"),
                 **{k: mt.get(k) for k in ("pb", "div_yield", "roe", "margin", "rev_growth", "eps_growth", "debt_equity")},
                 "rsi": round(S.rsi(c), 1) if len(c) > 15 else None,
+                # 股价离 50 / 200 日均线多远（%）：正数 = 在均线之上（「我的策略」的时机条件用）
+                "ma50_gap": round((price / float(c.tail(50).mean()) - 1) * 100, 2) if len(c) >= 50 else None,
+                "ma200_gap": round((price / float(c.tail(200).mean()) - 1) * 100, 2) if len(c) >= 200 else None,
                 **{f"chg_{k}": v for k, v in rets.items()}}
 
     def group(name, members, **extra):

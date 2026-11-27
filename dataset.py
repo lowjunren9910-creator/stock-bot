@@ -17,9 +17,9 @@ FIELDS = {
     "price": "股价", "mcap_myr": "市值(亿令吉)", "pe": "本益比", "pb": "股价净值比", "div_yield": "股息率%",
     "roe": "ROE%", "margin": "净利率%", "rev_growth": "营收增长%", "eps_growth": "盈利增长%",
     "debt_equity": "负债权益比", "rsi": "RSI", "chg_1d": "1日涨跌%", "chg_1w": "1周涨跌%", "chg_1m": "1个月涨跌%",
-    "chg_3m": "3个月涨跌%", "chg_1y": "1年涨跌%",
+    "chg_3m": "3个月涨跌%", "chg_1y": "1年涨跌%", "ma50_gap": "距50日均线%", "ma200_gap": "距200日均线%",
 }
-NUMERIC = list(FIELDS.values())
+NUMERIC = list(FIELDS.values()) + ["PEG"]
 CATEGORIES = ["市场", "板块", "行业", "主题", "自选股"]
 TEXT = ["代码", "名称"]
 ALL_FIELDS = TEXT + CATEGORIES + NUMERIC
@@ -70,7 +70,11 @@ def load(mine: set[str] | None = None) -> pd.DataFrame:
     df["主题"] = df["代码"].map(lambda t: "、".join(themes.get(t, [])) or "—")
     df["自选股"] = df["代码"].map(lambda t: "是" if t in mine else "否")
     for c in NUMERIC:
-        df[c] = pd.to_numeric(df[c], errors="coerce")
+        if c in df:
+            df[c] = pd.to_numeric(df[c], errors="coerce")
+    # PEG = 本益比 ÷ 盈利增长率（两个都要是正数才算）：越低 = 以成长来说越便宜
+    ok = (df["本益比"] > 0) & (df["盈利增长%"] > 0)
+    df["PEG"] = (df["本益比"] / df["盈利增长%"]).where(ok).round(2)
     return df[ALL_FIELDS]
 
 

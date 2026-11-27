@@ -17,6 +17,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 from plotly.subplots import make_subplots
+import plotly.express as px  # noqa: E402
 
 st.set_page_config(page_title="AI 股票分析室", page_icon="📊", layout="wide")
 
@@ -2012,6 +2013,209 @@ def page_calendar():
 
 
 # ---------------------------------------------------------------------------
+# 页面：我的策略（用自己的投资规则筛出公司）
+# ---------------------------------------------------------------------------
+
+@st.cache_data(ttl=6 * 3600, show_spinner=False)
+def live_ma200(tickers: tuple, day: str) -> dict:
+    """旧的板块报告还没有 200 日均线资料时：网站自己抓股价算（只算需要的几只）。"""
+    import fundamentals as F
+    out = {}
+    try:
+        px = F.prices(list(tickers), "1y")
+    except Exception:
+        return out
+    for t, d in px.items():
+        try:
+            c = d["Close"].dropna()
+            if len(c) >= 200:
+                out[t] = round((float(c.iloc[-1]) / float(c.tail(200).mean()) - 1) * 100, 2)
+        except Exception:
+            pass
+    return out
+
+
+def strategy_cfg() -> dict:
+    import strategy as SG
+    if "strategy_cfg" not in st.session_state:
+        st.session_state.strategy_cfg = SG.load()
+    return st.session_state.strategy_cfg
+
+
+def strategy_save(cfg: dict):
+    import github_store as G
+    import strategy as SG
+    st.session_state.strategy_cfg = cfg
+    if G.ready():
+        try:
+            G.update("my_strategy.json", lambda old: SG.dump(cfg), "我的策略：调整规则", local=str(SG.FILE))
+            st.toast("✅ 规则已保存到 GitHub")
+        except Exception as e:
+            st.toast(f"⚠️ 存到 GitHub 失败（这次网站里还是有）：{e}")
+    else:
+        st.toast("✅ 规则已更新（还没设 GitHub token：只存在这次打开的网站里）")
+
+
+def page_strategy():
+    import strategy as SG
+    cfg = strategy_cfg()
+    st.title("🎯 我的策略")
+    st.caption(f"**{cfg['name']}**　·　{cfg['goal']}　·　市场：{'、'.join(cfg['markets']) or '全部'}。"
+               "每天收市后用最新资料重新筛选；点表格里的公司可以打开它的个股页面。")
+    df = all_stocks()
+    if df.empty:
+        st.info("还没有资料：板块报告每个交易日收市后会自动生成。")
+        return
+
+    # 规则一览
+    acc = ui.COLORS["accent"]
+    chips = "".join(f"<span style='display:inline-block;margin:0 8px 8px 0;padding:6px 14px;border-radius:999px;"
+                    f"border:1px solid {ui.rgba(acc, .5)};background:{ui.rgba(acc, .12)};font-size:.9rem'>"
+                    f"<b style='color:{acc}'>{g}</b>　{t}</span>" for g, t in SG.gate_text(cfg))
+    st.markdown(f"<div style='margin:4px 0 6px'>{chips}</div>", unsafe_allow_html=True)
+
+    with st.expander("⚙️ 调整我的规则"):
+        c1, c2, c3 = st.columns(3)
+        new = dict(cfg)
+        new["markets"] = c1.multiselect("市场", ["马股", "美股", "印尼股"], default=cfg["markets"], key="sg_m")
+        new["roe_min"] = c1.number_input("质量：ROE 至少（%）", 0.0, 50.0, float(cfg["roe_min"]), 1.0, key="sg_roe")
+        new["growth_min"] = c1.number_input("成长：营收或盈利增长至少（%）", 0.0, 100.0, float(cfg["growth_min"]), 1.0, key="sg_g")
+        new["peg_max"] = c2.number_input("价值：PEG 最多", 0.2, 5.0, float(cfg["peg_max"]), 0.1, key="sg_peg")
+        new["debt_max"] = c2.number_input("安全：负债权益比最多（%）", 0.0, 500.0, float(cfg["debt_max"]), 10.0, key="sg_d")
+        new["debt_exempt"] = c2.toggle("银行、产托不看负债", cfg["debt_exempt"], key="sg_ex")
+        new["trend_ma200"] = c3.toggle("时机：股价要在 200 日均线之上", cfg["trend_ma200"], key="sg_ma")
+        new["n_max"] = c3.number_input("组合最多几只", 3, 30, int(cfg["n_max"]), 1, key="sg_n")
+        new["weight_max"] = c3.number_input("每只最多（%）", 5.0, 50.0, float(cfg["weight_max"]), 1.0, key="sg_w")
+        new["sector_max"] = c3.number_input("同一板块最多（%）", 10.0, 100.0, float(cfg["sector_max"]), 5.0, key="sg_s")
+        b1, b2 = st.columns(2)
+        if b1.button("💾 保存规则", type="primary", width="stretch", disabled=new == cfg):
+            strategy_save(new)
+            st.rerun()
+        if b2.button("↩️ 回到我原本的规则", width="stretch", disabled=cfg == SG.DEFAULT):
+            for k in [k for k in st.session_state if str(k).startswith("sg_")]:
+                del st.session_state[k]
+            strategy_save(dict(SG.DEFAULT))
+            st.rerun()
+
+    ev = SG.evaluate(df, cfg)
+    # 旧报告没有 200 日均线：前 4 关都过的那些，网站自己算
+    if cfg["trend_ma200"]:
+        need = ev[(ev["过关数"] >= 4) & ev["距200日均线%"].isna()]["代码"].tolist()
+        if need:
+            with st.spinner(f"正在算 {len(need)} 只股票的 200 日均线…"):
+                ma = live_ma200(tuple(sorted(need)), str(date.today()))
+            if ma:
+                df = df.copy()
+                df["距200日均线%"] = df["距200日均线%"].fillna(df["代码"].map(ma))
+                ev = SG.evaluate(df, cfg)
+    ok, near = SG.passed(ev), SG.near_miss(ev)
+
+    m = st.columns(4)
+    m[0].metric("符合全部规则", f"{len(ok)} 只")
+    m[1].metric("只差一关", f"{len(near)} 只")
+    m[2].metric("检查了", f"{len(ev)} 只")
+    m[3].metric("平均综合分", f"{ok['综合分'].mean():.0f}" if len(ok) else "—", help="质量、成长、便宜各占 1/3，100 = 最好")
+
+    f1, f2 = st.columns([1.2, 1])
+    fn = SG.funnel(ev)
+    f1.plotly_chart(go.Figure(go.Funnel(y=[x[0] for x in fn], x=[x[1] for x in fn], textinfo="value+percent initial",
+                                        marker=dict(color=[ui.COLORS["soft"]] + [ui.COLORS["accent"]] * (len(fn) - 1))))
+                    .update_layout(title="一关一关筛下来", height=330, margin=dict(l=10, r=10, t=40, b=10)), width="stretch")
+    if len(ok):
+        dd = pd.concat([ok.assign(状态="✅ 符合"), near.assign(状态="🟡 差一关")])
+        dd = dd.dropna(subset=["PEG", "成长%"])
+        fig = px.scatter(dd, x="成长%", y="PEG", color="状态", size=dd["市值(亿令吉)"].clip(lower=1), hover_name="名称",
+                         hover_data=["代码", "ROE%", "没过的原因"], size_max=30,
+                         color_discrete_map={"✅ 符合": ui.COLORS["up"], "🟡 差一关": ui.COLORS["accent2"]})
+        fig.add_hline(y=cfg["peg_max"], line_dash="dot", annotation_text=f"PEG {cfg['peg_max']:g}")
+        fig.update_layout(title="成长 vs 价格（右下 = 成长快又便宜）", height=330, margin=dict(l=10, r=10, t=40, b=10),
+                          legend=dict(orientation="h", y=-0.2))
+        f2.plotly_chart(fig, width="stretch")
+
+    tabs = st.tabs([f"✅ 符合规则（{len(ok)}）", "📦 建议组合", f"🟡 差一关（{len(near)}）", "🔔 我的持股检查", "📘 规则全文"])
+    show_cols = ["名称", "代码", "市场", "板块", "综合分", "ROE%", "成长%", "PEG", "本益比", "负债权益比", "距200日均线%", "股息率%"]
+    cc = {"综合分": st.column_config.ProgressColumn(min_value=0, max_value=100, format="%d"),
+          "ROE%": st.column_config.NumberColumn(format="%.1f"), "成长%": st.column_config.NumberColumn(format="%.1f"),
+          "PEG": st.column_config.NumberColumn(format="%.2f"), "本益比": st.column_config.NumberColumn(format="%.1f"),
+          "负债权益比": st.column_config.NumberColumn(format="%.0f"), "距200日均线%": st.column_config.NumberColumn(format="%+.1f"),
+          "股息率%": st.column_config.NumberColumn(format="%.2f")}
+
+    def table(d, key, extra=None):
+        cols = show_cols + (extra or [])
+        rows = d[cols].reset_index(drop=True)
+
+        def on_pick():
+            i = picked_row(key)
+            if i is not None:
+                goto_analysis(rows.iloc[i]["代码"])
+        st.dataframe(rows, hide_index=True, width="stretch", column_config=cc, key=key, on_select=on_pick,
+                     selection_mode=["single-row", "single-cell"])
+
+    with tabs[0]:
+        if ok.empty:
+            st.info("今天没有公司符合全部规则。看看「差一关」，或在上面放宽一点规则。")
+        else:
+            table(ok, "sg_ok")
+            st.caption("👆 点任何一家公司打开它的个股页面。银行、产托（金融板块）是例外，不看负债权益比。")
+    with tabs[1]:
+        pf = SG.model_portfolio(ok, cfg)
+        if pf.empty:
+            st.info("符合规则的公司不够组成组合。")
+        else:
+            if len(pf) < cfg["n_min"]:
+                st.warning(f"只挑到 {len(pf)} 只（你的规则是 {cfg['n_min']}–{cfg['n_max']} 只），剩下的先放现金，等更多公司符合。")
+            a, b = st.columns([1.6, 1])
+            with a:
+                st.dataframe(pf[["名称", "代码", "市场", "板块", "综合分", "建议比重%"]], hide_index=True, width="stretch",
+                             column_config={"综合分": cc["综合分"]})
+                st.caption(f"按综合分挑，平均分配；每只 ≤ {cfg['weight_max']:g}%，同板块 ≤ {cfg['sector_max']:g}%。"
+                           + (f"现金 {pf['现金%'].iloc[0]:g}%。" if pf["现金%"].iloc[0] > 0 else "")
+                           + "这是规则算出来的参考，不是买卖建议。")
+            sec = pf.groupby("板块")["建议比重%"].sum()
+            b.plotly_chart(go.Figure(go.Pie(labels=sec.index, values=sec.values, hole=.55))
+                           .update_layout(title="板块分布", height=300, margin=dict(l=10, r=10, t=40, b=10), showlegend=False),
+                           width="stretch")
+    with tabs[2]:
+        if near.empty:
+            st.info("没有只差一关的公司。")
+        else:
+            table(near, "sg_near", ["没过的原因"])
+            st.caption("这些公司只差一关：如果没过的那一项改善了（例如股价回到 200 日均线之上），就会进入名单。")
+    with tabs[3]:
+        hold = _pf_holdings()
+        if not hold:
+            st.info("还没有持股资料：到「💼 投资组合」输入（或从手机 App 按「🩺 AI 组合体检」带过来），这里就会用你的卖出规则逐只检查。")
+        else:
+            res = SG.sell_check(hold, SG.evaluate(df, {**cfg, "markets": []}), cfg,
+                                float(ok["综合分"].max()) if len(ok) else None)
+            st.dataframe(pd.DataFrame(res), hide_index=True, width="stretch")
+            st.caption(f"卖出规则：买入理由消失（ROE 或成长跌破门槛，连续 2 季）｜PEG > {cfg['sell_peg']:g}｜"
+                       f"从买入价跌 {cfg['sell_loss']:g}%｜有综合分高 {cfg['swap_gap']:g} 分以上的更好选择。")
+    with tabs[4]:
+        st.markdown(f"""**{cfg['name']}**　目标：{cfg['goal']}
+
+**买入：5 关全部通过**
+1. 质量：ROE ≥ {cfg['roe_min']:g}%（用股东的钱每年赚多少）
+2. 成长：营收或盈利增长 ≥ {cfg['growth_min']:g}%
+3. 价值：PEG ≤ {cfg['peg_max']:g}（本益比 ÷ 盈利增长率，成长越快可以接受越高的本益比）
+4. 安全：负债权益比 ≤ {cfg['debt_max']:g}%{'（银行、产托例外）' if cfg['debt_exempt'] else ''}
+5. 时机：{'股价在 200 日均线之上（长期趋势向上）' if cfg['trend_ma200'] else '不限'}
+
+**挑选**：按综合分（质量、成长、便宜各 1/3）排名
+**组合**：{cfg['n_min']}–{cfg['n_max']} 只，每只 ≤ {cfg['weight_max']:g}%，同一板块 ≤ {cfg['sector_max']:g}%
+
+**卖出：任何一条**
+1. 买入理由消失：ROE 或成长连续 2 季跌破门槛
+2. 变太贵：PEG > {cfg['sell_peg']:g}
+3. 止损：从买入价跌 {cfg['sell_loss']:g}% 就重新检讨
+4. 有更好的选择：综合分高 {cfg['swap_gap']:g} 分以上的新公司出现，换掉最弱的
+
+**检讨**：每月一次 + 公司公布季报后
+
+⚠️ 资料来自 Yahoo（增长率是最近一季按年），PEG 会跳动；规则只是帮你缩小范围，买之前还是要看公司本身。""")
+
+
+# ---------------------------------------------------------------------------
 # 页面：我的仪表板（用自己的规则做图表）
 # ---------------------------------------------------------------------------
 
@@ -2640,7 +2844,7 @@ def page_health():
 PAGES = {  # 顺序要跟 ui.NAV_GROUPS 的分组对应
     "📅 每日焦点": page_focus, "🧩 板块": page_sectors, "🔍 选股雷达": page_radar, "🏆 KLCI 50 观察": page_klci, "🆕 IPO 追踪": page_ipo, "📅 公告日历": page_calendar,
     "📊 个股分析": page_analysis, "⚖️ 股票对比": page_compare, "📑 季度报告": page_quarterly,
-    "🤖 AI 助手": page_assistant, "📐 我的仪表板": page_dashboard, "⭐ 自选股": page_watchlist, "🗞️ 新闻追踪": page_news, "💼 投资组合": page_portfolio, "📈 成绩单": page_track, "📰 周报": page_weekly,
+    "🎯 我的策略": page_strategy, "🤖 AI 助手": page_assistant, "📐 我的仪表板": page_dashboard, "⭐ 自选股": page_watchlist, "🗞️ 新闻追踪": page_news, "💼 投资组合": page_portfolio, "📈 成绩单": page_track, "📰 周报": page_weekly,
     "🩺 系统状态": page_health, "🎨 外观设定": page_appearance}
 
 if check_password():
@@ -2663,14 +2867,14 @@ if check_password():
             st.session_state.nav = "🗞️ 新闻追踪"
         elif qp.get("analyze") or qp.get("stock"):
             goto_analysis(qp.get("stock") or qp["analyze"])
-        elif qp.get("page") in ("focus", "radar", "klci", "sectors", "track", "weekly", "watch", "quarterly", "compare", "news", "ipo", "calendar", "portfolio", "appearance", "assistant", "dashboard"):
+        elif qp.get("page") in ("focus", "radar", "klci", "sectors", "track", "weekly", "watch", "quarterly", "compare", "news", "ipo", "calendar", "portfolio", "appearance", "assistant", "dashboard", "strategy"):
             st.session_state.nav = {"focus": "📅 每日焦点", "radar": "🔍 选股雷达", "klci": "🏆 KLCI 50 观察",
                                     "sectors": "🧩 板块", "track": "📈 成绩单", "weekly": "📰 周报",
                                     "watch": "⭐ 自选股", "quarterly": "📑 季度报告",
                                     "compare": "⚖️ 股票对比", "news": "🗞️ 新闻追踪", "ipo": "🆕 IPO 追踪",
                                     "calendar": "📅 公告日历", "portfolio": "💼 投资组合",
                                     "appearance": "🎨 外观设定", "assistant": "🤖 AI 助手",
-                                    "dashboard": "📐 我的仪表板"}[qp["page"]]
+                                    "dashboard": "📐 我的仪表板", "strategy": "🎯 我的策略"}[qp["page"]]
         if "nav" not in st.session_state and ui.prefs().get("home") in PAGES:   # 自己设定的首页
             st.session_state.nav = ui.prefs()["home"]
         st.session_state._qp_done = True
