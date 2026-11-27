@@ -2056,6 +2056,165 @@ def strategy_save(cfg: dict):
         st.toast("✅ 规则已更新（还没设 GitHub token：只存在这次打开的网站里）")
 
 
+
+
+async def _plan_ai(data):
+    M.reset_clients()
+    import planner as PL
+    return await M.chat(PL.EXPLAIN_SYSTEM, json.dumps(data, ensure_ascii=False, default=str), max_tokens=1800)
+
+
+@st.cache_data(ttl=3600, show_spinner=False)
+def cached_plan_ai(key: str, _data: dict, lang: str = "中文") -> str:
+    return asyncio.run(_plan_ai(_data))
+
+
+def show_planner(ok, ev, cfg):
+    """资金规划：资金 + 条件 → 具体配置（每只买几股、多少钱、止损价、未来预估）。"""
+    import hashlib
+    import pfcheck as PC
+    import planner as PL
+    import strategy as SG
+    st.caption("先回答几个关于你的问题，再输入资金，系统按「我的策略」算出适合你的分配。"
+               "答案和资金只在这次计算用，不会被保存。都是简化的估计和假设，不是投资建议。")
+    ans = {}
+    with st.container(border=True):
+        st.markdown("#### 🧭 第 1 步：先认识你")
+        cols = st.columns(3)
+        for col, (title, keys) in zip(cols, PL.QUIZ_GROUPS):
+            with col:
+                st.markdown(f"**{title}**")
+                for k in keys:
+                    q, opts, d = PL.QUESTIONS[k]
+                    ans[k] = st.selectbox(q, opts, index=d, key=f"plq_{k}")
+                if title.startswith("👤"):
+                    expense = st.number_input("每月生活开销大约多少（RM）", 0.0, 1_000_000.0, 1500.0, 100.0,
+                                              key="pl_exp", format="%.0f", help="用来算应急钱要留多少；不想填就填 0")
+                if title.startswith("🎯"):
+                    years = st.select_slider("⏳ 多久之后会用到这笔钱", [1, 2, 3, 5, 10, 20], value=3, key="pl_yr",
+                                             format_func=lambda v: f"{v} 年")
+                    all_mk = ["马股", "美股", "印尼股"]
+                    mk = st.multiselect("想投资哪些市场", all_mk, default=[m for m in (cfg.get("markets") or all_mk) if m in all_mk],
+                                        key="pl_mk")
+                if title.startswith("🧠"):
+                    secs = sorted(ev["板块"].dropna().unique().tolist()) if "板块" in ev else []
+                    avoid = st.multiselect("不想投资的板块（例如烟酒、博彩）", secs, key="pl_avoid", placeholder="不选 = 都可以")
+        score, why = PL.risk_score(ans)
+        guess = PL.profile_from_score(score)
+        r1, r2 = st.columns([1, 2.2])
+        r1.metric("你的风险承受分", f"{score} / 100", f"建议：{guess}", delta_color="off", delta_arrow="off",
+                  help="按年龄、收入、应急钱、债务、这笔钱占存款多少、跌时反应、经验计算")
+        r1.progress(score / 100)
+        with r2:
+            st.markdown(f"**为什么是{guess}**：{PL.PROFILES[guess]['desc']}")
+            for w_ in why:
+                st.markdown(f"- {w_}")
+
+    with st.container(border=True):
+        st.markdown("#### 💵 第 2 步：资金和期望")
+        c1, c2, c3 = st.columns(3)
+        capital = c1.number_input("💵 投资资金（RM）", 1000.0, 100_000_000.0, 20000.0, 1000.0, key="pl_cap", format="%.0f")
+        monthly = c1.number_input("每月再投入（RM，可填 0）", 0.0, 1_000_000.0, 500.0, 100.0, key="pl_mon", format="%.0f")
+        names = list(PL.PROFILES)
+        profile = c2.radio("投资者类型（已按问卷建议，可以自己改）", names, index=names.index(guess), key=f"pl_prof_{guess}",
+                           horizontal=True)
+        c2.caption(PL.PROFILES[profile]["desc"])
+        dd_default = {"保守型": 10, "稳健型": 20, "积极型": 30}[profile]
+        max_drop = c3.select_slider("🛡️ 最坏的一年，最多能接受跌多少", [10, 15, 20, 25, 30, 40], value=dd_default,
+                                    key=f"pl_dd_{profile}", format_func=lambda v: f"{v}%")
+        target = c3.select_slider("📈 期望每年回报", [4, 6, 8, 10, 12, 15, 20], value=8, key="pl_tg",
+                                  format_func=lambda v: f"{v}%")
+
+    fx, approx = PC.fx_rates({"USD", "IDR"})
+    keep = lambda d: d[d["市场"].isin(mk or ["马股", "美股", "印尼股"]) & ~d["板块"].isin(avoid)]
+    ok2, ev2 = keep(ok), keep(ev)
+    growth = SG.model_portfolio(ok2, cfg) if len(ok2) else ok2
+    inc = PL.income_candidates(ev2, mk)
+    inc = inc[~inc["代码"].isin(growth["代码"] if len(growth) else [])]
+    pl = PL.plan(capital, monthly, profile, max_drop, target, years, growth, inc, fx, cfg, answers=ans, expense=expense)
+    inv = pl["capital_invest"]
+
+    for n in pl["notes"]:
+        st.markdown(md(n))
+    aw = pl["weights_actual"]
+    if pl["reserve"] > 0:
+        st.caption(f"下面的比例是「拿去投资的 RM {inv:,.0f}」怎么分；另外 RM {pl['reserve']:,.0f} 留作应急钱。")
+    m = st.columns(6)
+    m[0].metric("成长股", f"{aw['stock'] * 100:.0f}%", f"RM {aw['stock'] * inv:,.0f}", delta_color="off", delta_arrow="off")
+    m[1].metric("收息股", f"{aw['income'] * 100:.0f}%", f"RM {aw['income'] * inv:,.0f}", delta_color="off", delta_arrow="off")
+    m[2].metric("现金 / 定存", f"{aw['cash'] * 100:.0f}%", f"RM {pl['cash']:,.0f}", delta_color="off", delta_arrow="off")
+    m[3].metric("长期估计回报", f"{pl['exp_return']:.1f}% / 年", help="假设：成长股 9%、收息股 5.5%、现金 3%（长期平均，不是保证）")
+    m[4].metric("坏年头估计跌幅", f"-{pl['bad_drop']:.0f}%", f"上限 {max_drop}%", delta_color="off", delta_arrow="off",
+                help="估计：成长股跌 35%、收息股跌 15%、现金不跌")
+    m[5].metric("估计每年股息", f"RM {pl['dividend_year']:,.0f}", f"每月约 RM {pl['dividend_year'] / 12:,.0f}",
+                delta_color="off", delta_arrow="off", help="按现在的股息率估计，公司可能会改变派息")
+
+    pos = pl["positions"]
+    l, r = st.columns([1.7, 1])
+    with l:
+        st.markdown("#### 🧾 买什么、买多少")
+        if pos.empty:
+            st.info("今天没有可以买的股票，资金先放现金。")
+        else:
+            st.dataframe(pos[["类型", "名称", "代码", "市场", "现价", "货币", "买几股", "金额(RM)", "占比%", "止损价", "股息率%", "备注"]],
+                         hide_index=True, width="stretch",
+                         column_config={"现价": st.column_config.NumberColumn(format="%.3f"),
+                                        "金额(RM)": st.column_config.NumberColumn(format="%,.0f"),
+                                        "止损价": st.column_config.NumberColumn(format="%.3f"),
+                                        "股息率%": st.column_config.NumberColumn(format="%.2f")})
+            st.caption(f"马股、印尼股一手 = 100 股，美股一手 = 1 股；买不够一手的零钱放进现金。"
+                       f"止损价 = 现价跌 {cfg['sell_loss']:g}%（你的卖出规则）。"
+                       + ("汇率暂时取不到，用约值。" if approx else
+                          "汇率：" + "、".join(f"1 {k} = RM {v:.4g}" for k, v in fx.items() if k != "MYR")))
+    with r:
+        labels, vals = ["成长股", "收息股", "现金"], [aw["stock"] * inv, aw["income"] * inv, pl["cash"]]
+        pcol = [ui.COLORS["accent"], ui.COLORS["soft"], "#94A3B8"]
+        if pl["reserve"] > 0:
+            labels, vals, pcol = labels + ["应急钱"], vals + [pl["reserve"]], pcol + ["#F59E0B"]
+        st.plotly_chart(go.Figure(go.Pie(labels=labels, values=vals, hole=.6, sort=False, marker=dict(colors=pcol)))
+                        .update_layout(title="资金分配", height=290, margin=dict(l=10, r=10, t=40, b=10), showlegend=True,
+                                       legend=dict(orientation="h", y=-0.1)), width="stretch")
+        st.markdown("#### 🛡️ 风险管理")
+        st.markdown(f"- 每只最多占 **{cfg['weight_max']:g}%**，同一板块最多 **{cfg['sector_max']:g}%**\n"
+                    f"- 每只跌到止损价就重新检讨；**全部都碰到止损**，大约亏 **RM {pl['stop_loss_total']:,.0f}**"
+                    f"（总资金的 {pl['stop_loss_total'] / capital * 100:.1f}%）\n"
+                    f"- 现金 RM {pl['cash']:,.0f}：应急用、或等跌的时候加码\n"
+                    "- 建议分 2–3 个月慢慢买入，不要一次全部投入")
+
+    sc = pl["scenarios"]
+    xs = [f"{i // 12} 年" if i % 12 == 0 else "" for i in range(len(sc["一般"]))]
+    fig = go.Figure()
+    colors = {"坏情况": ui.COLORS["down"], "一般": ui.COLORS["accent"], "好情况": ui.COLORS["up"]}
+    for name, vals in sc.items():
+        fig.add_trace(go.Scatter(x=list(range(len(vals))), y=vals, name=f"{name}：RM {vals[-1]:,.0f}",
+                                 line=dict(color=colors[name], width=3 if name == "一般" else 1.6,
+                                           dash=None if name == "一般" else "dot")))
+    fig.add_trace(go.Scatter(x=list(range(len(sc["一般"]))), y=[capital + monthly * i for i in range(len(sc["一般"]))],
+                             name=f"总共投入：RM {pl['put_in']:,.0f}", line=dict(color="#94A3B8", width=1, dash="dash")))
+    fig.update_layout(title=f"{years} 年后大概会变多少（三种情境，假设每年都一样）", height=360, hovermode="x unified",
+                      xaxis=dict(title="", range=[-0.3, years * 12 + 0.3], tickmode="array", tickvals=list(range(0, years * 12 + 1, 12 * (1 if years <= 5 else 2 if years <= 10 else 5))),
+                                 ticktext=[f"{i} 年" for i in range(0, years + 1, 1 if years <= 5 else 2 if years <= 10 else 5)]),
+                      yaxis=dict(title="RM", tickformat=",.0f"), legend=dict(orientation="h", y=-0.25),
+                      margin=dict(l=10, r=10, t=40, b=10))
+    st.plotly_chart(fig, width="stretch")
+    st.caption("坏情况 = 每年都像坏年头（成长股 -25%、收息股 -8%）；好情况 = 成长股 +18%、收息股 +9%。"
+               "真实的市场会忽上忽下，这只是帮你感受范围。")
+
+    if not M.check_setup():
+        data = PL.brief(pl, capital, monthly, target, max_drop)
+        key = hashlib.sha1(json.dumps(data, ensure_ascii=False, default=str, sort_keys=True).encode()).hexdigest()
+        if st.button("🤖 请 AI 解释这个规划", key="pl_ai"):
+            st.session_state.pl_ai_key = key
+        if st.session_state.get("pl_ai_key") == key:
+            with st.spinner("AI 正在看你的规划…"):
+                try:
+                    text = cached_plan_ai(key, data, M.LANG)
+                    with st.container(border=True):
+                        st.markdown(f"<div style='line-height:1.8'>{sections_html(text)}</div>", unsafe_allow_html=True)
+                except Exception as e:
+                    st.warning(f"AI 暂时无法解释：{e}")
+
+
 def page_strategy():
     import strategy as SG
     cfg = strategy_cfg()
@@ -2132,7 +2291,7 @@ def page_strategy():
                           legend=dict(orientation="h", y=-0.2))
         f2.plotly_chart(fig, width="stretch")
 
-    tabs = st.tabs([f"✅ 符合规则（{len(ok)}）", "📦 建议组合", f"🟡 差一关（{len(near)}）", "🔔 我的持股检查", "📘 规则全文"])
+    tabs = st.tabs([f"✅ 符合规则（{len(ok)}）", "💰 资金规划", f"🟡 差一关（{len(near)}）", "🔔 我的持股检查", "📘 规则全文"])
     show_cols = ["名称", "代码", "市场", "板块", "综合分", "ROE%", "成长%", "PEG", "本益比", "负债权益比", "距200日均线%", "股息率%"]
     cc = {"综合分": st.column_config.ProgressColumn(min_value=0, max_value=100, format="%d"),
           "ROE%": st.column_config.NumberColumn(format="%.1f"), "成长%": st.column_config.NumberColumn(format="%.1f"),
@@ -2158,23 +2317,7 @@ def page_strategy():
             table(ok, "sg_ok")
             st.caption("👆 点任何一家公司打开它的个股页面。银行、产托（金融板块）是例外，不看负债权益比。")
     with tabs[1]:
-        pf = SG.model_portfolio(ok, cfg)
-        if pf.empty:
-            st.info("符合规则的公司不够组成组合。")
-        else:
-            if len(pf) < cfg["n_min"]:
-                st.warning(f"只挑到 {len(pf)} 只（你的规则是 {cfg['n_min']}–{cfg['n_max']} 只），剩下的先放现金，等更多公司符合。")
-            a, b = st.columns([1.6, 1])
-            with a:
-                st.dataframe(pf[["名称", "代码", "市场", "板块", "综合分", "建议比重%"]], hide_index=True, width="stretch",
-                             column_config={"综合分": cc["综合分"]})
-                st.caption(f"按综合分挑，平均分配；每只 ≤ {cfg['weight_max']:g}%，同板块 ≤ {cfg['sector_max']:g}%。"
-                           + (f"现金 {pf['现金%'].iloc[0]:g}%。" if pf["现金%"].iloc[0] > 0 else "")
-                           + "这是规则算出来的参考，不是买卖建议。")
-            sec = pf.groupby("板块")["建议比重%"].sum()
-            b.plotly_chart(go.Figure(go.Pie(labels=sec.index, values=sec.values, hole=.55))
-                           .update_layout(title="板块分布", height=300, margin=dict(l=10, r=10, t=40, b=10), showlegend=False),
-                           width="stretch")
+        show_planner(ok, ev, cfg)
     with tabs[2]:
         if near.empty:
             st.info("没有只差一关的公司。")
