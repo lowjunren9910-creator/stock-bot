@@ -603,7 +603,7 @@ def show_pf_check(holdings, goal, horizon, dd):
     if risk.get("curve") is not None:
         l, r_ = st.columns([3, 2])
         cv = risk["curve"] * 100
-        l.plotly_chart(go.Figure(go.Scatter(x=cv.index, y=cv, mode="lines", line=dict(color="#C8A23A", width=2)))
+        l.plotly_chart(go.Figure(go.Scatter(x=cv.index, y=cv, mode="lines", line=dict(color=ui.COLORS["accent"], width=2)))
                        .update_layout(title="按现在比重回看过去 1 年（起点 = 100）", height=300,
                                       margin=dict(l=10, r=10, t=40, b=10)), width="stretch")
         if risk.get("corr") is not None and len(rows) > 1:
@@ -1312,7 +1312,7 @@ def page_sectors():
             fig.add_trace(go.Scatter(x=g["series"]["dates"], y=g["series"]["levels"], name=f"{g['name']}指数",
                                      line=dict(color="#8EA2F0", width=2.2)))
             fig.add_trace(go.Scatter(x=mi["series"]["dates"], y=mi["series"]["levels"], name="全市场综合",
-                                     line=dict(color="#C8A23A", width=1.5, dash="dot")))
+                                     line=dict(color=ui.COLORS["accent"], width=1.5, dash="dot")))
             fig.update_layout(height=320, margin=dict(l=10, r=10, t=10, b=10), legend=dict(orientation="h", y=1.1),
                               yaxis_title="点（起点 1000）")
             st.plotly_chart(fig, width="stretch", key=f"line_{key}")
@@ -1465,7 +1465,7 @@ def show_quarter(x: dict, key: str):
     if tr.get("periods"):
         fig = go.Figure()
         fig.add_trace(go.Bar(x=tr["periods"], y=tr["revenue"], name="营收", marker_color="#8EA2F0"))
-        fig.add_trace(go.Bar(x=tr["periods"], y=tr["net"], name="净利", marker_color="#C8A23A"))
+        fig.add_trace(go.Bar(x=tr["periods"], y=tr["net"], name="净利", marker_color=ui.COLORS["accent"]))
         fig.update_layout(height=260, barmode="group", margin=dict(l=10, r=10, t=10, b=10),
                           legend=dict(orientation="h", y=1.15))
         st.plotly_chart(fig, width="stretch", key=f"qtrend_{key}")
@@ -1573,7 +1573,7 @@ def show_ipo_analysis(a: dict, key: str):
             fig.add_trace(go.Bar(x=[f["year"] for f in fy], y=[ipo._num(f.get("revenue_rm_m")) for f in fy],
                                  name="营收（RM 百万）", marker_color="#8EA2F0"))
             fig.add_trace(go.Bar(x=[f["year"] for f in fy], y=[ipo._num(f.get("pat_rm_m")) for f in fy],
-                                 name="净利（RM 百万）", marker_color="#C8A23A"))
+                                 name="净利（RM 百万）", marker_color=ui.COLORS["accent"]))
             fig.update_layout(height=260, barmode="group", margin=dict(l=10, r=10, t=10, b=10),
                               legend=dict(orientation="h", y=1.15))
             st.plotly_chart(fig, width="stretch", key=f"ipofy_{key}")
@@ -1602,7 +1602,7 @@ def ipo_card(r: dict, key: str):
                         f"border-radius:999px;font-size:.85rem'>{ipo.STAGE_ICON.get(r['stage'], '')} {r['stage']}</span>"
                         + (f"　`{r['market']} Market`" if r.get("market") else ""), unsafe_allow_html=True)
         if r.get("analysis"):
-            top[1].markdown(f"<div style='text-align:right'>分析评分 <b style='color:#C8A23A'>{r['analysis']['level']}</b></div>",
+            top[1].markdown(f"<div style='text-align:right'>分析评分 <b style='color:{ui.COLORS['accent']}'>{r['analysis']['level']}</b></div>",
                             unsafe_allow_html=True)
         if r.get("business"):
             st.caption(r["business"])
@@ -1617,7 +1617,7 @@ def ipo_card(r: dict, key: str):
         else:
             facts.append(("本益比", f"{r['pe']:.1f} 倍" if r.get("pe") else "—", None))
         st.markdown("<div style='display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:6px 0'>" + "".join(
-            f"<div style='background:#1B2540;border:1px solid #2C3756;border-radius:12px;padding:10px 12px'>"
+            f"<div style='background:{ui.COLORS['panel']};border:1px solid {ui.COLORS['line']};border-radius:12px;padding:10px 12px'>"
             f"<div style='font-size:.8rem;color:#A3ADC2'>{k}</div>"
             f"<div style='font-family:\"Barlow Semi Condensed\",sans-serif;font-weight:700;font-size:1.35rem'>{v}</div>"
             + (f"<div style='font-size:.78rem;color:#A3ADC2'>{sub}</div>" if sub else "") + "</div>"
@@ -1729,7 +1729,7 @@ def page_ipo():
             if len(pts) >= 3:
                 fig = go.Figure(go.Scatter(x=[x["oversub_times"] for x in pts], y=[x["perf"]["first_day_pct"] for x in pts],
                                            mode="markers+text", text=[x["name"].split()[0] for x in pts], textposition="top center",
-                                           marker=dict(size=10, color="#C8A23A")))
+                                           marker=dict(size=10, color=ui.COLORS["accent"])))
                 fig.update_layout(height=320, margin=dict(l=10, r=10, t=30, b=10), title="超额认购倍数 vs 首日表现",
                                   xaxis_title="公众部分超额认购（倍，对数）", yaxis_title="首日涨跌 %", xaxis_type="log")
                 st.plotly_chart(fig, width="stretch", key="ipo_scatter")
@@ -1763,7 +1763,7 @@ def macro_card(e: dict, key: str):
     with st.container(border=True):
         top = st.columns([5, 2])
         top[0].markdown("**🌏 宏观新闻**　" + "、".join(f"`{a['name']}`" for a in e["affected"]))
-        top[1].markdown(f"<div style='text-align:right;color:#C8A23A;letter-spacing:2px'>{N.stars(e['importance'])}</div>",
+        top[1].markdown(f"<div style='text-align:right;color:{ui.COLORS['accent']};letter-spacing:2px'>{N.stars(e['importance'])}</div>",
                         unsafe_allow_html=True)
         st.markdown(f"#### {e['headline_zh']}")
         if e.get("analysis"):
@@ -1789,7 +1789,7 @@ def news_card(e: dict, key: str):
     with st.container(border=True):
         top = st.columns([5, 2])
         top[0].markdown(f"**{e['name']}**　`{e['ticker']}`")
-        top[1].markdown(f"<div style='text-align:right;color:#C8A23A;letter-spacing:2px'>{N.stars(e['importance'])}</div>",
+        top[1].markdown(f"<div style='text-align:right;color:{ui.COLORS['accent']};letter-spacing:2px'>{N.stars(e['importance'])}</div>",
                         unsafe_allow_html=True)
         st.markdown(f"#### {e['headline_zh']}")
         if e.get("analysis"):
@@ -2012,6 +2012,86 @@ def page_calendar():
 
 
 # ---------------------------------------------------------------------------
+# 页面：外观设定（主题颜色、字体大小、留白、圆角、背景、首页）
+# ---------------------------------------------------------------------------
+
+def theme_card(key: str, t: dict, selected: bool) -> str:
+    sw = "".join(f"<span style='flex:1;background:{t[k]}'></span>" for k in ("bg", "panel", "accent", "accent2", "up", "down"))
+    ring = f"box-shadow:0 0 0 2px {t['accent']};" if selected else ""
+    return (f"<div style='border-radius:16px;overflow:hidden;border:1px solid {t['line']};{ring}"
+            f"background:linear-gradient(160deg,{t['side1']},{t['bg']})'>"
+            f"<div style='padding:14px 14px 10px'>"
+            f"<div style='font-weight:800;color:{t['ink']};font-size:1.05rem'>{t['name']}</div>"
+            f"<div style='display:flex;gap:6px;margin:10px 0 8px'>"
+            f"<span style='background:linear-gradient(135deg,{t['accent']},{t['accent2']});color:{ui.on_color(t['accent'])};"
+            f"border-radius:8px;padding:3px 10px;font-size:.78rem;font-weight:700'>按钮</span>"
+            f"<span style='border:1px solid {t['line']};background:{t['panel']};color:{t['ink2']};border-radius:8px;"
+            f"padding:3px 10px;font-size:.78rem'>卡片</span>"
+            f"<span style='color:{t['up']};font-weight:700;font-size:.8rem'>▲2.1%</span>"
+            f"<span style='color:{t['down']};font-weight:700;font-size:.8rem'>▼1.4%</span></div></div>"
+            f"<div style='display:flex;height:10px'>{sw}</div></div>")
+
+
+def page_appearance():
+    st.title("🎨 外观设定")
+    st.caption("换主题颜色、字体大小、留白和圆角，马上生效。设定会存在网址里：把现在的网址加进书签，下次打开就是你的样子。")
+    p = dict(ui.prefs())
+
+    st.markdown("#### 主题")
+    keys = list(ui.THEMES)
+    for row in range(0, len(keys), 3):
+        cols = st.columns(3)
+        for col, k in zip(cols, keys[row:row + 3]):
+            with col:
+                st.markdown(theme_card(k, ui.THEMES[k], p["th"] == k), unsafe_allow_html=True)
+                if st.button("✓ 使用中" if p["th"] == k else "用这个", key=f"th_{k}", width="stretch",
+                             type="primary" if p["th"] == k else "secondary", disabled=p["th"] == k):
+                    p["th"], p["ac"] = k, ""
+                    ui.save_prefs(p)
+                    st.rerun()
+
+    st.markdown("#### 个人化")
+    with st.container(border=True):
+        c1, c2 = st.columns(2)
+        with c1:
+            own = st.toggle("自己选重点颜色", value=bool(p["ac"]), key="ap_own")
+            ac = st.color_picker("重点颜色（按钮、选中、标题线）", value=p["ac"] or ui.THEMES[p["th"]]["accent"],
+                                 key="ap_ac", disabled=not own)
+            fs = st.select_slider("字体大小", options=list(ui.FONT_SCALE), value=p["fs"], key="ap_fs")
+            home = st.selectbox("打开网站先看哪一页", ["（每日焦点）"] + list(PAGES), key="ap_home",
+                                index=(list(PAGES).index(p["home"]) + 1) if p["home"] in PAGES else 0)
+        with c2:
+            dn = st.segmented_control("留白", list(ui.DENSITY), default=p["dn"], key="ap_dn") or p["dn"]
+            rd = st.segmented_control("圆角", list(ui.RADIUS), default=p["rd"], key="ap_rd") or p["rd"]
+            bd = st.segmented_control("背景", ui.BACKDROPS, default=p["bd"], key="ap_bd") or p["bd"]
+        new = {**p, "ac": ac if own else "", "fs": fs, "dn": dn, "rd": rd, "bd": bd,
+               "home": home if home in PAGES else ""}
+        b1, b2 = st.columns(2)
+        if b1.button("💾 套用", type="primary", width="stretch", disabled=new == p):
+            ui.save_prefs(new)
+            st.rerun()
+        if b2.button("↩️ 恢复默认", width="stretch", disabled=p == ui.DEFAULTS):
+            ui.save_prefs(dict(ui.DEFAULTS))
+            for k in ("ap_own", "ap_ac", "ap_fs", "ap_home", "ap_dn", "ap_rd", "ap_bd"):
+                st.session_state.pop(k, None)
+            st.rerun()
+
+    st.markdown("#### 预览")
+    c = st.columns(4)
+    c[0].metric("马股上涨", "175", "+12")
+    c[1].metric("平均涨跌", "+0.42%", "+0.42%")
+    c[2].metric("股息率", "4.8%")
+    c[3].metric("最大回撤", "-8.6%", "-1.2%")
+    with st.container(border=True):
+        st.markdown("**卡片样子**：框框、按钮、选项都会跟着主题变。")
+        x1, x2, x3 = st.columns(3)
+        x1.button("主要按钮", type="primary", key="pv_1", width="stretch")
+        x2.button("普通按钮", key="pv_2", width="stretch")
+        x3.pills("选项", ["1个月", "6个月", "1年"], default="6个月", key="pv_3", label_visibility="collapsed")
+    st.caption("小提示：设定存在网址里（例如 ?th=ocean&fs=大）。手机 App 有自己的颜色，跟网站分开。")
+
+
+# ---------------------------------------------------------------------------
 # 页面：自选股
 # ---------------------------------------------------------------------------
 
@@ -2139,7 +2219,7 @@ PAGES = {  # 顺序要跟 ui.NAV_GROUPS 的分组对应
     "📅 每日焦点": page_focus, "🧩 板块": page_sectors, "🔍 选股雷达": page_radar, "🏆 KLCI 50 观察": page_klci, "🆕 IPO 追踪": page_ipo, "📅 公告日历": page_calendar,
     "📊 个股分析": page_analysis, "⚖️ 股票对比": page_compare, "📑 季度报告": page_quarterly,
     "⭐ 自选股": page_watchlist, "🗞️ 新闻追踪": page_news, "💼 投资组合": page_portfolio, "📈 成绩单": page_track, "📰 周报": page_weekly,
-    "🩺 系统状态": page_health}
+    "🩺 系统状态": page_health, "🎨 外观设定": page_appearance}
 
 if check_password():
     # 手机 app 的按钮会带网址参数打开：?company=4065.KL 或 ?analyze=4065.KL
@@ -2161,12 +2241,15 @@ if check_password():
             st.session_state.nav = "🗞️ 新闻追踪"
         elif qp.get("analyze") or qp.get("stock"):
             goto_analysis(qp.get("stock") or qp["analyze"])
-        elif qp.get("page") in ("focus", "radar", "klci", "sectors", "track", "weekly", "watch", "quarterly", "compare", "news", "ipo", "calendar", "portfolio"):
+        elif qp.get("page") in ("focus", "radar", "klci", "sectors", "track", "weekly", "watch", "quarterly", "compare", "news", "ipo", "calendar", "portfolio", "appearance"):
             st.session_state.nav = {"focus": "📅 每日焦点", "radar": "🔍 选股雷达", "klci": "🏆 KLCI 50 观察",
                                     "sectors": "🧩 板块", "track": "📈 成绩单", "weekly": "📰 周报",
                                     "watch": "⭐ 自选股", "quarterly": "📑 季度报告",
                                     "compare": "⚖️ 股票对比", "news": "🗞️ 新闻追踪", "ipo": "🆕 IPO 追踪",
-                                    "calendar": "📅 公告日历", "portfolio": "💼 投资组合"}[qp["page"]]
+                                    "calendar": "📅 公告日历", "portfolio": "💼 投资组合",
+                                    "appearance": "🎨 外观设定"}[qp["page"]]
+        if "nav" not in st.session_state and ui.prefs().get("home") in PAGES:   # 自己设定的首页
+            st.session_state.nav = ui.prefs()["home"]
         st.session_state._qp_done = True
     ui.sidebar_brand()
 

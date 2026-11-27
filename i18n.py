@@ -240,6 +240,20 @@ def _wrap_plotly(fn):
     def w(self, fig, *a, **kw):
         if is_en():
             fig = _tr_fig(fig)
+        try:                                    # 图表底色透明：跟着网站主题（不然永远是设定档的深蓝）
+            if fig.layout.paper_bgcolor is None:
+                fig.update_layout(paper_bgcolor="rgba(0,0,0,0)")
+            if fig.layout.plot_bgcolor is None:
+                fig.update_layout(plot_bgcolor="rgba(0,0,0,0)")
+            import ui                           # 没指定颜色的线 / 柱 / 圆饼：用主题的颜色
+            c = ui.COLORS
+            way = [c["accent"], c["soft"], c["accent2"], c["up"], c["down"], "#94A3B8", "#F2C94C", "#6FCF97"]
+            if not fig.layout.colorway:
+                fig.update_layout(colorway=way)
+            if not fig.layout.piecolorway:
+                fig.update_layout(piecolorway=way)
+        except Exception:
+            pass
         return fn(self, fig, *a, **kw)
     return w
 
