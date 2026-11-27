@@ -2220,9 +2220,9 @@ def page_strategy():
 # ---------------------------------------------------------------------------
 
 @st.cache_data(ttl=3600, show_spinner=False)
-def cached_dataset(mine_key: str):
+def cached_dataset(mine_key: str, version: int = 0):
     import dataset as D
-    return D.load(set(mine_key.split(",")) if mine_key else set())
+    return D.ensure(D.load(set(mine_key.split(",")) if mine_key else set()))
 
 
 def all_stocks():
@@ -2231,7 +2231,8 @@ def all_stocks():
         mine = ",".join(sorted(announce.my_tickers()))
     except Exception:
         mine = ""
-    return cached_dataset(mine)
+    import dataset as D
+    return D.ensure(cached_dataset(mine, D.VERSION))   # 版本号变了 → 重新读，不用旧缓存
 
 
 async def _ai_spec(text):

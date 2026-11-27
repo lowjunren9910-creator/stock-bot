@@ -61,7 +61,8 @@ def _exempt(row) -> bool:
 
 def evaluate(df: pd.DataFrame, cfg: dict) -> pd.DataFrame:
     """每只股票每一关过不过、为什么没过、综合分。"""
-    d = df.copy()
+    import dataset as D
+    d = D.ensure(df)
     if cfg.get("markets"):
         d = d[d["市场"].isin(cfg["markets"])]
     growth = d[["营收增长%", "盈利增长%"]].max(axis=1)

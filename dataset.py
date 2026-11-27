@@ -9,6 +9,7 @@ import json
 
 import pandas as pd
 
+VERSION = 3           # 栏位有改就加 1：网站会自动丢掉旧的缓存
 MARKET_ZH = {"bursa": "马股", "idx": "印尼股", "us": "美股"}
 CUR = {"bursa": "MYR", "idx": "IDR", "us": "USD"}
 
@@ -83,6 +84,20 @@ def load(mine: set[str] | None = None) -> pd.DataFrame:
 # ---------------------------------------------------------------------------
 
 OPS = [">", ">=", "<", "<=", "=", "!=", "包含", "不包含", "介于"]
+
+
+def ensure(df: pd.DataFrame) -> pd.DataFrame:
+    """旧资料少了新栏位（例如 PEG、200 日均线）：补上，不让页面出错。"""
+    df = df.copy()
+    for c in ALL_FIELDS:
+        if c not in df.columns:
+            df[c] = None
+    for c in NUMERIC:
+        df[c] = pd.to_numeric(df[c], errors="coerce")
+    if df["PEG"].isna().all():
+        ok = (df["本益比"] > 0) & (df["盈利增长%"] > 0)
+        df["PEG"] = (df["本益比"] / df["盈利增长%"]).where(ok).round(2)
+    return df
 
 
 def apply_rules(df: pd.DataFrame, rules: list[dict]) -> pd.DataFrame:
