@@ -2,14 +2,15 @@
  "market": "idx",
  "market_name": "🇮🇩 印尼股市 IDX",
  "currency": "IDR",
- "date": "2026-11-24",
- "generated_at": "2026-11-24 16:31 WIB",
- "tracked": 107,
+ "date": "2026-11-26",
+ "generated_at": "2026-11-26 16:31 WIB",
+ "tracked": 108,
  "universe_size": 109,
  "new_today": [
-  "EMAS.JK"
+  "MDKA.JK"
  ],
  "recent": [
+  "MDKA.JK",
   "EMAS.JK",
   "EXCL.JK",
   "ITMG.JK",
@@ -68,8 +69,7 @@
   "PGEO.JK",
   "PGUN.JK",
   "POWR.JK",
-  "SIDO.JK",
-  "SRTG.JK"
+  "SIDO.JK"
  ],
  "items": {
   "ADMR.JK": {
@@ -4584,55 +4584,56 @@
    "found": null
   },
   "MDKA.JK": {
-   "period": "2026-06-30",
-   "prev_period": "2026-03-31",
-   "yoy_period": "2025-06-30",
-   "revenue": 782100642.0,
-   "net": 44102926.0,
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": "2025-09-30",
+   "revenue": 858347541.0,
+   "net": 55561929.0,
    "eps": null,
-   "rev_yoy": 121.9,
+   "rev_yoy": 98.5,
    "net_yoy": null,
-   "rev_qoq": 26.1,
-   "net_qoq": -23.2,
-   "net_margin": 5.6,
-   "net_margin_yoy": -3.4,
-   "gross_margin": 27.7,
+   "rev_qoq": 9.7,
+   "net_qoq": 26.0,
+   "net_margin": 6.5,
+   "net_margin_yoy": -4.4,
+   "gross_margin": 32.8,
    "trend": {
     "periods": [
-     "2025-06-30",
      "2025-09-30",
      "2025-12-31",
      "2026-03-31",
-     "2026-06-30"
+     "2026-06-30",
+     "2026-09-30"
     ],
     "revenue": [
-     352432172.0,
      432464825.0,
      607700916.0,
      620279327.0,
-     782100642.0
+     782100642.0,
+     858347541.0
     ],
     "net": [
-     -12065451.0,
      -18957256.0,
      -27302700.0,
      57455882.0,
-     44102926.0
+     44102926.0,
+     55561929.0
     ]
    },
    "score": 5,
    "verdict": "亮眼",
    "icon": "🌟",
    "reasons": [
-    "营收按年 +121.9%",
+    "营收按年 +98.5%",
     "去年同期亏损，这一季转亏为盈",
-    "净利率升到 5.6%（去年 -3.4%）"
+    "净利率升到 6.5%（去年 -4.4%）"
    ],
    "ticker": "MDKA.JK",
    "name": "Merdeka Copper",
    "currency": "IDR",
    "watch": false,
-   "found": null
+   "found": "2026-11-26",
+   "ai": null
   },
   "MIKA.JK": {
    "period": "2026-09-30",
@@ -5431,6 +5432,56 @@
    ],
    "ticker": "BBHI.JK",
    "name": "Allo Bank Indonesia",
+   "currency": "IDR",
+   "watch": false,
+   "found": null
+  },
+  "MPRO.JK": {
+   "period": "2026-09-30",
+   "prev_period": "2026-06-30",
+   "yoy_period": null,
+   "revenue": 482087000.0,
+   "net": -16850148000.0,
+   "eps": null,
+   "rev_yoy": null,
+   "net_yoy": null,
+   "rev_qoq": -76.6,
+   "net_qoq": null,
+   "net_margin": -3495.3,
+   "net_margin_yoy": null,
+   "gross_margin": 11.0,
+   "trend": {
+    "periods": [
+     "2025-06-30",
+     "2025-12-31",
+     "2026-03-31",
+     "2026-06-30",
+     "2026-09-30"
+    ],
+    "revenue": [
+     1579911000.0,
+     1038393000.0,
+     1097934000.0,
+     2055958000.0,
+     482087000.0
+    ],
+    "net": [
+     -9102938000.0,
+     -7085654000.0,
+     -8716541000.0,
+     -7493865000.0,
+     -16850148000.0
+    ]
+   },
+   "score": -3,
+   "verdict": "亏损",
+   "icon": "🔻",
+   "reasons": [
+    "营收按季 -76.6%",
+    "这一季亏损"
+   ],
+   "ticker": "MPRO.JK",
+   "name": "Maha Properti Indonesia",
    "currency": "IDR",
    "watch": false,
    "found": null
